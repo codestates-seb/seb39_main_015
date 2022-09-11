@@ -1,6 +1,6 @@
 # 📮 Roobits (임시)
 
-### 당신의 추억을 bits로 남기세요.
+### [당신의 추억을 bits로 남기세요](https://github.com/Gwanghyun-Jeon)
 
 ## 🛫 Intro
 추억을 공유하는 사람들에게 미리 글을 작성해보세요. D-day를 더 특별하게 만들어줍니다.

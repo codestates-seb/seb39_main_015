@@ -1,7 +1,7 @@
 ---
 name: Error Handling 템플릿
 about: 개발하면서 겪었던 문제에 대한 내용입니다.
-title: "[ \U0001F527 ErrorHandling ] blah~blah"
+title: "[ \U0001F527 ErrorHandling ] blahblah"
 labels: bug
 assignees: ''
 

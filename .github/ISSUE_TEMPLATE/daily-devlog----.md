@@ -1,7 +1,7 @@
 ---
 name: Daily Devlog 템플릿
 about: 데일리회고 작성용 템플릿입니다.
-title: "[ \U0001F4DD Devlog ] blah~blah"
+title: "[ \U0001F4DD Devlog ] 이름 / 2022-MM-DD"
 labels: Devlog
 assignees: ''
 

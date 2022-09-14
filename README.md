@@ -9,7 +9,7 @@
 | 전광현<br>(FE, 팀장) | 이유진<br>(FE) | 조현화<br>(BE) | 유하경<br>(BE) | 염빛나리<br>(BE) |
 | :---: | :---: | :---: | :---: | :---: |
 | <img alt="전광현" src="https://avatars.githubusercontent.com/u/73211553?v=4" height="100" width="100"> | <img alt="이유진" src="https://avatars.githubusercontent.com/u/89282099?v=4" height="100" width="100"> | <img alt="조현화" src="https://avatars.githubusercontent.com/u/104138036?v=4" height="100" width="100"> | <img alt="유하경" src="https://avatars.githubusercontent.com/u/76886589?v=4" height="100" width="100"> | <img alt="염빛나리" src="https://avatars.githubusercontent.com/u/103120984?v=4" height="100" width="100"> |
-| [@GH](https://github.com/Gwanghyun-Jeon) | [@nuuco](https://github.com/nuuco) | [@CHOHYUNHWA](https://github.com/CHOHYUNHWA) | [@Estelle](https://github.com/EstelleYU) | [@bytenari](https://github.com/bytenari) |
+| [@GH](https://github.com/Gwanghyun-Jeon) | [@nuuco](https://github.com/nuuco) | [@CHOHYUNHWA](https://github.com/CHOHYUNHWA) | [@EstelleYU](https://github.com/EstelleYU) | [@bytenari](https://github.com/bytenari) |
 ### 커뮤니케이션 방식
 - 매일 13:30 부터 17:30 사이에는 온라인 상태를 유지합니다.
 - 매일 13시30분에는 진행된 개발에 대한 간단한 브리핑을 진행합니다. 이슈가 없다면 빠르게 끝냅니다.

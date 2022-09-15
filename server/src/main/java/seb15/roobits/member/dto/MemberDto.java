@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
+
+//유효성 검증 적용 필요
 public class MemberDto {
 
     @Data

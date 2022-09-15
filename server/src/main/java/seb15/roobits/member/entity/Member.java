@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+
+//유효성 검증 필요
 @Entity
 @Data
 @Builder

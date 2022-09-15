@@ -29,9 +29,11 @@ public class MemberService {
     //회원가입
     public Member createMember(Member member){
         verifyExistsUsername(member.getUsername());
+        verifyExistsEmail(member.getEmail());
         String rawPassword = member.getPassword();
         String encPassword = passwordEncoder.encode(rawPassword);
         member.setPassword(encPassword);
+        member.setRoles("ROLE_HOST");
         Member savedMember = memberRepository.save(member);
         return savedMember;
     }
@@ -45,8 +47,9 @@ public class MemberService {
         Optional.ofNullable(member.getPassword())
                 .ifPresent(password -> findMember.setPassword(encPassword));
 
-        Optional.ofNullable(member.getNickname())
-                .ifPresent(nickname -> findMember.setNickname(nickname));
+//        닉네임 삭제
+//        Optional.ofNullable(member.getNickname())
+//                .ifPresent(nickname -> findMember.setNickname(nickname));
         Optional.ofNullable(member.getEmail())
                 .ifPresent(email -> findMember.setEmail(email));
         return memberRepository.save(findMember);
@@ -79,9 +82,14 @@ public class MemberService {
     private void verifyExistsUsername(String username){
         Member existMember = memberRepository.findByUsername(username);
         if(existMember != null){
-            throw new BusinessLogicException(ExceptionCode.MEMBER_EXISTS);
+            throw new BusinessLogicException(ExceptionCode.USERNAME_EXISTS);
         }
     }
 
-
+    private void verifyExistsEmail(String email){
+        Member existMember = memberRepository.findByEmail(email);
+        if(existMember != null){
+            throw new BusinessLogicException(ExceptionCode.EMAIL_EXISTS);
+        }
+    }
 }

@@ -3,6 +3,7 @@ package seb15.roobits.member.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import seb15.roobits.member.dto.MemberDto;
 import seb15.roobits.member.entity.Member;
@@ -18,9 +19,6 @@ import javax.validation.constraints.Positive;
 public class MemberController {
 
     private final MemberService memberService;
-
-    private final MemberRepository memberRepository;
-
     private final MemberMapper memberMapper;
 
     @PostMapping("/join")  //회원가입
@@ -57,11 +55,15 @@ public class MemberController {
         return null;
     }
 
+    @GetMapping("/host")
+    public String host() {
+        return "host";
+    }
 
 
 //    api 통신테스트를 위한 컨트롤러 메서드 생성
-//    @GetMapping("/home")
-//    public String home() {
-//        return "<h1>home</h1>";
-//    }
+    @GetMapping("/home")
+    public String home() {
+        return "<h1>home</h1>";
+    }
 }

@@ -6,7 +6,9 @@ public enum ExceptionCode {
 
     MEMBER_NOT_FOUND(404, "Member not found"),
 
-    MEMBER_EXISTS(409, "Member already exists");
+    USERNAME_EXISTS(409, "Username already exists"),
+
+    EMAIL_EXISTS(409,"Email already exists");
 
     @Getter
     private int code;

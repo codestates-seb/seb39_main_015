@@ -5,8 +5,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import seb15.roobits.member.Auditable.Auditable;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 //유효성 검증 필요
@@ -15,7 +19,7 @@ import javax.persistence.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Member {
+public class Member extends Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,8 +28,10 @@ public class Member {
     private String username;
     @Column
     private String password;
-    @Column
-    private String nickname;
+
+//    닉네임 삭제
+//    @Column
+//    private String nickname;
     @Column
     private String email;
     @Column
@@ -34,4 +40,11 @@ public class Member {
     private String provider;
     @Column
     private String providerId;
+
+    public List<String> getRoleList(){
+        if(this.roles != null){
+            return Arrays.asList(this.roles.split(","));
+        }
+        return new ArrayList<>();
+    }
 }

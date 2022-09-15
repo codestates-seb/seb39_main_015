@@ -2,6 +2,7 @@ package seb15.roobits.member.service;
 
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -21,6 +22,7 @@ import java.util.Optional;
 public class MemberService {
 
     private final MemberRepository  memberRepository;
+
 
     private final BCryptPasswordEncoder passwordEncoder;
 

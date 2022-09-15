@@ -8,6 +8,10 @@ import lombok.NoArgsConstructor;
 import seb15.roobits.member.Auditable.Auditable;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -24,15 +28,16 @@ public class Member extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long memberId;
-    @Column
+
+    @Column(length = 15,nullable = false, updatable = false, unique = true)
     private String username;
-    @Column
+
+    @Column(nullable = false)
     private String password;
 
-//    닉네임 삭제
-//    @Column
-//    private String nickname;
-    @Column
+    @Column(nullable = false, updatable = false)
+    @Email(message = "올바른 이메일이 아닙니다.")
+    @NotBlank(message = "이메일은 공백이 아니여야 합니다.")
     private String email;
     @Column
     private String roles;

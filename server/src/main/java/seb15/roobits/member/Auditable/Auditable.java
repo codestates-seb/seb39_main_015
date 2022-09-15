@@ -22,7 +22,4 @@ public abstract class Auditable {
     @LastModifiedDate
     @Column(name = "Last_modified_at")
     private LocalDateTime modifiedAt;
-
-
-
 }

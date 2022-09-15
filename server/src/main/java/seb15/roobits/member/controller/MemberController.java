@@ -11,6 +11,7 @@ import seb15.roobits.member.mapper.MemberMapper;
 import seb15.roobits.member.repository.MemberRepository;
 import seb15.roobits.member.service.MemberService;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 
 @RestController
@@ -22,7 +23,7 @@ public class MemberController {
     private final MemberMapper memberMapper;
 
     @PostMapping("/join")  //회원가입
-    public ResponseEntity joinMember(@RequestBody MemberDto.Join memberJoinDto){
+    public ResponseEntity joinMember(@RequestBody @Valid MemberDto.Join memberJoinDto){
         Member member = memberMapper.joinToMember(memberJoinDto);
         Member createdMember = memberService.createMember(member);
         MemberDto.Response response = memberMapper.memberToResponse(createdMember);
@@ -32,7 +33,7 @@ public class MemberController {
     @PatchMapping("/{member-id}") //회원정보 수정
     public ResponseEntity patchMember(
             @PathVariable("member-id") @Positive long memberId,
-            @RequestBody MemberDto.Patch memberPatchDto){
+            @RequestBody @Valid MemberDto.Patch memberPatchDto){
         memberPatchDto.setMemberId(memberId);
         Member member = memberMapper.patchToMember(memberPatchDto);
         Member editMember = memberService.updateMember(member);

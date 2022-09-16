@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import seb15.roobits.member.dto.MemberDto;
 import seb15.roobits.member.entity.Member;
@@ -17,6 +18,7 @@ import javax.validation.constraints.Positive;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping // api 미정으로 임의로 지정
+@Validated
 public class MemberController {
 
     private final MemberService memberService;

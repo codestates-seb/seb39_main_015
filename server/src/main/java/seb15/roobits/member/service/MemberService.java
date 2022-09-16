@@ -46,12 +46,11 @@ public class MemberService {
 
         Optional.ofNullable(member.getPassword())
                 .ifPresent(password -> findMember.setPassword(encPassword));
-
 //        닉네임 삭제
 //        Optional.ofNullable(member.getNickname())
 //                .ifPresent(nickname -> findMember.setNickname(nickname));
-        Optional.ofNullable(member.getEmail())
-                .ifPresent(email -> findMember.setEmail(email));
+//        Optional.ofNullable(member.getEmail())
+//                .ifPresent(email -> findMember.setEmail(email));
         return memberRepository.save(findMember);
     }
 

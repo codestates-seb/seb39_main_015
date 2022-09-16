@@ -8,14 +8,11 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import seb15.roobits.member.dto.MemberDto;
 import seb15.roobits.member.entity.Member;
-import seb15.roobits.member.exception.ExceptionCode;
 import seb15.roobits.member.mapper.MemberMapper;
-import seb15.roobits.member.repository.MemberRepository;
 import seb15.roobits.member.service.MemberService;
 import seb15.roobits.security.auth.PrincipalDetails;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Positive;
 
 @RestController
 @RequiredArgsConstructor
@@ -26,35 +23,42 @@ public class MemberController {
     private final MemberService memberService;
     private final MemberMapper memberMapper;
 
-    private final PrincipalDetails principalDetails;
-
     @PostMapping("/join")  //회원가입
     public ResponseEntity joinMember(@RequestBody @Valid MemberDto.Join memberJoinDto){
         Member member = memberMapper.joinToMember(memberJoinDto);
-        Member createdMember = memberService.createMember(member);
-        MemberDto.Response response = memberMapper.memberToResponse(createdMember);
+//        Member createdMember =
+                memberService.createMember(member);
+//        MemberDto.Response response = memberMapper.memberToResponse(createdMember);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @PatchMapping("/{member-id}") //회원정보 수정
+    @PatchMapping("/patch") //회원정보 수정
     public ResponseEntity patchMember(@AuthenticationPrincipal PrincipalDetails principalDetails,
-                                      @PathVariable("member-id")@Positive long memberId,
                                       @RequestBody @Valid MemberDto.Patch memberPatchDto){
-        memberPatchDto.setMemberId(memberId);
-        if(principalDetails.getId() == 0 || principalDetails.getId() != memberId){
+        if(principalDetails == null){
             return null;// exception으로 날려줘야함.
         }
+//        long principalDetailsId;    //테스트 로직 코드
+//        if(principalDetails == null) {principalDetailsId =1L;}
+//        else {principalDetailsId = principalDetails.getId();}
+//        memberPatchDto.setMemberId(principalDetailsId);
+        memberPatchDto.setMemberId(principalDetails.getId());
         Member member = memberMapper.patchToMember(memberPatchDto);
-        Member editMember = memberService.updateMember(member);
-        MemberDto.Response response = memberMapper.memberToResponse(member);
-        return new ResponseEntity<>(response, HttpStatus.OK);
+//        Member editMember =
+                memberService.updateMember(member);
+//        MemberDto.Response response = memberMapper.memberToResponse(member);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("/delete") //회원탈퇴
     public ResponseEntity deleteMember(@AuthenticationPrincipal PrincipalDetails principalDetails){
-        if(principalDetails.getId() == 0){
+        if(principalDetails == null){
             return null; // exception으로 날려줘야함.
         }
+//        long principalDetailsId;    //테스트 로직 코드
+//        if(principalDetails == null) {principalDetailsId =1L;}
+//        else {principalDetailsId = principalDetails.getId();}
+//        Member member = memberService.findMember(principalDetailsId);
         Member member = memberService.findMember(principalDetails.getId());
         memberService.deleteMember(member.getMemberId());
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -65,9 +69,10 @@ public class MemberController {
         if(principalDetails.getId() == 0){
             return null;
         }
-        Member member = memberService.findMember(principalDetails.getId());
-        MemberDto.Response response = memberMapper.memberToResponse(member);
-        return new ResponseEntity<>(response,HttpStatus.OK);
+//        Member member =
+                memberService.findMember(principalDetails.getId());
+//        MemberDto.Response response = memberMapper.memberToResponse(member);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 

@@ -10,9 +10,9 @@ import javax.persistence.ManyToOne;
 public interface MemberMapper {
     Member joinToMember(MemberDto.Join requestBody);
 
-    Member loginToMember(MemberDto.Login requestBody);
+//    Member loginToMember(MemberDto.Login requestBody);
 
     Member patchToMember(MemberDto.Patch requestBody);
 
-    MemberDto.Response memberToResponse(Member member);
+    MemberDto.GetMyRoomResponse memberTogetMyRoomResponse(Member member);
 }

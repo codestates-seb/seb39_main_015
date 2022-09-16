@@ -42,23 +42,23 @@ public class MemberDto {
         @Pattern(regexp = "^[a-zA-Z0-9!@#$%^&*()]*$",message = "비밀번호는 영문 대소문자와 키패드 1~0까지의 특수문자만 가능합니다.")
         @Size(min = 8, max = 20, message = "비밀번호는 8~20자 사이여야 합니다.")
         private String password;
-        @Email(message = "올바른 이메일이 아닙니다.")
-        @NotBlank(message = "이메일은 공백이 아니여야 합니다.")
-        private String email;
+//        @Email(message = "올바른 이메일이 아닙니다.")
+//        @NotBlank(message = "이메일은 공백이 아니여야 합니다.")
+//        private String email;
 
         public void setMemberId(long memberId) {this.memberId = memberId;}
     }
+//    @Getter
+//    @Builder
+//    @AllArgsConstructor
+//    public static class Login{
+//        private String username;
+//        private String password;
+//    }
     @Getter
     @Builder
     @AllArgsConstructor
-    public static class Login{
-        private String username;
-        private String password;
-    }
-    @Getter
-    @Builder
-    @AllArgsConstructor
-    public static class Response{
+    public static class GetMyRoomResponse{
         private Long memberId;
         private String username;
 

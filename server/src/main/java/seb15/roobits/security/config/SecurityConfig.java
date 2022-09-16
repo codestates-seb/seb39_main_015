@@ -30,17 +30,22 @@ public class SecurityConfig {
         http.apply(new CustomDsl());
 
         http.formLogin()
-                .loginPage("/login");
-//                .defaultSuccessUrl("/") 프론트쪽에서 로그인 성공시 리디렉션
+                .loginPage("/user/login")
+                .defaultSuccessUrl("/user/rooms"); //프론트쪽에서 로그인 성공시 리디렉션;
 
         http.oauth2Login()
-                .loginPage("/login")
-//                .defaultSuccessUrl("/") 프론트쪽에서 로그인 성공시 리디렉션
+                .loginPage("/user/logout")
+                .defaultSuccessUrl("/user/rooms") //프론트쪽에서 로그인 성공시 리디렉션
                 .userInfoEndpoint()
                 .userService(principalOauth2UserService);
 
+        http.logout()
+                        .logoutUrl("/user/logout")
+                                .logoutSuccessUrl("/user/login")
+                                        .deleteCookies("JSESSIONID");
+
         http.authorizeRequests()
-                .antMatchers("/inroom/**").authenticated()
+                .antMatchers("/sample/**").authenticated()
                 .antMatchers("/room/**").access("hasRole('ROLE_HOST') or hasRole('ROLE_MANAGER')")
                 .antMatchers("/manager/**").access("hasRole('ROLE_MANAGER')")
                 .anyRequest().permitAll();

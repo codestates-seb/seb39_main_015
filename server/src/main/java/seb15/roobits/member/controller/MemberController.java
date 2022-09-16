@@ -8,6 +8,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import seb15.roobits.member.dto.MemberDto;
 import seb15.roobits.member.entity.Member;
+import seb15.roobits.member.exception.ExceptionCode;
 import seb15.roobits.member.mapper.MemberMapper;
 import seb15.roobits.member.repository.MemberRepository;
 import seb15.roobits.member.service.MemberService;
@@ -32,7 +33,7 @@ public class MemberController {
         Member member = memberMapper.joinToMember(memberJoinDto);
         Member createdMember = memberService.createMember(member);
         MemberDto.Response response = memberMapper.memberToResponse(createdMember);
-        return new ResponseEntity<>(response, HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PatchMapping("/{member-id}") //회원정보 수정
@@ -71,9 +72,9 @@ public class MemberController {
 
 
 
-    @GetMapping("/host")
+    @GetMapping("/rooms")
     public String host() {
-        return "host";
+        return "room";
     }
 
 

@@ -10,7 +10,7 @@ import seb15.roobits.member.service.MemberService;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping
+@RequestMapping("/user")
 public class TestController {
 
     private final MemberService memberService;

@@ -46,6 +46,11 @@ public class Member extends Auditable {
     @Column
     private String providerId;
 
+    @Column
+    private String roomName;
+
+    @Column String roomPassword;
+
 
 //    룸부분 결합후 작업
 //    @OneToMany(mappedBy = "Room")

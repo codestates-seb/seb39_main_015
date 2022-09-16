@@ -2,6 +2,7 @@ package seb15.roobits.security.auth;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -13,6 +14,7 @@ import java.util.Map;
 
 @Data
 @RequiredArgsConstructor
+@Configuration
 public class PrincipalDetails implements UserDetails, OAuth2User {
 
     private Member member;

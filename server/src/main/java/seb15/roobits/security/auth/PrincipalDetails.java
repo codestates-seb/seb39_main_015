@@ -47,6 +47,9 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
         return authorities;
     }
 
+
+    public long getId(){return member.getMemberId();}
+
     @Override
     public String getPassword() {
         return member.getPassword();

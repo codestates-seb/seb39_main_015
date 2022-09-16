@@ -46,6 +46,18 @@ public class Member extends Auditable {
     @Column
     private String providerId;
 
+
+//    룸부분 결합후 작업
+//    @OneToMany(mappedBy = "Room")
+//    private List<Room> rooms = new ArrayList<>();
+
+//    public void setRoom(Room room){
+//        rooms.add(room);
+//        if(room.getMember() != this){
+//            order.setMember(this);
+//        }
+//    }
+
     public List<String> getRoleList(){
         if(this.roles != null){
             return Arrays.asList(this.roles.split(","));

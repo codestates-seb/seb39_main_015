@@ -11,18 +11,21 @@ import seb15.roobits.member.entity.Member;
 import seb15.roobits.member.mapper.MemberMapper;
 import seb15.roobits.member.repository.MemberRepository;
 import seb15.roobits.member.service.MemberService;
+import seb15.roobits.security.auth.PrincipalDetails;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping // api 미정으로 임의로 지정
+@RequestMapping("/user")
 @Validated
 public class MemberController {
 
     private final MemberService memberService;
     private final MemberMapper memberMapper;
+
+    private final PrincipalDetails principalDetails;
 
     @PostMapping("/join")  //회원가입
     public ResponseEntity joinMember(@RequestBody @Valid MemberDto.Join memberJoinDto){
@@ -33,30 +36,40 @@ public class MemberController {
     }
 
     @PatchMapping("/{member-id}") //회원정보 수정
-    public ResponseEntity patchMember(
-            @PathVariable("member-id") @Positive long memberId,
-            @RequestBody @Valid MemberDto.Patch memberPatchDto){
+    public ResponseEntity patchMember(@AuthenticationPrincipal PrincipalDetails principalDetails,
+                                      @PathVariable("member-id")@Positive long memberId,
+                                      @RequestBody @Valid MemberDto.Patch memberPatchDto){
         memberPatchDto.setMemberId(memberId);
+        if(principalDetails.getId() == 0 || principalDetails.getId() != memberId){
+            return null;// exception으로 날려줘야함.
+        }
         Member member = memberMapper.patchToMember(memberPatchDto);
         Member editMember = memberService.updateMember(member);
         MemberDto.Response response = memberMapper.memberToResponse(member);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{member-id}") //회원탈퇴
-    public ResponseEntity deleteMember(@PathVariable("member-id") @Positive long memberId){
+    @DeleteMapping("/delete") //회원탈퇴
+    public ResponseEntity deleteMember(@AuthenticationPrincipal PrincipalDetails principalDetails){
+        if(principalDetails.getId() == 0){
+            return null; // exception으로 날려줘야함.
+        }
+        Member member = memberService.findMember(principalDetails.getId());
+        memberService.deleteMember(member.getMemberId());
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping("/search") //관리자 권한  특정 멤버 조회
-    public ResponseEntity searchMember(){
-        return null;
+    @GetMapping("/myroom")
+    public ResponseEntity getMyRoom(@AuthenticationPrincipal PrincipalDetails principalDetails){
+        if(principalDetails.getId() == 0){
+            return null;
+        }
+        Member member = memberService.findMember(principalDetails.getId());
+        MemberDto.Response response = memberMapper.memberToResponse(member);
+        return new ResponseEntity<>(response,HttpStatus.OK);
     }
 
-    @GetMapping("/allsearch") //관리자 권한 모든 멤버 조회
-    public ResponseEntity searchMembers(){
-        return null;
-    }
+
 
     @GetMapping("/host")
     public String host() {

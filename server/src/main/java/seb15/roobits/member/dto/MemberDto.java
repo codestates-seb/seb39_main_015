@@ -3,6 +3,7 @@ package seb15.roobits.member.dto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
@@ -14,7 +15,7 @@ import javax.validation.constraints.Size;
 //유효성 검증 적용 필요
 public class MemberDto {
 
-    @Data
+    @Getter
     @Builder
     @AllArgsConstructor
 
@@ -32,7 +33,7 @@ public class MemberDto {
         private String email;
     }
 
-    @Data
+    @Getter
     @Builder
     @AllArgsConstructor
     public static class Patch{
@@ -44,20 +45,29 @@ public class MemberDto {
         @Email(message = "올바른 이메일이 아닙니다.")
         @NotBlank(message = "이메일은 공백이 아니여야 합니다.")
         private String email;
+
+        public void setMemberId(long memberId) {this.memberId = memberId;}
     }
-    @Data
+    @Getter
     @Builder
     @AllArgsConstructor
     public static class Login{
         private String username;
         private String password;
     }
-    @Data
+    @Getter
     @Builder
     @AllArgsConstructor
     public static class Response{
         private Long memberId;
-    }// 리스폰스 데이터는 미정 추후 개선 예정
+        private String username;
+
+//        private Room rooms;
+//
+//        public Room getRoom(){
+//            return null; // 룸부분 구현후에 작업
+//        }
+    }
 
 
 }

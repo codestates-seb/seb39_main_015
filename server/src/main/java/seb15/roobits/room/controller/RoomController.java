@@ -1,15 +1,14 @@
-package com.board.board.room.controller;
+package seb15.roobits.room.controller;
 
-import com.board.board.dto.MultiResponseDto;
-import com.board.board.dto.SingleResponseDto;
-import com.board.board.room.dto.RoomPatchDto;
-import com.board.board.room.dto.RoomPostDto;
-import com.board.board.room.dto.RoomPutDto;
-import com.board.board.room.entity.Room;
-import com.board.board.room.mapper.RoomMapper;
-import com.board.board.room.service.RoomService;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
+import seb15.roobits.dto.MultiResponseDto;
+import seb15.roobits.dto.SingleResponseDto;
+import seb15.roobits.room.dto.RoomPatchDto;
+import seb15.roobits.room.dto.RoomPostDto;
+import seb15.roobits.room.entity.Room;
+import seb15.roobits.room.mapper.RoomMapper;
+import seb15.roobits.room.service.RoomService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -57,17 +56,6 @@ public class RoomController {
 
         return new ResponseEntity<>(
                 new SingleResponseDto<>(roomMapper.roomToRoomResponseDto(room)),
-                HttpStatus.OK);
-    }
-
-    @GetMapping
-    public ResponseEntity getRooms(@Positive @RequestParam int page,
-                                   @Positive @RequestParam int size) {
-        Page<Room> pageRooms = roomService.findRooms(page - 1, size);
-        List<Room> rooms = pageRooms.getContent();
-
-        return new ResponseEntity<>(
-                new MultiResponseDto<>(roomMapper.roomsToRoomResponseDtos(rooms), pageRooms),
                 HttpStatus.OK);
     }
 

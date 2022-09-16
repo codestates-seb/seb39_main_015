@@ -1,9 +1,8 @@
-package com.board.board.room.dto;
+package seb15.roobits.room.dto;
 
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.Pattern;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -18,7 +17,4 @@ public class RoomPatchDto {
 
     private long roomTheme;
 
-    private String roomStatus;
-
-    private LocalDateTime createdAt;
 }

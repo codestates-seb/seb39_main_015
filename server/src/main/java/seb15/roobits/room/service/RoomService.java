@@ -1,13 +1,15 @@
-package com.board.board.room.service;
+package seb15.roobits.room.service;
 
-import com.board.board.room.entity.Room;
-import com.board.board.room.repository.RoomRepository;
+import seb15.roobits.room.entity.Room;
+import seb15.roobits.room.repository.RoomRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+
+import static seb15.roobits.room.dto.RestDay.dDay;
 
 @Service
 public class RoomService {
@@ -27,15 +29,16 @@ public class RoomService {
 
     public Room updateRoom(Room room) {
         Room findRoom = findRoom(room.getRoomId());
+        if (room.getPatchCount() == 2) return BusinessLogicException(ExceptionCode.ALEADY_PATCHED_TWICE);
 
         Optional.ofNullable(room.getRoomName())
-                .ifPresent(boardName -> findRoom.setRoomName(roomName));
+                .ifPresent(roomName -> findRoom.setRoomName(roomName));
         Optional.ofNullable(room.getDDay())
                 .ifPresent(DDay -> findRoom.setDDay(dDay));
         Optional.ofNullable(room.getRoomTheme())
                 .ifPresent(roomTheme -> findRoom.setRoomTheme(roomTheme));
-        Optional.ofNullable(room.getRoomStatus())
-                .ifPresent(roomStatus -> findRoom.setRoomStatus(roomStatus));
+
+        room.getPatchCount() patchCount -> findRoom.setPatchCount(patchCount + 1));  // 수정 횟수 카운트
 
         return roomRepository.save(findRoom);
     }
@@ -60,12 +63,9 @@ public class RoomService {
 
     private void verifyExistRoom(String roomName, String urlName) {
         Optional<Room> rName = roomRepository.findByRoomName(roomName);
-        Optional<Room> uName = roomRepository.findByUrlName(urlName);
 
         if(rName.isPresent())
             throw new BusinessLogicException(ExceptionCode.ROOMNAME_ALREADY_EXISTS); // 나중에 Enum으로 코드들 한번에 작성해야 함
-        if(uName.isPresent())
-            throw new BusinessLogicException(ExceptionCode.URLNAME_ALREADY_EXISTS);
     }
 
 }

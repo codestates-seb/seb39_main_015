@@ -14,5 +14,9 @@ public interface MemberMapper {
 
     Member patchToMember(MemberDto.Patch requestBody);
 
+    Member findToMember(MemberDto.Find requestBody);
+
+    MemberDto.FindUsernameResponse memberToFindUsernameResponse(Member member);
+
     MemberDto.GetMyRoomResponse memberTogetMyRoomResponse(Member member);
 }

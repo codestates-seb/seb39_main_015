@@ -9,10 +9,13 @@ import org.springframework.web.bind.annotation.*;
 import seb15.roobits.member.dto.MemberDto;
 import seb15.roobits.member.entity.Member;
 import seb15.roobits.member.mapper.MemberMapper;
+import seb15.roobits.member.repository.MemberRepository;
 import seb15.roobits.member.service.MemberService;
 import seb15.roobits.security.auth.PrincipalDetails;
 
 import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -22,6 +25,7 @@ public class MemberController {
 
     private final MemberService memberService;
     private final MemberMapper memberMapper;
+
 
     @PostMapping("/join")  //회원가입
     public ResponseEntity joinMember(@RequestBody @Valid MemberDto.Join memberJoinDto){
@@ -74,6 +78,19 @@ public class MemberController {
 //        MemberDto.Response response = memberMapper.memberToResponse(member);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @PostMapping("/finduser")
+    public ResponseEntity findUsername(@RequestBody MemberDto.Find memberFindDto){
+        System.out.println(memberFindDto.getEmail());
+        Member member = memberMapper.findToMember(memberFindDto);
+        Member findUsername = memberService.findUserId(member);
+        MemberDto.FindUsernameResponse response = memberMapper.memberToFindUsernameResponse(findUsername);
+        return new ResponseEntity(response,HttpStatus.OK);
+
+
+    }
+
+
 
 
 

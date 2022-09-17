@@ -14,8 +14,20 @@ spring:
       client:
         registration:
           google:
-            clientId: 576913723201-irgan2dl2s218cs9liauqdnt63lga4ki.apps.googleusercontent.com
-            clientSecret: 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
+            clientId: 
+            clientSecret:
             scope:
               - email
               - profile
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username:
+    password:
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+

@@ -104,7 +104,6 @@ public class MemberService {
 
     @Transactional
     public Member findUserId(Member member) {
-        System.out.println(member.getEmail());
         Member findUserMember = memberRepository.findByEmail(member.getEmail());
         if (findUserMember == null) {
             throw new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND);

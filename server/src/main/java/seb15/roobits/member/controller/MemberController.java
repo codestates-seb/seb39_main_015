@@ -86,13 +86,7 @@ public class MemberController {
         Member findUsername = memberService.findUserId(member);
         MemberDto.FindUsernameResponse response = memberMapper.memberToFindUsernameResponse(findUsername);
         return new ResponseEntity(response,HttpStatus.OK);
-
-
     }
-
-
-
-
 
     @GetMapping("/rooms")
     public String host() {

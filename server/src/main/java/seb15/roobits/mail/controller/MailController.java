@@ -26,7 +26,7 @@ public class MailController {
     private final MemberRepository memberRepository;
 
     @GetMapping("/user/findpw")
-    public @ResponseBody Map<String,Boolean> pwFind(String email, String username){
+    public Map<String,Boolean> pwFind(@RequestBody String email, String username){
         Map<String,Boolean> userCheck = new HashMap<>();
         boolean pwFindCheck = memberService.memberEmailCheck(email,username);
         userCheck.put("check",pwFindCheck);
@@ -34,7 +34,7 @@ public class MailController {
     }
 
     @PostMapping("/sendEmail")
-    public void sendEmail(String email){
+    public void sendEmail(@RequestBody String email){
         MailDto dto = mailService.createMailAndChangePassword(email);
         mailService.mailSend(dto);
     }

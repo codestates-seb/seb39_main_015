@@ -76,13 +76,15 @@ public class MemberDto {
     @Builder
     @AllArgsConstructor
     public static class GetMyRoomResponse{
+        @Setter(AccessLevel.NONE)
         private Long memberId;
         private String username;
 
-//        private Room rooms;
-//
+//        private List<Room> rooms;
 //        public Room getRoom(){
-//            return null; // 룸부분 구현후에 작업
+//            Room room = new Room();
+//            room.setRoomId(roomId);
+//            return room; // 룸부분 구현후에 작업
 //        }
     }
 

@@ -58,8 +58,8 @@ public class Member extends Auditable {
 
 //    public void setRoom(Room room){
 //        rooms.add(room);
-//        if(room.getMember() != this){
-//            order.setMember(this);
+//        if(room.getRoom() != this){
+//            room.setRoom(this);
 //        }
 //    }
 

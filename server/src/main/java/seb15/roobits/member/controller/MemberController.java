@@ -71,11 +71,11 @@ public class MemberController {
     @GetMapping("/myroom")
     public ResponseEntity getMyRoom(@AuthenticationPrincipal PrincipalDetails principalDetails){
         if(principalDetails.getId() == 0){
-            return null;
+            return null; // exception으로 날려줘야함.
         }
-//        Member member =
+        Member getMemberRoom =
                 memberService.findMember(principalDetails.getId());
-//        MemberDto.Response response = memberMapper.memberToResponse(member);
+        MemberDto.GetMyRoomResponse response = memberMapper.memberTogetMyRoomResponse(getMemberRoom);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

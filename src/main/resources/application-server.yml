@@ -1,0 +1,15 @@
+## 서버 환경에서 사용하는 정보들은 application-server.yml 파일에 설정합니다.
+## TODO MySQL DB 접속 정보를 아래에 설정하세요
+#spring:
+#  jpa:
+#    hibernate:
+#      ddl-auto: create-drop  # (1) 스키마 자동 생성
+#    show-sql: true      # (2) SQL 쿼리 출력
+#    properties:
+#      hibernate:
+#        format_sql: true  # (3) SQL pretty print
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    password: guest
+#    url: jdbc:mysql://localhost:3306/coffee_order?allowPublicKeyRetrieval=true&characterEncoding=UTF-8
+#    username: guest

@@ -1,4 +1,4 @@
-package roobits.roobit.dto;
+package seb15.roobits.roobit.dto;
 
 import lombok.Getter;
 import org.springframework.lang.Nullable;

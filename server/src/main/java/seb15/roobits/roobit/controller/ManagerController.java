@@ -1,15 +1,15 @@
-package roobits.roobit.controller;
+package seb15.roobits.roobit.controller;
 
 import org.springframework.data.domain.Page;
 import roobits.dto.MultiResponseDto;
 import roobits.dto.SingleResponseDto;
-import roobits.roobit.service.RoobitService;
+import seb15.roobits.roobit.service.RoobitService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import roobits.roobit.entity.Roobit;
-import roobits.roobit.mapper.RoobitMapper;
+import seb15.roobits.roobit.entity.Roobit;
+import seb15.roobits.roobit.mapper.RoobitMapper;
 import roobits.room.service.RoomService;
 
 import javax.validation.constraints.Positive;

@@ -1,4 +1,4 @@
-package roobits.roobit.exception;
+package seb15.roobits.roobit.exception;
 
 import lombok.Getter;
 

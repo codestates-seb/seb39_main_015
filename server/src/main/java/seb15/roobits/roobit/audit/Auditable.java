@@ -1,4 +1,4 @@
-package roobits.roobit.audit;
+package seb15.roobits.roobit.audit;
 
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;

@@ -1,4 +1,4 @@
-package roobits;
+package seb15.roobits;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

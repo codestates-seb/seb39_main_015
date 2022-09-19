@@ -1,4 +1,4 @@
-package seb15.roobits;
+package roobits;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

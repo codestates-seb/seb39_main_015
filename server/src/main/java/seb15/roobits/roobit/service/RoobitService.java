@@ -1,14 +1,14 @@
-package roobits.roobit.service;
+package seb15.roobits.roobit.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import roobits.roobit.exception.BusinessLogicException;
-import roobits.roobit.exception.ExceptionCode;
-import roobits.roobit.entity.Roobit;
-import roobits.roobit.repository.RoobitRepository;
+import seb15.roobits.roobit.exception.BusinessLogicException;
+import seb15.roobits.roobit.exception.ExceptionCode;
+import seb15.roobits.roobit.entity.Roobit;
+import seb15.roobits.roobit.repository.RoobitRepository;
 import roobits.room.service.RoomService;
 
 import java.util.Optional;

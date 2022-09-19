@@ -1,10 +1,10 @@
-package roobits.roobit.dto;
+package seb15.roobits.roobit.dto;
 
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
-import roobits.roobit.entity.Roobit;
+import seb15.roobits.roobit.entity.Roobit;
 import roobits.room.entity.Room;
 
 import java.time.LocalDateTime;

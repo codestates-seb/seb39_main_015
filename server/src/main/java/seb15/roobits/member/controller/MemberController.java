@@ -1,10 +1,13 @@
+package seb15.roobits.member.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import seb15.roobits.exception.ExceptionCode;
 import seb15.roobits.member.dto.MemberDto;
 import seb15.roobits.member.entity.Member;
 import seb15.roobits.member.mapper.MemberMapper;
@@ -38,7 +41,7 @@ public class MemberController {
     public ResponseEntity patchMember(@AuthenticationPrincipal PrincipalDetails principalDetails,
                                       @RequestBody @Valid MemberDto.Patch memberPatchDto){
         if(principalDetails == null){
-            return null;// exception으로 날려줘야함.
+            return new ResponseEntity(HttpStatus.NOT_FOUND);// exception으로 날려줘야함.
         }
 //        long principalDetailsId;    //테스트 로직 코드
 //        if(principalDetails == null) {principalDetailsId =1L;}
@@ -55,7 +58,7 @@ public class MemberController {
     @DeleteMapping("/delete") //회원탈퇴
     public ResponseEntity deleteMember(@AuthenticationPrincipal PrincipalDetails principalDetails){
         if(principalDetails == null){
-            return null; // exception으로 날려줘야함.
+            return new ResponseEntity(HttpStatus.NOT_FOUND); // exception으로 날려줘야함.
         }
 //        long principalDetailsId;    //테스트 로직 코드
 //        if(principalDetails == null) {principalDetailsId =1L;}
@@ -69,7 +72,7 @@ public class MemberController {
     @GetMapping("/myroom")
     public ResponseEntity getMyRoom(@AuthenticationPrincipal PrincipalDetails principalDetails){
         if(principalDetails.getId() == 0){
-            return null; // exception으로 날려줘야함.
+            return new ResponseEntity(HttpStatus.NOT_FOUND); // exception으로 날려줘야함.
         }
         Member getMemberRoom =
                 memberService.findMember(principalDetails.getId());

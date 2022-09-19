@@ -1,19 +1,15 @@
 package seb15.roobits.mail.service;
 
 
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-//import seb15.roobits.mail.dto.MailDto;
-import seb15.roobits.mail.entity.Mail;
+import seb15.roobits.mail.dto.MailDto;
 import seb15.roobits.member.entity.Member;
 import seb15.roobits.member.repository.MemberRepository;
-
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -28,19 +24,19 @@ public class SendMailService {
 
     private static final String FROM_ADDRESS = "gusghk115@gmail.com";
 
-    public Mail createMailAndChangePassword(Mail mail) {
+    public MailDto createMailAndChangePassword(MailDto mailDto) {
         String str = getTempPassword();
-        Mail createMail = new Mail();
-        createMail.setAddress(mail.getAddress());
+        MailDto createMail = new MailDto();
+        createMail.setAddress(mailDto.getAddress());
         createMail.setTitle("루빗츠 임시 비밀번호 안내 이메일 입니다.");
         createMail.setMessage("안녕하세요 루빗츠 입니다." + "회원님의 임시 비밀번호는" + str + " 입니다.");
-        updatePassword(str, mail);
+        updatePassword(str, mailDto);
         return createMail;
     }
 
 
-    public void updatePassword(String str, Mail mail) {
-        Member member = memberRepository.findByEmail(mail.getAddress());
+    public void updatePassword(String str, MailDto mailDto) {
+        Member member = memberRepository.findByEmail(mailDto.getAddress());
         String rawPassword = str;
         String encPassword = passwordEncoder.encode(rawPassword);
         member.setPassword(encPassword);
@@ -64,12 +60,12 @@ public class SendMailService {
         return str;
     }
 
-    public void mailSend(Mail mail){
+    public void mailSend(MailDto mailDto){
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(mail.getAddress());
+        message.setTo(mailDto.getAddress());
         message.setFrom(SendMailService.FROM_ADDRESS);
-        message.setSubject(mail.getTitle());
-        message.setText(mail.getMessage());
+        message.setSubject(mailDto.getTitle());
+        message.setText(mailDto.getMessage());
         mailSender.send(message);
     }
 }

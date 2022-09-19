@@ -14,19 +14,17 @@ spring:
       client:
         registration:
           google:
-            clientId:
-            clientSecret:
+            clientId: 111
+            clientSecret: 111
             scope:
               - email
               - profile
   mail:
     host: smtp.gmail.com
-    port: 587
+    port: 465
     username:
     password:
     properties:
-      mail:
-        smtp:
-          auth: true
-          starttls:
-            enable: true
+      mail.smtp.auth: true
+      mail.smtp.ssl.enable: true
+      mail.smtp.ssl.trust: smtp.gmail.com

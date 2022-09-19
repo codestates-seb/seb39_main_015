@@ -1,8 +1,9 @@
-package seb15.roobits.roobit.exception;
+package seb15.roobits.exception;
 
 import lombok.Getter;
 
 public class BusinessLogicException extends RuntimeException {
+
     @Getter
     private ExceptionCode exceptionCode;
 

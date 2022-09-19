@@ -2,16 +2,15 @@ package seb15.roobits.member.service;
 
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import seb15.roobits.member.exception.BusinessLogicException;
-import seb15.roobits.member.exception.ExceptionCode;
+
+import seb15.roobits.exception.BusinessLogicException;
+import seb15.roobits.exception.ExceptionCode;
 import seb15.roobits.member.entity.Member;
 import seb15.roobits.member.repository.MemberRepository;
 

@@ -24,9 +24,6 @@ const Join = () => {
   const [isValid, setIsValid] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  // email 선택적 수집을 위한 상태관리 (업데이트)
-  const [selectEmail, setSelectEmail] = useState(false);
-
   // dpRegex는 idRegex로 변경됨
   // 사용자 요구사항 정의서에서 결정한 기준에 맞게 유효성 검사 부분 수정 완료.
   const idRegex = /^[a-z0-9]{4,15}$/;
@@ -35,6 +32,7 @@ const Join = () => {
 
   const navigate = useNavigate();
 
+  // 아이디 작성시 유효성 검사
   const handleDN = (e) => {
     const iptDisplayName = e.target.value;
     setUsername(iptDisplayName);
@@ -46,6 +44,7 @@ const Join = () => {
     }
   };
 
+  // 이메일 작성시 유효성 검사
   const handleEmail = (e) => {
     const iptEmail = e.target.value;
     setEmail(iptEmail);
@@ -56,6 +55,7 @@ const Join = () => {
     }
   };
 
+  // 패스워드 작성시 유효성 검사
   const handlePW = (e) => {
     const iptPassword = e.target.value;
     setPassword(iptPassword);
@@ -68,6 +68,7 @@ const Join = () => {
     }
   };
 
+  // 제출 버튼 클릭 : 모든 유효성 검사가 통과되었다면 isLoading 값을 true로 변경
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(email);
@@ -75,10 +76,6 @@ const Join = () => {
     if (isValid) {
       setIsLoading(true);
     }
-  };
-
-  const emailCheck = (e) => {
-    setSelectEmail(e.target.checked);
   };
 
   useEffect(() => {
@@ -92,6 +89,7 @@ const Join = () => {
     }
   }, [username, email, password]);
 
+  // isLoading과 isValid 를 상시 확인 => 둘다 true일 경우 axios 요청 송부
   useEffect(() => {
     if (isLoading && isValid) {
       // `${process.env.REACT_APP_API_URL}/users/join`
@@ -128,8 +126,7 @@ const Join = () => {
           required
         />
         <p>{usernameMsg}</p>
-        <label htmlFor="email">Email (선택)</label>
-        <input type="checkbox" onChange={(e) => emailCheck(e)}></input>
+        <label htmlFor="email">Email</label>
         <input
           type="email"
           id="email"
@@ -137,7 +134,6 @@ const Join = () => {
           value={email}
           onChange={handleEmail}
           required
-          disabled={!selectEmail}
         />
         <p>{emailMsg}</p>
         <label htmlFor="password">Password</label>

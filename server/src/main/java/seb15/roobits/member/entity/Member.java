@@ -5,14 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import seb15.roobits.member.Auditable.Auditable;
+import seb15.roobits.auditable.Auditable;
 import seb15.roobits.room.entity.Room;
-
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -54,15 +51,10 @@ public class Member extends Auditable {
 
 
 //    룸부분 결합후 작업
-    @OneToMany(mappedBy = "Room")
+    @OneToMany(mappedBy = "member")
     private List<Room> rooms = new ArrayList<>();
 
-    public void setRoom(Room room){
-        rooms.add(room);
-//        if(room.getRoom() != this){
-//            room.setRoom(this);
-//        }
-    }
+
 
     public List<String> getRoleList(){
         if(this.roles != null){

@@ -1,4 +1,4 @@
-package seb15.roobits.roobit.dto;
+package seb15.roobits.globaldto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -6,5 +6,5 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class SingleResponseDto<T> {
-    private T data;
+    private T roomData;
 }

@@ -1,8 +1,8 @@
 package seb15.roobits.room.service;
 
 import org.springframework.transaction.annotation.Transactional;
-import seb15.roobits.room.exception.BusinessLogicException;
-import seb15.roobits.room.exception.ExceptionCode;
+import seb15.roobits.exception.BusinessLogicException;
+import seb15.roobits.exception.ExceptionCode;
 import seb15.roobits.room.entity.Room;
 import seb15.roobits.room.repository.RoomRepository;
 import org.springframework.data.domain.Page;

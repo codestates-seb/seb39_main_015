@@ -16,7 +16,7 @@ const JoinFormWrapper = styled.div`
 const Join = () => {
   // 기존 displayName은 username으로 변경됨
   const [username, setUsername] = useState('');
-  const [email, setEmail] = useState(null);
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [usernameMsg, setUsernameMsg] = useState('');
   const [emailMsg, setEmailMsg] = useState('');
@@ -71,10 +71,31 @@ const Join = () => {
   // 제출 버튼 클릭 : 모든 유효성 검사가 통과되었다면 isLoading 값을 true로 변경
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(email);
 
     if (isValid) {
       setIsLoading(true);
+    }
+
+    if (isLoading && isValid) {
+      // `${process.env.REACT_APP_API_URL}/users/join`
+      axios
+        .post(`${process.env.REACT_APP_API_URL}/user/join`, {
+          username,
+          email,
+          password,
+        })
+        .then((res) => {
+          console.log(res.data);
+          setIsLoading(false);
+          navigate('/login');
+        })
+        .catch(() => {
+          //더미 데이터 적용
+          setIsLoading(false);
+          navigate('/join');
+          //이 후 통신이 잘 되면 이 부분은 수정해야됩니다.
+          console.log(username, email, password);
+        });
     }
   };
 
@@ -90,28 +111,28 @@ const Join = () => {
   }, [username, email, password]);
 
   // isLoading과 isValid 를 상시 확인 => 둘다 true일 경우 axios 요청 송부
-  useEffect(() => {
-    if (isLoading && isValid) {
-      // `${process.env.REACT_APP_API_URL}/users/join`
-      axios
-        .post('/fakeuri', {
-          username,
-          email,
-          password,
-        })
-        .then((res) => {
-          console.log(res.data);
-          setIsLoading(false);
-          navigate('/login');
-        })
-        .catch(() => {
-          //더미 데이터 적용
-          setIsLoading(false);
-          navigate('/join');
-          //이 후 통신이 잘 되면 이 부분은 수정해야됩니다.
-        });
-    }
-  }, [isLoading, isValid]);
+  // useEffect(() => {
+  //   if (isLoading && isValid) {
+  //     // `${process.env.REACT_APP_API_URL}/users/join`
+  //     axios
+  //       .post('/fakeuri', {
+  //         username,
+  //         email,
+  //         password,
+  //       })
+  //       .then((res) => {
+  //         console.log(res.data);
+  //         setIsLoading(false);
+  //         navigate('/login');
+  //       })
+  //       .catch(() => {
+  //         //더미 데이터 적용
+  //         setIsLoading(false);
+  //         navigate('/join');
+  //         //이 후 통신이 잘 되면 이 부분은 수정해야됩니다.
+  //       });
+  //   }
+  // }, [isLoading, isValid]);
 
   return (
     <JoinFormWrapper>

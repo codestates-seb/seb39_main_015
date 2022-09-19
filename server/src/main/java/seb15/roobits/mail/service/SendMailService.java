@@ -8,7 +8,8 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import seb15.roobits.mail.dto.MailDto;
+//import seb15.roobits.mail.dto.MailDto;
+import seb15.roobits.mail.entity.Mail;
 import seb15.roobits.member.entity.Member;
 import seb15.roobits.member.repository.MemberRepository;
 
@@ -27,20 +28,19 @@ public class SendMailService {
 
     private static final String FROM_ADDRESS = "gusghk115@gmail.com";
 
-    public MailDto createMailAndChangePassword(String email) {
+    public Mail createMailAndChangePassword(Mail mail) {
         String str = getTempPassword();
-        MailDto dto = new MailDto();
-        dto.setAddress(email);
-        dto.setTitle("루빗츠 임시 비밀번호 안내 이메일 입니다.");
-        dto.setMessage("안녕하세요 루빗츠 입니다." + "회원님의 임시 비밀번호는" + str + " 입니다.");
-        updatePassword(str, email);
-        return dto;
+        Mail createMail = new Mail();
+        createMail.setAddress(mail.getAddress());
+        createMail.setTitle("루빗츠 임시 비밀번호 안내 이메일 입니다.");
+        createMail.setMessage("안녕하세요 루빗츠 입니다." + "회원님의 임시 비밀번호는" + str + " 입니다.");
+        updatePassword(str, mail);
+        return createMail;
     }
 
 
-    public void updatePassword(String str, String email) {
-        Member member = memberRepository.findByEmail(email);
-        str = getTempPassword();
+    public void updatePassword(String str, Mail mail) {
+        Member member = memberRepository.findByEmail(mail.getAddress());
         String rawPassword = str;
         String encPassword = passwordEncoder.encode(rawPassword);
         member.setPassword(encPassword);
@@ -64,12 +64,12 @@ public class SendMailService {
         return str;
     }
 
-    public void mailSend(MailDto mailDto){
+    public void mailSend(Mail mail){
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(mailDto.getAddress());
+        message.setTo(mail.getAddress());
         message.setFrom(SendMailService.FROM_ADDRESS);
-        message.setSubject(mailDto.getTitle());
-        message.setText(mailDto.getMessage());
+        message.setSubject(mail.getTitle());
+        message.setText(mail.getMessage());
         mailSender.send(message);
     }
 }

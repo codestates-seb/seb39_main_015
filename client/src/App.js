@@ -11,6 +11,8 @@ import axios from 'axios';
 function App() {
   const [accessToken, setAccessToken] = useState('');
   const [isLogin, setIsLogin] = useState('');
+  const apiUrl = process.env.REACT_APP_API_URL;
+  console.log(apiUrl);
 
   // Google OAuth 로그인 AccessToken 요청
   const getAccessToken = async (authorizationCode) => {

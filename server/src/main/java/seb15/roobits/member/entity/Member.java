@@ -55,7 +55,7 @@ public class Member extends Auditable {
 //    룸부분 결합후 작업
 //    @OneToMany(mappedBy = "Room")
 //    private List<Room> rooms = new ArrayList<>();
-
+//
 //    public void setRoom(Room room){
 //        rooms.add(room);
 //        if(room.getRoom() != this){

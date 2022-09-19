@@ -9,6 +9,8 @@ import styled from 'styled-components';
 
 const JoinFormWrapper = styled.div`
   padding-top: 5vh;
+  height: 100vh;
+  background-color: #ffc75f;
 `;
 
 const Join = () => {
@@ -153,7 +155,7 @@ const Join = () => {
         </div>
       </form>
       <p>
-        Already have an account? <Link to="/login">Log in</Link>
+        이미 회원이신가요? <Link to="/login">로그인하러 가기</Link>
       </p>
     </JoinFormWrapper>
   );

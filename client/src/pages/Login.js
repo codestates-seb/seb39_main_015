@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import googleButton from '../images/btn_google_signin_light_normal_web.png';
-// import googleButtonPressed from '../images/btn_google_signin_light_pressed_web.png';
+import googleButtonPressed from '../images/btn_google_signin_light_pressed_web.png';
 
 const LoginFormWrapper = styled.div`
   padding-top: 5vh;
@@ -15,10 +15,16 @@ const LoginFormWrapper = styled.div`
   background-color: #ffc75f;
 `;
 
+const ApiButton = styled.button`
+  border: none;
+  background-color: transparent;
+`;
+
 const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [memberId, setMemberId] = useState('');
   const [password, setPassword] = useState('');
+  const [buttonLogo, setButtonLogo] = useState(googleButton);
 
   const navigate = useNavigate();
   const hadleSubmit = (e) => {
@@ -45,7 +51,7 @@ const Login = () => {
     if (isLoading && memberId !== '' && password !== '') {
       //`${process.env.REACT_APP_API_URL}/users/login`
       axios
-        .post('/fakeuri', {
+        .post(`${process.env.REACT_APP_API_URL}/user/login`, {
           memberId,
           password,
         })
@@ -85,9 +91,13 @@ const Login = () => {
       </form>
       <form onSubmit={(e) => e.preventDefault()}>
         <div>
-          <button type="submit" onClick={loginRequestHandler}>
-            <img id="logo" alt="logo" src={googleButton} />
-          </button>
+          <ApiButton
+            type="submit"
+            onMouseDown={() => setButtonLogo(googleButtonPressed)}
+            onClick={loginRequestHandler}
+          >
+            <img id="logo" alt="logo" src={buttonLogo} />
+          </ApiButton>
         </div>
       </form>
       <p>

@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import catImage from '../images/cat.png';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 export const HeaderStyle = styled.div`
   position: fixed;
@@ -27,7 +28,16 @@ const ButtonSection = styled.div`
   display: flex;
 `;
 
-export default function Header() {
+export default function Header({ isLogin, setIsLogin, accessToken }) {
+  const logoutHandler = () => {
+    axios
+      .post(`${process.env.REACT_APP_API_URL}/user/logout`, { accessToken })
+      .then((res) => {
+        console.log(res.data);
+        setIsLogin(false);
+      })
+      .catch((res) => console.log(res.data));
+  };
   return (
     <HeaderStyle>
       <Link to="/">
@@ -36,12 +46,21 @@ export default function Header() {
         </Logo>
       </Link>
       <ButtonSection>
-        <Link to="/login">
-          <button>로그인</button>
-        </Link>
-        <Link to="/join">
-          <button>가입하기</button>
-        </Link>
+        {isLogin ? (
+          ''
+        ) : (
+          <Link to="/login">
+            <button>로그인</button>{' '}
+          </Link>
+        )}
+
+        {isLogin ? (
+          <button onClick={logoutHandler}>로그아웃</button>
+        ) : (
+          <Link to="/join">
+            <button>가입하기</button>
+          </Link>
+        )}
       </ButtonSection>
     </HeaderStyle>
   );

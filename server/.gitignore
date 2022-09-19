@@ -35,3 +35,7 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### my ignore ###
+src/main/resources/application.yml
+src/main/resources/application.properties

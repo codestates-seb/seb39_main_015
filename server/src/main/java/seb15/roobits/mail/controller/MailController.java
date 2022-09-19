@@ -1,14 +1,10 @@
 package seb15.roobits.mail.controller;
 
-import com.fasterxml.jackson.databind.annotation.JsonAppend;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-//import seb15.roobits.mail.controller.mapper.MailMapper;
-//import seb15.roobits.mail.dto.MailDto;
-import seb15.roobits.mail.entity.Mail;
+import seb15.roobits.mail.dto.MailDto;
 import seb15.roobits.mail.service.SendMailService;
-import seb15.roobits.member.entity.Member;
 import seb15.roobits.member.repository.MemberRepository;
 import seb15.roobits.member.service.MemberService;
 
@@ -39,10 +35,10 @@ public class MailController {
     }
 
     @PostMapping("/sendemail")
-    public void sendEmail(@RequestBody Mail mail){
+    public void sendEmail(@RequestBody MailDto mailDto){
 //        System.out.println(mailDto.getAddress());
 //        Mail createMail = mailMapper.MailDtoToMail(mailDto);
-        Mail sendMail = mailService.createMailAndChangePassword(mail);
+        MailDto sendMail = mailService.createMailAndChangePassword(mailDto);
         mailService.mailSend(sendMail);
     }
 }

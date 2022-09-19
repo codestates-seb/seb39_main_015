@@ -1,6 +1,6 @@
 package seb15.roobits.room.controller;
 
-import seb15.roobits.room.dto.SingleResponseDto;
+import seb15.roobits.globaldto.SingleResponseDto;
 import seb15.roobits.room.dto.RoomPatchDto;
 import seb15.roobits.room.dto.RoomPostDto;
 import seb15.roobits.room.entity.Room;

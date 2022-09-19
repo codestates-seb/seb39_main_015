@@ -4,7 +4,6 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Range;
 
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 import seb15.roobits.member.entity.Member;
 import seb15.roobits.roobit.entity.Roobit;
@@ -42,8 +41,9 @@ public class Room {
     private Date dDay;
 
     @Column
-    @Enumerated(value = EnumType.ORDINAL)
-    public RoomTheme roomTheme = RoomTheme.THEME_BASIC;
+//    @Enumerated(value = EnumType.ORDINAL)
+    public long roomTheme;
+//            = RoomTheme.THEME_BASIC;
 
     @Column
     @Range(min= 1, max= 300)
@@ -76,19 +76,34 @@ public class Room {
 //        }
     }
 
-    public enum RoomTheme {
-            THEME_BASIC(1, "기본 테마");
+//    public enum RoomTheme {
+//            THEME_BASIC(1, "기본 테마");
+//
+//            @Getter
+//            private int themeNumber;
+//
+//            @Getter
+//            private String themeDescription;
+//
+//            RoomTheme(int themeNumber, String themeDescription) {
+//                this.themeNumber = themeNumber;
+//                this.themeDescription = themeDescription;
+//            }
+//    }
 
-            @Getter
-            private int themeNumber;
-
-            @Getter
-            private String themeDescription;
-
-            RoomTheme(int themeNumber, String themeDescription) {
-                this.themeNumber = themeNumber;
-                this.themeDescription = themeDescription;
-            }
-    }
+//    public enum RoomTheme {
+//            THEME_BASIC(1, "기본 테마");
+//
+//            @Getter
+//            private int themeNumber;
+//
+//            @Getter
+//            private String themeDescription;
+//
+//            RoomTheme(int themeNumber, String themeDescription) {
+//                this.themeNumber = themeNumber;
+//                this.themeDescription = themeDescription;
+//            }
+//    }
 
 }

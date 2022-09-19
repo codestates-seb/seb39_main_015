@@ -6,13 +6,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+
+import seb15.roobits.globaldto.MultiResponseDto;
+import seb15.roobits.globaldto.SingleResponseDto;
 import seb15.roobits.member.mapper.MemberMapper;
 import seb15.roobits.member.service.MemberService;
 import seb15.roobits.roobit.entity.Roobit;
 import seb15.roobits.roobit.mapper.RoobitMapper;
 import seb15.roobits.roobit.service.RoobitService;
-import seb15.roobits.room.dto.MultiResponseDto;
-import seb15.roobits.room.dto.SingleResponseDto;
 import seb15.roobits.room.service.RoomService;
 import seb15.roobits.security.auth.PrincipalDetails;
 

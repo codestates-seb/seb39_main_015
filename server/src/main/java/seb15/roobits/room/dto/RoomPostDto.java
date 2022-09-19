@@ -25,7 +25,7 @@ public class RoomPostDto {
     private Date dDay;
 
     @NotBlank(message = "룸 테마를 선택해야 합니다.")
-    private Room.RoomTheme roomTheme;
+    private long roomTheme;
 
     @NotBlank
     @Range(min= 1, max= 300,

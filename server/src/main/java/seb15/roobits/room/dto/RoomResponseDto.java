@@ -24,13 +24,13 @@ public class RoomResponseDto {
 
     private String weather;
 
-    private Room.RoomTheme roomTheme;
+    private long roomTheme;
 
     @Column(columnDefinition = "integer default 0", nullable = false)
     private long viewCount;
 
     private String url;
 
-    public RoomResponseDto(long roomId, String roomName, Date dDay, Room.RoomTheme roomTheme, Object weather, long viewCount, long restDay, String url) {
+    public RoomResponseDto(long roomId, String roomName, Date dDay, long roomTheme, Object weather, long viewCount, long restDay, String url) {
     }
 }

@@ -102,12 +102,12 @@ const Join = () => {
         .then((res) => {
           console.log(res.data);
           setIsLoading(false);
-          navigate('/');
+          navigate('/login');
         })
         .catch(() => {
           //더미 데이터 적용
           setIsLoading(false);
-          navigate('/login');
+          navigate('/join');
           //이 후 통신이 잘 되면 이 부분은 수정해야됩니다.
         });
     }

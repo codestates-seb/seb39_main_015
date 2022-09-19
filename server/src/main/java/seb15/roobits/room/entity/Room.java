@@ -6,12 +6,17 @@ import org.hibernate.validator.constraints.Range;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import seb15.roobits.member.entity.Member;
+import seb15.roobits.roobit.entity.Roobit;
+
 import javax.persistence.Id;
 
 import javax.persistence.*;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @NoArgsConstructor
 @Entity
@@ -53,23 +58,23 @@ public class Room {
     @Column(columnDefinition = "integer default 0", nullable = false)
     private long patchCount;
 
-//    @ManyToOne
-//    @JoinColumn(name = "MEMBER_ID")
-//    private Member member;
+    @ManyToOne
+    @JoinColumn(name = "MEMBER_ID")
+    private Member member;
 
-//    @OneToMany(mappedBy = "room", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-//    private List<Roobit> roobits = new ArrayList<>();
-//
-//    public void addMember(Member member) {
-//        this.member = member;
-//    }
+    @OneToMany(mappedBy = "room", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private List<Roobit> roobits = new ArrayList<>();
 
-//    public void addRoobit(Roobit roobit) {
-//        this.roobits.add(roobit);
+    public void addMember(Member member) {
+        this.member = member;
+    }
+
+    public void addRoobit(Roobit roobit) {
+        this.roobits.add(roobit);
 //        if(roobit.getRoobit() != this) {
 //            roobit.addRoobit(this);
 //        }
-//    }
+    }
 
     public enum RoomTheme {
             THEME_BASIC(1, "기본 테마");

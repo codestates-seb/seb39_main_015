@@ -2,7 +2,7 @@ package seb15.roobits.roobit.dto;
 
 import lombok.Getter;
 import org.springframework.lang.Nullable;
-import roobits.room.entity.Room;
+import seb15.roobits.room.entity.Room;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;

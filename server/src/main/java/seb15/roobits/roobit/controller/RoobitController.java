@@ -1,6 +1,5 @@
 package seb15.roobits.roobit.controller;
 
-import roobits.dto.SingleResponseDto;
 import seb15.roobits.roobit.dto.RoobitPostDto;
 import seb15.roobits.roobit.service.RoobitService;
 import org.springframework.http.HttpStatus;
@@ -9,7 +8,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import seb15.roobits.roobit.entity.Roobit;
 import seb15.roobits.roobit.mapper.RoobitMapper;
-import roobits.room.service.RoomService;
+import seb15.roobits.room.dto.SingleResponseDto;
+import seb15.roobits.room.service.RoomService;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;

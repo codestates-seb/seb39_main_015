@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import seb15.roobits.roobit.entity.Roobit;
-import roobits.room.entity.Room;
+import seb15.roobits.room.entity.Room;
 
 import java.time.LocalDateTime;
 

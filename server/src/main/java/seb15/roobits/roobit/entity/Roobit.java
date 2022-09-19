@@ -6,7 +6,7 @@ import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import seb15.roobits.roobit.audit.Auditable;
-import roobits.room.entity.Room;
+import seb15.roobits.room.entity.Room;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Getter
 @Setter
-@Entity(name = "ROOBITS")
+@Entity (name = "ROOBITS")
 @EntityListeners(AuditingEntityListener.class)
 public class Roobit extends Auditable {
 
@@ -72,8 +72,5 @@ public class Roobit extends Auditable {
             this.statusNumber = statusNumber;
             this.statusDescription = statusDescription;
         }
-
     }
-
-    
 }

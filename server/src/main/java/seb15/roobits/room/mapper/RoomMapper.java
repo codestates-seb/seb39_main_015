@@ -9,7 +9,7 @@ import org.mapstruct.Mapper;
 import java.util.Date;
 import java.util.List;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface RoomMapper {
     Room roomPostDtoToRoom(RoomPostDto roomPostDto);
     Room roomPatchDtoToRoom(RoomPatchDto roomPatchDto);

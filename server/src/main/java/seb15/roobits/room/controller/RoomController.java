@@ -1,8 +1,6 @@
 package seb15.roobits.room.controller;
 
-import org.springframework.data.domain.Page;
-import seb15.roobits.dto.MultiResponseDto;
-import seb15.roobits.dto.SingleResponseDto;
+import seb15.roobits.room.dto.SingleResponseDto;
 import seb15.roobits.room.dto.RoomPatchDto;
 import seb15.roobits.room.dto.RoomPostDto;
 import seb15.roobits.room.entity.Room;
@@ -16,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
-import java.util.List;
 
 @RestController
 @RequestMapping("/rooms")

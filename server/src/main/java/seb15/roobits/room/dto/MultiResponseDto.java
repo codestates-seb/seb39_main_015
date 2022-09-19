@@ -1,4 +1,4 @@
-package seb15.roobits.dto;
+package seb15.roobits.room.dto;
 
 import lombok.Getter;
 import org.springframework.data.domain.Page;

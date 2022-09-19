@@ -1,5 +1,8 @@
 package seb15.roobits.room.service;
 
+import org.springframework.transaction.annotation.Transactional;
+import seb15.roobits.room.exception.BusinessLogicException;
+import seb15.roobits.room.exception.ExceptionCode;
 import seb15.roobits.room.entity.Room;
 import seb15.roobits.room.repository.RoomRepository;
 import org.springframework.data.domain.Page;
@@ -9,9 +12,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-import static seb15.roobits.room.dto.RestDay.dDay;
-
 @Service
+@Transactional
 public class RoomService {
     private final RoomRepository roomRepository;
 
@@ -29,16 +31,18 @@ public class RoomService {
 
     public Room updateRoom(Room room) {
         Room findRoom = findRoom(room.getRoomId());
-        if (room.getPatchCount() == 2) return BusinessLogicException(ExceptionCode.ALEADY_PATCHED_TWICE);
+        if (room.getPatchCount() == 2)
+            throw new BusinessLogicException(ExceptionCode.CANNOT_CHANGE_ROOM); // 수정 2회 초과 시 수정할 수 없음
 
         Optional.ofNullable(room.getRoomName())
                 .ifPresent(roomName -> findRoom.setRoomName(roomName));
         Optional.ofNullable(room.getDDay())
-                .ifPresent(DDay -> findRoom.setDDay(dDay));
+                .ifPresent(dDay -> findRoom.setDDay(dDay));
         Optional.ofNullable(room.getRoomTheme())
                 .ifPresent(roomTheme -> findRoom.setRoomTheme(roomTheme));
 
-        room.getPatchCount() patchCount -> findRoom.setPatchCount(patchCount + 1));  // 수정 횟수 카운트
+        Optional.of(room.getPatchCount())
+                .ifPresent(patchCount -> findRoom.setPatchCount(patchCount + 1));  // 수정 횟수 카운트
 
         return roomRepository.save(findRoom);
     }
@@ -46,7 +50,7 @@ public class RoomService {
     public Room findRoom(long roomId) {
         Optional<Room> optionalRoom = roomRepository.findById(roomId);
         Room findRoom = optionalRoom.orElseThrow(()  ->
-        new BusinessLogicException(ExceptionCode.ROOMNAME_ALREADY_EXISTS)); // 여기도 예외코드 나중에 enum 정리해서..
+        new BusinessLogicException(ExceptionCode.ROOM_NOT_FOUND));
 
         return findRoom;
     }
@@ -61,11 +65,11 @@ public class RoomService {
         roomRepository.delete(room);
     }
 
-    private void verifyExistRoom(String roomName, String urlName) {
+    private void verifyExistRoom(String roomName) {
         Optional<Room> rName = roomRepository.findByRoomName(roomName);
 
         if(rName.isPresent())
-            throw new BusinessLogicException(ExceptionCode.ROOMNAME_ALREADY_EXISTS); // 나중에 Enum으로 코드들 한번에 작성해야 함
+            throw new BusinessLogicException(ExceptionCode.ROOMNAME_ALREADY_EXISTS);
     }
 
 }

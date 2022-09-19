@@ -4,13 +4,17 @@ import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 // import { joinResponse } from '../data/DummyData';
 
+// 디자인 컨셉 결정 후 일괄 적용할 예정이기 때문에 styled 폴더에서 가져온 요소는 모두 삭제.
+// 추후 컨셉이 결정되면 필요한 스타일을 미리 만들어두고 사용할 것.
+
 const JoinFormWrapper = styled.div`
   padding-top: 5vh;
 `;
 
 const Join = () => {
+  // 기존 displayName은 username으로 변경됨
   const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState(null);
   const [password, setPassword] = useState('');
   const [usernameMsg, setUsernameMsg] = useState('');
   const [emailMsg, setEmailMsg] = useState('');
@@ -18,6 +22,11 @@ const Join = () => {
   const [isValid, setIsValid] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
+  // email 선택적 수집을 위한 상태관리 (업데이트)
+  const [selectEmail, setSelectEmail] = useState(false);
+
+  // dpRegex는 idRegex로 변경됨
+  // 사용자 요구사항 정의서에서 결정한 기준에 맞게 유효성 검사 부분 수정 완료.
   const idRegex = /^[a-z0-9]{4,15}$/;
   const emailRegex = /^[a-zA-Z0-9+-\\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
   const pwRegex = /^[a-zA-Z0-9`~!@#$%^&*()-_=+]{8,20}$/;
@@ -59,10 +68,15 @@ const Join = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(email);
 
     if (isValid) {
       setIsLoading(true);
     }
+  };
+
+  const emailCheck = (e) => {
+    setSelectEmail(e.target.checked);
   };
 
   useEffect(() => {
@@ -113,7 +127,7 @@ const Join = () => {
         />
         <p>{usernameMsg}</p>
         <label htmlFor="email">Email (선택)</label>
-        <input type="checkbox"></input>
+        <input type="checkbox" onChange={(e) => emailCheck(e)}></input>
         <input
           type="email"
           id="email"
@@ -121,6 +135,7 @@ const Join = () => {
           value={email}
           onChange={handleEmail}
           required
+          disabled={!selectEmail}
         />
         <p>{emailMsg}</p>
         <label htmlFor="password">Password</label>

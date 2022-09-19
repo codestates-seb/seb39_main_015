@@ -20,13 +20,11 @@ public class RoomService {
     public RoomService(RoomRepository roomRepository) { this.roomRepository = roomRepository; }
 
     public Room createRoom(Room room) {
-        String roomName = new String();
-
         // 이미 있는 이름인지 검사
-        verifyExistRoom(roomName);
-        room.setRoomName(roomName);
+        verifyExistRoom(room.getRoomName());
+        Room savedRoom =  roomRepository.save(room);
 
-        return roomRepository.save(room);
+        return savedRoom;
     }
 
     public Room updateRoom(Room room) {

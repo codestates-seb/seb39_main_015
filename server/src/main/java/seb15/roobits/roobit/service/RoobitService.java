@@ -9,7 +9,7 @@ import seb15.roobits.roobit.exception.BusinessLogicException;
 import seb15.roobits.roobit.exception.ExceptionCode;
 import seb15.roobits.roobit.entity.Roobit;
 import seb15.roobits.roobit.repository.RoobitRepository;
-import roobits.room.service.RoomService;
+import seb15.roobits.room.service.RoomService;
 
 import java.util.Optional;
 

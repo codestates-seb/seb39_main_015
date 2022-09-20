@@ -1,30 +1,36 @@
 import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import styled from 'styled-components';
-import googleButton from '../images/btn_google_signin_light_normal_web.png';
-import googleButtonPressed from '../images/btn_google_signin_light_pressed_web.png';
+import {
+  Body,
+  FormWrapper,
+  Input,
+  InputWrapper,
+  LogoWrapper,
+  OrangeButton,
+  WhiteButton,
+  StyledLink,
+} from '../styled/Style.js';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-regular-svg-icons';
+import { faLock } from '@fortawesome/free-solid-svg-icons';
+import { faGooglePlusG } from '@fortawesome/free-brand-svg-icons';
+import logInLogo from '../images/cat.png';
 
-const LoginFormWrapper = styled.div`
-  padding-top: 80px;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: #ffc75f;
-`;
-
-const ApiButton = styled.button`
-  border: none;
-  background-color: transparent;
-`;
+// const LoginFormWrapper = styled.div`
+//   padding-top: 80px;
+//   height: 100vh;
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+//   align-items: center;
+//   background-color: #ffc75f;
+// `;
 
 const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [memberId, setMemberId] = useState('');
   const [password, setPassword] = useState('');
-  const [buttonLogo, setButtonLogo] = useState(googleButton);
 
   const navigate = useNavigate();
 
@@ -96,38 +102,63 @@ const Login = () => {
   //   }
   // }, [isLoading]);
   return (
-    <LoginFormWrapper>
-      <form onSubmit={hadleSubmit}>
-        <label htmlFor="memberId">ID</label>
-        <input type="text" id="memberId" name="ID" required />
-        <label htmlFor="login-password">Password</label>
-        <input
-          type="password"
-          id="login-password"
-          name="password"
-          minLength="3"
-          maxLength="20"
-          required
-        />
+    <Body>
+      <FormWrapper width={'476px'} height={'545px'}>
+        <img alt="login logo" src={logInLogo} />
+        <form onSubmit={hadleSubmit}>
+          {/* <label htmlFor="memberId">ID</label> */}
+          <InputWrapper>
+            <Input
+              type="text"
+              id="memberId"
+              name="ID"
+              height={'45px'}
+              width={'314px'}
+              required
+              placeholder="아이디"
+            />
+            <LogoWrapper>
+              <FontAwesomeIcon icon={faUser} />
+            </LogoWrapper>
+          </InputWrapper>
+          {/* <label htmlFor="login-password">Password</label> */}
+          <InputWrapper>
+            <Input
+              type="password"
+              id="login-password"
+              name="password"
+              height={'45px'}
+              width={'314px'}
+              required
+              placeholder="비밀번호"
+            />
+            <LogoWrapper>
+              <FontAwesomeIcon icon={faLock} />
+            </LogoWrapper>
+          </InputWrapper>
+          <div>
+            <OrangeButton type="submit" height={'45px'} width={'314px'}>
+              로그인
+            </OrangeButton>
+          </div>
+        </form>
+        <p>or</p>
+        <WhiteButton
+          height={'45px'}
+          width={'314px'}
+          onClick={loginRequestHandler}
+        >
+          구글 계정으로 로그인
+        </WhiteButton>
         <div>
-          <button type="submit">Log in</button>
+          <StyledLink>아이디 찾기</StyledLink>
+          <StyledLink>비밀번호 찾기</StyledLink>
         </div>
-      </form>
-      <form onSubmit={(e) => e.preventDefault()}>
         <div>
-          <ApiButton
-            type="submit"
-            onMouseDown={() => setButtonLogo(googleButtonPressed)}
-            onClick={loginRequestHandler}
-          >
-            <img id="logo" alt="logo" src={buttonLogo} />
-          </ApiButton>
+          아직 회원이 아니신가요? <StyledLink to="/join">회원가입</StyledLink>
         </div>
-      </form>
-      <p>
-        계정이 없으신가요? <Link to="/join">가입하러 가기</Link>
-      </p>
-    </LoginFormWrapper>
+      </FormWrapper>
+    </Body>
   );
 };
 

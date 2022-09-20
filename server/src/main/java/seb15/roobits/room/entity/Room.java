@@ -1,5 +1,6 @@
 package seb15.roobits.room.entity;
 
+import lombok.Getter;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Range;
 
@@ -26,8 +27,8 @@ public class Room {
     private long roomId;
 
     @Column(unique = true)
-    @NotBlank(message = "룸 이름을 3~20자 이내로 적어야 합니다.")
-    @Range(min= 3, max= 20, message = "룸 이름을 3~20자 이내로 적어야 합니다.")
+//    @NotBlank(message = "룸 이름을 3~20자 이내로 적어야 합니다.")
+//    @Range(min= 3, max= 20, message = "룸 이름을 3~20자 이내로 적어야 합니다.")
     private String roomName;
 
     @Column
@@ -35,28 +36,26 @@ public class Room {
     private String password;
 
     @Column
-    @NotBlank
-    @Future(message = "오늘 후의 날짜여야 합니다.")
 //    @RestDay(max= 30, message= "30일 이내의 날짜만 선택 가능합니다.")
-    private Date dDay;
+    private String dDay;
 
     @Column
-//    @Enumerated(value = EnumType.ORDINAL)
-    public long roomTheme;
-//            = RoomTheme.THEME_BASIC;
+    @Enumerated(EnumType.STRING)
+    public RoomTheme roomTheme = RoomTheme.THEME_BASIC;
 
     @Column
-    @Range(min= 1, max= 300)
+//    @Range(min= 1, max= 300)
     private long roobitAmount;
 
-    @Column(columnDefinition = "integer default 0", nullable = false)
-    private long viewCount;
+//    @Column(columnDefinition = "integer default 0", nullable = false)
+//    private long viewCount;
 
     @Column
     private String weather;
 
     @Column(columnDefinition = "integer default 0", nullable = false)
     private long patchCount;
+
 
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
@@ -73,7 +72,22 @@ public class Room {
         this.roobits.add(roobit);
 //        if(roobit.getRoobit() != this) {
 //            roobit.addRoobit(this);
-//        }
+//        }this
+    }
+
+    public enum RoomTheme {
+            THEME_BASIC(1, "기본 테마");
+
+            @Getter
+            private int themeNumber;
+
+            @Getter
+            private String themeDescription;
+
+            RoomTheme(int themeNumber, String themeDescription) {
+                this.themeNumber = themeNumber;
+                this.themeDescription = themeDescription;
+            }
     }
 
 //    public enum RoomTheme {

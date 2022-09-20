@@ -20,11 +20,10 @@ public class RoomPatchDto {
     private String roomName;
 
     @NotBlank
-    @Future(message = "오늘 후의 날짜여야 합니다.")
 //    @RestDay(max= 30, message= "30일 이내의 날짜만 선택 가능합니다.")
-    private Date dDay;
+    private String dDay;
 
     @NotBlank(message = "룸 테마를 선택해야 합니다.")
-    private long roomTheme;
+    private Room.RoomTheme roomTheme;
 
 }

@@ -2,18 +2,20 @@
 //
 //import lombok.AllArgsConstructor;
 //import lombok.Data;
+//import lombok.NoArgsConstructor;
 //import org.springframework.stereotype.Component;
 //
+//import java.time.LocalDateTime;
+//
 //@AllArgsConstructor
+//@NoArgsConstructor
 //@Component
 //@Data
-//public class WeatherVO {
-//    private String cityname;
-//    private Weather weather;
+//public WeatherVO getWeatherData(int x, int y, LocalDateTime localDateTime) throws UnsupportedEncodingException {
+//        WeatherDataVO weatherDataVO = new WeatherDataVO();
 //
-//    @Data
-//    public class Weather{
-//        String main;
-//        String description;
-//    }
-//}
+//        URI uri = this.makeRequestURIForWeatherData(58,125,localDateTime);
+//        WeatherDataFromJson data = this.restTemplate.getForObject(uri, WeatherDataFromJson.class);
+//
+//        return weatherDataVO;
+//        }

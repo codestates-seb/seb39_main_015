@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
+import java.text.ParseException;
 
 @RestController
 @RequestMapping("/rooms")
@@ -29,7 +30,7 @@ public class RoomController {
     }
 
     @PostMapping
-    public ResponseEntity postRoom(@Valid @RequestBody RoomPostDto roomPostDto) {
+    public ResponseEntity postRoom(@Valid @RequestBody RoomPostDto roomPostDto) throws ParseException {
         Room room = roomService.createRoom(roomMapper.roomPostDtoToRoom(roomPostDto));
         return new ResponseEntity<>(
                 new SingleResponseDto<>(roomMapper.roomToRoomResponseDto(room)),
@@ -38,7 +39,7 @@ public class RoomController {
 
     @PatchMapping("/{room-id}")
     public ResponseEntity patchRoom(@PathVariable("room-id") @Positive long roomId,
-                                  @Valid @RequestBody RoomPatchDto roomPatchDto) {
+                                  @Valid @RequestBody RoomPatchDto roomPatchDto) throws ParseException {
         roomPatchDto.setRoomId(roomId);
         Room room = roomService.updateRoom(roomMapper.roomPatchDtoToRoom(roomPatchDto));
 
@@ -48,7 +49,7 @@ public class RoomController {
     }
 
     @GetMapping("/{room-id}")
-    public ResponseEntity getRoom(@PathVariable("room-id") @Positive long roomId) {
+    public ResponseEntity getRoom(@PathVariable("room-id") @Positive long roomId) throws ParseException {
         Room room = roomService.findRoom(roomId);
 
         return new ResponseEntity<>(

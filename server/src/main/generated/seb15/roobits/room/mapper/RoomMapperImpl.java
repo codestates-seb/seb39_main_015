@@ -1,5 +1,6 @@
 package seb15.roobits.room.mapper;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.processing.Generated;
@@ -11,7 +12,7 @@ import seb15.roobits.room.entity.Room;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-09-20T14:14:53+0900",
+    date = "2022-09-20T15:32:58+0900",
     comments = "version: 1.5.2.Final, compiler: javac, environment: Java 11.0.16.1 (Azul Systems, Inc.)"
 )
 @Component
@@ -58,7 +59,12 @@ public class RoomMapperImpl implements RoomMapper {
 
         List<RoomResponseDto> list = new ArrayList<RoomResponseDto>( rooms.size() );
         for ( Room room : rooms ) {
-            list.add( roomToRoomResponseDto( room ) );
+            try {
+                list.add( roomToRoomResponseDto( room ) );
+            }
+            catch ( ParseException e ) {
+                throw new RuntimeException( e );
+            }
         }
 
         return list;

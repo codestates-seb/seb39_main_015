@@ -65,9 +65,9 @@ public class RoomService {
 
     private void verifyExistRoom(String roomName) {
         Optional<Room> rName = roomRepository.findByRoomName(roomName);
-//
-//        if(rName.isPresent())
-//            throw new BusinessLogicException(ExceptionCode.ROOMNAME_ALREADY_EXISTS);
+
+        if(rName.isPresent())
+            throw new BusinessLogicException(ExceptionCode.ROOMNAME_ALREADY_EXISTS);
     }
 
 }

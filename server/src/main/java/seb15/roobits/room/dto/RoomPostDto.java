@@ -18,11 +18,10 @@ public class RoomPostDto {
     @Length(min= 6, max=20, message = "패스워드는 6~20자 이내여야 합니다.")
     private String password;
 
-    @Future(message = "오늘 후의 날짜여야 합니다.")
 //    @RestDay(max= 30, message= "30일 이내의 날짜만 선택 가능합니다.")
-    private Date dDay;
+    private String dDay;
 
-    private long roomTheme;
+    private Room.RoomTheme roomTheme;
 
 //    @Range(min= 1, max= 300)
     private long roobitAmount;

@@ -144,7 +144,7 @@ const Join = () => {
     <Body>
       <FormWrapper height={'545px'} width={'476px'}>
         <img alt="회원가입 로고" src={signUpLogo}></img>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={() => handleSubmit()}>
           {/* <label htmlFor="username">ID</label> */}
           <InputWrapper>
             <Input

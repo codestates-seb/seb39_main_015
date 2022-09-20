@@ -1,8 +1,8 @@
 package seb15.roobits.room.service;
 
 import org.springframework.transaction.annotation.Transactional;
-import seb15.roobits.room.exception.BusinessLogicException;
-import seb15.roobits.room.exception.ExceptionCode;
+import seb15.roobits.exception.BusinessLogicException;
+import seb15.roobits.exception.ExceptionCode;
 import seb15.roobits.room.entity.Room;
 import seb15.roobits.room.repository.RoomRepository;
 import org.springframework.data.domain.Page;
@@ -20,13 +20,11 @@ public class RoomService {
     public RoomService(RoomRepository roomRepository) { this.roomRepository = roomRepository; }
 
     public Room createRoom(Room room) {
-        String roomName = new String();
-
         // 이미 있는 이름인지 검사
-        verifyExistRoom(roomName);
-        room.setRoomName(roomName);
+        verifyExistRoom(room.getRoomName());
+        Room savedRoom =  roomRepository.save(room);
 
-        return roomRepository.save(room);
+        return savedRoom;
     }
 
     public Room updateRoom(Room room) {

@@ -1,4 +1,4 @@
-package seb15.roobits.room.dto;
+package seb15.roobits.globaldto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

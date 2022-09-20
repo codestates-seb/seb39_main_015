@@ -76,8 +76,8 @@ public class MemberDto {
     @Builder
     @AllArgsConstructor
     public static class GetMyRoomResponse{
-        @Setter(AccessLevel.NONE)
-        private Long memberId;
+//        @Setter(AccessLevel.NONE)
+//        private Long memberId;
         private String username;
 
 //        private List<Room> rooms;

@@ -8,8 +8,8 @@ import java.util.Optional;
 
 public interface RoomRepository extends JpaRepository<Room, Long> {
 
-    Optional<Room> findById(long boardId);
+    Optional<Room> findById(long roomId);
 
-    @Query("SELECT * FROM ROOM WHERE ROOM_NAME = :roomName")
+//    @Query("SELECT * FROM ROOM WHERE ROOM_NAME = :roomName")
     Optional<Room> findByRoomName(String roomName);
 }

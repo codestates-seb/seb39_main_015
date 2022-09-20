@@ -49,22 +49,6 @@ export default function MainPage() {
     anchors: ['sectionOne', 'sectionTwo', 'sectionThree'],
   };
 
-  // 날씨 api
-  // const key = '769a3e850bc3300f5fa62d44cc83ab83';
-  // const lat = '37.5326';
-  // const lon = '127.024612';
-
-  // const { data } = useQuery(
-  //   'weather',
-  //   () =>
-  //     axios
-  //       .get(
-  //         `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${key}`
-  //       )
-  //       .then((res) => res.data.weather[0].description),
-  //   { staleTime: 1000 * 60 * 5 }
-  // );
-
   return (
     <SectionsContainer {...options}>
       <Body>

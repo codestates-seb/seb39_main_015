@@ -15,20 +15,20 @@ public class RoobitResponseDto {
 
     private long roobitId;
 
-    private String nickname;
-    private String body;
-    private String email;
-    private String reception;
-    private String style;
-
-    @CreatedDate
-    private LocalDateTime createdAt;
-    private Roobit.RoobitStatus roobitStatus;
-
-    @Setter(AccessLevel.NONE)
-    private long roomId;
-    public void setRoomId(Room room) {
-        this.roomId = room.getRoomId();
-    }
+//    private String nickname;
+//    private String body;
+//    private String email;
+//    private String reception;
+//    private String style;
+//
+//    @CreatedDate
+//    private LocalDateTime createdAt;
+//    private Roobit.RoobitStatus roobitStatus;
+//
+//    @Setter(AccessLevel.NONE)
+//    private long roomId;
+//    public void setRoomId(Room room) {
+//        this.roomId = room.getRoomId();
+//    }
 
 }

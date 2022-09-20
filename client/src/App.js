@@ -9,23 +9,6 @@ import /*useState, useEffect */ 'react';
 import axios from 'axios';
 import { useQuery } from 'react-query';
 
-// 아이디, 비밀번호에 대한 Auth 확인
-const authHandler = () => {
-  axios
-    .get(`${process.env.REACT_APP_API_URL}/user/auth`)
-    .then((res) => res.data);
-};
-
-export const checkAuth = () =>
-  useQuery(
-    'auth',
-    // if (authorizationCode) {
-    //   getAccessToken(authorizationCode);
-    // }
-    authHandler,
-    { staleTime: 1000 * 60 * 5 }
-  );
-
 function App() {
   // const [accessToken, setAccessToken] = useState('');
   // const [isLogin, setIsLogin] = useState('');
@@ -61,12 +44,28 @@ function App() {
   //   }
   //   authHandler();
   // }, []);
-  const { data } = checkAuth();
+
+  // 아이디, 비밀번호에 대한 Auth 확인
+  const authHandler = () => {
+    axios
+      .get(`${process.env.REACT_APP_API_URL}/user/auth`)
+      .then((res) => res.data);
+  };
+
+  const { data } = useQuery(
+    'auth',
+    // if (authorizationCode) {
+    //   getAccessToken(authorizationCode);
+    // }
+    authHandler,
+    { staleTime: 1000 * 60 * 5 }
+  );
+
   console.log(data);
 
   return (
     <div>
-      <Header checkAuth={checkAuth} />
+      <Header />
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/join" element={<Join />} />

@@ -8,6 +8,7 @@ import Header from './components/Header.js';
 import /*useState, useEffect */ 'react';
 import axios from 'axios';
 import { useQuery } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
 
 function App() {
   // const [accessToken, setAccessToken] = useState('');
@@ -72,6 +73,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/myroom" element={<MyRoom />} />
       </Routes>
+      <ReactQueryDevtools initialIsOpen={false} />
     </div>
   );
 }

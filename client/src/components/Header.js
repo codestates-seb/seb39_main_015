@@ -3,7 +3,6 @@ import catImage from '../images/cat.png';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 // React query devtools
-import { ReactQueryDevtools } from 'react-query/devtools';
 import { useQueryClient } from 'react-query';
 
 export const HeaderStyle = styled.div`
@@ -51,7 +50,6 @@ export default function Header() {
           <img alt="logo" src={catImage} />
         </Logo>
       </Link>
-      <ReactQueryDevtools initialIsOpen={false} />
       <ButtonSection>
         {userInfo ? (
           ''

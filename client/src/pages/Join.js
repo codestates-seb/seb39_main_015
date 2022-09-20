@@ -142,7 +142,7 @@ const Join = () => {
 
   return (
     <Body>
-      <FormWrapper height={'628px'} width={'476px'}>
+      <FormWrapper height={'545px'} width={'476px'}>
         <img alt="회원가입 로고" src={signUpLogo}></img>
         <form onSubmit={handleSubmit}>
           {/* <label htmlFor="username">ID</label> */}
@@ -204,9 +204,9 @@ const Join = () => {
             </OrangeButton>
           </div>
         </form>
-        <p>
+        <div>
           이미 회원이신가요? <StyledLink to="/login">로그인</StyledLink>
-        </p>
+        </div>
       </FormWrapper>
     </Body>
   );

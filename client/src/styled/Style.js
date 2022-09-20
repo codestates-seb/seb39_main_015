@@ -23,8 +23,11 @@ export const FormWrapper = styled.div`
   flex-direction: column;
 
   > img {
-    width: 124px;
-    height: 40px;
+    max-width: 124px;
+    height: auto;
+    width: auto;
+    /* width: 124px;
+    height: 40px; */
     margin-bottom: 33px;
   }
   > p {

@@ -103,7 +103,7 @@ const Login = () => {
   // }, [isLoading]);
   return (
     <Body>
-      <FormWrapper width={'476px'} height={'545px'}>
+      <FormWrapper width={'476px'} height={'628px'}>
         <img alt="login logo" src={logInLogo} />
         <form onSubmit={hadleSubmit}>
           {/* <label htmlFor="memberId">ID</label> */}

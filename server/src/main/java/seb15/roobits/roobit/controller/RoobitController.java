@@ -1,5 +1,6 @@
 package seb15.roobits.roobit.controller;
 
+
 import seb15.roobits.globaldto.SingleResponseDto;
 import seb15.roobits.roobit.dto.RoobitPostDto;
 import seb15.roobits.roobit.service.RoobitService;

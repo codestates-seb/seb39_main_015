@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import seb15.roobits.auditable.Auditable;
 import seb15.roobits.room.entity.Room;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -54,6 +55,12 @@ public class Member extends Auditable {
     @OneToMany(mappedBy = "member")
     private List<Room> rooms = new ArrayList<>();
 
+    public void setRoom(Room room){
+        rooms.add(room);
+//        if(room.getRoom() != this){
+//            room.setRoom(this);
+//        }
+    }
 
 
     public List<String> getRoleList(){

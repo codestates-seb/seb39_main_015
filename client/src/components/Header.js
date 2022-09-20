@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import catImage from '../images/cat.png';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+// React query devtools
+import { ReactQueryDevtools } from 'react-query/devtools';
 
 export const HeaderStyle = styled.div`
   position: fixed;
@@ -45,6 +47,7 @@ export default function Header({ isLogin, setIsLogin, accessToken }) {
           <img alt="logo" src={catImage} />
         </Logo>
       </Link>
+      <ReactQueryDevtools initialIsOpen={false} />
       <ButtonSection>
         {isLogin ? (
           ''
@@ -58,7 +61,7 @@ export default function Header({ isLogin, setIsLogin, accessToken }) {
           <button onClick={logoutHandler}>로그아웃</button>
         ) : (
           <Link to="/join">
-            <button>가입하기</button>
+            <button>회원가입</button>
           </Link>
         )}
       </ButtonSection>

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 // React query devtools
 import { ReactQueryDevtools } from 'react-query/devtools';
+import { useQueryClient } from 'react-query';
 
 export const HeaderStyle = styled.div`
   position: fixed;
@@ -30,16 +31,19 @@ const ButtonSection = styled.div`
   display: flex;
 `;
 
-export default function Header({ isLogin, setIsLogin, accessToken }) {
+export default function Header() {
   const logoutHandler = () => {
     axios
-      .post(`${process.env.REACT_APP_API_URL}/user/logout`, { accessToken })
+      .post(`${process.env.REACT_APP_API_URL}/user/logout`)
       .then((res) => {
         console.log(res.data);
-        setIsLogin(false);
       })
       .catch((res) => console.log(res.data));
   };
+
+  const queryClient = useQueryClient();
+  const userInfo = queryClient.getQueryData('auth');
+
   return (
     <HeaderStyle>
       <Link to="/">
@@ -49,7 +53,7 @@ export default function Header({ isLogin, setIsLogin, accessToken }) {
       </Link>
       <ReactQueryDevtools initialIsOpen={false} />
       <ButtonSection>
-        {isLogin ? (
+        {userInfo ? (
           ''
         ) : (
           <Link to="/login">
@@ -57,7 +61,7 @@ export default function Header({ isLogin, setIsLogin, accessToken }) {
           </Link>
         )}
 
-        {isLogin ? (
+        {userInfo ? (
           <button onClick={logoutHandler}>로그아웃</button>
         ) : (
           <Link to="/join">

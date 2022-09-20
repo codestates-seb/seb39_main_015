@@ -16,6 +16,7 @@ import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { faLock } from '@fortawesome/free-solid-svg-icons';
 import { faGooglePlusG } from '@fortawesome/free-brands-svg-icons';
 import logInLogo from '../images/cat.png';
+// import { useQueryClient } from 'react-query';
 
 // const LoginFormWrapper = styled.div`
 //   padding-top: 80px;
@@ -68,13 +69,26 @@ const Login = () => {
     }
   };
 
-  const CLIENT_ID =
-    '178592033254-71vmmah4pd1rqor42idk7m9nma4vme9t.apps.googleusercontent.com';
-
   const loginRequestHandler = () => {
-    return window.location.assign(
-      `https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile&response_type=token&redirect_uri=http://localhost:3000&client_id=${CLIENT_ID}`
-    );
+    // 클라이언트 아이디값 넣고 리다이렉팅
+    // const CLIENT_ID =
+    //   '178592033254-71vmmah4pd1rqor42idk7m9nma4vme9t.apps.googleusercontent.com';
+    // return window.location.assign(
+    //   `https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile&response_type=token&redirect_uri=http://localhost:3000&client_id=${CLIENT_ID}`
+    // );
+    setIsLoading(true);
+    axios
+      .post(`${process.env.REACT_APP_API_URL}/user/googleauth`)
+      .then((res) => {
+        console.log(res.data);
+        setIsLoading(false);
+        navigate('/');
+      })
+      .catch((res) => {
+        console.log(res.data);
+        setIsLoading(false);
+        navigate('/login');
+      });
   };
 
   // useEffect(() => {
@@ -101,6 +115,7 @@ const Login = () => {
   //       });
   //   }
   // }, [isLoading]);
+
   return (
     <Body>
       <FormWrapper width={'476px'} height={'628px'}>

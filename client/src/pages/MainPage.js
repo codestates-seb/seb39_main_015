@@ -2,8 +2,6 @@ import styled from 'styled-components';
 import emoji from 'node-emoji';
 import { SectionsContainer, Section } from 'react-fullpage';
 import { Link } from 'react-router-dom';
-import { useQuery } from 'react-query';
-import axios from 'axios';
 
 const Body = styled.div`
   height: 100vh;
@@ -50,22 +48,22 @@ export default function MainPage() {
   let options = {
     anchors: ['sectionOne', 'sectionTwo', 'sectionThree'],
   };
-  const key = '769a3e850bc3300f5fa62d44cc83ab83';
-  const lat = '37.5326';
-  const lon = '127.024612';
 
-  const { data } = useQuery(
-    'weather',
-    () =>
-      axios
-        .get(
-          `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${key}`
-        )
-        .then((res) => res.data.weather[0].description),
-    { staleTime: 1000 * 60 * 5 }
-  );
+  // 날씨 api
+  // const key = '769a3e850bc3300f5fa62d44cc83ab83';
+  // const lat = '37.5326';
+  // const lon = '127.024612';
 
-  console.log(data);
+  // const { data } = useQuery(
+  //   'weather',
+  //   () =>
+  //     axios
+  //       .get(
+  //         `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${key}`
+  //       )
+  //       .then((res) => res.data.weather[0].description),
+  //   { staleTime: 1000 * 60 * 5 }
+  // );
 
   return (
     <SectionsContainer {...options}>

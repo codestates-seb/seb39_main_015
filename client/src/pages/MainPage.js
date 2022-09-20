@@ -46,12 +46,7 @@ const Column3 = styled.section`
 
 export default function MainPage() {
   let options = {
-    sectionClassName: 'section',
     anchors: ['sectionOne', 'sectionTwo', 'sectionThree'],
-    scrollBar: false,
-    navigation: true,
-    verticalAlign: false,
-    arrowNavigation: true,
   };
   return (
     <SectionsContainer {...options}>

@@ -29,7 +29,7 @@ import logInLogo from '../images/cat.png';
 
 const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [memberId, setMemberId] = useState('');
+  const [username, setMemberId] = useState('');
   const [password, setPassword] = useState('');
 
   const navigate = useNavigate();
@@ -37,18 +37,18 @@ const Login = () => {
   const hadleSubmit = (e) => {
     e.preventDefault();
 
-    const memberIdInput = e.target.memberId.value;
+    const memberIdInput = e.target.username.value;
     const passwordInput = e.target.password.value;
 
     setMemberId(memberIdInput);
     setPassword(passwordInput);
     setIsLoading(true);
 
-    if (isLoading && memberId !== '' && password !== '') {
+    if (isLoading && username !== '' && password !== '') {
       //`${process.env.REACT_APP_API_URL}/users/login`
       axios
-        .post(`${process.env.REACT_APP_API_URL}/user/login`, {
-          memberId,
+        .post(`/user/login`, {
+          username,
           password,
         })
         .then((res) => {
@@ -60,7 +60,7 @@ const Login = () => {
         .catch(() => {
           //더미 데이터 적용
           //   dispatch(loginInfoActions.set(loginResponse));
-          console.log('login-dummydata: ', memberId, password);
+          console.log('login-dummydata: ', username, password);
           setIsLoading(false);
           navigate('/login');
           //이후 통신이 잘 되면 이 부분은 수정해야 됩니다.
@@ -78,11 +78,11 @@ const Login = () => {
   };
 
   // useEffect(() => {
-  //   if (isLoading && memberId !== '' && password !== '') {
+  //   if (isLoading && username !== '' && password !== '') {
   //     //`${process.env.REACT_APP_API_URL}/users/login`
   //     axios
   //       .post(`${process.env.REACT_APP_API_URL}/user/login`, {
-  //         memberId,
+  //         username,
   //         password,
   //       })
   //       .then((res) => {
@@ -94,7 +94,7 @@ const Login = () => {
   //       .catch(() => {
   //         //더미 데이터 적용
   //         //   dispatch(loginInfoActions.set(loginResponse));
-  //         console.log('login-dummydata: ', memberId, password);
+  //         console.log('login-dummydata: ', username, password);
   //         setIsLoading(false);
   //         navigate('/login');
   //         //이후 통신이 잘 되면 이 부분은 수정해야 됩니다.
@@ -106,11 +106,11 @@ const Login = () => {
       <FormWrapper width={'476px'} height={'628px'}>
         <img alt="login logo" src={logInLogo} />
         <form onSubmit={hadleSubmit}>
-          {/* <label htmlFor="memberId">ID</label> */}
+          {/* <label htmlFor="username">ID</label> */}
           <InputWrapper>
             <Input
               type="text"
-              id="memberId"
+              id="username"
               name="ID"
               height={'45px'}
               width={'314px'}

@@ -84,9 +84,9 @@ const Join = () => {
     }
 
     if (isLoading && isValid) {
-      // `${process.env.REACT_APP_API_URL}/users/join`
+      // `${process.env.REACT_APP_API_URL}/user/join`
       axios
-        .post(`${process.env.REACT_APP_API_URL}/user/join`, {
+        .post(`/user/join`, {
           username,
           email,
           password,

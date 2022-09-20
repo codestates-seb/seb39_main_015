@@ -14,7 +14,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { faLock } from '@fortawesome/free-solid-svg-icons';
-import { faGooglePlusG } from '@fortawesome/free-brand-svg-icons';
+import { faGooglePlusG } from '@fortawesome/free-brands-svg-icons';
 import logInLogo from '../images/cat.png';
 
 // const LoginFormWrapper = styled.div`
@@ -148,6 +148,8 @@ const Login = () => {
           width={'314px'}
           onClick={loginRequestHandler}
         >
+          <FontAwesomeIcon icon={faGooglePlusG} />
+          <span> </span>
           구글 계정으로 로그인
         </WhiteButton>
         <div>

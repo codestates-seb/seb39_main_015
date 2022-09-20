@@ -1,17 +1,11 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-// import { joinResponse } from '../data/DummyData';
+// import styled from 'styled-components';
+import { Input, Body, FormWrapper, OrangeButton } from '../styled/Style.js';
 
 // 디자인 컨셉 결정 후 일괄 적용할 예정이기 때문에 styled 폴더에서 가져온 요소는 모두 삭제.
 // 추후 컨셉이 결정되면 필요한 스타일을 미리 만들어두고 사용할 것.
-
-const JoinFormWrapper = styled.div`
-  padding-top: 5vh;
-  height: 100vh;
-  background-color: #ffc75f;
-`;
 
 const Join = () => {
   // 기존 displayName은 username으로 변경됨
@@ -29,7 +23,6 @@ const Join = () => {
   const idRegex = /^[a-z0-9]{4,15}$/;
   const emailRegex = /^[a-zA-Z0-9+-\\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
   const pwRegex = /^[a-zA-Z0-9`~!@#$%^&*()-_=+]{8,20}$/;
-
   const navigate = useNavigate();
 
   // 아이디 작성시 유효성 검사
@@ -38,7 +31,9 @@ const Join = () => {
     setUsername(iptDisplayName);
 
     if (!idRegex.test(iptDisplayName)) {
-      setUsernameMsg('4자-15자 사이 영문(소문자), 숫자 조합으로 작성해주세요.');
+      setUsernameMsg(
+        '! 4자-15자 사이 영문(소문자), 숫자 조합으로 작성해주세요.'
+      );
     } else {
       setUsernameMsg('');
     }
@@ -49,7 +44,7 @@ const Join = () => {
     const iptEmail = e.target.value;
     setEmail(iptEmail);
     if (!emailRegex.test(iptEmail)) {
-      setEmailMsg('이메일 형식에 맞춰서 작성해주세요.');
+      setEmailMsg('! 이메일 형식에 맞춰서 작성해주세요.');
     } else {
       setEmailMsg('');
     }
@@ -61,7 +56,7 @@ const Join = () => {
     setPassword(iptPassword);
     if (!pwRegex.test(iptPassword)) {
       setPasswordMsg(
-        '8자-20자 사이 영문(대소문자), 숫자, 특수문자{`~!@#$%^&*()-_=+) 조합으로 작성해주세요.'
+        '! 8자-20자 사이 영문(대소문자), 숫자, 특수문자{`~!@#$%^&*()-_=+) 조합으로 작성해주세요.'
       );
     } else {
       setPasswordMsg('');
@@ -93,12 +88,11 @@ const Join = () => {
           //더미 데이터 적용
           setIsLoading(false);
           navigate('/join');
-          //이 후 통신이 잘 되면 이 부분은 수정해야됩니다.
-          console.log(username, email, password);
         });
     }
   };
 
+  // 유효성 검사 실행 useEffect
   useEffect(() => {
     setIsValid(false);
     if (
@@ -135,46 +129,58 @@ const Join = () => {
   // }, [isLoading, isValid]);
 
   return (
-    <JoinFormWrapper>
-      <p>계정을 만들고 Roobits 룸을 만들어보세요.</p>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="username">ID</label>
-        <input
-          id="username"
-          name="username"
-          value={username}
-          onChange={handleDN}
-          required
-        />
-        <p>{usernameMsg}</p>
-        <label htmlFor="email">Email</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          value={email}
-          onChange={handleEmail}
-          required
-        />
-        <p>{emailMsg}</p>
-        <label htmlFor="password">Password</label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          value={password}
-          onChange={handlePW}
-          required
-        />
-        <p>{passwordMsg}</p>
-        <div>
-          <button type="submit">Sign up</button>
-        </div>
-      </form>
-      <p>
-        이미 회원이신가요? <Link to="/login">로그인하러 가기</Link>
-      </p>
-    </JoinFormWrapper>
+    <Body>
+      <FormWrapper>
+        <p>계정을 만들고 Roobits 룸을 만들어보세요.</p>
+        <form onSubmit={handleSubmit}>
+          {/* <label htmlFor="username">ID</label> */}
+          <Input
+            id="username"
+            name="username"
+            value={username}
+            height={'45px'}
+            width={'314px'}
+            onChange={handleDN}
+            required
+            placeholder="아이디"
+          />
+          {/* <img></img> */}
+          <p>{usernameMsg}</p>
+          <label htmlFor="email">Email</label>
+          <Input
+            type="email"
+            id="email"
+            name="email"
+            value={email}
+            height={'45px'}
+            width={'314px'}
+            onChange={handleEmail}
+            required
+          />
+          <p>{emailMsg}</p>
+          <label htmlFor="password">Password</label>
+          <Input
+            type="password"
+            id="password"
+            name="password"
+            value={password}
+            height={'45px'}
+            width={'314px'}
+            onChange={handlePW}
+            required
+          />
+          <p>{passwordMsg}</p>
+          <div>
+            <OrangeButton height={'45px'} width={'314px'} type="submit">
+              회원가입
+            </OrangeButton>
+          </div>
+        </form>
+        <p>
+          이미 회원이신가요? <Link to="/login">로그인하러 가기</Link>
+        </p>
+      </FormWrapper>
+    </Body>
   );
 };
 

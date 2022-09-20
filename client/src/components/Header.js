@@ -8,18 +8,18 @@ export const HeaderStyle = styled.div`
   top: 0;
   left: 0;
   right: 0;
-  height: 5vh;
+  height: 80px;
   z-index: 99;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #4bbc8e;
+  background-color: #fbfbfa;
 `;
 const Logo = styled.div`
   height: 100%;
   > img {
     object-fit: cover;
-    max-height: 5vh;
+    max-height: 80px;
     height: auto;
     width: auto;
   }

@@ -7,7 +7,7 @@ const Body = styled.div`
   height: 100vh;
 `;
 const Column1 = styled.section`
-  padding-top: 5vh;
+  padding-top: 80px;
   height: 100%;
   background-color: #ffc75f;
   display: flex;
@@ -26,7 +26,7 @@ const Column1 = styled.section`
   }
 `;
 const Column2 = styled.section`
-  padding-top: 5vh;
+  padding-top: 80px;
   height: 100%;
   background-color: #845ec2;
   display: flex;
@@ -35,7 +35,7 @@ const Column2 = styled.section`
   font-size: 3rem;
 `;
 const Column3 = styled.section`
-  padding-top: 5vh;
+  padding-top: 80px;
   height: 100%;
   background-color: #ff6f91;
   display: flex;

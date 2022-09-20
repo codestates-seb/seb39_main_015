@@ -9,7 +9,7 @@ const Body = styled.div`
 const Column1 = styled.section`
   padding-top: 80px;
   height: 100%;
-  background-color: #ffc75f;
+  background-color: #fbfbfa;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -28,7 +28,7 @@ const Column1 = styled.section`
 const Column2 = styled.section`
   padding-top: 80px;
   height: 100%;
-  background-color: #845ec2;
+  background-color: #fbfbfa;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -37,7 +37,7 @@ const Column2 = styled.section`
 const Column3 = styled.section`
   padding-top: 80px;
   height: 100%;
-  background-color: #ff6f91;
+  background-color: #fbfbfa;
   display: flex;
   justify-content: center;
   align-items: center;

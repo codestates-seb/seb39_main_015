@@ -1,10 +1,20 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 // import styled from 'styled-components';
-import { Input, Body, FormWrapper, OrangeButton } from '../styled/Style.js';
+import {
+  Input,
+  Body,
+  FormWrapper,
+  OrangeButton,
+  LogoWrapper,
+  InputWrapper,
+  StyledLink,
+} from '../styled/Style.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faEnvelope } from '@fortawesome/free-regular-svg-icons';
+import { faLock } from '@fortawesome/free-solid-svg-icons';
+import signUpLogo from '../images/cat.png';
 
 // 디자인 컨셉 결정 후 일괄 적용할 예정이기 때문에 styled 폴더에서 가져온 요소는 모두 삭제.
 // 추후 컨셉이 결정되면 필요한 스타일을 미리 만들어두고 사용할 것.
@@ -132,46 +142,62 @@ const Join = () => {
 
   return (
     <Body>
-      <FormWrapper>
-        <p>계정을 만들고 Roobits 룸을 만들어보세요.</p>
+      <FormWrapper height={'628px'} width={'476px'}>
+        <img alt="회원가입 로고" src={signUpLogo}></img>
         <form onSubmit={handleSubmit}>
           {/* <label htmlFor="username">ID</label> */}
-          <Input
-            id="username"
-            name="username"
-            value={username}
-            height={'45px'}
-            width={'314px'}
-            onChange={handleDN}
-            required
-            placeholder="아이디"
-          />
-          <FontAwesomeIcon icon={faUser} />
-          <p>{usernameMsg}</p>
-          <label htmlFor="email">Email</label>
-          <Input
-            type="email"
-            id="email"
-            name="email"
-            value={email}
-            height={'45px'}
-            width={'314px'}
-            onChange={handleEmail}
-            required
-          />
-          <p>{emailMsg}</p>
-          <label htmlFor="password">Password</label>
-          <Input
-            type="password"
-            id="password"
-            name="password"
-            value={password}
-            height={'45px'}
-            width={'314px'}
-            onChange={handlePW}
-            required
-          />
-          <p>{passwordMsg}</p>
+          <InputWrapper>
+            <Input
+              id="username"
+              name="username"
+              value={username}
+              height={'45px'}
+              width={'314px'}
+              onChange={handleDN}
+              required
+              placeholder="아이디"
+            />
+            <LogoWrapper>
+              <FontAwesomeIcon icon={faUser} />
+            </LogoWrapper>
+            <p>{usernameMsg}</p>
+          </InputWrapper>
+          {/* <label htmlFor="email">Email</label> */}
+          <InputWrapper>
+            <Input
+              type="email"
+              id="email"
+              name="email"
+              value={email}
+              height={'45px'}
+              width={'314px'}
+              onChange={handleEmail}
+              required
+              placeholder="이메일"
+            />
+            <LogoWrapper>
+              <FontAwesomeIcon icon={faEnvelope} />
+            </LogoWrapper>
+            <p>{emailMsg}</p>
+          </InputWrapper>
+          {/* <label htmlFor="password">Password</label> */}
+          <InputWrapper>
+            <Input
+              type="password"
+              id="password"
+              name="password"
+              value={password}
+              height={'45px'}
+              width={'314px'}
+              onChange={handlePW}
+              required
+              placeholder="비밀번호"
+            />
+            <LogoWrapper>
+              <FontAwesomeIcon icon={faLock} />
+            </LogoWrapper>
+            <p>{passwordMsg}</p>
+          </InputWrapper>
           <div>
             <OrangeButton height={'45px'} width={'314px'} type="submit">
               회원가입
@@ -179,7 +205,7 @@ const Join = () => {
           </div>
         </form>
         <p>
-          이미 회원이신가요? <Link to="/login">로그인하러 가기</Link>
+          이미 회원이신가요? <StyledLink to="/login">로그인</StyledLink>
         </p>
       </FormWrapper>
     </Body>

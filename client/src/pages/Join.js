@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 // import styled from 'styled-components';
 import { Input, Body, FormWrapper, OrangeButton } from '../styled/Style.js';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 // 디자인 컨셉 결정 후 일괄 적용할 예정이기 때문에 styled 폴더에서 가져온 요소는 모두 삭제.
 // 추후 컨셉이 결정되면 필요한 스타일을 미리 만들어두고 사용할 것.
@@ -144,7 +146,7 @@ const Join = () => {
             required
             placeholder="아이디"
           />
-          {/* <img></img> */}
+          <FontAwesomeIcon icon={faUser} />
           <p>{usernameMsg}</p>
           <label htmlFor="email">Email</label>
           <Input

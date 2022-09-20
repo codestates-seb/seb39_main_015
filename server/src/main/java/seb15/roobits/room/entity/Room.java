@@ -105,4 +105,19 @@ public class Room {
 //            }
 //    }
 
+//    public enum RoomTheme {
+//            THEME_BASIC(1, "기본 테마");
+//
+//            @Getter
+//            private int themeNumber;
+//
+//            @Getter
+//            private String themeDescription;
+//
+//            RoomTheme(int themeNumber, String themeDescription) {
+//                this.themeNumber = themeNumber;
+//                this.themeDescription = themeDescription;
+//            }
+//    }
+
 }

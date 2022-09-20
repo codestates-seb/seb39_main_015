@@ -26,8 +26,8 @@ public class Room {
     private long roomId;
 
     @Column(unique = true)
-    @NotBlank(message = "룸 이름을 3~20자 이내로 적어야 합니다.")
-    @Range(min= 3, max= 20, message = "룸 이름을 3~20자 이내로 적어야 합니다.")
+//    @NotBlank(message = "룸 이름을 3~20자 이내로 적어야 합니다.")
+//    @Range(min= 3, max= 20, message = "룸 이름을 3~20자 이내로 적어야 합니다.")
     private String roomName;
 
     @Column
@@ -35,7 +35,6 @@ public class Room {
     private String password;
 
     @Column
-    @NotBlank
     @Future(message = "오늘 후의 날짜여야 합니다.")
 //    @RestDay(max= 30, message= "30일 이내의 날짜만 선택 가능합니다.")
     private Date dDay;
@@ -46,7 +45,7 @@ public class Room {
 //            = RoomTheme.THEME_BASIC;
 
     @Column
-    @Range(min= 1, max= 300)
+//    @Range(min= 1, max= 300)
     private long roobitAmount;
 
     @Column(columnDefinition = "integer default 0", nullable = false)
@@ -57,6 +56,7 @@ public class Room {
 
     @Column(columnDefinition = "integer default 0", nullable = false)
     private long patchCount;
+
 
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")

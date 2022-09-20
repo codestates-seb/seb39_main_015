@@ -29,8 +29,10 @@ public class RoomResponseDto {
     @Column(columnDefinition = "integer default 0", nullable = false)
     private long viewCount;
 
-    private String url;
+    private long roobitAmount;
 
-    public RoomResponseDto(long roomId, String roomName, Date dDay, long roomTheme, Object weather, long viewCount, long restDay, String url) {
+//    private String url;
+
+    public RoomResponseDto(long roomId, String roomName, Date dDay, long roomTheme, Object weather, long viewCount, long roobitAmount, long restDay) {
     }
 }

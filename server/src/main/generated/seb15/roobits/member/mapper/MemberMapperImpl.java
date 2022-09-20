@@ -7,7 +7,7 @@ import seb15.roobits.member.entity.Member;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-09-19T14:40:42+0900",
+    date = "2022-09-20T01:01:38+0900",
     comments = "version: 1.5.2.Final, compiler: javac, environment: Java 11.0.16.1 (Azul Systems, Inc.)"
 )
 @Component
@@ -76,7 +76,6 @@ public class MemberMapperImpl implements MemberMapper {
 
         MemberDto.GetMyRoomResponse.GetMyRoomResponseBuilder getMyRoomResponse = MemberDto.GetMyRoomResponse.builder();
 
-        getMyRoomResponse.memberId( member.getMemberId() );
         getMyRoomResponse.username( member.getUsername() );
 
         return getMyRoomResponse.build();

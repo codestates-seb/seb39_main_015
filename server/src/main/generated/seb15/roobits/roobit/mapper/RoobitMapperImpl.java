@@ -10,7 +10,7 @@ import seb15.roobits.roobit.entity.Roobit;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-09-19T14:40:42+0900",
+    date = "2022-09-20T01:01:40+0900",
     comments = "version: 1.5.2.Final, compiler: javac, environment: Java 11.0.16.1 (Azul Systems, Inc.)"
 )
 @Component

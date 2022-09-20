@@ -11,7 +11,7 @@ import seb15.roobits.room.entity.Room;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-09-19T17:36:42+0900",
+    date = "2022-09-20T14:14:53+0900",
     comments = "version: 1.5.2.Final, compiler: javac, environment: Java 11.0.16.1 (Azul Systems, Inc.)"
 )
 @Component

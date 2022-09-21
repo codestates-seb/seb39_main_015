@@ -31,8 +31,7 @@ public class RoomController {
     @PostMapping
     public ResponseEntity postRoom(@Valid @RequestBody RoomPostDto roomPostDto) {
         Room room = roomService.createRoom(roomMapper.roomPostDtoToRoom(roomPostDto));
-        return new ResponseEntity<>(
-                new SingleResponseDto<>(roomMapper.roomToRoomResponseDto(room)),
+        return new ResponseEntity<>(roomMapper.roomToRoomResponseDto(room),
                 HttpStatus.CREATED);
     }
 
@@ -42,8 +41,7 @@ public class RoomController {
         roomPatchDto.setRoomId(roomId);
         Room room = roomService.updateRoom(roomMapper.roomPatchDtoToRoom(roomPatchDto));
 
-        return new ResponseEntity<>(
-                new SingleResponseDto<>(roomMapper.roomToRoomResponseDto(room)),
+        return new ResponseEntity<>(roomMapper.roomToRoomResponseDto(room),
                 HttpStatus.OK);
     }
 

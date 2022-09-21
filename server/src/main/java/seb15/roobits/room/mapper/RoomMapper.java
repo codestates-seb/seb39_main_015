@@ -13,25 +13,25 @@ import java.util.List;
 public interface RoomMapper {
     Room roomPostDtoToRoom(RoomPostDto roomPostDto);
     Room roomPatchDtoToRoom(RoomPatchDto roomPatchDto);
-    default RoomResponseDto roomToRoomResponseDto(Room room) {
-        Date currentDate = new Date (System.currentTimeMillis());
-        Date dDay = room.getDDay();
-        long restDay = (dDay.getTime() - currentDate.getTime())/(1000*24*60*60) + 1;
-
-        String url = "www.asdf.com/rooms/" + room.getRoomId(); //주소 형식 고쳐야 함
-
-        RoomResponseDto roomResponseDto = new RoomResponseDto(
-                room.getRoomId(),
-                room.getRoomName(),
-                room.getDDay(),
-                room.getRoomTheme(),
-                room.getWeather(),
-                room.getViewCount(),
-                restDay,
-                url
-        );
-
-        return roomResponseDto;
-    }
-    List<RoomResponseDto> roomsToRoomResponseDtos(List<Room> rooms);
+    RoomResponseDto roomToRoomResponseDto(Room room);
+//    default RoomResponseDto roomToRoomResponseDto(Room room) {
+//        Date currentDate = new Date (System.currentTimeMillis());
+//        Date dDay = room.getDDay();
+//        long restDay = (dDay.getTime() - currentDate.getTime())/(1000*24*60*60) + 1;
+//
+//        String url = "http://localhost:8080/rooms/" + room.getRoomId(); //주소 형식 고쳐야 함
+//
+//        RoomResponseDto roomResponseDto = new RoomResponseDto(
+//                room.getRoomId(),
+//                room.getRoomName(),
+//                room.getDDay(),
+//                room.getRoomTheme(),
+////                room.getWeather(),
+////                room.getViewCount(),
+//                restDay,
+//                url
+//        );
+//
+//        return roomResponseDto;
+//    }
 }

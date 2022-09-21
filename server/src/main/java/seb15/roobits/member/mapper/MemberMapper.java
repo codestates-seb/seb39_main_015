@@ -16,7 +16,13 @@ public interface MemberMapper {
 
     Member findToMember(MemberDto.Find requestBody);
 
+    Member checkUsernameToMember(MemberDto.CheckUsername requestBody);
+
+    MemberDto.CheckUsernameResponse memberToCheckUsernameResponse(Member member);
+
     MemberDto.FindUsernameResponse memberToFindUsernameResponse(Member member);
 
     MemberDto.GetMyRoomResponse memberTogetMyRoomResponse(Member member);
+
+    MemberDto.CheckAuthResponse memberToCheckAuthResponse(Member member);
 }

@@ -34,6 +34,7 @@ public class MemberService {
         String encPassword = passwordEncoder.encode(rawPassword);
         member.setPassword(encPassword);
         member.setRoles("ROLE_HOST");
+        member.setMemberStatus(Member.MemberStatus.MEMBER_ACTIVE);
         Member savedMember = memberRepository.save(member);
         return savedMember;
     }
@@ -57,7 +58,8 @@ public class MemberService {
     //회원탈퇴
     public void deleteMember(long memberId) {
         Member findMember = findVerifyMember(memberId);
-        memberRepository.delete(findMember);
+        findMember.setMemberStatus(Member.MemberStatus.MEMBER_QUIT);
+//        memberRepository.delete(findMember);
     }
 
     //특정회원 조회 (관리자)
@@ -71,10 +73,17 @@ public class MemberService {
     }
 
     //존재하는 회원 인지 검증
+//    public Member findVerifyMember(long memberId) {
+//        Optional<Member> optinalMember = memberRepository.findById(memberId);
+//        Member findMember = optinalMember.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+//        return findMember;
+//    }
+
     public Member findVerifyMember(long memberId) {
-        Optional<Member> optinalMember = memberRepository.findById(memberId);
-        Member findMember = optinalMember.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
-        return findMember;
+        Member optinalMember = memberRepository.findByMemberId(memberId);
+        if(optinalMember.getMemberStatus() == Member.MemberStatus.MEMBER_QUIT)
+            throw  new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND);
+        return optinalMember;
     }
 
     //이미 존재하는 username인지 검증
@@ -83,6 +92,12 @@ public class MemberService {
         if (existMember != null) {
             throw new BusinessLogicException(ExceptionCode.USERNAME_EXISTS);
         }
+    }
+
+    public Boolean checkUsername(String username) {
+        Member checkMember = memberRepository.findByUsername(username);
+        Boolean check;
+        if (checkMember == null) {return true;} else {return false;}
     }
 
     private void verifyExistsEmail(String email) {
@@ -107,6 +122,8 @@ public class MemberService {
         if (findUserMember == null) {
             throw new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND);
         }
+        if (findUserMember.getMemberStatus() == Member.MemberStatus.MEMBER_QUIT)
+            throw new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND);
         return findUserMember;
     }
 }

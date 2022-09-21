@@ -40,14 +40,16 @@ public class MemberController {
     @PatchMapping("/patch") //회원정보 수정
     public ResponseEntity patchMember(@AuthenticationPrincipal PrincipalDetails principalDetails,
                                       @RequestBody @Valid MemberDto.Patch memberPatchDto){
-        if(principalDetails == null){
-            return new ResponseEntity(HttpStatus.NOT_FOUND);// exception으로 날려줘야함.
-        }
-//        long principalDetailsId;    //테스트 로직 코드
-//        if(principalDetails == null) {principalDetailsId =1L;}
-//        else {principalDetailsId = principalDetails.getId();}
-//        memberPatchDto.setMemberId(principalDetailsId);
-        memberPatchDto.setMemberId(principalDetails.getId());
+        long principalDetailsId;    //테스트 로직 코드
+        if(principalDetails == null) {principalDetailsId =1L;}
+        else {principalDetailsId = principalDetails.getId();}
+        memberPatchDto.setMemberId(principalDetailsId);
+        /////////////////////////////////////////////////////
+//        if(principalDetails == null){
+//            return new ResponseEntity(HttpStatus.NOT_FOUND);// exception으로 날려줘야함.
+//        }
+//        memberPatchDto.setMemberId(principalDetails.getId());
+        ///////////////////////////////////////////////
         Member member = memberMapper.patchToMember(memberPatchDto);
 //        Member editMember =
         memberService.updateMember(member);
@@ -57,41 +59,80 @@ public class MemberController {
 
     @DeleteMapping("/delete") //회원탈퇴
     public ResponseEntity deleteMember(@AuthenticationPrincipal PrincipalDetails principalDetails){
-        if(principalDetails == null){
-            return new ResponseEntity(HttpStatus.NOT_FOUND); // exception으로 날려줘야함.
-        }
-//        long principalDetailsId;    //테스트 로직 코드
-//        if(principalDetails == null) {principalDetailsId =1L;}
-//        else {principalDetailsId = principalDetails.getId();}
-//        Member member = memberService.findMember(principalDetailsId);
-        Member member = memberService.findMember(principalDetails.getId());
+        long principalDetailsId;    //테스트 로직 코드
+        if(principalDetails == null) {principalDetailsId =1L;}
+        else {principalDetailsId = principalDetails.getId();}
+        Member member = memberService.findMember(principalDetailsId);
+///////////////////////////////////////////////////////////
+//        if(principalDetails == null){
+//            return new ResponseEntity(HttpStatus.NOT_FOUND); // exception으로 날려줘야함.
+//        }
+//        Member member = memberService.findMember(principalDetails.getId());
+///////////////////////////////////////////////////////////////
         memberService.deleteMember(member.getMemberId());
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @GetMapping("/myroom")
     public ResponseEntity getMyRoom(@AuthenticationPrincipal PrincipalDetails principalDetails){
-//        if(principalDetails.getId() == 0){
-//            return new ResponseEntity(HttpStatus.NOT_FOUND); // exception으로 날려줘야함.
-//        }
-                long principalDetailsId;    //테스트 로직 코드
+        long principalDetailsId;    //테스트 로직 코드
         if(principalDetails == null) {principalDetailsId =1L;}
         else {principalDetailsId = principalDetails.getId();}
         Member getMemberRoom = memberService.findMember(principalDetailsId);
+//////////////////////////////////////////////////////////////
+//        if(principalDetails.getId() == 0){
+//            return new ResponseEntity(HttpStatus.NOT_FOUND); // exception으로 날려줘야함.
+//        }
 //        Member getMemberRoom =
 //                memberService.findMember(principalDetails.getId());
+////////////////////////////////////////////////////////////
         MemberDto.GetMyRoomResponse response = memberMapper.memberTogetMyRoomResponse(getMemberRoom);
         return new ResponseEntity<>(response,HttpStatus.OK);
     }
 
     @PostMapping("/finduser")
     public ResponseEntity findUsername(@RequestBody MemberDto.Find memberFindDto){
-        System.out.println(memberFindDto.getEmail());
         Member member = memberMapper.findToMember(memberFindDto);
         Member findUsername = memberService.findUserId(member);
         MemberDto.FindUsernameResponse response = memberMapper.memberToFindUsernameResponse(findUsername);
         return new ResponseEntity(response,HttpStatus.OK);
     }
+
+    //유저네임 중복체크
+    @PostMapping("/usernamecheck")
+    public ResponseEntity checkUsername(@RequestBody MemberDto.CheckUsername checkUsernameDto){
+        Member username = memberMapper.checkUsernameToMember(checkUsernameDto);
+        Boolean checkedUsername = memberService.checkUsername(username.getUsername());
+        MemberDto.CheckUsernameResponse response = memberMapper.memberToCheckUsernameResponse(username);
+        if(checkedUsername == true){response.setCheck("true");
+        } else {response.setCheck("false");}
+        return new ResponseEntity<>(response,HttpStatus.OK);
+    }
+
+    //프론트쪽 Auth확인
+    @GetMapping("/auth")
+    public ResponseEntity checkAuth(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+        long principalDetailsId;    //테스트 로직 코드
+        if (principalDetails == null) {
+            principalDetailsId = 1L;
+        } else {
+            principalDetailsId = principalDetails.getId();
+        }
+        Member checkAuth = memberService.findMember(principalDetailsId);
+///////////////////////////////////////////////////////////////
+//        if(principalDetails.getId() == 0){
+//            return new ResponseEntity(HttpStatus.NOT_FOUND); // exception으로 날려줘야함.
+//        }
+//        Member checkAuth =
+//                memberService.findMember(principalDetails.getId());
+///////////////////////////////////////////////////////////////////
+        if (checkAuth == null) {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);}
+            MemberDto.CheckAuthResponse response = memberMapper.memberToCheckAuthResponse(checkAuth);
+
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }
+
 
     @GetMapping("/rooms")
     public String host() {

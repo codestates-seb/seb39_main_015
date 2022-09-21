@@ -57,13 +57,15 @@ public class MemberDto {
         @NotBlank(message = "이메일은 공백이 아니여야 합니다.")
         private String email;
     }
-//    @Getter
-//    @Builder
-//    @AllArgsConstructor
-//    public static class Login{
-//        private String username;
-//        private String password;
-//    }
+
+    @Getter
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class CheckUsername{
+
+        private String username;
+    }
 
 
     @Getter
@@ -72,6 +74,15 @@ public class MemberDto {
     public static class FindUsernameResponse{
 
         private String username;
+    }
+
+    @Getter
+    @Builder
+    @AllArgsConstructor
+    public  static class CheckUsernameResponse{
+        private String usernameCheck;
+
+        public void setCheck(String usernameCheck) { this.usernameCheck = usernameCheck; }
     }
 
     @Getter
@@ -88,6 +99,15 @@ public class MemberDto {
 //            room.setRoomId(roomId);
 //            return room; // 룸부분 구현후에 작업
 //        }
+    }
+
+    @Getter
+    @Builder
+    @AllArgsConstructor
+    public static class CheckAuthResponse{
+        private Long memberId;
+        private String username;
+        private String email;
     }
 
 

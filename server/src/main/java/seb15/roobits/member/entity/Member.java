@@ -1,10 +1,7 @@
 package seb15.roobits.member.entity;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import seb15.roobits.auditable.Auditable;
 import seb15.roobits.room.entity.Room;
 
@@ -48,7 +45,29 @@ public class Member extends Auditable {
     @Column
     private String roomName;
 
-    @Column String roomPassword;
+    @Column
+    private String roomPassword;
+
+    @Enumerated(value = EnumType.STRING)
+    @Column(nullable = false)
+    private MemberStatus memberStatus = MemberStatus.MEMBER_ACTIVE;
+
+
+    public enum MemberStatus{
+
+        MEMBER_ACTIVE("활동중"),
+        MEMBER_SLEEP("휴면 상태"),
+        MEMBER_QUIT("탈퇴 상태");
+
+        @Getter
+        private String status;
+
+        MemberStatus(String status) {
+            this.status = status;
+        }
+        }
+
+
 
 
 //    룸부분 결합후 작업

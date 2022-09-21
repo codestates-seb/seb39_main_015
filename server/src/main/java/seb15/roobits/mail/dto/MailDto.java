@@ -6,6 +6,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MailDto {
+    private String username;
     private String address;
     private String title;
     private String message;

@@ -30,8 +30,8 @@ public class SecurityConfig {
         http.apply(new CustomDsl());
 
         http.formLogin()
-                .loginPage("/user/login");
-//                .defaultSuccessUrl("/user/rooms"); //프론트쪽에서 로그인 성공시 리디렉션;
+                .loginPage("/user/login")
+                .defaultSuccessUrl("/user/rooms"); //프론트쪽에서 로그인 성공시 리디렉션;
 
         http.oauth2Login()
                 .loginPage("/user/googleauth")

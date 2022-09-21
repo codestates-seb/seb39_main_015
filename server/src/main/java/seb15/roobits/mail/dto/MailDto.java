@@ -7,7 +7,7 @@ import lombok.*;
 @NoArgsConstructor
 public class MailDto {
     private String username;
-    private String address;
+    private String email;
     private String title;
     private String message;
 }

@@ -4,6 +4,7 @@ import Join from './pages/Join.js';
 import Login from './pages/Login.js';
 import MyRoom from './pages/MyRoom.js';
 import MainPage from './pages/MainPage.js';
+import FindName from './pages/FindName.js';
 import Header from './components/Header.js';
 import /*useState, useEffect */ 'react';
 import axios from 'axios';
@@ -72,6 +73,7 @@ function App() {
         <Route path="/join" element={<Join />} />
         <Route path="/login" element={<Login />} />
         <Route path="/myroom" element={<MyRoom />} />
+        <Route path="/findname" element={<FindName />} />
       </Routes>
       <ReactQueryDevtools initialIsOpen={false} />
     </div>

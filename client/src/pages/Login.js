@@ -30,7 +30,7 @@ import logInLogo from '../images/cat.png';
 
 const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [username, setMemberId] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const navigate = useNavigate();
@@ -38,10 +38,10 @@ const Login = () => {
   const hadleSubmit = (e) => {
     e.preventDefault();
 
-    const memberIdInput = e.target.username.value;
+    const usernameInput = e.target.username.value;
     const passwordInput = e.target.password.value;
 
-    setMemberId(memberIdInput);
+    setUsername(usernameInput);
     setPassword(passwordInput);
     setIsLoading(true);
 
@@ -168,8 +168,8 @@ const Login = () => {
           구글 계정으로 로그인
         </WhiteButton>
         <div>
-          <StyledLink>아이디 찾기</StyledLink>
-          <StyledLink>비밀번호 찾기</StyledLink>
+          <StyledLink to="/findname">아이디 찾기</StyledLink>
+          <StyledLink to="/findpw">비밀번호 찾기</StyledLink>
         </div>
         <div>
           아직 회원이 아니신가요? <StyledLink to="/join">회원가입</StyledLink>

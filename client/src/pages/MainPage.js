@@ -47,6 +47,7 @@ const Column3 = styled.section`
 export default function MainPage() {
   let options = {
     anchors: ['sectionOne', 'sectionTwo', 'sectionThree'],
+    navigation: false,
   };
 
   return (

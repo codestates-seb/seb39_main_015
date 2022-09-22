@@ -18,6 +18,13 @@ export const HeaderStyle = styled.div`
   align-items: center;
   background-color: #fbfbfa;
 `;
+
+const Navigator = styled.div`
+  display: flex;
+  margin-left: 100px;
+  width: 291px;
+  justify-content: space-between;
+`;
 const Logo = styled.div`
   height: 100%;
   > img {
@@ -26,6 +33,7 @@ const Logo = styled.div`
     height: auto;
     width: auto;
   }
+  cursor: pointer;
 `;
 const ButtonSection = styled.div`
   display: flex;
@@ -33,6 +41,12 @@ const ButtonSection = styled.div`
   display: flex;
   justify-content: space-between;
   margin-right: 100px;
+`;
+
+const Button = styled.button`
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
 `;
 
 export default function Header() {
@@ -50,11 +64,17 @@ export default function Header() {
 
   return (
     <HeaderStyle>
-      <Link to="/">
-        <Logo>
+      <Navigator>
+        <Logo onClick={() => window.location.replace('/#sectionOne')}>
           <img alt="logo" src={catImage} />
         </Logo>
-      </Link>
+        <Button onClick={() => window.location.replace('/#sectionTwo')}>
+          About
+        </Button>
+        <Button onClick={() => window.location.replace('/#sectionThree')}>
+          Team
+        </Button>
+      </Navigator>
       <ButtonSection>
         {userInfo ? (
           ''

@@ -85,6 +85,15 @@ export const WhiteButton = styled.button`
   font-size: 16px;
   background-color: white;
   /* margin-bottom: 24px; */
+  :active {
+    box-shadow: none !important;
+    transform: scale(1) !important;
+  }
+  :hover {
+    box-shadow: 0px 0px 0px 1px transparent, 0px 0px 0px 4px transparent,
+      0px 6px 16px rgb(0 0 0 / 12%);
+    transform: scale(1.02);
+  }
 `;
 
 export const OrangeButton = styled(WhiteButton)`

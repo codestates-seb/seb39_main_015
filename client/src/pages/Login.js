@@ -83,12 +83,12 @@ const Login = () => {
       .then((res) => {
         console.log(res.data);
         setIsLoading(false);
-        // navigate('/');
+        navigate('/');
       })
       .catch((res) => {
         console.log(res.data);
         setIsLoading(false);
-        // navigate('/login');
+        navigate('/login');
       });
   };
 

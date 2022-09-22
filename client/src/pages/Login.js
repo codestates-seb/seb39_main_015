@@ -120,7 +120,7 @@ const Login = () => {
     <Body>
       <FormWrapper width={'476px'} height={'628px'}>
         <img alt="login logo" src={logInLogo} />
-        <form onSubmit={() => hadleSubmit()}>
+        <form onSubmit={(e) => hadleSubmit(e)}>
           {/* <label htmlFor="username">ID</label> */}
           <InputWrapper>
             <Input

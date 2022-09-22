@@ -44,6 +44,9 @@ const Join = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [nameValid, setNameValid] = useState(false);
 
+  console.log(`nameValid: ${nameValid}`);
+  console.log(`isValid: ${isValid}`);
+
   // dpRegex는 idRegex로 변경됨
   // 사용자 요구사항 정의서에서 결정한 기준에 맞게 유효성 검사 부분 수정 완료.
   const idRegex = /^[a-z0-9]{4,15}$/;
@@ -93,12 +96,16 @@ const Join = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (isValid) {
-      setIsLoading(true);
+    if (!nameValid) {
+      alert('아이디 중복 체크를 진행해주세요!');
+      return;
     }
 
-    if (isLoading && isValid) {
+    if (isValid && nameValid) {
       // `${process.env.REACT_APP_API_URL}/user/join`
+      setIsLoading(true);
+      isLoading;
+
       axios
         .post(`/user/join`, {
           username,
@@ -118,7 +125,10 @@ const Join = () => {
     }
   };
 
-  const usernameCheck = () => {
+  // 아이디 중복체크 함수
+  const usernameCheck = (e) => {
+    e.preventDefault();
+
     setIsLoading(true);
     if (username) {
       axios
@@ -181,7 +191,7 @@ const Join = () => {
     <Body>
       <FormWrapper height={'545px'} width={'476px'}>
         <img alt="회원가입 로고" src={signUpLogo}></img>
-        <form onSubmit={() => handleSubmit()}>
+        <form onSubmit={(e) => handleSubmit(e)}>
           {/* <label htmlFor="username">ID</label> */}
           <InputWrapper>
             <Input
@@ -206,7 +216,7 @@ const Join = () => {
                 <OrangeButton
                   width="65px"
                   height="25px"
-                  onClick={() => usernameCheck()}
+                  onClick={(e) => usernameCheck(e)}
                 >
                   중복 체크
                 </OrangeButton>

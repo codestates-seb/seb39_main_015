@@ -3,6 +3,7 @@ import catImage from '../images/cat.png';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 // React query devtools
+import { BlackButton, WhiteButton } from '../styled/Style';
 import { useQueryClient } from 'react-query';
 
 export const HeaderStyle = styled.div`
@@ -28,6 +29,10 @@ const Logo = styled.div`
 `;
 const ButtonSection = styled.div`
   display: flex;
+  width: 200px;
+  display: flex;
+  justify-content: space-between;
+  margin-right: 100px;
 `;
 
 export default function Header() {
@@ -55,15 +60,20 @@ export default function Header() {
           ''
         ) : (
           <Link to="/login">
-            <button>로그인</button>{' '}
+            <WhiteButton width="95px" height="42px">
+              로그인
+            </WhiteButton>{' '}
           </Link>
         )}
-
         {userInfo ? (
-          <button onClick={logoutHandler}>로그아웃</button>
+          <BlackButton width="95px" height="42px" onClick={logoutHandler}>
+            로그아웃
+          </BlackButton>
         ) : (
           <Link to="/join">
-            <button>회원가입</button>
+            <BlackButton width="95px" height="42px">
+              회원가입
+            </BlackButton>
           </Link>
         )}
       </ButtonSection>

@@ -94,6 +94,11 @@ export const OrangeButton = styled(WhiteButton)`
   /* margin-bottom: 10px; */
 `;
 
+export const BlackButton = styled(WhiteButton)`
+  background-color: black;
+  color: white;
+`;
+
 export const StyledLink = styled(Link)`
   color: #f58a5c;
 `;

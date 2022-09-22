@@ -10,14 +10,27 @@ import {
   LogoWrapper,
   InputWrapper,
   StyledLink,
+  GreenButton,
 } from '../styled/Style.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faEnvelope } from '@fortawesome/free-regular-svg-icons';
 import { faLock } from '@fortawesome/free-solid-svg-icons';
 import signUpLogo from '../images/cat.png';
+import styled from 'styled-components';
 
 // 디자인 컨셉 결정 후 일괄 적용할 예정이기 때문에 styled 폴더에서 가져온 요소는 모두 삭제.
 // 추후 컨셉이 결정되면 필요한 스타일을 미리 만들어두고 사용할 것.
+
+const ButtonPosition = styled.div`
+  position: absolute;
+  right: 10px;
+  > button {
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+  }
+`;
 
 const Join = () => {
   // 기존 displayName은 username으로 변경됨
@@ -29,6 +42,7 @@ const Join = () => {
   const [passwordMsg, setPasswordMsg] = useState('');
   const [isValid, setIsValid] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [nameValid, setNameValid] = useState(false);
 
   // dpRegex는 idRegex로 변경됨
   // 사용자 요구사항 정의서에서 결정한 기준에 맞게 유효성 검사 부분 수정 완료.
@@ -104,6 +118,29 @@ const Join = () => {
     }
   };
 
+  const usernameCheck = () => {
+    setIsLoading(true);
+    if (username) {
+      axios
+        .post(`${process.env.REACT_APP_API_URL}/user/usernamecheck`, {
+          username,
+        })
+        .then((res) => {
+          console.log(res.data);
+          setIsLoading(false);
+          if (res.data.usernameCheck === true) {
+            setNameValid(true);
+          } else {
+            alert('이미 존재하는 아이디입니다.');
+          }
+        })
+        .catch((res) => {
+          console.log(res.data);
+          setIsLoading(false);
+        });
+    }
+  };
+
   // 유효성 검사 실행 useEffect
   useEffect(() => {
     setIsValid(false);
@@ -160,6 +197,21 @@ const Join = () => {
             <LogoWrapper>
               <FontAwesomeIcon icon={faUser} />
             </LogoWrapper>
+            <ButtonPosition>
+              {nameValid ? (
+                <GreenButton width="65px" height="25px">
+                  확인 완료
+                </GreenButton>
+              ) : (
+                <OrangeButton
+                  width="65px"
+                  height="25px"
+                  onClick={() => usernameCheck()}
+                >
+                  중복 체크
+                </OrangeButton>
+              )}
+            </ButtonPosition>
             <p>{usernameMsg}</p>
           </InputWrapper>
           {/* <label htmlFor="email">Email</label> */}

@@ -108,6 +108,20 @@ export const BlackButton = styled(WhiteButton)`
   color: white;
 `;
 
+export const GreenButton = styled(WhiteButton)`
+  background-color: transparent;
+  color: #60a84e;
+  border: 1px solid #60a84e;
+  :hover {
+    box-shadow: none !important;
+    transform: none !important;
+  }
+  font-family: 'Noto Sans KR';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+`;
+
 export const StyledLink = styled(Link)`
   color: #f58a5c;
 `;

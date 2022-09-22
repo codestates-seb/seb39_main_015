@@ -11,8 +11,9 @@ import {
   StyledLink,
 } from '../styled/Style.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
+import { faUser, faEnvelope } from '@fortawesome/free-regular-svg-icons';
 import logInLogo from '../images/cat.png';
+import { useNavigate } from 'react-router-dom';
 // import { useQueryClient } from 'react-query';
 
 // const LoginFormWrapper = styled.div`
@@ -31,7 +32,7 @@ const FindName = () => {
   const [emailMsg, setEmailMsg] = useState('');
   const [username, setUsername] = useState('');
   const [isValid, setIsValid] = useState(false);
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const emailRegex = /^[a-zA-Z0-9+-\\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
 
@@ -45,24 +46,40 @@ const FindName = () => {
     }
   };
 
+  // const handleDN = (e) => {
+  //   const iptDisplayName = e.target.value;
+  //   setU(iptDisplayName);
+  //   if (!emailRegex.test(iptEmail)) {
+  //     setEmailMsg('! 이메일 형식에 맞춰서 작성해주세요.');
+  //   } else {
+  //     setEmailMsg('');
+  //   }
+  // };
+
   const hadleSubmit = (e) => {
     e.preventDefault();
 
-    if (email !== '' && isValid) {
+    const usernameInput = e.target.username.value;
+    const emailInput = e.target.email.value;
+
+    setUsername(usernameInput);
+    setEmail(emailInput);
+
+    if (email !== '' && username !== '' && isValid) {
       //`${process.env.REACT_APP_API_URL}/users/login`
       setIsLoading(true);
       isLoading;
-
       axios
         .post(`/user/login`, {
+          username,
           email,
         })
         .then((res) => {
           //   dispatch(loginInfoActions.set(res.data));
           console.log(res.data);
           setIsLoading(false);
-          setUsername(res.data.username);
-          // navigate('/');
+          alert('등록된 이메일로 비밀번호를 보내드렸습니다!');
+          navigate('/login');
         })
         .catch((res) => {
           //더미 데이터 적용
@@ -85,36 +102,45 @@ const FindName = () => {
     <Body>
       <FormWrapper width={'476px'} height={'628px'}>
         <img alt="login logo" src={logInLogo} />
-        {username ? (
-          <div>ID : ${username}</div>
-        ) : (
-          <form onSubmit={(e) => hadleSubmit(e)}>
-            <InputWrapper>
-              <Input
-                type="email"
-                id="email"
-                name="email"
-                value={email}
-                height={'45px'}
-                width={'314px'}
-                onChange={handleEmail}
-                required
-                placeholder="이메일"
-              />
-              <LogoWrapper>
-                <FontAwesomeIcon icon={faEnvelope} />
-              </LogoWrapper>
-              <p>{emailMsg}</p>
-            </InputWrapper>
-            <div>
-              <OrangeButton type="submit" height={'45px'} width={'314px'}>
-                아이디 찾기
-              </OrangeButton>
-            </div>
-          </form>
-        )}
+        <form onSubmit={(e) => hadleSubmit(e)}>
+          <InputWrapper>
+            <Input
+              id="username"
+              name="username"
+              height={'45px'}
+              width={'314px'}
+              required
+              placeholder="아이디"
+            />
+            <LogoWrapper>
+              <FontAwesomeIcon icon={faUser} />
+            </LogoWrapper>
+          </InputWrapper>
+          <InputWrapper>
+            <Input
+              type="email"
+              id="email"
+              name="email"
+              value={email}
+              height={'45px'}
+              width={'314px'}
+              onChange={handleEmail}
+              required
+              placeholder="이메일"
+            />
+            <LogoWrapper>
+              <FontAwesomeIcon icon={faEnvelope} />
+            </LogoWrapper>
+            <p>{emailMsg}</p>
+          </InputWrapper>
+          <div>
+            <OrangeButton type="submit" height={'45px'} width={'314px'}>
+              비밀번호 찾기
+            </OrangeButton>
+          </div>
+        </form>
         <div>
-          <StyledLink to="/findpw">비밀번호 찾기</StyledLink>
+          <StyledLink to="/findname">아이디 찾기</StyledLink>
         </div>
       </FormWrapper>
     </Body>

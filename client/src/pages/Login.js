@@ -43,10 +43,11 @@ const Login = () => {
 
     setUsername(usernameInput);
     setPassword(passwordInput);
-    setIsLoading(true);
 
     if (isLoading && username !== '' && password !== '') {
       //`${process.env.REACT_APP_API_URL}/users/login`
+      setIsLoading(true);
+
       axios
         .post(`/user/login`, {
           username,

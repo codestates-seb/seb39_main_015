@@ -46,16 +46,6 @@ const FindName = () => {
     }
   };
 
-  // const handleDN = (e) => {
-  //   const iptDisplayName = e.target.value;
-  //   setU(iptDisplayName);
-  //   if (!emailRegex.test(iptEmail)) {
-  //     setEmailMsg('! 이메일 형식에 맞춰서 작성해주세요.');
-  //   } else {
-  //     setEmailMsg('');
-  //   }
-  // };
-
   const hadleSubmit = (e) => {
     e.preventDefault();
 
@@ -70,7 +60,7 @@ const FindName = () => {
       setIsLoading(true);
       isLoading;
       axios
-        .post(`/user/login`, {
+        .post(`/user/findpw/sendemail`, {
           username,
           email,
         })

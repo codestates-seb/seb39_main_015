@@ -54,7 +54,7 @@ const FindName = () => {
       isLoading;
 
       axios
-        .post(`/user/login`, {
+        .post(`/user/finduser`, {
           email,
         })
         .then((res) => {

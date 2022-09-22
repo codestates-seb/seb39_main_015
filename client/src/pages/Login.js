@@ -44,10 +44,10 @@ const Login = () => {
     setUsername(usernameInput);
     setPassword(passwordInput);
 
-    if (isLoading && username !== '' && password !== '') {
+    if (username !== '' && password !== '') {
       //`${process.env.REACT_APP_API_URL}/users/login`
       setIsLoading(true);
-
+      isLoading;
       axios
         .post(`/user/login`, {
           username,
@@ -83,12 +83,12 @@ const Login = () => {
       .then((res) => {
         console.log(res.data);
         setIsLoading(false);
-        navigate('/');
+        // navigate('/');
       })
       .catch((res) => {
         console.log(res.data);
         setIsLoading(false);
-        navigate('/login');
+        // navigate('/login');
       });
   };
 
@@ -170,6 +170,7 @@ const Login = () => {
         </WhiteButton>
         <div>
           <StyledLink to="/findname">아이디 찾기</StyledLink>
+          <span> </span>
           <StyledLink to="/findpw">비밀번호 찾기</StyledLink>
         </div>
         <div>

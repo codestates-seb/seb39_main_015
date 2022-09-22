@@ -1,10 +1,8 @@
 package seb15.roobits.room.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import seb15.roobits.room.entity.Room;
-
 import java.time.LocalDate;
 
 @Getter
@@ -30,7 +28,10 @@ public class RoomResponseDto {
 
     private long patchCount;
 
-    public RoomResponseDto(long roomId, String roomName, LocalDate dDay, Room.RoomTheme roomTheme, long roobitAmount, long restDay, String url, long patchCount) {
+    private Room.RoomStatus roomStatus;
+
+    public RoomResponseDto(long roomId, String roomName, LocalDate dDay, Room.RoomTheme roomTheme,
+                           long roobitAmount, long restDay, String url, long patchCount) {
         this.roomId = roomId;
         this.roomName = roomName;
         this.dDay = dDay;
@@ -40,4 +41,5 @@ public class RoomResponseDto {
         this.url = url;
         this.patchCount = patchCount;
     }
+
 }

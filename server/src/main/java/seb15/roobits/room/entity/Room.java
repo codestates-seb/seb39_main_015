@@ -39,7 +39,7 @@ public class Room {
 
     @Column
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Future(message = "오늘 후의 날짜여야 합니다.")
+//    @Future(message = "오늘 후의 날짜여야 합니다.")
 //    @RestDay(max= 30, message= "30일 이내의 날짜만 선택 가능합니다.")
     private LocalDate dDay;
 
@@ -58,6 +58,10 @@ public class Room {
 
     @Column
     private long patchCount;
+
+    @Column
+    @Enumerated(EnumType.STRING)
+    private RoomStatus roomStatus = RoomStatus.ROOM_ONGOING;
 
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
@@ -91,11 +95,28 @@ public class Room {
                 this.themeDescription = themeDescription;
             }
     }
+
+    public enum RoomStatus {
+        ROOM_ONGOING(1, "룸 진행"),
+        ROOM_OPENED(2, "룸 열림"),
+        ROOM_DELETED(3, "룸 삭제");
+
+        @Getter
+        private int statusNumber;
+
+        @Getter
+        private String statusDescription;
+
+        RoomStatus(int statusNumber, String statusDescription) {
+            this.statusNumber = statusNumber;
+            this.statusDescription = statusDescription;
+        }
+    }
+
     public Room(long roomId, String roomName, String password, LocalDate dDay) {
         this.roomId = roomId;
         this.roomName = roomName;
         this.password = password;
         this.dDay = dDay;
-//        this.patchCount = patchCount;
     }
 }

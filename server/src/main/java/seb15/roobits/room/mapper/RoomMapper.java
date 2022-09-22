@@ -1,39 +1,34 @@
 package seb15.roobits.room.mapper;
 
 
+import lombok.Getter;
+import seb15.roobits.exception.BusinessLogicException;
+import seb15.roobits.exception.ExceptionCode;
 import seb15.roobits.room.dto.RoomPatchDto;
 import seb15.roobits.room.dto.RoomPostDto;
 import seb15.roobits.room.dto.RoomResponseDto;
 import seb15.roobits.room.entity.Room;
 import org.mapstruct.Mapper;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.Optional;
 
 
 @Mapper(componentModel = "spring")
 public interface RoomMapper {
     Room roomPostDtoToRoom(RoomPostDto roomPostDto);
+
     Room roomPatchDtoToRoom(RoomPatchDto roomPatchDto);
-//    default Room roomPatchDtoToRoom(RoomPatchDto roomPatchDto) {
-//        Room room = new Room();
-//        int patchCount = room.getPatchCount() + 1;
-//
-//        room = new Room(
-//                roomPatchDto.getRoomId(),
-//                roomPatchDto.getRoomName(),
-//                roomPatchDto.getPassword(),
-//                roomPatchDto.getDDay(),
-//                patchCount
-//        );
-//
-//        return room;
-//    }
+
     default RoomResponseDto roomToRoomResponseDto(Room room) {
         LocalDate currentDate = LocalDate.now();
         LocalDate dDay = room.getDDay();
         Period period = Period.between(currentDate, dDay);
-        long restDay = period.getMonths()*30 + period.getDays();
+        long restDay = period.getMonths() * 30 + period.getDays();
+//        if (restDay > 30) {new BusinessLogicException()}
+
 
         String url = "http://localhost:8080/rooms/" + room.getRoomId();
 

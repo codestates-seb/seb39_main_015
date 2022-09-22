@@ -1,5 +1,6 @@
 package seb15.roobits.room.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Range;
@@ -20,8 +21,8 @@ public class RoomPostDto {
     private String password;
 
     @Future(message = "오늘 후의 날짜여야 합니다.")
-//    @RestDay(max= 30, message= "30일 이내의 날짜만 선택 가능합니다.")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate dDay;
 
     private Room.RoomTheme roomTheme;

@@ -22,15 +22,12 @@ public class RoomService {
     public Room createRoom(Room room) {
         // 이미 있는 이름인지 검사
         verifyExistRoom(room.getRoomName());
-        Room savedRoom =  roomRepository.save(room);
 
-        return savedRoom;
+        return roomRepository.save(room);
     }
 
     public Room updateRoom(Room room) {
         Room findRoom = findRoom(room.getRoomId());
-        if (room.getPatchCount() == 2)
-            throw new BusinessLogicException(ExceptionCode.CANNOT_CHANGE_ROOM); // 수정 2회 초과 시 수정할 수 없음
 
         Optional.ofNullable(room.getRoomName())
                 .ifPresent(roomName -> findRoom.setRoomName(roomName));
@@ -39,8 +36,7 @@ public class RoomService {
         Optional.ofNullable(room.getRoomTheme())
                 .ifPresent(roomTheme -> findRoom.setRoomTheme(roomTheme));
 
-        Optional.of(room.getPatchCount())
-                .ifPresent(patchCount -> findRoom.setPatchCount(patchCount + 1));  // 수정 횟수 카운트
+        updatePatchCount(roomRepository.save(findRoom));
 
         return roomRepository.save(findRoom);
     }
@@ -68,6 +64,14 @@ public class RoomService {
 
         if(rName.isPresent())
             throw new BusinessLogicException(ExceptionCode.ROOMNAME_ALREADY_EXISTS);
+    }
+
+    private void updatePatchCount(Room room) {
+
+        long patchCount = Calculator.calculatePatchCount(room.getPatchCount(), 1);
+        if (patchCount > 2)
+            throw new BusinessLogicException(ExceptionCode.CANNOT_CHANGE_ROOM); // 수정 2회 초과 시 수정할 수 없음
+        room.setPatchCount(patchCount);
     }
 
 }

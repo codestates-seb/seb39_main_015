@@ -1,6 +1,7 @@
 package seb15.roobits.room.entity;
 
 import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Range;
 
@@ -21,7 +22,8 @@ import java.util.List;
 
 @NoArgsConstructor
 @Entity
-@Data
+@Getter
+@Setter
 public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -54,7 +56,7 @@ public class Room {
 //    @Column
 //    private String weather;
 
-    @Column(columnDefinition = "integer default 0", nullable = false)
+    @Column
     private long patchCount;
 
     @ManyToOne
@@ -89,5 +91,11 @@ public class Room {
                 this.themeDescription = themeDescription;
             }
     }
-
+    public Room(long roomId, String roomName, String password, LocalDate dDay) {
+        this.roomId = roomId;
+        this.roomName = roomName;
+        this.password = password;
+        this.dDay = dDay;
+//        this.patchCount = patchCount;
+    }
 }

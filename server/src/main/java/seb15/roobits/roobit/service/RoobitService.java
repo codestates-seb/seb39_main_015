@@ -7,11 +7,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import seb15.roobits.exception.BusinessLogicException;
 import seb15.roobits.exception.ExceptionCode;
+import seb15.roobits.roobit.dto.RoobitResponseDto;
+import seb15.roobits.roobit.dto.RoobitsListResponseDto;
 import seb15.roobits.roobit.entity.Roobit;
 import seb15.roobits.roobit.repository.RoobitRepository;
 import seb15.roobits.room.service.RoomService;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Transactional
 @Service
@@ -62,5 +66,13 @@ public class RoobitService {
     private Roobit saveRoobit(Roobit roobit) {
         return roobitRepository.save(roobit);
     }
+
+    @Transactional(readOnly = true)      // 전체 글 조회 추가
+    public List<RoobitResponseDto> findAllDesc(){
+        return roobitRepository.findAllDesc().stream()
+                .map(RoobitsListResponseDto::new)
+                .collect(Collectors.toList());
+    }
+
 
 }

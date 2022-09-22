@@ -52,7 +52,8 @@ function App() {
   const authHandler = () => {
     axios
       .get(`${process.env.REACT_APP_API_URL}/user/auth`)
-      .then((res) => res.data);
+      .then((res) => res.data)
+      .catch((res) => console.log(res));
   };
 
   const { data } = useQuery(
@@ -63,9 +64,7 @@ function App() {
     authHandler,
     { staleTime: 1000 * 60 * 5 }
   );
-
-  console.log(data);
-
+  data;
   return (
     <div>
       <Header />

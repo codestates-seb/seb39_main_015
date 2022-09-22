@@ -48,8 +48,9 @@ const Login = () => {
       //`${process.env.REACT_APP_API_URL}/users/login`
       setIsLoading(true);
       isLoading;
+
       axios
-        .post(`/user/login`, {
+        .post(`${process.env.REACT_APP_API_URL}/user/login`, {
           username,
           password,
         })
@@ -57,11 +58,12 @@ const Login = () => {
           //   dispatch(loginInfoActions.set(res.data));
           console.log(res.data);
           setIsLoading(false);
-          navigate('/');
+          navigate('/#sectionOne');
         })
-        .catch(() => {
+        .catch((res) => {
           //더미 데이터 적용
           //   dispatch(loginInfoActions.set(loginResponse));
+          console.log(res);
           console.log('login-dummydata: ', username, password);
           setIsLoading(false);
           navigate('/login');

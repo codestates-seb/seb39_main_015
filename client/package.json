@@ -57,6 +57,5 @@
     "eslint-plugin-react": "^7.31.8",
     "eslint-plugin-react-hooks": "^4.6.0"
   },
-  "homepage": "./",
-  "proxy": "http://ec2-52-78-117-78.ap-northeast-2.compute.amazonaws.com:8080"
+  "homepage": "./"
 }

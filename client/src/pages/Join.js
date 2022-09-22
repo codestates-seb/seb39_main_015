@@ -107,7 +107,7 @@ const Join = () => {
       isLoading;
 
       axios
-        .post(`/user/join`, {
+        .post(`${process.env.REACT_APP_API_URL}/user/join`, {
           username,
           email,
           password,
@@ -138,7 +138,7 @@ const Join = () => {
         .then((res) => {
           console.log(res.data);
           setIsLoading(false);
-          if (res.data.usernameCheck === true) {
+          if (res.data.usernameCheck === 'true') {
             setNameValid(true);
           } else {
             alert('이미 존재하는 아이디입니다.');

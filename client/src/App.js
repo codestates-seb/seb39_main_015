@@ -61,7 +61,7 @@ function App() {
     // if (authorizationCode) {
     //   getAccessToken(authorizationCode);
     // }
-    authHandler,
+    () => authHandler(),
     { staleTime: 1000 * 60 * 5 }
   );
   data;

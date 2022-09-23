@@ -67,7 +67,8 @@ public class RoomService {
             room.setRoomStatus(Room.RoomStatus.ROOM_DELETED); // 24시간 지난 룸은 삭제된 룸이라고 DB에 표시
 
             throw new BusinessLogicException(ExceptionCode.ROOM_NOT_FOUND);
-            // 룸을 찾을 수 없다는 에러코드
+            // 룸을 찾을 수 없다는 에러
+            // 치즈, 바나나, 파, 배추, 요거트, 팽이버섯, 순두부, 통오리, 부추, 꽃게, 논우렁살
         }
     }
 

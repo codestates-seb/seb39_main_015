@@ -27,7 +27,6 @@ public class RoomPatchDto {
     private String password;
 
     @Future(message = "오늘 후의 날짜여야 합니다.")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate dDay;
 

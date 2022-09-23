@@ -39,19 +39,22 @@ public class Room {
 
     @Column
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-//    @Future(message = "오늘 후의 날짜여야 합니다.")
-//    @RestDay(max= 30, message= "30일 이내의 날짜만 선택 가능합니다.")
+    @Future(message = "오늘 후의 날짜여야 합니다.")
     private LocalDate dDay;
+
+    @Column
+    private long restDay;
 
     @Column
     @Enumerated(EnumType.STRING)
     public RoomTheme roomTheme = RoomTheme.THEME_BASIC;
 
     @Column
+    @Range(min= 1, max= 300)
     private long roobitAmount;
 
-//    @Column(columnDefinition = "integer default 0", nullable = false)
-//    private long viewCount;
+    @Column(columnDefinition = "integer default 0", nullable = false)
+    private long viewCount;
 
 //    @Column
 //    private String weather;

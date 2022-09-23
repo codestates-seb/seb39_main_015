@@ -28,14 +28,13 @@ public class RoomResponseDto {
 
     private long patchCount;
 
-    private Room.RoomStatus roomStatus;
-
     public RoomResponseDto(long roomId, String roomName, LocalDate dDay, Room.RoomTheme roomTheme,
-                           long roobitAmount, long restDay, String url, long patchCount) {
+                           long viewCount, long roobitAmount, long restDay, String url, long patchCount) {
         this.roomId = roomId;
         this.roomName = roomName;
         this.dDay = dDay;
         this.roomTheme = roomTheme;
+        this.viewCount = viewCount;
         this.roobitAmount = roobitAmount;
         this.restDay = restDay;
         this.url = url;

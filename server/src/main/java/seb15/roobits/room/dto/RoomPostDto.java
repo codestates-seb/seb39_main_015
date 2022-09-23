@@ -21,13 +21,12 @@ public class RoomPostDto {
     private String password;
 
     @Future(message = "오늘 후의 날짜여야 합니다.")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate dDay;
 
     private Room.RoomTheme roomTheme;
 
     @Range(min= 1, max= 300,
-            message = "최대 몇 개의 루빗을 작성할 수 있는지 정해야 합니다.")
+            message = "최소 1부터 최대 300개의 루빗을 설정해야 합니다.")
     private long roobitAmount;
 }

@@ -23,12 +23,6 @@ public interface RoomMapper {
     Room roomPatchDtoToRoom(RoomPatchDto roomPatchDto);
 
     default RoomResponseDto roomToRoomResponseDto(Room room) {
-        LocalDate currentDate = LocalDate.now();
-        LocalDate dDay = room.getDDay();
-        Period period = Period.between(currentDate, dDay);
-        long restDay = period.getMonths() * 30 + period.getDays();
-//        if (restDay > 30) {new BusinessLogicException()}
-
 
         String url = "http://localhost:8080/rooms/" + room.getRoomId();
 
@@ -38,9 +32,9 @@ public interface RoomMapper {
                 room.getDDay(),
                 room.getRoomTheme(),
 //                room.getWeather(),
-//                room.getViewCount(),
+                room.getViewCount(),
                 room.getRoobitAmount(),
-                restDay,
+                room.getRestDay(),
                 url,
                 room.getPatchCount()
         );

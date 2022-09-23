@@ -4,6 +4,7 @@ import lombok.Getter;
 
 public enum ExceptionCode {
 
+    DDAY_NOT_VALID(400, "D-day has to be within 30 days from today"),
     MEMBER_NOT_FOUND(404, "Member not found"),
     USERNAME_EXISTS(409, "Username already exists"),
 //    MEMBER_EXISTS(409, "Member exists"),

@@ -3,19 +3,14 @@ package seb15.roobits.room.service;
 import org.springframework.transaction.annotation.Transactional;
 import seb15.roobits.exception.BusinessLogicException;
 import seb15.roobits.exception.ExceptionCode;
-import seb15.roobits.room.dto.RoomResponseDto;
 import seb15.roobits.room.entity.Room;
 import seb15.roobits.room.repository.RoomRepository;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.Optional;
 
-import static seb15.roobits.room.entity.Room.RoomStatus.ROOM_DELETED;
 
 @Service
 @Transactional
@@ -29,6 +24,8 @@ public class RoomService {
     public Room createRoom(Room room) {
         // 이미 있는 이름인지 검사
         verifyExistRoom(room.getRoomName());
+        room.setRestDay(Calculator.calculateRestDay(room));
+        dDayLimitation(room);
 
         return roomRepository.save(room);
     }
@@ -40,8 +37,11 @@ public class RoomService {
                 .ifPresent(roomName -> findRoom.setRoomName(roomName));
         Optional.ofNullable(room.getDDay())
                 .ifPresent(dDay -> findRoom.setDDay(dDay));
+        dDayLimitation(room);
         Optional.ofNullable(room.getRoomTheme())
                 .ifPresent(roomTheme -> findRoom.setRoomTheme(roomTheme));
+        Optional.ofNullable(room.getDDay())
+                        .ifPresent(dDay -> findRoom.setRestDay(Calculator.calculateRestDay(room)));
 
         updatePatchCount(roomRepository.save(findRoom));
 
@@ -54,27 +54,9 @@ public class RoomService {
                 new BusinessLogicException(ExceptionCode.ROOM_NOT_FOUND));
 
         updatedRoomStatus(findRoom);
+        updateViewCount(findRoom);
 
         return findRoom;
-    }
-
-    private void updatedRoomStatus(Room room) {
-        LocalDate currentDate = LocalDate.now();
-        LocalDate dDay = room.getDDay();
-        Period period = Period.between(currentDate, dDay);
-        long restDay = period.getMonths() * 30 + period.getDays();
-        if (restDay < 0) {
-            room.setRoomStatus(Room.RoomStatus.ROOM_DELETED); // 24시간 지난 룸은 삭제된 룸이라고 DB에 표시
-
-            throw new BusinessLogicException(ExceptionCode.ROOM_NOT_FOUND);
-            // 룸을 찾을 수 없다는 에러
-            // 치즈, 바나나, 파, 배추, 요거트, 팽이버섯, 순두부, 통오리, 부추, 꽃게, 논우렁살
-        }
-    }
-
-    public Page<Room> findRooms(int page, int size) {
-        return roomRepository.findAll(PageRequest.of(page, size,
-                Sort.by("roomId").descending()));
     }
 
     public void deleteRoom(long roomId) {
@@ -96,5 +78,31 @@ public class RoomService {
             throw new BusinessLogicException(ExceptionCode.CANNOT_CHANGE_ROOM); // 수정 2회 초과 시 수정할 수 없음
         room.setPatchCount(patchCount);
     }
+
+
+    private void dDayLimitation(Room room) {
+        long restDay = Calculator.calculateRestDay(room);
+
+        if (restDay < 1 || restDay > 30) {
+            throw new BusinessLogicException(ExceptionCode.DDAY_NOT_VALID); } // 1~30일 이내 날짜만 설정 가능
+    }
+
+    private void updatedRoomStatus(Room room) {
+        long restDay = Calculator.calculateRestDay(room);
+
+        if (restDay < 0) {
+            room.setRoomStatus(Room.RoomStatus.ROOM_DELETED); // 24시간 지난 룸은 삭제된 룸이라고 DB에 표시
+            throw new BusinessLogicException(ExceptionCode.ROOM_NOT_FOUND);
+            // 룸을 찾을 수 없다는 에러
+            // 치즈, 바나나, 파, 배추, 요거트, 팽이버섯, 순두부, 통오리, 부추, 꽃게, 논우렁살
+        }
+    }
+
+    @Transactional
+    private void updateViewCount(Room room) {
+        long viewCount = Calculator.calculateViewCount(room.getViewCount(), 1);
+        room.setViewCount(viewCount);
+    }
+
 
 }

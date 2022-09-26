@@ -51,7 +51,11 @@ const RoomModal = () => {
       <form>
         <section>
           <label htmlFor="room-name">룸 이름</label>
-          <input id="room-name" type="text" />
+          <input
+            id="room-name"
+            type="text"
+            placeholder="최대 20자까지 작성 가능합니다."
+          />
         </section>
         <section>
           <label htmlFor="d-day">D-day</label>

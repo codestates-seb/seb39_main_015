@@ -31,10 +31,10 @@ public interface RoomMapper {
                 room.getRoomName(),
                 room.getDDay(),
                 room.getRoomTheme(),
-//                room.getWeather(),
                 room.getViewCount(),
                 room.getRoobitAmount(),
                 room.getRestDay(),
+                room.getWeather(),
                 url,
                 room.getPatchCount()
         );

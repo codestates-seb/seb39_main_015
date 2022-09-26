@@ -6,6 +6,7 @@ import seb15.roobits.exception.ExceptionCode;
 import seb15.roobits.room.entity.Room;
 import seb15.roobits.room.repository.RoomRepository;
 import org.springframework.stereotype.Service;
+import seb15.roobits.room.weather.CallWeather;
 
 import java.time.LocalDate;
 import java.time.Period;
@@ -22,10 +23,9 @@ public class RoomService {
     }
 
     public Room createRoom(Room room) {
-        // 이미 있는 이름인지 검사
-        verifyExistRoom(room.getRoomName());
-        room.setRestDay(Calculator.calculateRestDay(room));
-        dDayLimitation(room);
+        verifyExistRoom(room.getRoomName());        // 이미 있는 이름인지 검사
+        room.setRestDay(Calculator.calculateRestDay(room)); // d-day 잔여일 계산
+        dDayLimitation(room); // 잔여일 30일 이내인지 검사
 
         return roomRepository.save(room);
     }
@@ -43,7 +43,7 @@ public class RoomService {
         Optional.ofNullable(room.getDDay())
                         .ifPresent(dDay -> findRoom.setRestDay(Calculator.calculateRestDay(room)));
 
-        updatePatchCount(roomRepository.save(findRoom));
+        updatePatchCount(roomRepository.save(findRoom)); // 수정 횟수 카운터
 
         return roomRepository.save(findRoom);
     }
@@ -53,8 +53,9 @@ public class RoomService {
         Room findRoom = optionalRoom.orElseThrow(() ->
                 new BusinessLogicException(ExceptionCode.ROOM_NOT_FOUND));
 
-        updatedRoomStatus(findRoom);
-        updateViewCount(findRoom);
+        updatedRoomStatus(findRoom); // 룸 상태 업데이터
+        updateViewCount(findRoom); // 조회수 카운터
+        CallWeather.getWeatherData(findRoom); // 날씨 API 불러오기
 
         return findRoom;
     }
@@ -105,12 +106,6 @@ public class RoomService {
         room.setViewCount(viewCount); // 조회수 카운트
     }
 
-    // weather id를 CallWeather 클래스에서 받아서
-    // 서비스단에서 String으로 변환해서 Room entity에 setWeather로 넣는다.
-    // weather id 가 200, 300, 500번대면 rain
-    // 600번대면 snow 700
-    // 80x번대면 clouds
-    // 800이면 clear
-
-
 }
+
+

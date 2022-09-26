@@ -16,7 +16,7 @@ public class RoomResponseDto {
 
     private long restDay;
 
-//    private String weather;
+    private String weather;
 
     private Room.RoomTheme roomTheme;
 
@@ -29,7 +29,7 @@ public class RoomResponseDto {
     private long patchCount;
 
     public RoomResponseDto(long roomId, String roomName, LocalDate dDay, Room.RoomTheme roomTheme,
-                           long viewCount, long roobitAmount, long restDay, String url, long patchCount) {
+                           long viewCount, long roobitAmount, long restDay, String weather, String url, long patchCount) {
         this.roomId = roomId;
         this.roomName = roomName;
         this.dDay = dDay;
@@ -37,6 +37,7 @@ public class RoomResponseDto {
         this.viewCount = viewCount;
         this.roobitAmount = roobitAmount;
         this.restDay = restDay;
+        this.weather = weather;
         this.url = url;
         this.patchCount = patchCount;
     }

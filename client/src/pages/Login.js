@@ -32,6 +32,7 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  // const client = new XMLHttpRequest();
 
   const navigate = useNavigate();
 
@@ -57,6 +58,10 @@ const Login = () => {
         .then((res) => {
           //   dispatch(loginInfoActions.set(res.data));
           console.log(res.data);
+          // console.log(client.getAllResponseHeaders());
+          // console.log(client.getResponseHeader('Authorization'));
+          console.log(res.headers);
+          document.cookie = `Authorization=${res.headers.authorization}`;
           setIsLoading(false);
           navigate('/#sectionOne');
         })

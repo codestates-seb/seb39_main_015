@@ -2,6 +2,29 @@ import { FormWrapper } from '../styled/ModalStyle';
 import Carousel from './Carousel';
 
 const RoomModal = () => {
+  const getDate = () => {
+    const startDate = new Date();
+    const endDate = new Date();
+    endDate.setDate(endDate.getDate() + 30);
+
+    const setDateFomat = (dateObj) => {
+      return `${dateObj.getFullYear()}-${
+        dateObj.getMonth() + 1 < 10
+          ? '0' + String(dateObj.getMonth() + 1)
+          : dateObj.getMonth() + 1
+      }-${
+        dateObj.getDate() < 10
+          ? '0' + String(dateObj.getDate())
+          : dateObj.getDate()
+      }`;
+    };
+
+    return {
+      startDateStr: setDateFomat(startDate),
+      endDateStr: setDateFomat(endDate),
+    };
+  };
+
   return (
     <FormWrapper width="476px" height="634px">
       <h2>Make a room</h2>
@@ -15,9 +38,9 @@ const RoomModal = () => {
           <input
             id="d-day"
             type="date"
-            value="2022-09-22"
-            min="2022-09-22"
-            max="2022-10-22"
+            defaultValue={getDate().startDateStr}
+            min={getDate().startDateStr}
+            max={getDate().endDateStr}
           />
         </section>
         <section>

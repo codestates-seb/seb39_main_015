@@ -1,9 +1,10 @@
-import { forwardRef, useState } from 'react';
+import { forwardRef, useMemo, useState } from 'react';
 import { FormWrapper } from '../styled/ModalStyle';
 import Carousel from './Carousel';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
+//초기화 버튼 누르면 D-Day 입력창은 초기화 안된다.
 const DatePickerComponent = () => {
   const [startDate, setStartDate] = useState(new Date());
   const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
@@ -34,6 +35,16 @@ const DatePickerComponent = () => {
 };
 
 const RoomModal = () => {
+  const themes = useMemo(() => {
+    return [
+      {
+        src: 'https://picsum.photos/id/100/100/100',
+        title: '🐈 고양이와 개발자의 방 🧑‍💻',
+      },
+      { src: 'https://picsum.photos/id/19/100/100', title: 'Coming Soon 💌' },
+    ];
+  }, []);
+
   return (
     <FormWrapper width="476px" height="634px">
       <h2>Make a room</h2>
@@ -59,7 +70,7 @@ const RoomModal = () => {
         </section>
         <section id="theme">
           <label htmlFor="theme">테마 선택</label>
-          <Carousel />
+          <Carousel cards={themes} />
         </section>
         <section>
           <button type="reset">초기화</button>

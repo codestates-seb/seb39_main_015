@@ -41,6 +41,7 @@ const ButtonSection = styled.div`
   display: flex;
   justify-content: space-between;
   margin-right: 100px;
+  justify-content: end;
 `;
 
 const Button = styled.button`

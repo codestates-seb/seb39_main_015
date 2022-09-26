@@ -101,9 +101,11 @@ export default function Header() {
       </Navigator>
       <ButtonSection>
         {userInfo ? (
-          <ProfiileWrapper>
-            <MyInfo />
-          </ProfiileWrapper>
+          <Link to="/edituser">
+            <ProfiileWrapper>
+              <MyInfo />
+            </ProfiileWrapper>
+          </Link>
         ) : (
           <Link to="/login">
             <WhiteButton width="95px" height="42px">

@@ -6,6 +6,7 @@ import MyRoom from './pages/MyRoom.js';
 import MainPage from './pages/MainPage.js';
 import FindName from './pages/FindName.js';
 import FindPw from './pages/FindPw.js';
+import EditUser from './pages/EditUser';
 import Header from './components/Header.js';
 import /*useState, useEffect */ 'react';
 import axios from 'axios';
@@ -94,6 +95,7 @@ function App() {
         <Route path="/myroom" element={<MyRoom />} />
         <Route path="/findname" element={<FindName />} />
         <Route path="/findpw" element={<FindPw />} />
+        <Route path="/edituser" element={<EditUser />} />
       </Routes>
       <ReactQueryDevtools initialIsOpen={false} />
     </div>

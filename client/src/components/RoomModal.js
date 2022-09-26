@@ -7,17 +7,12 @@ import 'react-datepicker/dist/react-datepicker.css';
 //초기화 버튼 누르면 D-Day 입력창은 초기화 안된다.
 const DatePickerComponent = () => {
   const [startDate, setStartDate] = useState(new Date());
-  const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
-    <button
-      type="button"
-      className="example-custom-input"
-      onClick={onClick}
-      ref={ref}
-    >
+  const CustomInput = forwardRef(({ value, onClick }, ref) => (
+    <button type="button" className="custom-input" onClick={onClick} ref={ref}>
       {value}
     </button>
   ));
-  ExampleCustomInput.displayName = 'ExampleCustomInput';
+  CustomInput.displayName = 'CustomInput';
 
   return (
     <DatePicker
@@ -25,7 +20,7 @@ const DatePickerComponent = () => {
       disabledKeyboardNavigation //다른 월의 같은 날짜가 자동으로 selected 되는 현상 방지
       locale="ko"
       onChange={(date) => setStartDate(date)}
-      customInput={<ExampleCustomInput />}
+      customInput={<CustomInput />}
       minDate={new Date()}
       maxDate={new Date().setDate(new Date().getDate() + 30)}
       dateFormat="yyyy-MM-dd"
@@ -35,6 +30,11 @@ const DatePickerComponent = () => {
 };
 
 const RoomModal = () => {
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+    e.target.reset();
+  };
+
   const themes = useMemo(() => {
     return [
       {
@@ -48,7 +48,7 @@ const RoomModal = () => {
   return (
     <FormWrapper width="476px" height="634px">
       <h2>Make a room</h2>
-      <form>
+      <form onSubmit={handleOnSubmit}>
         <section>
           <label htmlFor="room-name">룸 이름</label>
           <input
@@ -78,7 +78,7 @@ const RoomModal = () => {
         </section>
         <section>
           <button type="reset">초기화</button>
-          <button type="button">룸 만들기</button>
+          <button type="submit">룸 만들기</button>
         </section>
       </form>
     </FormWrapper>

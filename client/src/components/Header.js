@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 // React query devtools
 import { BlackButton, WhiteButton } from '../styled/Style';
 import { useQueryClient } from 'react-query';
+import { MyInfo } from '../images/MyInfo.js';
 
 export const HeaderStyle = styled.div`
   position: fixed;
@@ -49,6 +50,10 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
+const ProfiileWrapper = styled.div`
+  margin-right: 10px;
+`;
+
 export default function Header() {
   // const navigate = useNavigate();
   const logoutHandler = () => {
@@ -76,7 +81,9 @@ export default function Header() {
       </Navigator>
       <ButtonSection>
         {userInfo ? (
-          ''
+          <ProfiileWrapper>
+            <MyInfo />
+          </ProfiileWrapper>
         ) : (
           <Link to="/login">
             <WhiteButton width="95px" height="42px">
@@ -85,9 +92,9 @@ export default function Header() {
           </Link>
         )}
         {userInfo ? (
-          <BlackButton width="95px" height="42px" onClick={logoutHandler}>
+          <WhiteButton width="95px" height="42px" onClick={logoutHandler}>
             로그아웃
-          </BlackButton>
+          </WhiteButton>
         ) : (
           <Link to="/join">
             <BlackButton width="95px" height="42px">

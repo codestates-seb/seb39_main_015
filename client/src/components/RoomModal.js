@@ -2,6 +2,7 @@ import { forwardRef, useMemo, useState } from 'react';
 import { FormWrapper } from '../styled/ModalStyle';
 import Carousel from './Carousel';
 import DatePicker from 'react-datepicker';
+import axios from 'axios';
 import 'react-datepicker/dist/react-datepicker.css';
 
 //초기화 버튼 누르면 D-Day 입력창은 초기화 안된다.
@@ -29,10 +30,33 @@ const DatePickerComponent = () => {
   );
 };
 
+const postRoom = () => {
+  /** 보낼 데이터 양식
+  {
+    roomName:’room’
+    dDay: ‘2022-09-15’,
+    roomTheme: {number: 1, description: ‘cats’}, roobitAmount: 300
+  } 
+  */
+  axios
+    .post(`${process.env.REACT_APP_API_URL}/rooms/post`, {})
+    .then((res) => {
+      console.log(res.data);
+      // setIsLoading(false);
+      // navigate('/');
+    })
+    .catch((res) => {
+      console.log(res.data);
+      // setIsLoading(false);
+      // navigate('/login');
+    });
+};
+
 const RoomModal = () => {
   const handleOnSubmit = (e) => {
     e.preventDefault();
     e.target.reset();
+    postRoom();
   };
 
   const themes = useMemo(() => {

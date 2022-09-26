@@ -1,24 +1,139 @@
+import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
-const CarouselStyle = styled.div``;
+const CarouselStyle = styled.div`
+  div {
+    transition: all 0.3s ease-out;
+  }
 
-const Card = ({ title, content }) => (
-  <div>
-    <div className="theme-thumbnail">
-      <img src={content} alt="dummy" />
-    </div>
-    <p>{title}</p>
-  </div>
-);
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 
-const Carousel = () => {
+  .slide {
+    display: flex;
+    align-items: center;
+  }
+
+  .window {
+    background: #ccc;
+    width: 211px;
+    height: 120px;
+
+    overflow: hidden;
+  }
+
+  .flexbox {
+    display: flex;
+  }
+
+  .img {
+    width: 211px;
+    height: 120px;
+    background-position: 50% 50%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    flex: none;
+  }
+
+  .btn {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 3.3rem;
+    color: gray;
+    padding: 0 10px;
+  }
+
+  .position {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .dot {
+    background: lightgray;
+    border-radius: 100%;
+    height: 10px;
+    width: 10px;
+  }
+  .dot + .dot {
+    margin-left: 20px;
+  }
+
+  .current {
+    background: gray;
+  }
+`;
+
+const Carousel = ({ cards }) => {
+  const images = useRef(cards);
+
+  const [current, setCurrent] = useState(0);
+  const [style, setStyle] = useState({
+    marginLeft: `-${current}00%`,
+  });
+  const imgSize = useRef(images.current.length);
+
+  const moveSlide = (i) => {
+    let nextIndex = current + i;
+
+    if (nextIndex < 0) nextIndex = imgSize.current - 1;
+    else if (nextIndex >= imgSize.current) nextIndex = 0;
+
+    setCurrent(nextIndex);
+  };
+
+  useEffect(() => {
+    setStyle({ marginLeft: `-${current}00%` });
+  }, [current]);
+
   return (
     <CarouselStyle>
-      <div aria-label="theme carousel">
-        <Card title="제목" content="https://picsum.photos/id/7/200/200" />
+      <div className="container">
+        <div className="slide">
+          <button
+            type="button"
+            className="btn"
+            onClick={() => {
+              moveSlide(-1);
+            }}
+          >
+            &lt;
+          </button>
+          <div className="window">
+            <div className="flexbox" style={style}>
+              {images.current.map((img, i) => (
+                <div
+                  key={i}
+                  className="img"
+                  style={{ backgroundImage: `url(${img.src})` }}
+                ></div>
+              ))}
+            </div>
+          </div>
+          <button
+            type="button"
+            className="btn"
+            onClick={() => {
+              moveSlide(1);
+            }}
+          >
+            &gt;
+          </button>
+        </div>
+        <p>{images.current[current].title}</p>
+        <div className="position">
+          {images.current.map((x, i) => (
+            <div
+              key={i}
+              className={i === current ? 'dot current' : 'dot'}
+            ></div>
+          ))}
+        </div>
       </div>
-      <button type="button">{'<'}</button>
-      <button type="button">{'>'}</button>
     </CarouselStyle>
   );
 };

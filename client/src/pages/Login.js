@@ -39,13 +39,13 @@ const Login = () => {
   const hadleSubmit = (e) => {
     e.preventDefault();
 
-    const usernameInput = e.target.username.value;
-    const passwordInput = e.target.password.value;
+    // const usernameInput = e.target.username.value;
+    // const passwordInput = e.target.password.value;
 
-    setUsername(usernameInput);
-    setPassword(passwordInput);
+    // setUsername(usernameInput);
+    // setPassword(passwordInput);
 
-    if (usernameInput !== '' && passwordInput !== '') {
+    if (username !== '' && password !== '') {
       //`${process.env.REACT_APP_API_URL}/users/login`
       setIsLoading(true);
       isLoading;
@@ -56,15 +56,13 @@ const Login = () => {
           password,
         })
         .then((res) => {
-          //   dispatch(loginInfoActions.set(res.data));
-          console.log(res.data);
-          // console.log(client.getAllResponseHeaders());
-          // console.log(client.getResponseHeader('Authorization'));
-          console.log(res.headers);
-          document.cookie = `Authorization=${res.headers.authorization}`;
           setIsLoading(false);
-          // navigate('/#sectionOne');
-          window.location.replace('/#sectionOne');
+          if (res.headers.authorization) {
+            document.cookie = `Authorization=${res.headers.authorization}`;
+            window.location.replace('/#sectionOne');
+          } else {
+            alert('아이디 혹은 비밀번호가 일치하지 않습니다.');
+          }
         })
         .catch((res) => {
           //더미 데이터 적용
@@ -140,6 +138,7 @@ const Login = () => {
               width={'314px'}
               required
               placeholder="아이디"
+              onChange={(e) => setUsername(e.target.value)}
             />
             <LogoWrapper>
               <FontAwesomeIcon icon={faUser} />
@@ -155,6 +154,7 @@ const Login = () => {
               width={'314px'}
               required
               placeholder="비밀번호"
+              onChange={(e) => setPassword(e.target.value)}
             />
             <LogoWrapper>
               <FontAwesomeIcon icon={faLock} />

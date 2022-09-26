@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import catImage from '../images/cat.png';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 // React query devtools
 import { BlackButton, WhiteButton } from '../styled/Style';
 import { useQueryClient } from 'react-query';
@@ -51,13 +50,12 @@ const Button = styled.button`
 `;
 
 export default function Header() {
+  // const navigate = useNavigate();
   const logoutHandler = () => {
-    axios
-      .post(`${process.env.REACT_APP_API_URL}/user/logout`)
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((res) => console.log(res.data));
+    document.cookie =
+      'Authorization' + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    window.location.replace('/login');
+    // navigate('/login');
   };
 
   const queryClient = useQueryClient();

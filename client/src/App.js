@@ -48,6 +48,7 @@ function App() {
   //   authHandler();
   // }, []);
 
+  // 'key'에 맞는 쿠키 찾는 함수
   const getCookieValue = (key) => {
     let cookieKey = key + '=';
     let result = '';
@@ -79,8 +80,8 @@ function App() {
             Authorization: `${getCookieValue('Authorization')}`,
           },
         })
-        .then((res) => res.data),
-    { staleTime: 1000 * 60 * 5 }
+        .then((res) => res.data)
+    // { staleTime: 1000 * 60 * 5 }
   );
   data;
   return (

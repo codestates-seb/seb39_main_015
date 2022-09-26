@@ -63,7 +63,7 @@ const Login = () => {
           console.log(res.headers);
           document.cookie = `Authorization=${res.headers.authorization}`;
           setIsLoading(false);
-          navigate('/#sectionOne');
+          window.location.replace('/#sectionOne');
         })
         .catch((res) => {
           //더미 데이터 적용

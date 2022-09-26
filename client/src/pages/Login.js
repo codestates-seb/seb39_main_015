@@ -16,6 +16,7 @@ import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { faLock } from '@fortawesome/free-solid-svg-icons';
 import { faGooglePlusG } from '@fortawesome/free-brands-svg-icons';
 import logInLogo from '../images/cat.png';
+import styled from 'styled-components';
 // import { useQueryClient } from 'react-query';
 
 // const LoginFormWrapper = styled.div`
@@ -27,6 +28,18 @@ import logInLogo from '../images/cat.png';
 //   align-items: center;
 //   background-color: #ffc75f;
 // `;
+const InputWrapperLogin = styled(InputWrapper)`
+  padding-bottom: 0px;
+`;
+
+const InputLoginUp = styled(Input)`
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+`;
+const InputLoginDn = styled(Input)`
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+`;
 
 const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -129,8 +142,8 @@ const Login = () => {
         <img alt="login logo" src={logInLogo} />
         <form onSubmit={(e) => hadleSubmit(e)}>
           {/* <label htmlFor="username">ID</label> */}
-          <InputWrapper>
-            <Input
+          <InputWrapperLogin>
+            <InputLoginUp
               type="text"
               id="username"
               name="ID"
@@ -143,10 +156,10 @@ const Login = () => {
             <LogoWrapper>
               <FontAwesomeIcon icon={faUser} />
             </LogoWrapper>
-          </InputWrapper>
+          </InputWrapperLogin>
           {/* <label htmlFor="login-password">Password</label> */}
           <InputWrapper>
-            <Input
+            <InputLoginDn
               type="password"
               id="login-password"
               name="password"

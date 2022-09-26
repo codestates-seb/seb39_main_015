@@ -39,9 +39,9 @@ const ButtonSection = styled.div`
   display: flex;
   width: 200px;
   display: flex;
-  justify-content: space-between;
   margin-right: 100px;
-  justify-content: end;
+  justify-content: flex-end;
+  align-items: center;
 `;
 
 const Button = styled.button`
@@ -52,6 +52,26 @@ const Button = styled.button`
 
 const ProfiileWrapper = styled.div`
   margin-right: 10px;
+  height: 42px;
+  width: 42px;
+  background-color: black;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  :active {
+    box-shadow: none !important;
+    transform: scale(1) !important;
+  }
+  :hover {
+    box-shadow: 0px 0px 0px 1px transparent, 0px 0px 0px 4px transparent,
+      0px 6px 16px rgb(0 0 0 / 12%);
+    transform: scale(1.02);
+  }
+`;
+
+const Space = styled.span`
+  margin-left: 10px;
 `;
 
 export default function Header() {
@@ -88,7 +108,8 @@ export default function Header() {
           <Link to="/login">
             <WhiteButton width="95px" height="42px">
               로그인
-            </WhiteButton>{' '}
+            </WhiteButton>
+            <Space />
           </Link>
         )}
         {userInfo ? (

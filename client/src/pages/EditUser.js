@@ -18,6 +18,7 @@ import { faUser, faEnvelope } from '@fortawesome/free-regular-svg-icons';
 import { faLock } from '@fortawesome/free-solid-svg-icons';
 import signUpLogo from '../images/cat.png';
 import styled from 'styled-components';
+import { useQueryClient } from 'react-query';
 
 // 디자인 컨셉 결정 후 일괄 적용할 예정이기 때문에 styled 폴더에서 가져온 요소는 모두 삭제.
 // 추후 컨셉이 결정되면 필요한 스타일을 미리 만들어두고 사용할 것.
@@ -37,10 +38,12 @@ const Space = styled.span`
   margin-left: 10px;
 `;
 
-const EditUser = () => {
+const EditUser = ({ getCookieValue }) => {
+  const queryClient = useQueryClient();
+  const userInfo = queryClient.getQueryData('auth');
   // 기존 displayName은 username으로 변경됨
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState(userInfo.username); //queryClient.getQuerysData('auth')
+  const [email, setEmail] = useState(userInfo.email); //queryClient.getQueryData('auth')
   const [password, setPassword] = useState('');
   const [usernameMsg, setUsernameMsg] = useState('');
   const [emailMsg, setEmailMsg] = useState('');
@@ -48,6 +51,8 @@ const EditUser = () => {
   const [isValid, setIsValid] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [nameValid, setNameValid] = useState(false);
+
+  console.log(userInfo);
 
   console.log(`nameValid: ${nameValid}`);
   console.log(`isValid: ${isValid}`);
@@ -111,21 +116,28 @@ const EditUser = () => {
       setIsLoading(true);
       isLoading;
 
+      const updateInfo = { password };
+      if (username !== userInfo.username) {
+        updateInfo.username = username;
+      }
+      if (email !== userInfo.email) {
+        updateInfo.email = email;
+      }
+
       axios
-        .post(`${process.env.REACT_APP_API_URL}/user/join`, {
-          username,
-          email,
-          password,
+        .patch(`${process.env.REACT_APP_API_URL}/user/patch`, updateInfo, {
+          headers: {
+            Authorization: `${getCookieValue('Authorization')}`,
+          },
         })
         .then((res) => {
           console.log(res.data);
           setIsLoading(false);
-          navigate('/login');
+          navigate('/');
         })
         .catch(() => {
-          //더미 데이터 적용
           setIsLoading(false);
-          navigate('/join');
+          navigate('/edituser');
         });
     }
   };

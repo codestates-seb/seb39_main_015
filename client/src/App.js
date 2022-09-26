@@ -95,7 +95,10 @@ function App() {
         <Route path="/myroom" element={<MyRoom />} />
         <Route path="/findname" element={<FindName />} />
         <Route path="/findpw" element={<FindPw />} />
-        <Route path="/edituser" element={<EditUser />} />
+        <Route
+          path="/edituser"
+          element={<EditUser getCookieValue={getCookieValue} />}
+        />
       </Routes>
       <ReactQueryDevtools initialIsOpen={false} />
     </div>

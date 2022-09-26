@@ -71,6 +71,7 @@ public class RoomService {
             throw new BusinessLogicException(ExceptionCode.ROOMNAME_ALREADY_EXISTS);
     }
 
+    @Transactional
     private void updatePatchCount(Room room) {
 
         long patchCount = Calculator.calculatePatchCount(room.getPatchCount(), 1);
@@ -101,8 +102,15 @@ public class RoomService {
     @Transactional
     private void updateViewCount(Room room) {
         long viewCount = Calculator.calculateViewCount(room.getViewCount(), 1);
-        room.setViewCount(viewCount);
+        room.setViewCount(viewCount); // 조회수 카운트
     }
+
+    // weather id를 CallWeather 클래스에서 받아서
+    // 서비스단에서 String으로 변환해서 Room entity에 setWeather로 넣는다.
+    // weather id 가 200, 300, 500번대면 rain
+    // 600번대면 snow 700
+    // 80x번대면 clouds
+    // 800이면 clear
 
 
 }

@@ -56,8 +56,8 @@ public class Room {
     @Column(columnDefinition = "integer default 0", nullable = false)
     private long viewCount;
 
-//    @Column
-//    private String weather;
+    @Column
+    private String weather;
 
     @Column
     private long patchCount;

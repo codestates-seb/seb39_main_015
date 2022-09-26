@@ -1,30 +1,39 @@
+import { forwardRef, useState } from 'react';
 import { FormWrapper } from '../styled/ModalStyle';
 import Carousel from './Carousel';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+
+const DatePickerComponent = () => {
+  const [startDate, setStartDate] = useState(new Date());
+  const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
+    <button
+      type="button"
+      className="example-custom-input"
+      onClick={onClick}
+      ref={ref}
+    >
+      {value}
+    </button>
+  ));
+  ExampleCustomInput.displayName = 'ExampleCustomInput';
+
+  return (
+    <DatePicker
+      selected={startDate}
+      disabledKeyboardNavigation //다른 월의 같은 날짜가 자동으로 selected 되는 현상 방지
+      locale="ko"
+      onChange={(date) => setStartDate(date)}
+      customInput={<ExampleCustomInput />}
+      minDate={new Date()}
+      maxDate={new Date().setDate(new Date().getDate() + 30)}
+      dateFormat="yyyy-MM-dd"
+      placeholderText="30일 이내의 날짜만 D-day 로 설정할 수 있습니다."
+    />
+  );
+};
 
 const RoomModal = () => {
-  const getDate = () => {
-    const startDate = new Date();
-    const endDate = new Date();
-    endDate.setDate(endDate.getDate() + 30);
-
-    const setDateFomat = (dateObj) => {
-      return `${dateObj.getFullYear()}-${
-        dateObj.getMonth() + 1 < 10
-          ? '0' + String(dateObj.getMonth() + 1)
-          : dateObj.getMonth() + 1
-      }-${
-        dateObj.getDate() < 10
-          ? '0' + String(dateObj.getDate())
-          : dateObj.getDate()
-      }`;
-    };
-
-    return {
-      startDateStr: setDateFomat(startDate),
-      endDateStr: setDateFomat(endDate),
-    };
-  };
-
   return (
     <FormWrapper width="476px" height="634px">
       <h2>Make a room</h2>
@@ -35,13 +44,7 @@ const RoomModal = () => {
         </section>
         <section>
           <label htmlFor="d-day">D-day</label>
-          <input
-            id="d-day"
-            type="date"
-            defaultValue={getDate().startDateStr}
-            min={getDate().startDateStr}
-            max={getDate().endDateStr}
-          />
+          <DatePickerComponent />
         </section>
         <section>
           <label htmlFor="max-roobits">최대 루빗 개수</label>

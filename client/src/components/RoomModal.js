@@ -11,7 +11,7 @@ const RoomModal = () => {
           <input id="room-name" type="text" />
         </section>
         <section>
-          <label htmlFor="d-day">룸 이름</label>
+          <label htmlFor="d-day">D-day</label>
           <input
             id="d-day"
             type="date"
@@ -34,6 +34,10 @@ const RoomModal = () => {
         <section id="theme">
           <label htmlFor="theme">테마 선택</label>
           <Carousel />
+        </section>
+        <section>
+          <button type="reset">초기화</button>
+          <button type="button">룸 만들기</button>
         </section>
       </form>
     </FormWrapper>

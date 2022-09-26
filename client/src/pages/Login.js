@@ -45,7 +45,7 @@ const Login = () => {
     setUsername(usernameInput);
     setPassword(passwordInput);
 
-    if (username !== '' && password !== '') {
+    if (usernameInput !== '' && passwordInput !== '') {
       //`${process.env.REACT_APP_API_URL}/users/login`
       setIsLoading(true);
       isLoading;
@@ -63,6 +63,7 @@ const Login = () => {
           console.log(res.headers);
           document.cookie = `Authorization=${res.headers.authorization}`;
           setIsLoading(false);
+          // navigate('/#sectionOne');
           window.location.replace('/#sectionOne');
         })
         .catch((res) => {

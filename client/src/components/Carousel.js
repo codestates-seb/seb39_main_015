@@ -124,7 +124,9 @@ const Carousel = ({ cards }) => {
             &gt;
           </button>
         </div>
-        <p>{images.current[current].title}</p>
+        {cards.length > 0 && cards[0].title !== undefined ? (
+          <p>{images.current[current].title}</p>
+        ) : null}
         <div className="position">
           {images.current.map((x, i) => (
             <div

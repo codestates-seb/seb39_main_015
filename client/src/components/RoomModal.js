@@ -70,7 +70,11 @@ const RoomModal = () => {
   }, []);
 
   return (
-    <FormWrapper width="476px" height="634px">
+    <FormWrapper
+      width="476px"
+      height="634px"
+      onClick={(e) => e.stopPropagation()}
+    >
       <h2>Make a room</h2>
       <form onSubmit={handleOnSubmit}>
         <section>

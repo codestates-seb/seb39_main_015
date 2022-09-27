@@ -4,6 +4,7 @@ import Carousel from './Carousel';
 import DatePicker from 'react-datepicker';
 import axios from 'axios';
 import 'react-datepicker/dist/react-datepicker.css';
+import { ReactComponent as CancelIcon } from '../images/cancel-icon.svg';
 
 //초기화 버튼 누르면 D-Day 입력창은 초기화 안된다.
 const DatePickerComponent = () => {
@@ -52,7 +53,7 @@ const postRoom = () => {
     });
 };
 
-const RoomModal = () => {
+const RoomModal = ({ handleOpenModal }) => {
   const handleOnSubmit = (e) => {
     e.preventDefault();
     e.target.reset();
@@ -75,6 +76,7 @@ const RoomModal = () => {
       height="634px"
       onClick={(e) => e.stopPropagation()}
     >
+      <CancelIcon stroke="#aaa" onClick={handleOpenModal} />
       <h2>Make a room</h2>
       <form onSubmit={handleOnSubmit}>
         <section>

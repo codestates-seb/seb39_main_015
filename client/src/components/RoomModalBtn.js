@@ -33,7 +33,7 @@ const RoomModalBtn = () => {
       </MakeRoomBtnStyle>
       {isOpen && (
         <ModalWrapper onClick={handleOnClick}>
-          <RoomModal />
+          <RoomModal handleOpenModal={handleOnClick} />
         </ModalWrapper>
       )}
     </>

@@ -50,9 +50,14 @@ public class RoomController {
     public ResponseEntity getRoom(@PathVariable("room-id") @Positive long roomId) {
         Room room = roomService.findRoom(roomId);
 
-        return new ResponseEntity<>(
-                new SingleResponseDto<>(roomMapper.roomToRoomResponseDto(room)),
-                HttpStatus.OK);
+        if (room.getRoomStatus() == Room.RoomStatus.ROOM_CLOSED) {
+            return new ResponseEntity<>(roomMapper.roomToResponseRoomStatus(room),
+                    HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(
+                    new SingleResponseDto<>(roomMapper.roomToRoomResponseDto(room)),
+                    HttpStatus.OK);
+        }
     }
 
     @DeleteMapping("/{room-id}")

@@ -14,7 +14,7 @@ import java.time.LocalDate;
 
 @Getter
 public class RoomPostDto {
-    @Length(min= 3, max= 20, message = "룸 이름을 3~20자 이내로 적어야 합니다.")
+    @Length(min= 2, max= 20, message = "룸 이름을 3~20자 이내로 적어야 합니다.")
     private String roomName;
 
     @Length(min= 6, max=20, message = "패스워드는 6~20자 이내여야 합니다.")

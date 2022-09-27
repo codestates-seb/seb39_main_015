@@ -62,7 +62,8 @@ public class RoomService {
 
     public void deleteRoom(long roomId) {
         Room room = findRoom(roomId);
-        roomRepository.delete(room);
+//        room.setRoomStatus(Room.RoomStatus.ROOM_DELETED); // 삭제된 룸이라고 사용자에게 표시. 추후 DB에 남겨야 할 경우 필요.
+        roomRepository.delete(room); // DB에서 실제로 삭제
     }
 
     private void verifyExistRoom(String roomName) {
@@ -89,16 +90,17 @@ public class RoomService {
             throw new BusinessLogicException(ExceptionCode.DDAY_NOT_VALID); } // 1~30일 이내 날짜만 설정 가능
     }
 
+    @Transactional
     private void updatedRoomStatus(Room room) {
         long restDay = Calculator.calculateRestDay(room);
 
-        if (restDay < 0) {
-            room.setRoomStatus(Room.RoomStatus.ROOM_DELETED); // 24시간 지난 룸은 삭제된 룸이라고 DB에 표시
-            throw new BusinessLogicException(ExceptionCode.ROOM_NOT_FOUND);
-            // 룸을 찾을 수 없다는 에러
-            // 치즈, 바나나, 파, 배추, 요거트, 팽이버섯, 순두부, 통오리, 부추, 꽃게, 논우렁살
+        if (restDay == 0) {
+            room.setRoomStatus(Room.RoomStatus.ROOM_OPENED);
+        } else if (restDay < 0) {
+            room.setRoomStatus(Room.RoomStatus.ROOM_CLOSED); // 24시간 지난 룸은 닫힌 룸이라고 표시. (DB에서 없어지지 않음)
         }
     }
+
 
     @Transactional
     private void updateViewCount(Room room) {
@@ -109,3 +111,4 @@ public class RoomService {
 }
 
 
+//- 이모지를 위해 인코딩 방식 변경해보기

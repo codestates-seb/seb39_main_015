@@ -1,19 +1,12 @@
 package seb15.roobits.room.mapper;
 
 
-import lombok.Getter;
-import seb15.roobits.exception.BusinessLogicException;
-import seb15.roobits.exception.ExceptionCode;
+import seb15.roobits.room.dto.ResponseRoomStatus;
 import seb15.roobits.room.dto.RoomPatchDto;
 import seb15.roobits.room.dto.RoomPostDto;
 import seb15.roobits.room.dto.RoomResponseDto;
 import seb15.roobits.room.entity.Room;
 import org.mapstruct.Mapper;
-
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.Period;
-import java.util.Optional;
 
 
 @Mapper(componentModel = "spring")
@@ -31,6 +24,7 @@ public interface RoomMapper {
                 room.getRoomName(),
                 room.getDDay(),
                 room.getRoomTheme(),
+                room.getRoomStatus(),
                 room.getViewCount(),
                 room.getRoobitAmount(),
                 room.getRestDay(),
@@ -40,5 +34,18 @@ public interface RoomMapper {
         );
 
         return roomResponseDto;
+    }
+
+    default ResponseRoomStatus roomToResponseRoomStatus(Room room) {
+        String roomData = null;
+        String roobits = null;
+
+        ResponseRoomStatus responseRoomStatus = new ResponseRoomStatus(
+                room.getRoomStatus(),
+                roomData,
+                roobits
+        );
+
+        return responseRoomStatus;
     }
 }

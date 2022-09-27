@@ -32,17 +32,18 @@ public class RoobitController{
     @PostMapping("/post")  // 루빗 작성
     public ResponseEntity postRoobit(@Valid @RequestBody RoobitPostDto roobitPostDto) {
         Roobit roobit = roobitService.createRoobit(mapper.roobitPostDtoToRoobit(roobitPostDto));
-
-        return new ResponseEntity<>(
-                new SingleResponseDto<>(mapper.roobitToRoobitResponseDto(roobit)),
-                HttpStatus.CREATED);
+        return new ResponseEntity<>(mapper.roobitToRoobitIdResponseDto(roobit), HttpStatus.CREATED);
     }
 
-    @GetMapping("/get/{roobit-id}")   // 작성된 루빗 조회 (필요없을 듯)
+    @GetMapping("/get/{roobit-id}")   // 특정 루빗 하나만 열람 (공개 중인 루빗만 열림)  (0927YU)
     public ResponseEntity getRoobit(@PathVariable("roobit-id") @Positive long roobitId) {
         Roobit roobit = roobitService.findRoobit(roobitId);
-        return new ResponseEntity<>(
-                new SingleResponseDto<>(mapper.roobitToRoobitResponseDto(roobit)), HttpStatus.OK);
+        Roobit.RoobitStatus roobitStatus = roobit.getRoobitStatus();
+        if (roobitStatus.getStatusNumber() == 2) {    //  2 = 공개 중, 디데이
+            return new ResponseEntity<>(
+                    new roobits.dto.SingleResponseDto<>(mapper.roobitToRoobitResponseDto(roobit)), HttpStatus.OK);
+        }
+        else {return null;}
     }
 
     @GetMapping("/search")

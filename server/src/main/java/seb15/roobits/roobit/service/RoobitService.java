@@ -44,16 +44,17 @@ public class RoobitService {
                 Sort.by("roobitId").descending()));
     }
 
-//    public void deleteRoobit(long roobitId) {
-//        Roobit findRoobit = findVerifiedRoobit(roobitId);
-//        int step = findRoobit.getRoobitStatus().getStatusNumber();    // 지우지않고 상태 캔슬로 남겨두는?
-//        findRoobit.setRoobitStatus(Roobit.RoobitStatus.ROOBIT_DELETED);
-//        roobitRepository.save(findRoobit);
+    public void deleteRoobit(long roobitId) {  // 0927(YU)
+        Roobit findRoobit = findVerifiedRoobit(roobitId);
+        int step = findRoobit.getRoobitStatus().getStatusNumber();    // 소프트 딜리트
+        findRoobit.setRoobitStatus(Roobit.RoobitStatus.ROOBIT_DELETED);
+        roobitRepository.save(findRoobit);
+    }
+
+//    public void deleteRoobit(long roobitId) {   // 하드 딜리트 0927(YU)
+//        roobitRepository.deleteById(roobitId);
 //    }
 
-    public void deleteRoobit(long roobitId) {
-        roobitRepository.deleteById(roobitId);
-    }
 
     public Roobit findVerifiedRoobit(long roobitId) {
         Optional<Roobit> optionalRoobit = roobitRepository.findById(roobitId);

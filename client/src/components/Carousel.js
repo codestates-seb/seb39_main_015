@@ -68,7 +68,7 @@ const CarouselStyle = styled.div`
   }
 `;
 
-const Carousel = ({ cards }) => {
+const Carousel = ({ cards, setRoomTheme }) => {
   const images = useRef(cards);
 
   const [current, setCurrent] = useState(0);
@@ -88,6 +88,16 @@ const Carousel = ({ cards }) => {
 
   useEffect(() => {
     setStyle({ marginLeft: `-${current}00%` });
+    if (
+      cards.length > 0 &&
+      cards[0].type === 'theme' &&
+      images.current[current].number !== -1
+    ) {
+      setRoomTheme({
+        number: images.current[current].number,
+        description: images.current[current].description,
+      });
+    }
   }, [current]);
 
   return (

@@ -1,5 +1,5 @@
 import { forwardRef, useMemo, useState } from 'react';
-import { FormWrapper } from '../styled/ModalStyle';
+import { FormWrapper } from '../styled/Style';
 import Carousel from './Carousel';
 import DatePicker from 'react-datepicker';
 import axios from 'axios';
@@ -7,7 +7,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 //초기화 버튼 누르면 D-Day 입력창은 초기화 안된다.
 const DatePickerComponent = () => {
-  const [startDate, setStartDate] = useState(new Date());
+  const [dDayDate, setDdayDate] = useState(new Date());
   const CustomInput = forwardRef(({ value, onClick }, ref) => (
     <button type="button" className="custom-input" onClick={onClick} ref={ref}>
       {value}
@@ -17,10 +17,10 @@ const DatePickerComponent = () => {
 
   return (
     <DatePicker
-      selected={startDate}
+      selected={dDayDate}
       disabledKeyboardNavigation //다른 월의 같은 날짜가 자동으로 selected 되는 현상 방지
       locale="ko"
-      onChange={(date) => setStartDate(date)}
+      onChange={(date) => setDdayDate(date)}
       customInput={<CustomInput />}
       minDate={new Date()}
       maxDate={new Date().setDate(new Date().getDate() + 30)}

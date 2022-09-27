@@ -85,6 +85,8 @@ const RoomModal = ({ handleOpenModal }) => {
             id="room-name"
             type="text"
             placeholder="최대 20자까지 작성 가능합니다."
+            minLength={2}
+            maxLength={20}
           />
         </section>
         <section>

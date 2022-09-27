@@ -6,9 +6,7 @@ import axios from 'axios';
 import 'react-datepicker/dist/react-datepicker.css';
 import { ReactComponent as CancelIcon } from '../images/cancel-icon.svg';
 
-//초기화 버튼 누르면 D-Day 입력창은 초기화 안된다.
-const DatePickerComponent = () => {
-  const [dDayDate, setDdayDate] = useState(new Date());
+const DatePickerComponent = ({ dDayDate, setDdayDate }) => {
   const CustomInput = forwardRef(({ value, onClick }, ref) => (
     <button type="button" className="custom-input" onClick={onClick} ref={ref}>
       {value}
@@ -20,7 +18,6 @@ const DatePickerComponent = () => {
     <DatePicker
       selected={dDayDate}
       disabledKeyboardNavigation //다른 월의 같은 날짜가 자동으로 selected 되는 현상 방지
-      locale="ko"
       onChange={(date) => setDdayDate(date)}
       customInput={<CustomInput />}
       minDate={new Date()}
@@ -54,10 +51,16 @@ const postRoom = () => {
 };
 
 const RoomModal = ({ handleOpenModal }) => {
+  const [dDayDate, setDdayDate] = useState(new Date());
+
   const handleOnSubmit = (e) => {
     e.preventDefault();
     e.target.reset();
     postRoom();
+  };
+
+  const handleOnReset = () => {
+    setDdayDate(new Date());
   };
 
   const themes = useMemo(() => {
@@ -78,7 +81,7 @@ const RoomModal = ({ handleOpenModal }) => {
     >
       <CancelIcon stroke="#aaa" onClick={handleOpenModal} />
       <h2>Make a room</h2>
-      <form onSubmit={handleOnSubmit}>
+      <form onSubmit={handleOnSubmit} onReset={handleOnReset}>
         <section>
           <label htmlFor="room-name">룸 이름</label>
           <input
@@ -91,7 +94,7 @@ const RoomModal = ({ handleOpenModal }) => {
         </section>
         <section>
           <label htmlFor="d-day">D-day</label>
-          <DatePickerComponent />
+          <DatePickerComponent dDayDate={dDayDate} setDdayDate={setDdayDate} />
         </section>
         <section>
           <label htmlFor="max-roobits">최대 루빗 개수</label>

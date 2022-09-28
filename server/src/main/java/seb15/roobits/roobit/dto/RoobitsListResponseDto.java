@@ -2,7 +2,7 @@ package seb15.roobits.roobit.dto;
 
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;
-import roobits.roobit.entity.Roobit;
+import seb15.roobits.roobit.entity.Roobit;
 
 import java.time.LocalDateTime;
 

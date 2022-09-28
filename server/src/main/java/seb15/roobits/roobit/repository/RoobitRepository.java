@@ -1,21 +1,27 @@
 package seb15.roobits.roobit.repository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import seb15.roobits.roobit.entity.Roobit;
-
-import java.util.List;
 
 @Repository
 public interface RoobitRepository extends JpaRepository<Roobit, Long> {
 
-    @Query("SELECT p FROM Roobits p ORDER BY p.id DESC")   //전체조회
-    List<Roobit> findAllDesc();
-
-    @Query(value = "SELECT c FROM Roobit c WHERE c.roomId = :roomId")    // 0928(YU)
     public static Page<Roobit> findByRoomId(long roomId, PageRequest roobitId){
-        List<Roobit> findAllDesc();
+        return null;
     }
+
+//    @Query(value = "SELECT c FROM Roobit c WHERE c.roomId = :roomId")
+//    Page<Roobit> findByRoomId(long roomId);
+
+//    static Page<Roobit> findByRoomId(long roomId, Pageable pageable) {
+//        return null;
+//    }
+
+
+    // 0929 Create @Query Find Instance Method 찾아보기 (JPA pallete)
+    // 위 repository 작성법 찾아보기
 
 }

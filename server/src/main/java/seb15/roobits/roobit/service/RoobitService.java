@@ -7,15 +7,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import seb15.roobits.exception.BusinessLogicException;
 import seb15.roobits.exception.ExceptionCode;
-import seb15.roobits.roobit.dto.RoobitResponseDto;
-import seb15.roobits.roobit.dto.RoobitsListResponseDto;
 import seb15.roobits.roobit.entity.Roobit;
 import seb15.roobits.roobit.repository.RoobitRepository;
 import seb15.roobits.room.service.RoomService;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Transactional
 @Service
@@ -30,6 +26,7 @@ public class RoobitService {
     }
 
     public Roobit createRoobit(Roobit roobit) {
+        verifyRoobit(roobit);
         Roobit savedRoobit = saveRoobit(roobit);
         return savedRoobit;
     }
@@ -44,14 +41,14 @@ public class RoobitService {
                 Sort.by("roobitId").descending()));
     }
 
-    public void deleteRoobit(long roobitId) {  // 0927(YU)
+    public void deleteRoobit(long roobitId) {
         Roobit findRoobit = findVerifiedRoobit(roobitId);
         int step = findRoobit.getRoobitStatus().getStatusNumber();    // 소프트 딜리트
         findRoobit.setRoobitStatus(Roobit.RoobitStatus.ROOBIT_DELETED);
         roobitRepository.save(findRoobit);
     }
 
-//    public void deleteRoobit(long roobitId) {   // 하드 딜리트 0927(YU)
+//    public void deleteRoobit(long roobitId) {   // 하드 딜리트
 //        roobitRepository.deleteById(roobitId);
 //    }
 
@@ -64,16 +61,14 @@ public class RoobitService {
         return findRoobit;
     }
 
+    private void verifyRoobit(Roobit roobit) {
+        roomService.findRoom(roobit.getRoom().getRoomId());
+    }   //내가 쓰던 findVerifiedRoom에서 findRoom으로 변경했음 (0929 YU)
+
     private Roobit saveRoobit(Roobit roobit) {
         return roobitRepository.save(roobit);
     }
 
-    @Transactional(readOnly = true)      // 전체 글 조회 추가
-    public List<RoobitResponseDto> findAllDesc(){
-        return roobitRepository.findAllDesc().stream()
-                .map(RoobitsListResponseDto::new)
-                .collect(Collectors.toList());
-    }
-
-
 }
+
+

@@ -1,4 +1,4 @@
-package roobits.roobit.dto;
+package seb15.roobits.roobit.dto;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -9,8 +9,8 @@ import org.springframework.boot.autoconfigure.web.WebProperties;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import roobits.roobit.entity.Roobit;
-import roobits.roobit.repository.RoobitRepository;
+import seb15.roobits.roobit.entity.Roobit;
+import seb15.roobits.roobit.repository.RoobitRepository;
 import javax.swing.text.AbstractDocument;
 import javax.transaction.Transactional;
 import java.net.URL;

@@ -49,7 +49,8 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
         String username = String.valueOf(oAuth2User.getAttributes().get("name"));
         String password = "OauthLogin";
         List<String> authorities = customAuthorityUtils.createRoles(email);
-        saveMember(username,email,password);
+        if(authentication.getPrincipal() == null){
+        saveMember(username,email,password);}
         redirect(request,response,username,authorities);
     }
 
@@ -96,7 +97,7 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
                 .scheme("http")
                 .host("localhost")
                 .port(3000)
-                .path("token")
+                .path("/token")
                 .queryParams(queryParams)
                 .build()
                 .toUri();

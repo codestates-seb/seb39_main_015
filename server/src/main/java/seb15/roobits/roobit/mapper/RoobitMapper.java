@@ -15,4 +15,5 @@ public interface RoobitMapper {
     RoobitResponseDto roobitToRoobitResponseDto(Roobit roobit);
     List<RoobitResponseDto> roobitsToRoobitResponsesDtos(List<Roobit> roobits);
     RoobitIdResponseDto roobitToRoobitIdResponseDto(Roobit roobit);    // 0927(YU)
+    List<FloorDto> roobitsToFloorDto(List<Roobit> roobits);    // 0928(YU)
 }

@@ -66,16 +66,29 @@ public class ManagerController {
 //                HttpStatus.OK);
 //    }
 
-    @GetMapping("/room/{room-id}")    // 룸 내부 모든 루빗을 한페이지에 모두 리스트로 가져옴 (0927YU)
+//    @GetMapping("/room/{room-id}")    // 룸 내부 모든 루빗을 한페이지에 모두 리스트로 가져옴 (0927YU)
+//    public ResponseEntity getRoobits(@PathVariable("room-id") @Positive long roomId) {
+//        int page = 1;
+//        int size = 300;
+//        Page<Roobit> pageRoobits = roobitService.findRoobits(page-1, 300);
+//        List<Roobit> roobits = pageRoobits.getContent();
+//        return new ResponseEntity<>(
+//                new MultiResponseDto<>(mapper.roobitsToRoobitResponsesDtos(roobits),pageRoobits),
+//                HttpStatus.OK);
+//    }
+
+    @GetMapping("/room/{room-id}")  // 룸 내부 모든 루빗을 floor별로 content로 묶어서 가져옴 (0928YU)
     public ResponseEntity getRoobits(@PathVariable("room-id") @Positive long roomId) {
         int page = 1;
         int size = 300;
         Page<Roobit> pageRoobits = roobitService.findRoobits(page-1, 300);
         List<Roobit> roobits = pageRoobits.getContent();
+
         return new ResponseEntity<>(
-                new MultiResponseDto<>(mapper.roobitsToRoobitResponsesDtos(roobits),pageRoobits),
+                new FloorDto<>(mapper.roobitsToFloorDto(roobits)),
                 HttpStatus.OK);
     }
+
 
     @DeleteMapping("/delete/{roobit-id}")   // 특정 루빗 삭제 (soft로 바꿈)
     public ResponseEntity deleteRoobit(@PathVariable("roobit-id") @Positive long roobitId) {

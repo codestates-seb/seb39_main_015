@@ -123,6 +123,19 @@ const EditUser = ({ getCookieValue }) => {
     }
   };
 
+  // 회원 탈퇴
+  const deleteUser = () => {
+    const confirmMsg = confirm('정말 탈퇴하시겠습니까?');
+    if (confirmMsg) {
+      axios
+        .delete(`${process.env.REACT_APP_API_URL}/user/delete`)
+        .then((res) => {
+          console.log(res.data);
+          navigate('/#sectionOne');
+        });
+    }
+  };
+
   // 유효성 검사 실행 useEffect
   useEffect(() => {
     setIsValid(false);
@@ -197,7 +210,10 @@ const EditUser = ({ getCookieValue }) => {
           </div>
         </form>
         <div>
-          회원 탈퇴 하실건가요? <StyledLink to="/login">회원 탈퇴</StyledLink>
+          회원 탈퇴 하실건가요?{' '}
+          <StyledLink to="/#sectionOne" onClick={deleteUser}>
+            회원 탈퇴
+          </StyledLink>
         </div>
       </FormWrapper>
     </Body>

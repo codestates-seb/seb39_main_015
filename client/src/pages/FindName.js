@@ -54,7 +54,7 @@ const FindName = () => {
       isLoading;
 
       axios
-        .post(`/user/finduser`, {
+        .post(`${process.env.REACT_APP_API_URL}/user/finduser`, {
           email,
         })
         .then((res) => {

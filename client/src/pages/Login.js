@@ -98,7 +98,7 @@ const Login = () => {
     // );
     setIsLoading(true);
     window.location.assign(
-      `http://ec2-3-36-122-4.ap-northeast-2.compute.amazonaws.com:8080/oauth2/authorization/google`
+      `${process.env.REACT_APP_API_URL}/oauth2/authorization/google`
     );
     // axios
     //   .post(`${process.env.REACT_APP_API_URL}/user/googleauth`)

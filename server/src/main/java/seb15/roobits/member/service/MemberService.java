@@ -2,24 +2,19 @@ package seb15.roobits.member.service;
 
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import seb15.roobits.event.MemberRegistrationApplicationEvent;
 import seb15.roobits.exception.BusinessLogicException;
 import seb15.roobits.exception.ExceptionCode;
 import seb15.roobits.member.entity.Member;
 import seb15.roobits.member.repository.MemberRepository;
-import seb15.roobits.security.auth.utils.CustomAuthorityUtils;
+import seb15.roobits.security.utils.CustomAuthorityUtils;
 import seb15.roobits.security.provider.JwtTokenProvider;
 
 import java.util.List;
@@ -30,6 +25,7 @@ import java.util.Optional;
 @Transactional
 public class MemberService {
 
+    @Autowired
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
 
@@ -86,6 +82,7 @@ public class MemberService {
 
     //특정회원 조회 (관리자)
     public Member findMember(String username) {
+        System.out.println(username);
         return findVerifyMember(username);
     }
 

@@ -61,10 +61,12 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     private String delegateAccessToken(Member member) {  //엑세스 토큰 생성 메서드
         Map<String,Object> claims = new HashMap<>();
 //        claims.put("memberId",member.getMemberId());
+        claims.put("provider", member.getProvider());  //추가
         claims.put("username",member.getUsername());
         claims.put("roles",member.getRoles());
 
-        String subject = member.getUsername();
+        String subject = "roobits";
+        System.out.println(claims);
         Date expiration = jwtTokenProvider.getTokenExpiration(jwtTokenProvider.getAccessTokenExpirationMinutes());
 
         String base64EncodeSecretKey = jwtTokenProvider.encodeBase64SecretKey(jwtTokenProvider.getSecretKey());
@@ -77,6 +79,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     private String delegateRefreshToken(Member member) { //리프레시토큰 생성 메서
         Map<String,Object> claims = new HashMap<>();
 //        claims.put("memberId",member.getMemberId());
+        claims.put("provider", member.getProvider());  //추가
         claims.put("username",member.getUsername());
         claims.put("roles",member.getRoles());
 

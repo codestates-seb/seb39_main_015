@@ -1,4 +1,4 @@
-package seb15.roobits.security.auth.handler;
+package seb15.roobits.security.handler;
 
 
 import lombok.extern.slf4j.Slf4j;

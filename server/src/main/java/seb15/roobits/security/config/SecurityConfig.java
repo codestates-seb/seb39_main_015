@@ -6,29 +6,22 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.config.oauth2.client.CommonOAuth2Provider;
-import org.springframework.security.oauth2.client.registration.ClientRegistration;
-import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
-import org.springframework.security.oauth2.client.registration.InMemoryClientRegistrationRepository;
 import org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.filter.CorsFilter;
 import seb15.roobits.member.repository.MemberRepository;
 import seb15.roobits.member.service.MemberService;
-import seb15.roobits.security.auth.handler.MemberAuthenticationFailureHandler;
-import seb15.roobits.security.auth.handler.MemberAuthenticationSuccessHandler;
-import seb15.roobits.security.auth.handler.OAuth2MemberSuccessHandler;
-import seb15.roobits.security.auth.utils.CustomAuthorityUtils;
+import seb15.roobits.security.handler.MemberAuthenticationFailureHandler;
+import seb15.roobits.security.handler.MemberAuthenticationSuccessHandler;
+import seb15.roobits.security.handler.OAuth2MemberSuccessHandler;
+import seb15.roobits.security.utils.CustomAuthorityUtils;
 import seb15.roobits.security.filter.JwtAuthenticationFilter;
 import seb15.roobits.security.filter.JwtVerificationFilter;
 import seb15.roobits.security.provider.JwtTokenProvider;
-
-import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity

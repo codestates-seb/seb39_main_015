@@ -118,6 +118,7 @@ public class MemberController {
         Member checkAuth = memberService.findMember(auth.getUsername());
         if (checkAuth == null) {
             return new ResponseEntity(HttpStatus.NOT_FOUND);}
+        checkAuth.setProvider(auth.getProvider());
         MemberDto.CheckAuthResponse response = memberMapper.memberToCheckAuthResponse(checkAuth);
         return new ResponseEntity<>(response, HttpStatus.OK);
         }

@@ -1,4 +1,4 @@
-package seb15.roobits.security.auth.handler;
+package seb15.roobits.security.handler;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -10,14 +10,13 @@ import org.springframework.web.util.UriComponentsBuilder;
 import seb15.roobits.member.entity.Member;
 import seb15.roobits.member.repository.MemberRepository;
 import seb15.roobits.member.service.MemberService;
-import seb15.roobits.security.auth.utils.CustomAuthorityUtils;
+import seb15.roobits.security.utils.CustomAuthorityUtils;
 import seb15.roobits.security.provider.JwtTokenProvider;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URI;
-import java.net.http.HttpResponse;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -47,32 +46,34 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
         OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
         String email = String.valueOf(oAuth2User.getAttributes().get("email"));
         String username = String.valueOf(oAuth2User.getAttributes().get("name"));
+        String provider = "google";
         String password = "OauthLogin";
         List<String> authorities = customAuthorityUtils.createRoles(email);
         if(memberRepository.findByUsername(username) ==null){
-        saveMember(username,email,password);}
-        redirect(request,response,username,authorities);
+        saveMember(username,email,password,provider);}
+        redirect(request,response,username,provider,authorities);
     }
 
-    private void saveMember(String username,String email,String password) {
-        Member member = new Member(username,email,password);
+    private void saveMember(String username,String email,String password,String provider) {
+        Member member = new Member(username,email,password,provider);
         memberService.createMember(member);
     }
 
-    private void redirect(HttpServletRequest request, HttpServletResponse response,String username, List<String> authorities)throws IOException{
-        String accessToken = delegateAccessToken(username, authorities);
+    private void redirect(HttpServletRequest request, HttpServletResponse response,String username,String provider, List<String> authorities)throws IOException{
+        String accessToken = delegateAccessToken(username,provider, authorities);
         String refreshToken = delegateRefreshToken(username);
         String uri = createURI(accessToken, refreshToken).toString();
         getRedirectStrategy().sendRedirect(request,response,uri);
     }
 
-    private String delegateAccessToken(String username, List<String> authorities){
-        System.out.println(username);
+    private String delegateAccessToken(String username,String provider, List<String> authorities){
         Map<String,Object> claims = new HashMap<>();
         claims.put("username", username);
         claims.put("roles", authorities);
+        claims.put("provider",provider);
 
         String subject = username;
+        System.out.println(claims);
         Date expriation = jwtTokenProvider.getTokenExpiration(jwtTokenProvider.getAccessTokenExpirationMinutes());
         String base64EncodedSecretKey = jwtTokenProvider.encodeBase64SecretKey(jwtTokenProvider.getSecretKey());
         String accessToken = jwtTokenProvider.generateAccessToken(claims,subject,expriation,base64EncodedSecretKey);

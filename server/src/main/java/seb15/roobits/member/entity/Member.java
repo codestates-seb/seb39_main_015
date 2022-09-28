@@ -57,10 +57,11 @@ public class Member extends Auditable {
     @Column(nullable = false)
     private MemberStatus memberStatus = MemberStatus.MEMBER_ACTIVE;
 
-    public Member(String username,String email,String password) {
+    public Member(String username,String email,String password,String provider) {
         this.username =username;
         this.email = email;
         this.password = password;
+        this.provider = provider;
     }
 
 

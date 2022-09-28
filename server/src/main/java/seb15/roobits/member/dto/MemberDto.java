@@ -140,6 +140,7 @@ public class MemberDto {
             private Long memberId;
             private String username;
             private String email;
+            private String provider;
         }
     }
 

@@ -1,18 +1,16 @@
 package seb15.roobits.security.auth;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 import seb15.roobits.exception.BusinessLogicException;
 import seb15.roobits.exception.ExceptionCode;
 import seb15.roobits.member.entity.Member;
 import seb15.roobits.member.repository.MemberRepository;
-import seb15.roobits.security.auth.utils.CustomAuthorityUtils;
+import seb15.roobits.security.utils.CustomAuthorityUtils;
 
 import java.util.Collection;
 
@@ -44,7 +42,7 @@ public class MemberDetailsService implements UserDetailsService {
             setEmail(member.getEmail());
             setPassword(member.getPassword());
             setRoles(member.getRoles());
-
+            setProvider(member.getProvider());
         }
 
         @Override

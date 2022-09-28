@@ -1,4 +1,4 @@
-package seb15.roobits.security.auth.utils;
+package seb15.roobits.security.utils;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;

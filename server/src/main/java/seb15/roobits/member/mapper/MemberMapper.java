@@ -18,12 +18,16 @@ public interface MemberMapper {
 
     Member checkUsernameToMember(MemberDto.CheckUsername requestBody);
 
-    Member memberToCheckPassword(MemberDto.CheckPassword requestBody);
+    Member checkPasswordToMember(MemberDto.CheckPassword requestBody);
+
+    Member checkUserEmailToMember(MemberDto.CheckEmail requestBody);
 
 
     MemberDto.CheckUsernameResponse memberToCheckUsernameResponse(Member member);
 
     MemberDto.CheckPasswordResponse memberToCheckPasswordResponse(Member member);
+
+    MemberDto.CheckEmailResponse memberToCheckEmailResponse(Member member);
 
     MemberDto.FindUsernameResponse memberToFindUsernameResponse(Member member);
 

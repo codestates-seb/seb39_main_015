@@ -99,17 +99,27 @@ public class MemberController {
         return new ResponseEntity<>(response,HttpStatus.OK);
     }
 
-//    @PostMapping("/checkpw")
-//    public ResponseEntity checkPassword(@AuthenticationPrincipal Member auth,
-//                                        @RequestBody MemberDto.CheckPassword checkPasswordDto){
-//        Member originMemberPassword = memberService.findVerifyMember(auth.getUsername());
-//        Member checkPasswordMember = memberMapper.memberToCheckPassword(checkPasswordDto);
-//        Boolean checkedPassword = memberService.checkPassword(auth.getUsername(),checkPasswordMember.getPassword());
-//        MemberDto.CheckPasswordResponse response = checkedPassword;
-//        if(checkedPassword == true){response.setCheck(true);
-//        }else{response.setCheck(false);
-//        }
-//    }
+    @PostMapping("/useremailcheck")
+    public ResponseEntity checkUserEmail(@RequestBody MemberDto.CheckEmail checkUserEmailDto){
+        Member memberEmail = memberMapper.checkUserEmailToMember(checkUserEmailDto);
+        Boolean checkedUserEmail = memberService.checkUserEmail(memberEmail.getEmail());
+        MemberDto.CheckEmailResponse response = memberMapper.memberToCheckEmailResponse(memberEmail);
+        if(checkedUserEmail == true){response.setCheck(true);
+        } else {response.setCheck(false);}
+        return new ResponseEntity<>(response,HttpStatus.OK);
+    }
+
+    @PostMapping("/checkpw")
+    public ResponseEntity checkPassword(@AuthenticationPrincipal Member auth,
+                                        @RequestBody MemberDto.CheckPassword checkPasswordDto){
+        Member originMember = memberService.findMember(auth.getUsername());
+        Member checkPasswordMember = memberMapper.checkPasswordToMember(checkPasswordDto);
+        Boolean checkedPassword = memberService.checkPassword(originMember.getUsername(),checkPasswordMember.getPassword());
+        MemberDto.CheckPasswordResponse response = memberMapper.memberToCheckPasswordResponse(checkPasswordMember);
+        if(checkedPassword == true){response.setCheck(true);
+        } else {response.setCheck(false);}
+        return new ResponseEntity<>(response,HttpStatus.OK);
+    }
 
 
     //프론트쪽 Auth확인

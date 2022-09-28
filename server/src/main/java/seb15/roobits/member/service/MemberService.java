@@ -35,6 +35,7 @@ public class MemberService {
 
 
 
+
     //회원가입
     public Member createMember(Member member) {
         verifyExistsUsername(member.getUsername());
@@ -115,14 +116,21 @@ public class MemberService {
 
         public Boolean checkPassword(String username,String password) {
         Member findMember = memberRepository.findByUsername(username);
-        String checkedMemberPassword = findMember.getPassword();
-        if(!checkedMemberPassword.equals(password)) {
-            return false;
-        }else {return true;}
+        String originPassword = findMember.getPassword();
+
+        if(passwordEncoder.matches(password,originPassword)) {
+            return true;
+        }else {return false;}
     }
 
     public Boolean checkUsername(String username) {
         Member checkMember = memberRepository.findByUsername(username);
+        if (checkMember == null) {return true;} else {return false;}
+    }
+
+    public Boolean checkUserEmail(String email) {
+        Member checkMember = memberRepository.findByEmail(email);
+        System.out.println(memberRepository.findByEmail(email));
         if (checkMember == null) {return true;} else {return false;}
     }
 

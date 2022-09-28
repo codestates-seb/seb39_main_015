@@ -40,12 +40,7 @@ public class MemberDto {
         private String password;
     }
 
-    @Getter
-    @Builder
-    @AllArgsConstructor
-    public static class CheckPassword {
-        private String password;
-    }
+
 
     @Getter
     @Builder
@@ -85,6 +80,24 @@ public class MemberDto {
         private String username;
     }
 
+    @Getter
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class CheckEmail {
+
+        private String email;
+    }
+
+    @Getter
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class CheckPassword {
+
+        private String password;
+    }
+
 
     @Getter
     @Builder
@@ -102,6 +115,17 @@ public class MemberDto {
 
         public void setCheck(Boolean usernameCheck) {
             this.usernameCheck = usernameCheck;
+        }
+    }
+
+    @Getter
+    @Builder
+    @AllArgsConstructor
+    public static class CheckEmailResponse {
+        private Boolean emailCheck;
+
+        public void setCheck(Boolean emailCheck) {
+            this.emailCheck = emailCheck;
         }
     }
 

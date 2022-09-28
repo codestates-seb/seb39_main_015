@@ -3,9 +3,11 @@ package seb15.roobits.mail.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import seb15.roobits.exception.BusinessLogicException;
 import seb15.roobits.exception.ExceptionCode;
@@ -22,17 +24,17 @@ public class SendMailService {
     @Autowired
     private final JavaMailSender mailSender;
     @Autowired
-    private final BCryptPasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
     private static final String FROM_ADDRESS = "gusghk115@gmail.com";
 
     public MailDto createMailAndChangePassword(MailDto mailDto) {
-        if(mailDto.getAddress() != memberRepository.findByUsername(mailDto.getUsername()).getEmail())
+        if(!mailDto.getEmail().equals(memberRepository.findByUsername(mailDto.getUsername()).getEmail()))
             throw new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND);
         String str = getTempPassword();
         MailDto createMail = new MailDto();
         createMail.setUsername(mailDto.getUsername());
-        createMail.setAddress(mailDto.getAddress());
+        createMail.setEmail(mailDto.getEmail());
         createMail.setTitle("루빗츠 임시 비밀번호 안내 이메일 입니다.");
         createMail.setMessage("안녕하세요 루빗츠 입니다." + "회원님의 임시 비밀번호는" + str + " 입니다.");
         updatePassword(str, mailDto);
@@ -41,7 +43,7 @@ public class SendMailService {
 
 
     public void updatePassword(String str, MailDto mailDto) {
-        Member member = memberRepository.findByEmail(mailDto.getAddress());
+        Member member = memberRepository.findByEmail(mailDto.getEmail());
         String rawPassword = str;
         String encPassword = passwordEncoder.encode(rawPassword);
         member.setPassword(encPassword);
@@ -65,12 +67,13 @@ public class SendMailService {
         return str;
     }
 
+
     public void mailSend(MailDto mailDto){
 //        Member checkedMember = memberRepository.findByEmail(mailDto.getAddress());
 //        if(checkedMember.getMemberStatus() == Member.MemberStatus.MEMBER_QUIT || checkedMember.getEmail() != mailDto.getAddress())
 //            throw new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND);
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(mailDto.getAddress());
+        message.setTo(mailDto.getEmail());
         message.setFrom(SendMailService.FROM_ADDRESS);
         message.setSubject(mailDto.getTitle());
         message.setText(mailDto.getMessage());

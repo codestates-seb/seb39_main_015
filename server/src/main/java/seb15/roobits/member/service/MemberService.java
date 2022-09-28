@@ -2,18 +2,27 @@ package seb15.roobits.member.service;
 
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import seb15.roobits.event.MemberRegistrationApplicationEvent;
 import seb15.roobits.exception.BusinessLogicException;
 import seb15.roobits.exception.ExceptionCode;
 import seb15.roobits.member.entity.Member;
 import seb15.roobits.member.repository.MemberRepository;
+import seb15.roobits.security.auth.utils.CustomAuthorityUtils;
+import seb15.roobits.security.provider.JwtTokenProvider;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -22,9 +31,13 @@ import java.util.Optional;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+    private final PasswordEncoder passwordEncoder;
+
+    private final JwtTokenProvider jwtTokenProvider;
+    private final ApplicationEventPublisher publisher;
+    private final CustomAuthorityUtils authorityUtils;
 
 
-    private final BCryptPasswordEncoder passwordEncoder;
 
     //회원가입
     public Member createMember(Member member) {
@@ -33,15 +46,28 @@ public class MemberService {
         String rawPassword = member.getPassword();
         String encPassword = passwordEncoder.encode(rawPassword);
         member.setPassword(encPassword);
-        member.setRoles("ROLE_HOST");
+        List<String> roles = authorityUtils.createRoles(member.getUsername());
+        member.setRoles(roles);
         member.setMemberStatus(Member.MemberStatus.MEMBER_ACTIVE);
         Member savedMember = memberRepository.save(member);
+//        publisher.publishEvent(new MemberRegistrationApplicationEvent(savedMember));
         return savedMember;
     }
 
+    public Member oAuthCreateMember(Member member){
+        verifyExistsEmail(member.getEmail());
+        List<String> roles = authorityUtils.createRoles(member.getUsername());
+        member.setRoles(roles);
+        member.setMemberStatus(Member.MemberStatus.MEMBER_ACTIVE);
+        Member savedMember = memberRepository.save(member);
+        publisher.publishEvent(new MemberRegistrationApplicationEvent(savedMember));
+        return savedMember;
+    }
+
+
     //회원정보 수정
     public Member updateMember(Member member) {
-        Member findMember = findVerifyMember(member.getMemberId());
+        Member findMember = findVerifyMember(member.getUsername());
         String rawPassword = member.getPassword();
         String encPassword = passwordEncoder.encode(rawPassword);
 
@@ -56,15 +82,15 @@ public class MemberService {
     }
 
     //회원탈퇴
-    public void deleteMember(long memberId) {
-        Member findMember = findVerifyMember(memberId);
+    public void deleteMember(String username) {
+        Member findMember = findVerifyMember(username);
         findMember.setMemberStatus(Member.MemberStatus.MEMBER_QUIT);
 //        memberRepository.delete(findMember);
     }
 
     //특정회원 조회 (관리자)
-    public Member findMember(long memberId) {
-        return findVerifyMember(memberId);
+    public Member findMember(String username) {
+        return findVerifyMember(username);
     }
 
     //모든회원 조회 (관리자)
@@ -79,8 +105,8 @@ public class MemberService {
 //        return findMember;
 //    }
 
-    public Member findVerifyMember(long memberId) {
-        Member optinalMember = memberRepository.findByMemberId(memberId);
+    public Member findVerifyMember(String username) {
+        Member optinalMember = memberRepository.findByUsername(username);
         if(optinalMember.getMemberStatus() == Member.MemberStatus.MEMBER_QUIT)
             throw  new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND);
         return optinalMember;
@@ -107,14 +133,14 @@ public class MemberService {
         }
     }
 
-    public boolean memberEmailCheck(String email, String username) {
-        Member member = memberRepository.findByEmail(email);
-        if (member != null && member.getUsername().equals(username)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+//    public boolean memberEmailCheck(String email, String username) {
+//        Member member = memberRepository.findByEmail(email);
+//        if (member != null && member.getUsername().equals(username)) {
+//            return true;
+//        } else {
+//            return false;
+//        }
+//    }
 
     @Transactional
     public Member findUserId(Member member) {
@@ -126,4 +152,5 @@ public class MemberService {
             throw new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND);
         return findUserMember;
     }
+
 }

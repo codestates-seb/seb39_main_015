@@ -1,70 +1,129 @@
 package seb15.roobits.security.config;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.config.oauth2.client.CommonOAuth2Provider;
+import org.springframework.security.oauth2.client.registration.ClientRegistration;
+import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
+import org.springframework.security.oauth2.client.registration.InMemoryClientRegistrationRepository;
+import org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.filter.CorsFilter;
-import seb15.roobits.security.oauth.PrincipalOauth2UserService;
+import seb15.roobits.member.repository.MemberRepository;
+import seb15.roobits.member.service.MemberService;
+import seb15.roobits.security.auth.handler.MemberAuthenticationFailureHandler;
+import seb15.roobits.security.auth.handler.MemberAuthenticationSuccessHandler;
+import seb15.roobits.security.auth.handler.OAuth2MemberSuccessHandler;
+import seb15.roobits.security.auth.utils.CustomAuthorityUtils;
+import seb15.roobits.security.filter.JwtAuthenticationFilter;
+import seb15.roobits.security.filter.JwtVerificationFilter;
+import seb15.roobits.security.provider.JwtTokenProvider;
+
+import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
+@Slf4j
 public class SecurityConfig {
 
-    private final CorsFilter corsFilter;
+    @Value("${spring.security.oauth2.client.registration.google.clientId}")
+    private String clientId;
 
-    private final PrincipalOauth2UserService principalOauth2UserService;
+    @Value("${spring.security.oauth2.client.registration.google.clientSecret}")
+    private String clientSecret;
+
+    private final CorsFilter corsFilter;
+    private final JwtTokenProvider jwtTokenProvider;
+
+    private final CustomAuthorityUtils customAuthorityUtils;
+
+    private final MemberService memberService;
+    private final MemberRepository memberRepository;
 
 
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
-        http.csrf().disable();
-        http.headers().frameOptions().disable();
-        http.apply(new CustomDsl());
+        http
+                .headers().frameOptions().sameOrigin().disable()
+                .csrf().disable()
+                .formLogin().disable()
+                .httpBasic().disable()
+                .apply(new CustomFilterConfigurer())
+                .and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-        http.formLogin()
-                .loginPage("/user/login");
-//                .defaultSuccessUrl("/user/rooms"); //프론트쪽에서 로그인 성공시 리디렉션;
+//                        .exceptionHandling(new MemberAuthenticationEntryPoint())
+//                                .accessDeniedHandler(new MemberAccessDeniedHandler())
 
-        http.oauth2Login()
-                .loginPage("/user/googleauth")
-                .defaultSuccessUrl("/main")
-                .userInfoEndpoint()
-                .userService(principalOauth2UserService);
+//        http.authorizeHttpRequests(authorize -> authorize
+////                .antMatchers(HttpMethod.POST, "/*/members").permitAll()         // (1) 추가
+////                .antMatchers(HttpMethod.PATCH, "/*/members/**").hasRole("USER")  // (2) 추가
+////                .antMatchers(HttpMethod.GET, "/*/members").hasRole("ADMIN")     // (3) 추가
+////                .antMatchers(HttpMethod.GET, "/*/members/**").hasAnyRole("USER", "ADMIN")  // (4) 추가
+////                .antMatchers(HttpMethod.DELETE, "/*/members/**").hasRole("USER")  // (5) 추가
+//                .anyRequest().authenticated());//참고용
+        http.oauth2Login(oauth2 -> oauth2
+                        .successHandler(new OAuth2MemberSuccessHandler(jwtTokenProvider, customAuthorityUtils, memberService,memberRepository)));
 
-        http.logout()
-                        .logoutUrl("/user/logout")
-                                .logoutSuccessUrl("/user/login")
-                                        .deleteCookies("JSESSIONID");
 
         http.authorizeRequests()
-                .antMatchers("/sample/**").authenticated()
-                .antMatchers("/room/**").access("hasRole('ROLE_HOST') or hasRole('ROLE_MANAGER')")
+                .antMatchers("/sample.yml/**").authenticated()
+                .antMatchers("/rooms/**").access("hasRole('ROLE_HOST') or hasRole('ROLE_MANAGER')")
                 .antMatchers("/manager/**").access("hasRole('ROLE_MANAGER')")
                 .anyRequest().permitAll();
 
         return http.build();
     }
 
-    public class CustomDsl extends AbstractHttpConfigurer<CustomDsl, HttpSecurity> {
+//    @Bean
+//    public ClientRegistrationRepository clientRegistrationRepository(){
+//        ClientRegistration clientRegistration = clientRegistration();
+//
+//        return new InMemoryClientRegistrationRepository(clientRegistration);
+//    }
+//
+//    private ClientRegistration clientRegistration(){
+//        return CommonOAuth2Provider
+//                .GOOGLE
+//                .getBuilder("google")
+//                .clientId(clientId)
+//                .clientSecret(clientSecret)
+//                .build();
+//    }
+
+
+    public class CustomFilterConfigurer extends AbstractHttpConfigurer<CustomFilterConfigurer, HttpSecurity> {
 
         @Override
         public void configure(HttpSecurity builder) throws Exception{
             AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
+            JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager,jwtTokenProvider);
+            jwtAuthenticationFilter.setFilterProcessesUrl("/user/login");
+            jwtAuthenticationFilter.setAuthenticationSuccessHandler(new MemberAuthenticationSuccessHandler());
+            jwtAuthenticationFilter.setAuthenticationFailureHandler(new MemberAuthenticationFailureHandler());
+            JwtVerificationFilter jwtVerificationFilter = new JwtVerificationFilter(jwtTokenProvider, customAuthorityUtils);
+
             builder
-                    .addFilter(corsFilter);
-//세션을 사용할 경우 아래 두 jwt토큰필터는 사용하지 않는다.
-//                    .addFilter(new JwtAuthenticationFilter(authenticationManager))
-//                    .addFilter(new JwtAuthorizationFilter(authenticationManager,memberRepository));
+                    .addFilter(corsFilter)
+                    .addFilter(jwtAuthenticationFilter)
+                    .addFilterAfter(jwtVerificationFilter, JwtAuthenticationFilter.class)
+                    .addFilterAfter(jwtVerificationFilter,  OAuth2LoginAuthenticationFilter.class);
         }
+
+
     }
+
 
 
 }

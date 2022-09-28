@@ -8,8 +8,12 @@ public enum ExceptionCode {
     USERNAME_EXISTS(409, "Username already exists"),
 //    MEMBER_EXISTS(409, "Member exists"),
     EMAIL_EXISTS(409,"Email already exists"),
+    INVALID_TOKEN(500 , "Invalid token"),
 
+    INVALID_USERNAME_OR_PASSWORD(422 , "Invalid username or password"),
     ROOBIT_NOT_FOUND(404, "Roobit not found"),
+
+
 
     ROOBIT_CODE_EXISTS(409, "Roobit Code exists"),
 

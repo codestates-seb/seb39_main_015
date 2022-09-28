@@ -10,7 +10,7 @@ import seb15.roobits.member.service.MemberService;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/user")
+@RequestMapping
 public class TestController {
 
     private final MemberService memberService;
@@ -33,4 +33,5 @@ public class TestController {
 //        MemberDto.Response response = memberMapper.memberToResponse(createdMember);
 //        return "redirect:/home";
 //    }
+
 }

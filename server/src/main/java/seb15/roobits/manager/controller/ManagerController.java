@@ -15,7 +15,6 @@ import seb15.roobits.roobit.entity.Roobit;
 import seb15.roobits.roobit.mapper.RoobitMapper;
 import seb15.roobits.roobit.service.RoobitService;
 import seb15.roobits.room.service.RoomService;
-import seb15.roobits.security.auth.PrincipalDetails;
 
 import javax.validation.constraints.Positive;
 import java.util.List;
@@ -29,23 +28,20 @@ public class ManagerController {
     private final MemberService memberService;
 
     private final MemberMapper memberMapper;
-
-    private final PrincipalDetails principalDetails;
-
     private final RoobitService roobitService;
     private final RoobitMapper mapper;
 
     private  final RoomService roomService;
-
-    @GetMapping("/search") //관리자 권한  특정 멤버 조회
-    public ResponseEntity searchMember(@AuthenticationPrincipal PrincipalDetails principalDetails){
-        return null;
-    }
-
-    @GetMapping("/allsearch") //관리자 권한 모든 멤버 조회
-    public ResponseEntity searchMembers(@AuthenticationPrincipal PrincipalDetails principalDetails){
-        return null;
-    }
+//
+//    @GetMapping("/search") //관리자 권한  특정 멤버 조회
+//    public ResponseEntity searchMember(@AuthenticationPrincipal PrincipalDetails principalDetails){
+//        return null;
+//    }
+//
+//    @GetMapping("/allsearch") //관리자 권한 모든 멤버 조회
+//    public ResponseEntity searchMembers(@AuthenticationPrincipal PrincipalDetails principalDetails){
+//        return null;
+//    }
 
 
     @GetMapping("/roobit/{roobit-id}")   // 특정 루빗 하나 열람

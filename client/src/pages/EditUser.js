@@ -22,6 +22,31 @@ import { useQueryClient } from 'react-query';
 // 디자인 컨셉 결정 후 일괄 적용할 예정이기 때문에 styled 폴더에서 가져온 요소는 모두 삭제.
 // 추후 컨셉이 결정되면 필요한 스타일을 미리 만들어두고 사용할 것.
 
+export const UserInfoWrapper = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding-bottom: 10px;
+  > p {
+    position: absolute;
+    left: 5px;
+    top: 50px;
+    font-size: 12px;
+    color: #dd5858;
+  }
+`;
+
+const UserInfoUnit = styled.div`
+  height: 45px;
+  width: 314px;
+  background-color: white;
+  border: none;
+  padding-left: 40px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+`;
+
 const Space = styled.span`
   margin-left: 10px;
 `;
@@ -31,7 +56,9 @@ const EditUser = ({ getCookieValue }) => {
   const userInfo = queryClient.getQueryData('auth');
   // 기존 displayName은 username으로 변경됨
   const [password, setPassword] = useState('');
+  const [passwordCheck, setPasswordCheck] = useState('');
   const [passwordMsg, setPasswordMsg] = useState('');
+  const [passwordCheckMsg, setPasswordCheckMsg] = useState('');
   const [isValid, setIsValid] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -53,6 +80,16 @@ const EditUser = ({ getCookieValue }) => {
       );
     } else {
       setPasswordMsg('');
+    }
+  };
+
+  const handlePwCheck = (e) => {
+    const iptPasswordCheck = e.target.value;
+    setPasswordCheck(iptPasswordCheck);
+    if (iptPasswordCheck === password) {
+      setPasswordCheckMsg('');
+    } else {
+      setPasswordCheckMsg('비밀번호가 같지 않습니다.');
     }
   };
 
@@ -89,49 +126,28 @@ const EditUser = ({ getCookieValue }) => {
   // 유효성 검사 실행 useEffect
   useEffect(() => {
     setIsValid(false);
-    if (pwRegex.test(password)) {
+    if (pwRegex.test(password) && password === passwordCheck) {
       setIsValid(true);
     }
-  }, [password]);
+  }, [password, passwordCheck]);
 
   return (
     <Body>
       <FormWrapper height={'545px'} width={'476px'}>
         <img alt="회원가입 로고" src={signUpLogo}></img>
         <form onSubmit={(e) => handleSubmit(e)}>
-          <InputWrapper>
-            <Input
-              id="username"
-              name="username"
-              value={username}
-              height={'45px'}
-              width={'314px'}
-              required
-              placeholder="아이디"
-              disabled
-            />
+          <UserInfoWrapper>
+            <UserInfoUnit>{username}</UserInfoUnit>
             <LogoWrapper>
               <FontAwesomeIcon icon={faUser} />
             </LogoWrapper>
-          </InputWrapper>
-          {/* <label htmlFor="email">Email</label> */}
-          <InputWrapper>
-            <Input
-              type="email"
-              id="email"
-              name="email"
-              value={email}
-              height={'45px'}
-              width={'314px'}
-              required
-              placeholder="이메일"
-              disabled
-            />
+          </UserInfoWrapper>
+          <UserInfoWrapper>
+            <UserInfoUnit>{email}</UserInfoUnit>
             <LogoWrapper>
               <FontAwesomeIcon icon={faEnvelope} />
             </LogoWrapper>
-          </InputWrapper>
-          {/* <label htmlFor="password">Password</label> */}
+          </UserInfoWrapper>
           <InputWrapper>
             <Input
               type="password"
@@ -148,6 +164,23 @@ const EditUser = ({ getCookieValue }) => {
               <FontAwesomeIcon icon={faLock} />
             </LogoWrapper>
             <p>{passwordMsg}</p>
+          </InputWrapper>
+          <InputWrapper>
+            <Input
+              type="password"
+              id="password"
+              name="password"
+              value={passwordCheck}
+              height={'45px'}
+              width={'314px'}
+              onChange={handlePwCheck}
+              required
+              placeholder="비밀번호 확인"
+            />
+            <LogoWrapper>
+              <FontAwesomeIcon icon={faLock} />
+            </LogoWrapper>
+            <p>{passwordCheckMsg}</p>
           </InputWrapper>
           <div>
             <WhiteButton

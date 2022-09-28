@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import { Body, OrangeButton, WhiteButton } from '../styled/Style.js';
 import { ShareIcon } from '../images/shareIcon.js';
+import ReactTooltip from 'react-tooltip';
+import { useState } from 'react';
 
 const backData = {
   username: 'kimcoding',
@@ -86,13 +88,19 @@ const RoomDday = styled.div`
   font-weight: 500;
   font-size: 18px;
   /* identical to box height */
-
   display: flex;
   align-items: center;
-
   /* pointColor */
-
   color: #f58a5c;
+  > p {
+    font-size: 20px !important;
+    pointer-events: auto !important;
+    cursor: pointer;
+    &:hover {
+      visibility: visible !important;
+      opacity: 1 !important;
+    }
+  }
 `;
 const ButtonSection = styled.div`
   width: 164px;
@@ -110,6 +118,8 @@ const Space = styled.span`
 `;
 
 export default function MyRoom() {
+  const [tooltip, showTooltip] = useState(true);
+
   return (
     <div>
       <MyRoomBody>
@@ -119,7 +129,21 @@ export default function MyRoom() {
               <RoomTheme>{ele.roomTheme}</RoomTheme>
               <RoomTitle>{ele.roomName}</RoomTitle>
               <RoomControlBar>
-                <RoomDday>D-{ele.restDay}</RoomDday>
+                <RoomDday>
+                  <p
+                    data-for="dday"
+                    data-tip={`${ele.dDay}`}
+                    // data-iscapture="true"
+                    onMouseEnter={() => showTooltip(true)}
+                    onMouseLeave={() => {
+                      showTooltip(false);
+                      // setTimeout(() => showTooltip(false), 1000);
+                      setTimeout(() => showTooltip(true), 100);
+                    }}
+                  >
+                    D-{ele.restDay}
+                  </p>
+                </RoomDday>
                 <ButtonSection>
                   <ShareIcon />
                   <Space space={'12px'} />
@@ -137,6 +161,9 @@ export default function MyRoom() {
         </MyRoomWrapper>
         <p>운영할 수 있는 최대 룸 개수는 3개 입니다.</p>
       </MyRoomBody>
+      {tooltip && (
+        <ReactTooltip id="dday" place="bottom" type="dark" effect="solid" />
+      )}
     </div>
   );
 }

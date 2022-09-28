@@ -132,7 +132,9 @@ const EditUser = ({ getCookieValue }) => {
         .then((res) => {
           console.log(res.data);
           navigate('/#sectionOne');
-        });
+          alert('회원 탈퇴 완료 되었습니다.');
+        })
+        .catch((res) => console.log(res.data));
     }
   };
 

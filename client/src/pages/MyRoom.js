@@ -1,11 +1,142 @@
 import styled from 'styled-components';
+import { Body, OrangeButton, WhiteButton } from '../styled/Style.js';
+import { ShareIcon } from '../images/shareIcon.js';
 
-const MyRoomWrapper = styled.div``;
+const backData = {
+  username: 'kimcoding',
+  rooms: [
+    {
+      roomId: 1,
+      roomName: '코드스테이츠 39기',
+      dDay: '2022-10-19',
+      restDay: 21,
+      roomTheme: 'cats',
+      url: 'https://github.com/Gwanghyun-Jeon',
+    },
+    {
+      roomId: 2,
+      roomName: '매주 피자 먹기 챌린지',
+      dDay: '2022-10-24',
+      restDay: 27,
+      roomTheme: 'cats',
+      url: 'https://github.com/Gwanghyun-Jeon',
+    },
+    {
+      roomId: 3,
+      roomName: 'javaScript 30일 뿌수기',
+      dDay: '2022-10-27',
+      restDay: 30,
+      roomTheme: 'cats',
+      url: 'https://github.com/Gwanghyun-Jeon',
+    },
+  ],
+};
+
+const MyRoomBody = styled(Body)`
+  flex-direction: column;
+`;
+
+const MyRoomWrapper = styled.div`
+  width: 1188px;
+  height: 305px;
+  display: flex;
+  justify-content: space-between;
+`;
+
+const RoomBox = styled.div`
+  background-color: white;
+  width: 380px;
+  height: 100%;
+  border: 1px solid #d9d9d9;
+  box-shadow: 0px 5px 8px rgba(104, 104, 104, 0.04);
+  border-radius: 14px;
+  /* position: relative; */
+  padding: 16px;
+`;
+
+const RoomTheme = styled.div`
+  background-color: #d9d9d9;
+  border-radius: 8px;
+  width: 348px;
+  height: 202px;
+  /* position: absolute;
+  left: 50%;
+  right: 50%;
+  transform: translate(-50%, 0%);
+  top: 16px; */
+`;
+const RoomTitle = styled.div`
+  height: 22px;
+  width: 348px;
+  display: flex;
+  font-size: 18px;
+  margin-top: 14px;
+`;
+const RoomControlBar = styled.div`
+  height: 26px;
+  width: 348px;
+  display: flex;
+  margin-top: 12px;
+`;
+const RoomDday = styled.div`
+  width: 184px;
+  height: 22px;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  /* identical to box height */
+
+  display: flex;
+  align-items: center;
+
+  /* pointColor */
+
+  color: #f58a5c;
+`;
+const ButtonSection = styled.div`
+  width: 164px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+`;
+const WhiteButtonOrangeBorder = styled(WhiteButton)`
+  border-color: #f58a5c;
+  color: #f58a5c;
+`;
+const Space = styled.span`
+  margin-left: ${(props) => props.space || '10px'};
+`;
 
 export default function MyRoom() {
   return (
     <div>
-      <MyRoomWrapper>룸 보여줘</MyRoomWrapper>
+      <MyRoomBody>
+        <MyRoomWrapper>
+          {backData.rooms.map((ele) => (
+            <RoomBox key={ele.roomId}>
+              <RoomTheme>{ele.roomTheme}</RoomTheme>
+              <RoomTitle>{ele.roomName}</RoomTitle>
+              <RoomControlBar>
+                <RoomDday>D-{ele.restDay}</RoomDday>
+                <ButtonSection>
+                  <ShareIcon />
+                  <Space space={'12px'} />
+                  <WhiteButtonOrangeBorder width="53px" height="26px">
+                    Edit
+                  </WhiteButtonOrangeBorder>
+                  <Space space={'8px'} />
+                  <OrangeButton width="65px" height="26px">
+                    Delete
+                  </OrangeButton>
+                </ButtonSection>
+              </RoomControlBar>
+            </RoomBox>
+          ))}
+        </MyRoomWrapper>
+        <p>운영할 수 있는 최대 룸 개수는 3개 입니다.</p>
+      </MyRoomBody>
     </div>
   );
 }

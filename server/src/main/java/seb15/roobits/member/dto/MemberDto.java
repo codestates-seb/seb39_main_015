@@ -43,6 +43,13 @@ public class MemberDto {
     @Getter
     @Builder
     @AllArgsConstructor
+    public static class CheckPassword {
+        private String password;
+    }
+
+    @Getter
+    @Builder
+    @AllArgsConstructor
     public static class Patch {
         private String username;
         @NotBlank(message = "패스워드는 공백이 아니여야 합니다.")
@@ -98,6 +105,17 @@ public class MemberDto {
         }
     }
 
+        @Getter
+        @Builder
+        @AllArgsConstructor
+        public static class CheckPasswordResponse {
+            private Boolean passwordCheck;
+
+            public void setCheck(Boolean passwordCheck) {
+                this.passwordCheck = passwordCheck;
+            }
+        }
+
 //    @Getter
 //    @Builder
 //    @AllArgsConstructor
@@ -115,12 +133,13 @@ public class MemberDto {
 //        }
 //}
 
-    @Getter
-    @Builder
-    @AllArgsConstructor
-    public static class CheckAuthResponse{
-        private Long memberId;
-        private String username;
-        private String email;
+        @Getter
+        @Builder
+        @AllArgsConstructor
+        public static class CheckAuthResponse {
+            private Long memberId;
+            private String username;
+            private String email;
+        }
     }
-}
+

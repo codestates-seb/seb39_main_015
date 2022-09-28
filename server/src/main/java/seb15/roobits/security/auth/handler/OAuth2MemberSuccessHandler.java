@@ -49,7 +49,7 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
         String username = String.valueOf(oAuth2User.getAttributes().get("name"));
         String password = "OauthLogin";
         List<String> authorities = customAuthorityUtils.createRoles(email);
-        if(authentication.getPrincipal() == null){
+        if(memberRepository.findByUsername(username) ==null){
         saveMember(username,email,password);}
         redirect(request,response,username,authorities);
     }
@@ -103,4 +103,7 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
                 .toUri();
     }
 }
-// http://locathost:3000/token
+// http://locathost:3000/token=? accesstoken = jweifjweoigjowjeggoiw.gweigjoweg.wegoiwjeogj --> Uri로 나타나는 이유
+// http://locathost:3000/token -> 생성
+// -> 로직 작성. accseetoken = ->
+// -> refeshtoken 받아올수있는 로직 ->

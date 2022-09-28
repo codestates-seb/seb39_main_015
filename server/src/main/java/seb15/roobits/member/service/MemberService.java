@@ -34,7 +34,7 @@ public class MemberService {
     private final PasswordEncoder passwordEncoder;
 
     private final JwtTokenProvider jwtTokenProvider;
-    private final ApplicationEventPublisher publisher;
+//    private final ApplicationEventPublisher publisher;
     private final CustomAuthorityUtils authorityUtils;
 
 
@@ -54,17 +54,6 @@ public class MemberService {
         return savedMember;
     }
 
-    public Member oAuthCreateMember(Member member){
-        verifyExistsEmail(member.getEmail());
-        List<String> roles = authorityUtils.createRoles(member.getUsername());
-        member.setRoles(roles);
-        member.setMemberStatus(Member.MemberStatus.MEMBER_ACTIVE);
-        Member savedMember = memberRepository.save(member);
-        publisher.publishEvent(new MemberRegistrationApplicationEvent(savedMember));
-        return savedMember;
-    }
-
-
     //회원정보 수정
     public Member updateMember(Member member) {
         Member findMember = findVerifyMember(member.getUsername());
@@ -80,6 +69,13 @@ public class MemberService {
 //                .ifPresent(email -> findMember.setEmail(email));
         return memberRepository.save(findMember);
     }
+
+//    public Member checkUpdateMember(String username) {
+//        Member findMember = findVerifyMember(username);
+//        if (existMember != null) {
+//            throw new BusinessLogicException(ExceptionCode.USERNAME_EXISTS);
+//        }
+//    }
 
     //회원탈퇴
     public void deleteMember(String username) {
@@ -120,9 +116,16 @@ public class MemberService {
         }
     }
 
+        public Boolean checkPassword(String username,String password) {
+        Member findMember = memberRepository.findByUsername(username);
+        String checkedMemberPassword = findMember.getPassword();
+        if(!checkedMemberPassword.equals(password)) {
+            return false;
+        }else {return true;}
+    }
+
     public Boolean checkUsername(String username) {
         Member checkMember = memberRepository.findByUsername(username);
-        Boolean check;
         if (checkMember == null) {return true;} else {return false;}
     }
 

@@ -99,6 +99,19 @@ public class MemberController {
         return new ResponseEntity<>(response,HttpStatus.OK);
     }
 
+//    @PostMapping("/checkpw")
+//    public ResponseEntity checkPassword(@AuthenticationPrincipal Member auth,
+//                                        @RequestBody MemberDto.CheckPassword checkPasswordDto){
+//        Member originMemberPassword = memberService.findVerifyMember(auth.getUsername());
+//        Member checkPasswordMember = memberMapper.memberToCheckPassword(checkPasswordDto);
+//        Boolean checkedPassword = memberService.checkPassword(auth.getUsername(),checkPasswordMember.getPassword());
+//        MemberDto.CheckPasswordResponse response = checkedPassword;
+//        if(checkedPassword == true){response.setCheck(true);
+//        }else{response.setCheck(false);
+//        }
+//    }
+
+
     //프론트쪽 Auth확인
     @GetMapping("/auth")
     public ResponseEntity checkAuth(@AuthenticationPrincipal Member auth){

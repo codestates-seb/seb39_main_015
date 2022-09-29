@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components';
+import CreateRoobitBtn from '../components/CreateRoobitBtn';
 // import { roomDetailData } from '../data/DummyData';
 
 const BuildingStyle = styled.div`
@@ -218,6 +219,7 @@ const RoomDetail = () => {
           </button>
         </div>
       </BuildingStyle>
+      <CreateRoobitBtn />
     </div>
   );
 };

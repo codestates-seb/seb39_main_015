@@ -5,6 +5,7 @@ import org.springframework.web.client.RestTemplate;
 import seb15.roobits.room.entity.Room;
 
 import java.net.URLEncoder;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Component
@@ -25,26 +26,36 @@ public class CallWeather {
 
                         RestTemplate restTemplate = new RestTemplate();
                         WeatherVO.Weather response = restTemplate.getForObject(urlBuilder.toString(), WeatherVO.Weather.class);
-                        int weatherId = response.getWeatherId();
+                        int weatherId = response.getId();
 
-//                        Pattern p = Pattern.compile("(^80\d$)")")
-
-                        if (weatherId == 800) {
-                                weather = "clear";
-                        }
-                        else if (String.valueOf(weatherId) == "6\\d\\d") {
-                                weather = "snow";
-                        }
-                        else if (String.valueOf(weatherId) == "(^7[0-9][0-9]$)") {
-                                weather = "clouds";
-                        }
-                        else if (String.valueOf(weatherId) == "(^80\\d$)") {
-                                weather = "clouds";
-                        } else {
-                                weather = "rain";
-                        }
-
-                        findRoom.setWeather(weather);
+//                        Pattern p6 = Pattern.compile("(^6\\d\\d$)");
+//                        Pattern p7 = Pattern.compile("721");
+//                        Pattern p8 = Pattern.compile("(^80\\d$)");
+//
+//                        Matcher m6 = p6.matcher(String.valueOf(weatherId));
+//                        Matcher m7 = p7.matcher(String.valueOf(weatherId));
+//                        Matcher m8 = p8.matcher(String.valueOf(weatherId));
+//                        System.out.println(m6.find());
+//                        System.out.println(m7.find());
+//                        System.out.println(m8.find());
+//
+//
+//                        if (weatherId == 800) {
+//                                weather = "clear";
+//                        }
+//                        else if (m6.find()) {
+//                                weather = "snow";
+//                        }
+//                        else if (m7.find()) {
+//                                weather = "clouds";
+//                        }
+//                        else if (m8.find()) {
+//                                weather = "clouds";
+//                        } else {
+//                                weather = "rain";
+//                        }
+//
+                        findRoom.setWeather(String.valueOf(weatherId));
 
                 } catch (Exception e) {
                         e.printStackTrace();

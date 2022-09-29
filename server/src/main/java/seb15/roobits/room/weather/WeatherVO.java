@@ -10,10 +10,10 @@ import java.util.List;
 @Component
 @Data
 public class WeatherVO {
-    private List<Weather> weather;
-
+    List<Weather> weather;
     @Data
-    public static class Weather{
-        int weatherId;
+    public class Weather{
+        int id;
     }
 }
+

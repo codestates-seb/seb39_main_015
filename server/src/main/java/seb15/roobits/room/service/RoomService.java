@@ -30,6 +30,8 @@ public class RoomService {
         validator.verifyExistRoom(room.getRoomName());        // 이미 있는 이름인지 검사
         room.setRestDay(Validator.calculateRestDay(room)); // d-day 잔여일 계산
         validator.dDayLimitation(room); // 잔여일 30일 이내인지 검사
+        roomRepository.save(room);
+        validator.createUrl(room); // url String 생성(사용자에게 보여주기 위함)
 
         return roomRepository.save(room);
     }

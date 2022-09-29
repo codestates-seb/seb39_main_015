@@ -19,12 +19,16 @@ import java.util.Optional;
 @Service
 public class Validator {
     private final RoomRepository roomRepository;
-
     public Validator(RoomRepository roomRepository) {
         this.roomRepository = roomRepository;
     }
 
-    public void verifyExistRoom(String roomName) {
+    public void createUrl(Room room) {
+        String url = "http://localhost:8080/rooms/" + room.getRoomId();
+        room.setUrl(url);
+    }
+
+        public void verifyExistRoom(String roomName) {
         Optional<Room> rName = roomRepository.findByRoomName(roomName);
 
         if (rName.isPresent())

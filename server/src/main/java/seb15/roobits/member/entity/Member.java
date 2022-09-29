@@ -1,10 +1,10 @@
 package seb15.roobits.member.entity;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import io.jsonwebtoken.Claims;
+import lombok.*;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import seb15.roobits.auditable.Auditable;
 import seb15.roobits.room.entity.Room;
 
@@ -38,8 +38,10 @@ public class Member extends Auditable {
     @Email(message = "올바른 이메일이 아닙니다.")
     @NotBlank(message = "이메일은 공백이 아니여야 합니다.")
     private String email;
-    @Column
-    private String roles;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> roles = new ArrayList<>();
+
     @Column
     private String provider;
     @Column
@@ -48,25 +50,55 @@ public class Member extends Auditable {
     @Column
     private String roomName;
 
-    @Column String roomPassword;
+    @Column
+    private String roomPassword;
+
+    @Enumerated(value = EnumType.STRING)
+    @Column(nullable = false)
+    private MemberStatus memberStatus = MemberStatus.MEMBER_ACTIVE;
+
+    public Member(String username,String email,String password,String provider) {
+        this.username =username;
+        this.email = email;
+        this.password = password;
+        this.provider = provider;
+    }
+
+
+    public enum MemberStatus{
+
+        MEMBER_ACTIVE("활동중"),
+        MEMBER_SLEEP("휴면 상태"),
+        MEMBER_QUIT("탈퇴 상태");
+
+        @Getter
+        private String status;
+
+        MemberStatus(String status) {
+            this.status = status;
+        }
+        }
+
+
 
 
 //    룸부분 결합후 작업
-    @OneToMany(mappedBy = "member")
+//@JsonManagedReference
+@OneToMany(mappedBy = "member" ,cascade = CascadeType.PERSIST)
     private List<Room> rooms = new ArrayList<>();
 
-    public void setRoom(Room room){
-        rooms.add(room);
-//        if(room.getRoom() != this){
-//            room.setRoom(this);
+//    public void setRoom(Room room){
+//        rooms.add(room);
+////        if(room.getRoom() != this){
+////            room.setRoom(this);
+////        }
+//    }
+
+
+//    public List<String> getRoleList(){
+//        if(this.roles != null){
+//            return Arrays.asList(this.roles.split(","));
 //        }
-    }
-
-
-    public List<String> getRoleList(){
-        if(this.roles != null){
-            return Arrays.asList(this.roles.split(","));
-        }
-        return new ArrayList<>();
-    }
+//        return new ArrayList<>();
+//    }
 }

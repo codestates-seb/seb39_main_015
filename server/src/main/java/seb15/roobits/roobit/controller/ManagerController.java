@@ -5,13 +5,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import roobits.roobit.dto.MultiResponseDto;
-import roobits.roobit.dto.SingleResponseDto;
-import roobits.roobit.entity.Roobit;
-import roobits.roobit.mapper.RoobitMapper;
-import roobits.roobit.repository.RoobitRepository;
-import roobits.roobit.service.RoobitService;
-import roobits.room.service.RoomService;
+import seb15.roobits.roobit.dto.MultiResponseDto;
+import seb15.roobits.roobit.dto.SingleResponseDto;
+import seb15.roobits.roobit.entity.Roobit;
+import seb15.roobits.roobit.mapper.RoobitMapper;
+import seb15.roobits.roobit.repository.RoobitRepository;
+import seb15.roobits.roobit.service.RoobitService;
+import seb15.roobits.room.service.RoomService;
+
 
 import javax.validation.constraints.Positive;
 import java.util.List;

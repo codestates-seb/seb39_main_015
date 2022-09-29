@@ -12,8 +12,9 @@ import seb15.roobits.member.dto.MemberDto;
 import seb15.roobits.member.entity.Member;
 import seb15.roobits.member.mapper.MemberMapper;
 import seb15.roobits.member.service.MemberService;
-import seb15.roobits.security.auth.PrincipalDetails;
+import seb15.roobits.security.auth.MemberDetailsService;
 
+import javax.net.ssl.HttpsURLConnection;
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
@@ -27,6 +28,9 @@ public class MemberController {
     private final MemberService memberService;
     private final MemberMapper memberMapper;
 
+    private final MemberDetailsService memberDetailsService;
+
+
 
     @PostMapping("/join")  //회원가입
     public ResponseEntity joinMember(@RequestBody @Valid MemberDto.Join memberJoinDto){
@@ -38,16 +42,13 @@ public class MemberController {
     }
 
     @PatchMapping("/patch") //회원정보 수정
-    public ResponseEntity patchMember(@AuthenticationPrincipal PrincipalDetails principalDetails,
+    public ResponseEntity patchMember(@AuthenticationPrincipal Member auth,
                                       @RequestBody @Valid MemberDto.Patch memberPatchDto){
-        if(principalDetails == null){
+
+        if(auth == null){
             return new ResponseEntity(HttpStatus.NOT_FOUND);// exception으로 날려줘야함.
         }
-//        long principalDetailsId;    //테스트 로직 코드
-//        if(principalDetails == null) {principalDetailsId =1L;}
-//        else {principalDetailsId = principalDetails.getId();}
-//        memberPatchDto.setMemberId(principalDetailsId);
-        memberPatchDto.setMemberId(principalDetails.getId());
+        memberPatchDto.setUsername(auth.getUsername());
         Member member = memberMapper.patchToMember(memberPatchDto);
 //        Member editMember =
         memberService.updateMember(member);
@@ -56,46 +57,90 @@ public class MemberController {
     }
 
     @DeleteMapping("/delete") //회원탈퇴
-    public ResponseEntity deleteMember(@AuthenticationPrincipal PrincipalDetails principalDetails){
-        if(principalDetails == null){
+    public ResponseEntity deleteMember(@AuthenticationPrincipal Member auth){
+
+        if(auth == null){
             return new ResponseEntity(HttpStatus.NOT_FOUND); // exception으로 날려줘야함.
         }
-//        long principalDetailsId;    //테스트 로직 코드
-//        if(principalDetails == null) {principalDetailsId =1L;}
-//        else {principalDetailsId = principalDetails.getId();}
-//        Member member = memberService.findMember(principalDetailsId);
-        Member member = memberService.findMember(principalDetails.getId());
-        memberService.deleteMember(member.getMemberId());
+        Member member = memberService.findMember(auth.getUsername());
+        System.out.println(auth.getMemberId());
+        memberService.deleteMember(member.getUsername());
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping("/myroom")
-    public ResponseEntity getMyRoom(@AuthenticationPrincipal PrincipalDetails principalDetails){
-//        if(principalDetails.getId() == 0){
-//            return new ResponseEntity(HttpStatus.NOT_FOUND); // exception으로 날려줘야함.
+//    @GetMapping("/myroom")
+//    public ResponseEntity getMyRoom(@AuthenticationPrincipal Member auth){
+//        if(auth == null){
+//            return new ResponseEntity(HttpStatus.NOT_FOUND);
 //        }
-                long principalDetailsId;    //테스트 로직 코드
-        if(principalDetails == null) {principalDetailsId =1L;}
-        else {principalDetailsId = principalDetails.getId();}
-        Member getMemberRoom = memberService.findMember(principalDetailsId);
+//        System.out.println(auth.getUsername());
 //        Member getMemberRoom =
-//                memberService.findMember(principalDetails.getId());
-        MemberDto.GetMyRoomResponse response = memberMapper.memberTogetMyRoomResponse(getMemberRoom);
-        return new ResponseEntity<>(response,HttpStatus.OK);
-    }
+//                memberService.findMember(auth.getUsername());
+//        MemberDto.GetMyRoomResponse response = memberMapper.memberTogetMyRoomResponse(getMemberRoom);
+//        return new ResponseEntity<>(response,HttpStatus.OK);
+//    }
 
     @PostMapping("/finduser")
     public ResponseEntity findUsername(@RequestBody MemberDto.Find memberFindDto){
-        System.out.println(memberFindDto.getEmail());
         Member member = memberMapper.findToMember(memberFindDto);
         Member findUsername = memberService.findUserId(member);
         MemberDto.FindUsernameResponse response = memberMapper.memberToFindUsernameResponse(findUsername);
         return new ResponseEntity(response,HttpStatus.OK);
     }
 
+    //유저네임 중복체크
+    @PostMapping("/usernamecheck")
+    public ResponseEntity checkUsername(@RequestBody MemberDto.CheckUsername checkUsernameDto){
+        Member username = memberMapper.checkUsernameToMember(checkUsernameDto);
+        Boolean checkedUsername = memberService.checkUsername(username.getUsername());
+        MemberDto.CheckUsernameResponse response = memberMapper.memberToCheckUsernameResponse(username);
+        if(checkedUsername == true){response.setCheck(true);
+        } else {response.setCheck(false);}
+        return new ResponseEntity<>(response,HttpStatus.OK);
+    }
+
+    @PostMapping("/useremailcheck")
+    public ResponseEntity checkUserEmail(@RequestBody MemberDto.CheckEmail checkUserEmailDto){
+        Member memberEmail = memberMapper.checkUserEmailToMember(checkUserEmailDto);
+        Boolean checkedUserEmail = memberService.checkUserEmail(memberEmail.getEmail());
+        MemberDto.CheckEmailResponse response = memberMapper.memberToCheckEmailResponse(memberEmail);
+        if(checkedUserEmail == true){response.setCheck(true);
+        } else {response.setCheck(false);}
+        return new ResponseEntity<>(response,HttpStatus.OK);
+    }
+
+    @PostMapping("/checkpw")
+    public ResponseEntity checkPassword(@AuthenticationPrincipal Member auth,
+                                        @RequestBody MemberDto.CheckPassword checkPasswordDto){
+        Member originMember = memberService.findMember(auth.getUsername());
+        Member checkPasswordMember = memberMapper.checkPasswordToMember(checkPasswordDto);
+        Boolean checkedPassword = memberService.checkPassword(originMember.getUsername(),checkPasswordMember.getPassword());
+        MemberDto.CheckPasswordResponse response = memberMapper.memberToCheckPasswordResponse(checkPasswordMember);
+        if(checkedPassword == true){response.setCheck(true);
+        } else {response.setCheck(false);}
+        return new ResponseEntity<>(response,HttpStatus.OK);
+    }
+
+
+    //프론트쪽 Auth확인
+    @GetMapping("/auth")
+    public ResponseEntity checkAuth(@AuthenticationPrincipal Member auth){
+        Member checkAuth = memberService.findMember(auth.getUsername());
+        if (checkAuth == null) {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);}
+        checkAuth.setProvider(auth.getProvider());
+        MemberDto.CheckAuthResponse response = memberMapper.memberToCheckAuthResponse(checkAuth);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+        }
+
+
     @GetMapping("/rooms")
-    public String host() {
-        return "room";
+    public ResponseEntity host(@AuthenticationPrincipal Member auth) {
+        if (auth == null) {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);}
+        Member getMemberRoom = memberService.findMember(auth.getUsername());
+        String response = "room";
+        return new ResponseEntity(response,HttpStatus.OK);
     }
 
 

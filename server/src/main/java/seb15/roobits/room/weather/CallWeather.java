@@ -1,11 +1,16 @@
 package seb15.roobits.room.weather;
 
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import seb15.roobits.room.entity.Room;
 
 import java.net.URLEncoder;
+import java.util.regex.Pattern;
 
+@Component
 public class CallWeather {
+
+        //타임아웃을 설정해야 한다. 응답값을 받을 때까지 무한정 대기하지 않게 해야 한다.
 
         public static String getWeatherData(Room findRoom) {
 
@@ -20,23 +25,20 @@ public class CallWeather {
 
                         RestTemplate restTemplate = new RestTemplate();
                         WeatherVO.Weather response = restTemplate.getForObject(urlBuilder.toString(), WeatherVO.Weather.class);
+                        int weatherId = response.getWeatherId();
 
-//                        if (String.valueOf(response) == "800")  return "clear";
-//                        else if (String.valueOf(response) == "600") return "snow";
-//                        else if (String.valueOf(response) == "700") return "clouds";
-//                        else if (String.valueOf(response) == "80*") return "clouds";
-//                        else return "rain";
+//                        Pattern p = Pattern.compile("(^80\d$)")")
 
-                        if (String.valueOf(response) == "800") {
+                        if (weatherId == 800) {
                                 weather = "clear";
                         }
-                        else if (String.valueOf(response) == "600") {
+                        else if (String.valueOf(weatherId) == "6\\d\\d") {
                                 weather = "snow";
                         }
-                        else if (String.valueOf(response) == "700") {
+                        else if (String.valueOf(weatherId) == "(^7[0-9][0-9]$)") {
                                 weather = "clouds";
                         }
-                        else if (String.valueOf(response) == "80*") {
+                        else if (String.valueOf(weatherId) == "(^80\\d$)") {
                                 weather = "clouds";
                         } else {
                                 weather = "rain";

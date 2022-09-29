@@ -6,6 +6,7 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.format.annotation.DateTimeFormat;
 import seb15.roobits.room.entity.Room;
+import seb15.roobits.room.entity.RoomTheme;
 
 import javax.validation.constraints.Future;
 import javax.validation.constraints.Max;
@@ -24,7 +25,7 @@ public class RoomPostDto {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate dDay;
 
-    private Room.RoomTheme roomTheme;
+    private RoomTheme roomTheme;
 
     @Range(min= 1, max= 300,
             message = "최소 1부터 최대 300개의 루빗을 설정해야 합니다.")

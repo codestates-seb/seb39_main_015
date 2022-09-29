@@ -4,6 +4,7 @@ import seb15.roobits.globaldto.SingleResponseDto;
 import seb15.roobits.room.dto.RoomPatchDto;
 import seb15.roobits.room.dto.RoomPostDto;
 import seb15.roobits.room.entity.Room;
+import seb15.roobits.room.entity.RoomStatus;
 import seb15.roobits.room.mapper.RoomMapper;
 import seb15.roobits.room.service.RoomService;
 import lombok.extern.slf4j.Slf4j;
@@ -50,7 +51,7 @@ public class RoomController {
     public ResponseEntity getRoom(@PathVariable("room-id") @Positive long roomId) {
         Room room = roomService.findRoom(roomId);
 
-        if (room.getRoomStatus() == Room.RoomStatus.ROOM_CLOSED) {
+        if (room.getRoomStatus() == RoomStatus.ROOM_CLOSED) {
             return new ResponseEntity<>(roomMapper.roomToResponseRoomStatus(room),
                     HttpStatus.OK);
         } else {

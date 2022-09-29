@@ -14,6 +14,6 @@ public class WeatherVO {
 
     @Data
     public static class Weather{
-        long id;
+        int weatherId;
     }
 }

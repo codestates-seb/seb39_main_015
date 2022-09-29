@@ -7,6 +7,7 @@ import seb15.roobits.room.dto.RoomPostDto;
 import seb15.roobits.room.dto.RoomResponseDto;
 import seb15.roobits.room.entity.Room;
 import org.mapstruct.Mapper;
+import seb15.roobits.room.entity.RoomTheme;
 
 
 @Mapper(componentModel = "spring")
@@ -24,7 +25,6 @@ public interface RoomMapper {
                 room.getRoomName(),
                 room.getDDay(),
                 room.getRoomTheme(),
-                room.getRoomStatus(),
                 room.getViewCount(),
                 room.getRoobitAmount(),
                 room.getRestDay(),
@@ -37,13 +37,9 @@ public interface RoomMapper {
     }
 
     default ResponseRoomStatus roomToResponseRoomStatus(Room room) {
-        String roomData = null;
-        String roobits = null;
 
         ResponseRoomStatus responseRoomStatus = new ResponseRoomStatus(
-                room.getRoomStatus(),
-                roomData,
-                roobits
+                room.getRoomStatus()
         );
 
         return responseRoomStatus;

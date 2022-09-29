@@ -68,17 +68,17 @@ public class MemberController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-//    @GetMapping("/myroom")
-//    public ResponseEntity getMyRoom(@AuthenticationPrincipal Member auth){
-//        if(auth == null){
-//            return new ResponseEntity(HttpStatus.NOT_FOUND);
-//        }
-//        System.out.println(auth.getUsername());
-//        Member getMemberRoom =
-//                memberService.findMember(auth.getUsername());
-//        MemberDto.GetMyRoomResponse response = memberMapper.memberTogetMyRoomResponse(getMemberRoom);
-//        return new ResponseEntity<>(response,HttpStatus.OK);
-//    }
+    @GetMapping("/myroom")
+    public ResponseEntity getMyRoom(@AuthenticationPrincipal Member auth){
+        if(auth == null){
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+        System.out.println(auth.getUsername());
+        Member getMemberRoom =
+                memberService.findMember(auth.getUsername());
+        MemberDto.GetMyRoomResponse response = memberMapper.memberTogetMyRoomResponse(getMemberRoom);
+        return new ResponseEntity<>(response,HttpStatus.OK);
+    }
 
     @PostMapping("/finduser")
     public ResponseEntity findUsername(@RequestBody MemberDto.Find memberFindDto){

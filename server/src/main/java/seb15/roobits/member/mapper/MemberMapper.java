@@ -31,7 +31,7 @@ public interface MemberMapper {
 
     MemberDto.FindUsernameResponse memberToFindUsernameResponse(Member member);
 
-//    MemberDto.GetMyRoomResponse memberTogetMyRoomResponse(Member member);
+    MemberDto.GetMyRoomResponse memberTogetMyRoomResponse(Member member);
 
     MemberDto.CheckAuthResponse memberToCheckAuthResponse(Member member);
 }

@@ -7,7 +7,7 @@ const BuildingStyle = styled.div`
   --item-height: min(90vw / 3 * (2 / 3), 90vh / (var(--total-floor) + 0.8));
   --item-width: calc(var(--item-height) * (3 / 2));
   --rooftop-height: calc(var(--item-height) * (3 / 5));
-  --container-width: calc(var(--item-width) * 3 + 10px);
+  --container-width: calc(var(--item-width) * 3);
 
   /** 유닛이 1개, 2개 일 때 사이즈 분기 처리 */
   --one-item-height: min(var(--item-height) * 2, 80vh * (5 / 8));
@@ -29,7 +29,7 @@ const BuildingStyle = styled.div`
   }
 
   .container {
-    border: 5px solid #ccc;
+    outline: 5px solid #ccc;
 
     height: auto;
     width: var(--container-width);
@@ -40,15 +40,16 @@ const BuildingStyle = styled.div`
   }
 
   .container.onlyOne {
-    width: calc(var(--one-item-width) + 10px);
+    width: calc(var(--one-item-width));
   }
   .container.onlyTwo {
-    width: calc(var(--two-item-width) * 2 + 10px);
+    width: calc(var(--two-item-width) * 2);
   }
 
   .item {
     border: 5px solid pink;
     background-color: aliceblue;
+    background-origin: border-box;
     display: flex;
     justify-content: center;
     align-items: center;

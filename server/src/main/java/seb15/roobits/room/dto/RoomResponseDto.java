@@ -1,15 +1,10 @@
 package seb15.roobits.room.dto;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import seb15.roobits.room.entity.Room;
+import seb15.roobits.room.entity.RoomTheme;
 
-import javax.persistence.Column;
-import javax.validation.constraints.NotBlank;
-import java.util.Date;
-import java.util.Optional;
-
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -18,19 +13,34 @@ public class RoomResponseDto {
 
     private String roomName;
 
-    private Date dDay;
+    private LocalDate dDay;
 
     private long restDay;
 
     private String weather;
 
-    private long roomTheme;
+    private RoomTheme roomTheme;
 
-    @Column(columnDefinition = "integer default 0", nullable = false)
+    private long roobitAmount;
+
     private long viewCount;
 
     private String url;
 
-    public RoomResponseDto(long roomId, String roomName, Date dDay, long roomTheme, Object weather, long viewCount, long restDay, String url) {
+    private long patchCount;
+
+    public RoomResponseDto(long roomId, String roomName, LocalDate dDay, RoomTheme roomTheme,
+                           long viewCount, long roobitAmount, long restDay, String weather, String url, long patchCount) {
+        this.roomId = roomId;
+        this.roomName = roomName;
+        this.dDay = dDay;
+        this.roomTheme = roomTheme;
+        this.viewCount = viewCount;
+        this.roobitAmount = roobitAmount;
+        this.restDay = restDay;
+        this.weather = weather;
+        this.url = url;
+        this.patchCount = patchCount;
     }
+
 }

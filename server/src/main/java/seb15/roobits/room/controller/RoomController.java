@@ -4,6 +4,7 @@ import seb15.roobits.globaldto.SingleResponseDto;
 import seb15.roobits.room.dto.RoomPatchDto;
 import seb15.roobits.room.dto.RoomPostDto;
 import seb15.roobits.room.entity.Room;
+import seb15.roobits.room.entity.RoomStatus;
 import seb15.roobits.room.mapper.RoomMapper;
 import seb15.roobits.room.service.RoomService;
 import lombok.extern.slf4j.Slf4j;
@@ -30,9 +31,9 @@ public class RoomController {
 
     @PostMapping
     public ResponseEntity postRoom(@Valid @RequestBody RoomPostDto roomPostDto) {
+
         Room room = roomService.createRoom(roomMapper.roomPostDtoToRoom(roomPostDto));
-        return new ResponseEntity<>(
-                new SingleResponseDto<>(roomMapper.roomToRoomResponseDto(room)),
+        return new ResponseEntity<>(roomMapper.roomToRoomResponseDto(room),
                 HttpStatus.CREATED);
     }
 
@@ -42,8 +43,7 @@ public class RoomController {
         roomPatchDto.setRoomId(roomId);
         Room room = roomService.updateRoom(roomMapper.roomPatchDtoToRoom(roomPatchDto));
 
-        return new ResponseEntity<>(
-                new SingleResponseDto<>(roomMapper.roomToRoomResponseDto(room)),
+        return new ResponseEntity<>(roomMapper.roomToRoomResponseDto(room),
                 HttpStatus.OK);
     }
 
@@ -51,9 +51,14 @@ public class RoomController {
     public ResponseEntity getRoom(@PathVariable("room-id") @Positive long roomId) {
         Room room = roomService.findRoom(roomId);
 
-        return new ResponseEntity<>(
-                new SingleResponseDto<>(roomMapper.roomToRoomResponseDto(room)),
-                HttpStatus.OK);
+        if (room.getRoomStatus() == RoomStatus.ROOM_CLOSED) {
+            return new ResponseEntity<>(roomMapper.roomToResponseRoomStatus(room),
+                    HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(
+                    new SingleResponseDto<>(roomMapper.roomToRoomResponseDto(room)),
+                    HttpStatus.OK);
+        }
     }
 
     @DeleteMapping("/{room-id}")

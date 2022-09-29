@@ -2,8 +2,6 @@ package seb15.roobits.member.dto;
 
 import lombok.*;
 import seb15.roobits.room.dto.MyRoomResponseDto;
-import seb15.roobits.room.entity.Room;
-
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
@@ -122,6 +120,10 @@ public class MemberDto {
     public static class FindUsernameResponse {
 
         private String username;
+
+        public void setUsername(String username){
+            this.username = username;
+        }
     }
 
     @Getter

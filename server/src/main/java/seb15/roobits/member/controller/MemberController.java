@@ -12,6 +12,7 @@ import seb15.roobits.member.dto.MemberDto;
 import seb15.roobits.member.entity.Member;
 import seb15.roobits.member.mapper.MemberMapper;
 import seb15.roobits.member.service.MemberService;
+import seb15.roobits.room.repository.RoomRepository;
 import seb15.roobits.security.auth.MemberDetailsService;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -29,6 +30,8 @@ public class MemberController {
     private final MemberMapper memberMapper;
 
     private final MemberDetailsService memberDetailsService;
+
+    private final RoomRepository roomRepository;
 
 
 
@@ -77,12 +80,23 @@ public class MemberController {
         Member getMemberRoom =
                 memberService.findMember(auth.getUsername());
         MemberDto.GetMyRoomResponse response = memberMapper.memberTogetMyRoomResponse(getMemberRoom);
+
         return new ResponseEntity<>(response,HttpStatus.OK);
     }
 
+    //findall을 통해서 진행한다.?
+
 
     @PostMapping("/finduser")
-    public ResponseEntity findUsername(@RequestBody MemberDto.Find memberFindDto){
+    public ResponseEntity findUsername(@AuthenticationPrincipal Member auth,
+                                       @RequestBody MemberDto.Find memberFindDto){
+        if(auth.getProvider() == "google"){
+            Member member = memberMapper.findToMember(memberFindDto);
+            Member findUsername = memberService.findUserId(member);
+            MemberDto.FindUsernameResponse response = memberMapper.memberToFindUsernameResponse(findUsername);
+            response.setUsername("일치하는 회원정보가 없습니다");
+            return new ResponseEntity(response,HttpStatus.NOT_FOUND);
+        }
         Member member = memberMapper.findToMember(memberFindDto);
         Member findUsername = memberService.findUserId(member);
         MemberDto.FindUsernameResponse response = memberMapper.memberToFindUsernameResponse(findUsername);

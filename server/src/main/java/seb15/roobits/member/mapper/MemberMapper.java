@@ -33,6 +33,5 @@ public interface MemberMapper {
 
     MemberDto.GetMyRoomResponse memberTogetMyRoomResponse(Member member);
 
-
     MemberDto.CheckAuthResponse memberToCheckAuthResponse(Member member);
 }

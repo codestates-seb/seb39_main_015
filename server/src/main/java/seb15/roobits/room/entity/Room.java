@@ -21,6 +21,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+
 public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

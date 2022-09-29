@@ -3,6 +3,12 @@ import { Body, OrangeButton, WhiteButton } from '../styled/Style.js';
 import { ShareIcon } from '../images/shareIcon.js';
 import ReactTooltip from 'react-tooltip';
 import { useState } from 'react';
+import {
+  FacebookShareButton,
+  FacebookIcon,
+  TwitterShareButton,
+  TwitterIcon,
+} from 'react-share';
 
 const backData = {
   username: 'kimcoding',
@@ -57,7 +63,7 @@ const RoomBox = styled.div`
   :hover {
     box-shadow: 0px 0px 0px 1px transparent, 0px 0px 0px 4px transparent,
       0px 6px 16px rgb(0 0 0 / 12%);
-    transform: scale(1.02);
+    transform: scale(1.01);
   }
 `;
 
@@ -100,7 +106,7 @@ const RoomDday = styled.div`
   > p {
     font-size: 20px !important;
     pointer-events: auto !important;
-    cursor: pointer;
+    cursor: default;
     &:hover {
       visibility: visible !important;
       opacity: 1 !important;
@@ -125,6 +131,12 @@ const Space = styled.span`
 export default function MyRoom() {
   const [tooltip, showTooltip] = useState(true);
 
+  const kakaoShare = (url) => {
+    window.Kakao.Share.sendScrap({
+      requestUrl: url,
+    });
+  };
+
   return (
     <div>
       <MyRoomBody>
@@ -148,6 +160,21 @@ export default function MyRoom() {
                   >
                     D-{ele.restDay}
                   </p>
+                  <FacebookShareButton url={ele.url}>
+                    <FacebookIcon
+                      size={24}
+                      round={true}
+                      // borderRadius={99}
+                    ></FacebookIcon>
+                  </FacebookShareButton>
+                  <TwitterShareButton url={ele.url}>
+                    <TwitterIcon
+                      size={24}
+                      round={true}
+                      // borderRadius={99}
+                    ></TwitterIcon>
+                  </TwitterShareButton>
+                  <button onClick={() => kakaoShare(ele.url)}>asdf</button>
                 </RoomDday>
                 <ButtonSection>
                   <ShareIcon />

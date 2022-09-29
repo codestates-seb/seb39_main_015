@@ -1,12 +1,9 @@
 package seb15.roobits.room.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Range;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import seb15.roobits.member.entity.Member;
 import seb15.roobits.roobit.entity.Roobit;

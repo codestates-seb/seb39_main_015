@@ -42,5 +42,4 @@ public class RoomResponseDto {
         this.url = url;
         this.patchCount = patchCount;
     }
-
 }

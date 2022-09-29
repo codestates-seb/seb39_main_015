@@ -1,13 +1,12 @@
 package seb15.roobits.room.mapper;
 
 
-import seb15.roobits.room.dto.ResponseRoomStatus;
-import seb15.roobits.room.dto.RoomPatchDto;
-import seb15.roobits.room.dto.RoomPostDto;
-import seb15.roobits.room.dto.RoomResponseDto;
+import seb15.roobits.room.dto.*;
 import seb15.roobits.room.entity.Room;
 import org.mapstruct.Mapper;
 import seb15.roobits.room.entity.RoomTheme;
+
+import java.util.List;
 
 
 @Mapper(componentModel = "spring")
@@ -32,7 +31,6 @@ public interface RoomMapper {
                 url,
                 room.getPatchCount()
         );
-
         return roomResponseDto;
     }
 
@@ -44,4 +42,7 @@ public interface RoomMapper {
 
         return responseRoomStatus;
     }
+
+    MyRoomResponseDto roomToMyRoomResponseDto(Room room);
+    List<RoomResponseDto> roomsToRoomResponsDto(List<Room> rooms);
 }

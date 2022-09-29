@@ -60,11 +60,11 @@ const RoomBox = styled.div`
   border-radius: 14px;
   /* position: relative; */
   padding: 16px;
-  :hover {
+  /* :hover {
     box-shadow: 0px 0px 0px 1px transparent, 0px 0px 0px 4px transparent,
       0px 6px 16px rgb(0 0 0 / 12%);
     transform: scale(1.01);
-  }
+  } */
 `;
 
 const RoomTheme = styled.div`
@@ -84,6 +84,7 @@ const RoomTitle = styled.div`
   display: flex;
   font-size: 18px;
   margin-top: 14px;
+  cursor: pointer;
 `;
 const RoomControlBar = styled.div`
   height: 26px;
@@ -119,6 +120,7 @@ const ButtonSection = styled.div`
   display: flex;
   align-items: center;
   justify-content: start;
+  position: relative;
 `;
 const WhiteButtonOrangeBorder = styled(WhiteButton)`
   border-color: #f58a5c;
@@ -126,6 +128,44 @@ const WhiteButtonOrangeBorder = styled(WhiteButton)`
 `;
 const Space = styled.span`
   margin-left: ${(props) => props.space || '10px'};
+`;
+const ShareButtonWrapper = styled.div`
+  display: flex;
+  position: absolute;
+  top: 30px;
+  left: -30px;
+  background-color: white;
+`;
+
+const Facebook_Twitter_Button = styled.div`
+  :active {
+    box-shadow: none !important;
+    transform: scale(1) !important;
+  }
+  :hover {
+    transform: scale(1.02);
+  }
+`;
+
+const KakaoButton = styled.button`
+  border: 0;
+  width: 30px;
+  height: 33.5px;
+  outline: 0;
+  padding: 0;
+  margin: 0;
+  background-color: transparent;
+  cursor: pointer;
+  :active {
+    box-shadow: none !important;
+    transform: scale(1) !important;
+  }
+  :hover {
+    transform: scale(1.02);
+  }
+  > img {
+    border-radius: 99px;
+  }
 `;
 
 export default function MyRoom() {
@@ -160,24 +200,40 @@ export default function MyRoom() {
                   >
                     D-{ele.restDay}
                   </p>
-                  <FacebookShareButton url={ele.url}>
-                    <FacebookIcon
-                      size={24}
-                      round={true}
-                      // borderRadius={99}
-                    ></FacebookIcon>
-                  </FacebookShareButton>
-                  <TwitterShareButton url={ele.url}>
-                    <TwitterIcon
-                      size={24}
-                      round={true}
-                      // borderRadius={99}
-                    ></TwitterIcon>
-                  </TwitterShareButton>
-                  <button onClick={() => kakaoShare(ele.url)}>asdf</button>
                 </RoomDday>
                 <ButtonSection>
                   <ShareIcon />
+                  <ShareButtonWrapper>
+                    <Facebook_Twitter_Button>
+                      <FacebookShareButton url={ele.url}>
+                        <FacebookIcon
+                          size={30}
+                          round={true}
+                          // borderRadius={99}
+                        ></FacebookIcon>
+                      </FacebookShareButton>
+                    </Facebook_Twitter_Button>
+                    <Facebook_Twitter_Button>
+                      <TwitterShareButton url={ele.url}>
+                        <TwitterIcon
+                          size={30}
+                          round={true}
+                          // borderRadius={99}
+                        ></TwitterIcon>
+                      </TwitterShareButton>
+                    </Facebook_Twitter_Button>
+                    <KakaoButton
+                      type="button"
+                      onClick={() => kakaoShare(ele.url)}
+                    >
+                      <img
+                        src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
+                        alt="카카오톡 공유 버튼"
+                        height={'30px'}
+                        width={'30px'}
+                      />
+                    </KakaoButton>
+                  </ShareButtonWrapper>
                   <Space space={'12px'} />
                   <WhiteButtonOrangeBorder width="53px" height="26px">
                     Edit

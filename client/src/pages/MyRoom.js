@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { Body, OrangeButton, WhiteButton } from '../styled/Style.js';
 import { ShareIcon } from '../images/shareIcon.js';
 import ReactTooltip from 'react-tooltip';
-import { useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import {
   FacebookShareButton,
   FacebookIcon,
@@ -120,7 +120,7 @@ const ButtonSection = styled.div`
   display: flex;
   align-items: center;
   justify-content: start;
-  position: relative;
+  /* position: relative; */
 `;
 const WhiteButtonOrangeBorder = styled(WhiteButton)`
   border-color: #f58a5c;
@@ -130,12 +130,40 @@ const Space = styled.span`
   margin-left: ${(props) => props.space || '10px'};
 `;
 const ShareButtonWrapper = styled.div`
+  position: relative;
+  cursor: pointer;
+`;
+const ShareButtonPopup = styled.div`
   display: flex;
   position: absolute;
-  top: 30px;
-  left: -30px;
+  top: 25px;
+  left: 50%;
+  transform: translate(-50%, 0);
   background-color: white;
+  flex-direction: column;
+
+  animation-name: fadein;
+  animation-duration: 1s;
+  animation-direction: alternate;
+  @keyframes fadein {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes fadeout {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
 `;
+
+const ShareButton = styled.div``;
 
 const Facebook_Twitter_Button = styled.div`
   :active {
@@ -170,6 +198,22 @@ const KakaoButton = styled.button`
 
 export default function MyRoom() {
   const [tooltip, showTooltip] = useState(true);
+  const [urlDropDown, setUrlDropDown] = useState('');
+  const ref = useRef();
+
+  useEffect(() => {
+    document.addEventListener('mousedown', clickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', clickOutside);
+    };
+  });
+
+  const clickOutside = (event) => {
+    if (urlDropDown && !ref.current.contains(event.target)) {
+      setUrlDropDown('');
+    }
+  };
 
   const kakaoShare = (url) => {
     window.Kakao.Share.sendScrap({
@@ -202,37 +246,48 @@ export default function MyRoom() {
                   </p>
                 </RoomDday>
                 <ButtonSection>
-                  <ShareIcon />
                   <ShareButtonWrapper>
-                    <Facebook_Twitter_Button>
-                      <FacebookShareButton url={ele.url}>
-                        <FacebookIcon
-                          size={30}
-                          round={true}
-                          // borderRadius={99}
-                        ></FacebookIcon>
-                      </FacebookShareButton>
-                    </Facebook_Twitter_Button>
-                    <Facebook_Twitter_Button>
-                      <TwitterShareButton url={ele.url}>
-                        <TwitterIcon
-                          size={30}
-                          round={true}
-                          // borderRadius={99}
-                        ></TwitterIcon>
-                      </TwitterShareButton>
-                    </Facebook_Twitter_Button>
-                    <KakaoButton
-                      type="button"
-                      onClick={() => kakaoShare(ele.url)}
+                    <ShareButton
+                      onClick={() => setUrlDropDown(ele.roomId)}
+                      ref={ref}
                     >
-                      <img
-                        src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
-                        alt="카카오톡 공유 버튼"
-                        height={'30px'}
-                        width={'30px'}
-                      />
-                    </KakaoButton>
+                      <ShareIcon />
+                    </ShareButton>
+                    {ele.roomId === urlDropDown ? (
+                      <ShareButtonPopup>
+                        <KakaoButton
+                          type="button"
+                          onClick={() => kakaoShare(ele.url)}
+                        >
+                          <img
+                            src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
+                            alt="카카오톡 공유 버튼"
+                            height={'30px'}
+                            width={'30px'}
+                          />
+                        </KakaoButton>
+                        <Facebook_Twitter_Button>
+                          <FacebookShareButton url={ele.url}>
+                            <FacebookIcon
+                              size={30}
+                              round={true}
+                              // borderRadius={99}
+                            ></FacebookIcon>
+                          </FacebookShareButton>
+                        </Facebook_Twitter_Button>
+                        <Facebook_Twitter_Button>
+                          <TwitterShareButton url={ele.url}>
+                            <TwitterIcon
+                              size={30}
+                              round={true}
+                              // borderRadius={99}
+                            ></TwitterIcon>
+                          </TwitterShareButton>
+                        </Facebook_Twitter_Button>
+                      </ShareButtonPopup>
+                    ) : (
+                      ''
+                    )}
                   </ShareButtonWrapper>
                   <Space space={'12px'} />
                   <WhiteButtonOrangeBorder width="53px" height="26px">

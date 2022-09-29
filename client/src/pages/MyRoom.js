@@ -211,6 +211,8 @@ export default function MyRoom() {
 
   const clickOutside = (event) => {
     if (urlDropDown && !ref.current.contains(event.target)) {
+      console.log(event.target);
+      console.log(ref);
       setUrlDropDown('');
     }
   };
@@ -247,14 +249,11 @@ export default function MyRoom() {
                 </RoomDday>
                 <ButtonSection>
                   <ShareButtonWrapper>
-                    <ShareButton
-                      onClick={() => setUrlDropDown(ele.roomId)}
-                      ref={ref}
-                    >
+                    <ShareButton onClick={() => setUrlDropDown(ele.roomId)}>
                       <ShareIcon />
                     </ShareButton>
                     {ele.roomId === urlDropDown ? (
-                      <ShareButtonPopup>
+                      <ShareButtonPopup ref={ref}>
                         <KakaoButton
                           type="button"
                           onClick={() => kakaoShare(ele.url)}

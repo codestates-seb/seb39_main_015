@@ -3,10 +3,24 @@ import styled from 'styled-components';
 // import { roomDetailData } from '../data/DummyData';
 
 const BuildingStyle = styled.div`
+  --total-floor: ${(props) => (props.totalFloor <= 2 ? 2 : props.totalFloor)};
+  --item-height: min(90vw / 3 * (2 / 3), 90vh / (var(--total-floor) + 0.8));
+  --item-width: calc(var(--item-height) * (3 / 2));
+  --rooftop-height: calc(var(--item-height) * (3 / 5));
+  --container-width: calc(var(--item-width) * 3 + 10px);
+
+  /** 유닛이 1개, 2개 일 때 사이즈 분기 처리 */
+  --one-item-height: min(var(--item-height) * 2, 80vh * (5 / 8));
+  --one-item-width: calc(var(--one-item-height) * (3 / 2));
+  --two-item-height: min(var(--item-height) * (3 / 2), 80vh * (5 / 8));
+  --two-item-width: calc(var(--two-item-height) * (3 / 2));
+  --one-rooftop-height: calc(var(--one-item-height) * (3 / 5));
+  --two-rooftop-height: calc(var(--two-item-height) * (3 / 5));
+
   .wrapper {
     border: 1px solid red;
 
-    width: 40%;
+    width: 100vw;
     height: 90vh;
     margin: 0 auto 0 auto;
     display: flex;
@@ -18,10 +32,18 @@ const BuildingStyle = styled.div`
     border: 5px solid #ccc;
 
     height: auto;
-    width: 100%;
+    width: var(--container-width);
     display: flex;
     flex-wrap: wrap-reverse;
+    align-content: flex-start;
     margin: 0 auto;
+  }
+
+  .container.onlyOne {
+    width: calc(var(--one-item-width) + 10px);
+  }
+  .container.onlyTwo {
+    width: calc(var(--two-item-width) * 2 + 10px);
   }
 
   .item {
@@ -30,19 +52,16 @@ const BuildingStyle = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 2rem;
+    font-size: 1rem;
 
-    flex: 0 1 33.33%;
-    height: 0;
-    max-height: 20px;
-    padding: calc(33.33% * 0.5 * 0.6) 0;
+    height: var(--item-height);
+    width: var(--item-width);
   }
 
   .rooftop {
     background-color: lightyellow;
     border-bottom: none;
-
-    padding: calc(33.33% * 0.5 * 0.3) 0;
+    height: var(--rooftop-height);
   }
 
   .btns {
@@ -62,22 +81,21 @@ const BuildingStyle = styled.div`
     display: none;
   }
 
-  .onlyOne {
-    flex-basis: 100%;
-    padding: calc(100% * 0.5 * 0.6) 0;
+  .item.onlyOne {
+    height: var(--one-item-height);
+    width: var(--one-item-width);
   }
 
-  .onlyTwo {
-    flex-basis: 50%;
-    padding: calc(50% * 0.5 * 0.6) 0;
+  .item.onlyTwo {
+    height: var(--two-item-height);
+    width: var(--two-item-width);
   }
 
   .rooftop.onlyOne {
-    padding: calc(100% * 0.5 * 0.3) 0;
-    /* 유닛 너비 : rooftop = 10 : 3 */
+    height: var(--one-rooftop-height);
   }
   .rooftop.onlyTwo {
-    padding: calc(50% * 0.5 * 0.3) 0;
+    height: var(--two-rooftop-height);
   }
 
   /* border 적용 로직 */
@@ -150,9 +168,13 @@ const RoomDetail = () => {
   return (
     <div>
       <h1>룸 이름</h1>
-      <BuildingStyle>
+      <BuildingStyle totalFloor={parseInt((dummyArr.length - 1) / 3) + 1}>
         <div className="wrapper">
-          <ul className="container">
+          <ul
+            className={`container ${isOne ? 'onlyOne' : ''} ${
+              isTwo ? 'onlyTwo' : ''
+            }`}
+          >
             {dummyArr.map((el, i) => (
               <li
                 key={i}

@@ -80,6 +80,7 @@ public class MemberController {
         return new ResponseEntity<>(response,HttpStatus.OK);
     }
 
+
     @PostMapping("/finduser")
     public ResponseEntity findUsername(@RequestBody MemberDto.Find memberFindDto){
         Member member = memberMapper.findToMember(memberFindDto);

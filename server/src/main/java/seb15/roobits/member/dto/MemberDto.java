@@ -102,6 +102,23 @@ public class MemberDto {
     @Getter
     @Builder
     @AllArgsConstructor
+    public static class GetMyRoomResponse{
+        //        @Setter(AccessLevel.NONE)
+//        private Long memberId;
+        private String username;
+
+        //Room respon Dto로 응답.
+        private List<MyRoomResponseDto> rooms;
+//        public Room setRoom(){
+//            Room room = new Room();
+//            room.setRoomId(roomId);
+//            return room; // 룸부분 구현후에 작업
+//        }
+    }
+
+    @Getter
+    @Builder
+    @AllArgsConstructor
     public static class FindUsernameResponse {
 
         private String username;
@@ -129,42 +146,26 @@ public class MemberDto {
         }
     }
 
-        @Getter
-        @Builder
-        @AllArgsConstructor
-        public static class CheckPasswordResponse {
-            private Boolean passwordCheck;
+    @Getter
+    @Builder
+    @AllArgsConstructor
+    public static class CheckPasswordResponse {
+        private Boolean passwordCheck;
 
-            public void setCheck(Boolean passwordCheck) {
-                this.passwordCheck = passwordCheck;
-            }
+        public void setCheck(Boolean passwordCheck) {
+            this.passwordCheck = passwordCheck;
         }
+    }
+
 
     @Getter
     @Builder
     @AllArgsConstructor
-    public static class GetMyRoomResponse{
-//        @Setter(AccessLevel.NONE)
-//        private Long memberId;
+    public static class CheckAuthResponse {
+        private Long memberId;
         private String username;
-
-        //Room respon Dto로 응답.
-        private List<MyRoomResponseDto> rooms;
-//        public Room setRoom(){
-//            Room room = new Room();
-//            room.setRoomId(roomId);
-//            return room; // 룸부분 구현후에 작업
-//        }
-}
-
-        @Getter
-        @Builder
-        @AllArgsConstructor
-        public static class CheckAuthResponse {
-            private Long memberId;
-            private String username;
-            private String email;
-            private String provider;
-        }
+        private String email;
+        private String provider;
     }
+}
 

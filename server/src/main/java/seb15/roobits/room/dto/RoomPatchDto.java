@@ -18,6 +18,7 @@ import java.util.Date;
 @Setter
 @Getter
 public class RoomPatchDto {
+
     private long roomId;
 
     @Length(min= 3, max= 20, message = "룸 이름을 3~20자 이내로 적어야 합니다.")

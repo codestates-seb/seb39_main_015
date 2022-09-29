@@ -11,7 +11,6 @@ public enum ExceptionCode {
     CANNOT_CHANGE_ROOM(403, "Room can not change"),
     ROOM_NOT_FOUND(404, "Room not found"),
     ROOMNAME_ALREADY_EXISTS(409, "Room already exists"),
-
     ROOBIT_CODE_EXISTS(409, "Roobit Code exists"),
     ROOBIT_NOT_FOUND(404, "Roobit not found"),
     DDAY_NOT_VALID(400, "D-day has to be within 30 days from today"),

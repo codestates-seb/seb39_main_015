@@ -17,6 +17,7 @@ public enum ExceptionCode {
     NOT_IMPLEMENTATION(501, "Not Implementation"),
     EMAIL_EXISTS(409,"Email already exists"),
     INVALID_TOKEN(500 , "Invalid token");
+    
     @Getter
     private int status;
 

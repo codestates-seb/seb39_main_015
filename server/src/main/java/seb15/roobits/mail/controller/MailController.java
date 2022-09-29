@@ -13,31 +13,26 @@ import java.util.Map;
 
 
 @RestController
-@RequestMapping
+@RequestMapping("/user")
 @RequiredArgsConstructor
 public class MailController {
 
-    @Autowired
-    private final MemberService memberService;
-//    @Autowired
-//    private final MailMapper mailMapper;
+
     @Autowired
     private final SendMailService mailService;
-    @Autowired
-    private final MemberRepository memberRepository;
 
-    @GetMapping("/user/findpw")
-    public Map<String,Boolean> pwFind(@RequestBody String email, String username){
-        Map<String,Boolean> userCheck = new HashMap<>();
-        boolean pwFindCheck = memberService.memberEmailCheck(email,username);
-        userCheck.put("check",pwFindCheck);
-        return userCheck;
-    }
 
-    @PostMapping("/sendemail")
+
+//    @GetMapping("/findpw")
+//    public Map<String,Boolean> pwFind(@RequestBody String email, String username){
+//        Map<String,Boolean> userCheck = new HashMap<>();
+//        boolean pwFindCheck = memberService.memberEmailCheck(email,username);
+//        userCheck.put("check",pwFindCheck);
+//        return userCheck;
+//    }
+
+    @PostMapping("/findpw/sendemail")
     public void sendEmail(@RequestBody MailDto mailDto){
-//        System.out.println(mailDto.getAddress());
-//        Mail createMail = mailMapper.MailDtoToMail(mailDto);
         MailDto sendMail = mailService.createMailAndChangePassword(mailDto);
         mailService.mailSend(sendMail);
     }

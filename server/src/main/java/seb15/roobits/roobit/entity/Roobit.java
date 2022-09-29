@@ -1,11 +1,13 @@
 package seb15.roobits.roobit.entity;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import seb15.roobits.auditable.Auditable;
+import seb15.roobits.member.entity.Member;
 import seb15.roobits.room.entity.Room;
 
 import javax.persistence.*;
@@ -14,8 +16,10 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Getter
 @Setter
-@Entity (name = "ROOBITS")
+@Entity(name = "ROOBIT")
 @EntityListeners(AuditingEntityListener.class)
+@Table
+@Data
 public class Roobit extends Auditable {
 
     @Id
@@ -55,6 +59,14 @@ public class Roobit extends Auditable {
         this.room = room;
     }
 
+    @ManyToOne
+    @JoinColumn(name = "MEMBER_ID")
+    private Member member;
+
+    public void setMember(Member member) {
+        this.member = member;
+    }
+
     public enum RoobitStatus{
 
         ROOBIT_HIDDEN(1, "공개 전 루빗"),
@@ -72,5 +84,20 @@ public class Roobit extends Auditable {
             this.statusNumber = statusNumber;
             this.statusDescription = statusDescription;
         }
+
     }
+
+//    @Builder // 0928추가
+//    public Roobit(long roobitId, Roobit.RoobitStatus roobitStatus, Room room, String nickname, String body, String email, String reception, String style,LocalDateTime createdAt) {
+//        this.roobitId = roobitId;
+//        this.roobitStatus = roobitStatus;
+//        this.room = room;
+//        this.nickname = nickname;
+//        this.body = body;
+//        this.email = email;
+//        this.reception = reception;
+//        this.style = style;
+//        this.createdAt = createdAt;
+//    }
+
 }

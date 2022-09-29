@@ -42,6 +42,19 @@ const backData = {
 
 const MyRoomBody = styled(Body)`
   flex-direction: column;
+  > p {
+    margin-top: 100px;
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 32px;
+    /* identical to box height */
+    color: #aaaaaa;
+    display: flex;
+    align-items: center;
+    text-align: center;
+  }
 `;
 
 const MyRoomWrapper = styled.div`

@@ -86,7 +86,7 @@ const FindName = () => {
       <FormWrapper width={'476px'} height={'628px'}>
         <img alt="login logo" src={logInLogo} />
         {username ? (
-          <div>ID : ${username}</div>
+          <div>ID : {username}</div>
         ) : (
           <form onSubmit={(e) => hadleSubmit(e)}>
             <InputWrapper>

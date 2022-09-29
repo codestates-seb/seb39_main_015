@@ -54,6 +54,11 @@ const RoomBox = styled.div`
   border-radius: 14px;
   /* position: relative; */
   padding: 16px;
+  :hover {
+    box-shadow: 0px 0px 0px 1px transparent, 0px 0px 0px 4px transparent,
+      0px 6px 16px rgb(0 0 0 / 12%);
+    transform: scale(1.02);
+  }
 `;
 
 const RoomTheme = styled.div`

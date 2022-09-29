@@ -150,19 +150,19 @@ const EditUser = ({ getCookieValue }) => {
     <Body>
       <FormWrapper height={'545px'} width={'476px'}>
         <img alt="회원가입 로고" src={signUpLogo}></img>
+        <UserInfoWrapper>
+          <UserInfoUnit>{username}</UserInfoUnit>
+          <LogoWrapper>
+            <FontAwesomeIcon icon={faUser} />
+          </LogoWrapper>
+        </UserInfoWrapper>
+        <UserInfoWrapper>
+          <UserInfoUnit>{email}</UserInfoUnit>
+          <LogoWrapper>
+            <FontAwesomeIcon icon={faEnvelope} />
+          </LogoWrapper>
+        </UserInfoWrapper>
         <form onSubmit={(e) => handleSubmit(e)}>
-          <UserInfoWrapper>
-            <UserInfoUnit>{username}</UserInfoUnit>
-            <LogoWrapper>
-              <FontAwesomeIcon icon={faUser} />
-            </LogoWrapper>
-          </UserInfoWrapper>
-          <UserInfoWrapper>
-            <UserInfoUnit>{email}</UserInfoUnit>
-            <LogoWrapper>
-              <FontAwesomeIcon icon={faEnvelope} />
-            </LogoWrapper>
-          </UserInfoWrapper>
           <InputWrapper>
             <Input
               type="password"

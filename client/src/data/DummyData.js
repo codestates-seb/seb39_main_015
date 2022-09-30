@@ -16,7 +16,7 @@ export const roomDetailData = {
     1: [
       {
         roobitId: 1,
-        nickname: '자바중독',
+        nickname: '1자바중독',
         body: '루빗을 140자까지 작성해보세요.',
         reception: 'to everyone',
         style: '5C',
@@ -88,7 +88,7 @@ export const roomDetailData = {
     2: [
       {
         roobitId: 1,
-        nickname: '자바중독',
+        nickname: '2자바중독',
         body: '루빗을 140자까지 작성해보세요.',
         reception: 'to everyone',
         style: '5C',
@@ -160,7 +160,7 @@ export const roomDetailData = {
     3: [
       {
         roobitId: 1,
-        nickname: '자바중독',
+        nickname: '3자바중독',
         body: '루빗을 140자까지 작성해보세요.',
         reception: 'to everyone',
         style: '5C',
@@ -232,7 +232,7 @@ export const roomDetailData = {
     4: [
       {
         roobitId: 1,
-        nickname: '자바중독',
+        nickname: '4자바중독',
         body: '루빗을 140자까지 작성해보세요.',
         reception: 'to everyone',
         style: '5C',

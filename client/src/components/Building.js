@@ -21,7 +21,6 @@ const BuildingStyle = styled.div`
 
     width: 100vw;
     height: 90vh;
-    margin: 0 auto 0 auto;
     display: flex;
     flex-direction: column;
     justify-content: center;

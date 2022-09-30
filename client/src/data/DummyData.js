@@ -1,11 +1,11 @@
 export const roomDetailData = {
-  roomStatus: 'closed',
+  // roomStatus: 'closed',
   roomData: {
     roomId: 1,
-    roomName: 'room',
+    roomName: '🌟39th Forever🥳',
     dDay: '2022-09-15',
     restDay: 30,
-    roomTheme: { number: 1, description: 'cats' },
+    roomTheme: 'CATS',
     viewCount: 55,
     weather: 'sun',
     // weather: (sun, rain, snow, cloud),

@@ -44,10 +44,7 @@ const RoomModal = ({ handleOpenModal }) => {
     new Date().setDate(new Date().getDate() + 1)
   );
   const [roobitAmount, setRoobitAmount] = useState(300);
-  const [roomTheme, setRoomTheme] = useState({
-    number: 1,
-    description: 'cats',
-  });
+  const [roomTheme, setRoomTheme] = useState('CATS');
   const [roomNameMsg, setRoomNameMsg] = useState('');
 
   const setDateStr = (dateObj) => {
@@ -80,14 +77,14 @@ const RoomModal = ({ handleOpenModal }) => {
       {
         type: 'theme',
         number: 1,
-        description: 'cats',
+        roomTheme: 'CATS',
         src: 'https://picsum.photos/id/100/100/100',
         title: '🐈 고양이와 개발자의 방 🧑‍💻',
       },
       {
         type: 'theme',
         number: -1,
-        description: 'comming soon',
+        roomTheme: 'COMING_SOON',
         src: 'https://picsum.photos/id/19/100/100',
         title: 'Coming Soon 💌',
       },
@@ -98,7 +95,7 @@ const RoomModal = ({ handleOpenModal }) => {
     console.log(reqData);
     //${process.env.REACT_APP_API_URL}
     axios
-      .post(`${process.env.REACT_APP_API_URL}/rooms/post`, reqData, {
+      .post(`${process.env.REACT_APP_API_URL}/rooms`, reqData, {
         headers: {
           Authorization: `${getCookieValue('Authorization')}`,
         },

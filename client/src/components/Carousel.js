@@ -93,10 +93,7 @@ const Carousel = ({ cards, setRoomTheme }) => {
       cards[0].type === 'theme' &&
       images.current[current].number !== -1
     ) {
-      setRoomTheme({
-        number: images.current[current].number,
-        description: images.current[current].description,
-      });
+      setRoomTheme(images.current[current].roomTheme);
     }
   }, [current]);
 
@@ -140,7 +137,7 @@ const Carousel = ({ cards, setRoomTheme }) => {
         <div className="position">
           {images.current.map((x, i) => (
             <div
-              key={i}
+              key={x.number}
               className={i === current ? 'dot current' : 'dot'}
             ></div>
           ))}

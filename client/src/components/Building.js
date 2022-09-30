@@ -2,7 +2,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import rooftopImg from '../images/roomImg/02_rooftop_1x_w3000.png';
 import unitsImg from '../images/roomImg/01_units_1x_w9000.png';
-import Cats from './Cats';
+import Roobits from './Roobits';
 
 const BuildingStyle = styled.div`
   --total-floor: ${(props) => (props.totalFloor <= 2 ? 2 : props.totalFloor)};
@@ -195,7 +195,7 @@ const Building = ({ roobits }) => {
                   isTwo ? 'onlyTwo' : ''
                 }`}
               >
-                <Cats unitRoobits={roobits[i + 1]} />
+                <Roobits unitRoobits={roobits[i + 1]} />
               </li>
             ))}
           <li

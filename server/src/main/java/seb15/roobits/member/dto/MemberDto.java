@@ -2,6 +2,7 @@ package seb15.roobits.member.dto;
 
 import lombok.*;
 import seb15.roobits.room.dto.MyRoomResponseDto;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;

@@ -64,6 +64,9 @@ public class Room {
     @Enumerated(EnumType.STRING)
     private RoomStatus roomStatus = RoomStatus.ROOM_ONGOING;
 
+    @Column
+    private String url;
+
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
@@ -71,14 +74,14 @@ public class Room {
     @OneToMany(mappedBy = "room", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<Roobit> roobits = new ArrayList<>();
 
-    public void addMember(Member member) {
+    public void setMember(Member member) {
         this.member = member;
     }
 
-    public void addRoobit(Roobit roobit) {
+    public void setRoobit(Roobit roobit) {
         this.roobits.add(roobit);
-//        if(roobit.getRoobit() != this) {
-//            roobit.addRoobit(this);
+//        if(roobit.getRoobit() != thi8s) {
+//            roobit.addRoobit(this);9
 //        }
     }
 

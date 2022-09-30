@@ -1,6 +1,7 @@
 package seb15.roobits.member.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -88,17 +89,15 @@ public class MemberController {
 
 
     @PostMapping("/finduser")
-    public ResponseEntity findUsername(@AuthenticationPrincipal Member auth,
-                                       @RequestBody MemberDto.Find memberFindDto){
-        if(auth.getProvider() == "google"){
-            Member member = memberMapper.findToMember(memberFindDto);
-            Member findUsername = memberService.findUserId(member);
-            MemberDto.FindUsernameResponse response = memberMapper.memberToFindUsernameResponse(findUsername);
-            response.setUsername("일치하는 회원정보가 없습니다");
-            return new ResponseEntity(response,HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity findUsername(@RequestBody MemberDto.Find memberFindDto){
+
         Member member = memberMapper.findToMember(memberFindDto);
         Member findUsername = memberService.findUserId(member);
+        if(findUsername.getProvider() == "google"){
+            MemberDto.FindUsernameResponse response = memberMapper.memberToFindUsernameResponse(findUsername);
+            response.setUsername("일치하는 회원정보가 없습니다");
+        return new ResponseEntity(response,HttpStatus.NOT_FOUND);
+    }
         MemberDto.FindUsernameResponse response = memberMapper.memberToFindUsernameResponse(findUsername);
         return new ResponseEntity(response,HttpStatus.OK);
     }

@@ -1,5 +1,6 @@
 package seb15.roobits.room.weather;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -10,10 +11,12 @@ import java.util.List;
 @Component
 @Data
 public class WeatherVO {
-    List<Weather> weather;
+    public List<Weather> weather;
     @Data
-    public class Weather{
-        int id;
+    public static class Weather{
+        public int id;
     }
+
+
 }
 

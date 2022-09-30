@@ -1,5 +1,8 @@
 import { useState } from 'react';
 import styled from 'styled-components';
+import rooftopImg from '../images/roomImg/02_rooftop_1x_w3000.png';
+import unitsImg from '../images/roomImg/01_units_1x_w9000.png';
+import Cats from './Cats';
 
 const BuildingStyle = styled.div`
   --total-floor: ${(props) => (props.totalFloor <= 2 ? 2 : props.totalFloor)};
@@ -7,6 +10,7 @@ const BuildingStyle = styled.div`
   --item-width: calc(var(--item-height) * (3 / 2));
   --rooftop-height: calc(var(--item-height) * (3 / 5));
   --container-width: calc(var(--item-width) * 3);
+  --unit-border: calc(var(--item-height) * 0.05) solid #715844;
 
   /** 유닛이 1개, 2개 일 때 사이즈 분기 처리 */
   --one-item-height: min(var(--item-height) * 2, 80vh * (5 / 8));
@@ -27,7 +31,7 @@ const BuildingStyle = styled.div`
   }
 
   .container {
-    outline: 5px solid #ccc;
+    /* outline: 5px solid #ccc; */
 
     height: auto;
     width: var(--container-width);
@@ -45,22 +49,26 @@ const BuildingStyle = styled.div`
   }
 
   .item {
-    border: 5px solid pink;
-    background-color: aliceblue;
     background-origin: border-box;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 1rem;
+    background-size: cover;
 
     height: var(--item-height);
     width: var(--item-width);
   }
 
+  .room {
+    border: var(--unit-border);
+    background-image: url(${unitsImg});
+  }
+
   .rooftop {
-    background-color: lightyellow;
-    border-bottom: none;
     height: var(--rooftop-height);
+
+    background-image: url(${rooftopImg});
   }
 
   .btns {
@@ -97,42 +105,31 @@ const BuildingStyle = styled.div`
     height: var(--two-rooftop-height);
   }
 
-  /* border 적용 로직 */
-  .item:nth-child(3n + 1) {
+  /* border + 배경 적용 로직 */
+  .room:nth-child(3n + 1) {
     border-right: none;
   }
-  .item:nth-child(3n + 2) {
+  .room:nth-child(3n + 2) {
     border-left: none;
     border-right: none;
-  }
-  .item:nth-child(3n) {
-    border-left: none;
-  }
-  .item:nth-last-child(1) {
-    border-right: 5px solid pink;
-  }
-  .item:nth-last-child(4) {
-    border-right: 5px solid pink;
-  }
 
-  /* 1개 2개 일때 보더 처리 */
-  .rooftop.onlyOne {
-    border: 5px solid pink;
-    border-bottom: none;
+    background-position: 50%;
   }
-
-  .rooftop.onlyTwo:nth-last-child(2) {
-    border-right: 5px solid pink;
+  .room:nth-child(3n) {
     border-left: none;
+
+    background-position: 100%;
   }
-  .rooftop.onlyTwo:nth-last-child(3) {
-    border-left: 5px solid pink;
-    border-right: none;
+  .room:nth-last-child(1) {
+    border-right: var(--unit-border);
+  }
+  .room:nth-last-child(4) {
+    border-right: var(--unit-border);
   }
 `;
 
-const Building = () => {
-  const [dummyArr, setDummyArr] = useState(Array(4).fill(0)); //나중에 쿼리에서 받아온 roobits 데이터 조회
+const Building = ({ roobits }) => {
+  const unitCount = Object.keys(roobits).length;
   const [isOne, setIsOne] = useState(false);
   const [isTwo, setIsTwo] = useState(false);
 
@@ -148,64 +145,25 @@ const Building = () => {
       setIsTwo(false);
     }
   };
+  /**만약 유닛 개수 증가하는 테스트를 하고 싶으면 이걸 사용 */
+  const unitTest = () => {
+    const [dummyArr, setDummyArr] = useState(Array(4).fill(0));
+    const handlePlusBtn = () => {
+      const num = dummyArr.length;
+      if (num < 30) {
+        setDummyArr([...dummyArr, 0]);
+        oneTwoUnit(num + 1);
+      }
+    };
 
-  const handlePlusBtn = () => {
-    const num = dummyArr.length;
-    if (num < 30) {
-      setDummyArr([...dummyArr, 0]);
-      oneTwoUnit(num + 1);
-    }
-  };
-
-  const handleMinusBtn = () => {
-    const num = dummyArr.length;
-    if (num > 1) {
-      setDummyArr(dummyArr.slice(0, dummyArr.length - 1));
-      oneTwoUnit(num - 1);
-    }
-  };
-
-  return (
-    <BuildingStyle totalFloor={parseInt((dummyArr.length - 1) / 3) + 1}>
-      <div className="wrapper">
-        <ul
-          className={`container ${isOne ? 'onlyOne' : ''} ${
-            isTwo ? 'onlyTwo' : ''
-          }`}
-        >
-          {dummyArr.map((el, i) => (
-            <li
-              key={i}
-              className={`item ${isOne ? 'onlyOne' : ''} ${
-                isTwo ? 'onlyTwo' : ''
-              }`}
-            >
-              {i + 1}
-            </li>
-          ))}
-          <li
-            className={`item rooftop ${isOne ? 'onlyOne' : ''} ${
-              isTwo ? 'onlyTwo' : ''
-            }`}
-          >
-            옥상
-          </li>
-          <li
-            className={`item rooftop ${isOne ? 'onlyOne remove' : ''} ${
-              isTwo ? 'onlyTwo' : ''
-            }`}
-          >
-            옥상
-          </li>
-          <li
-            className={`item rooftop ${isOne ? 'onlyOne remove' : ''} ${
-              isTwo ? 'onlyTwo remove' : ''
-            }`}
-          >
-            옥상
-          </li>
-        </ul>
-      </div>
+    const handleMinusBtn = () => {
+      const num = dummyArr.length;
+      if (num > 1) {
+        setDummyArr(dummyArr.slice(0, dummyArr.length - 1));
+        oneTwoUnit(num - 1);
+      }
+    };
+    return (
       <div className="btns">
         <button className="addBtn" onClick={handlePlusBtn}>
           유닛 추가 +
@@ -213,6 +171,49 @@ const Building = () => {
         <button className="removeBtn" onClick={handleMinusBtn}>
           유닛 제거 -
         </button>
+      </div>
+    );
+  };
+
+  unitTest();
+
+  return (
+    <BuildingStyle totalFloor={parseInt((unitCount - 1) / 3) + 1}>
+      {/* <img src="img/02_rooftop_1x_w3000.png" alt="rooftop" /> */}
+      <div className="wrapper">
+        <ul
+          className={`container ${isOne ? 'onlyOne' : ''} ${
+            isTwo ? 'onlyTwo' : ''
+          }`}
+        >
+          {Array(unitCount)
+            .fill(0)
+            .map((el, i) => (
+              <li
+                key={i}
+                className={`item room ${isOne ? 'onlyOne' : ''} ${
+                  isTwo ? 'onlyTwo' : ''
+                }`}
+              >
+                <Cats unitRoobits={roobits[i + 1]} />
+              </li>
+            ))}
+          <li
+            className={`item rooftop ${isOne ? 'onlyOne' : ''} ${
+              isTwo ? 'onlyTwo' : ''
+            }`}
+          ></li>
+          <li
+            className={`item rooftop ${isOne ? 'onlyOne remove' : ''} ${
+              isTwo ? 'onlyTwo' : ''
+            }`}
+          ></li>
+          <li
+            className={`item rooftop ${isOne ? 'onlyOne remove' : ''} ${
+              isTwo ? 'onlyTwo remove' : ''
+            }`}
+          ></li>
+        </ul>
       </div>
     </BuildingStyle>
   );

@@ -13,6 +13,8 @@ import { LinkShareButton } from '../components/LinkShareButton.js';
 import { CreateRoomCircle } from '../images/CreateRoomCircle.js';
 import { CreateRoomCross } from '../images/CreateRoomCross.js';
 import RoomModal from '../components/RoomModal.js';
+import axios from 'axios';
+import { getCookieValue } from '../hook/getCookieValue.js';
 
 const backData = {
   username: 'kimcoding',
@@ -220,7 +222,27 @@ export default function MyRoom() {
                       Edit
                     </WhiteButtonOrangeBorder>
                     <Space space={'8px'} />
-                    <OrangeButton width="65px" height="26px">
+                    <OrangeButton
+                      width="65px"
+                      height="26px"
+                      onClick={() => {
+                        let answer = confirm('정말 삭제 하시겠습니까?');
+                        if (answer) {
+                          axios
+                            .delete(
+                              `${process.env.REACT_APP_API_URL}/rooms/${ele.roomId}`,
+                              {
+                                headers: {
+                                  Authorization: `${getCookieValue(
+                                    'Authorization'
+                                  )}`,
+                                },
+                              }
+                            )
+                            .then((res) => console.log(res.data));
+                        }
+                      }}
+                    >
                       Delete
                     </OrangeButton>
                   </ButtonSection>

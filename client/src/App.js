@@ -13,54 +13,10 @@ import axios from 'axios';
 import { useQuery } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import RoomDetail from './pages/RoomDetail';
+import { getCookieValue } from './hook/getCookieValue.js';
 
 function App() {
-  // const [accessToken, setAccessToken] = useState('');
-  // const [isLogin, setIsLogin] = useState('');
-  // const authorizationCode = window.location.hash;
-
-  // Google OAuth 로그인 AccessToken 요청
-  // const getAccessToken = async (authorizationCode) => {
-  //   try {
-  //     const result = await axios.post(`${process.env.REACT_APP_API_URL}`, {
-  //       authorizationCode,
-  //     });
-  //     const { accessToken } = result.data;
-  //     setIsLogin(true);
-  //     setAccessToken(accessToken);
-  //   } catch (err) {
-  //     alert(err);
-  //   }
-  // };
-
-  // 아이디, 비밀번호에 대한 Auth 확인
-  // const authHandler = () => {
-  //   axios.get(`${process.env.REACT_APP_API_URL}/user/auth`).then((res) => {
-  //     setIsLogin(true);
-  //     return res.data;
-  //   });
-  // };
-
   const location = useLocation();
-
-  // 'key'에 맞는 쿠키 찾는 함수
-  const getCookieValue = (key) => {
-    let cookieKey = key + '=';
-    let result = '';
-    const cookieArr = document.cookie.split(';');
-
-    for (let i = 0; i < cookieArr.length; i++) {
-      if (cookieArr[i][0] === ' ') {
-        cookieArr[i] = cookieArr[i].substring(1);
-      }
-
-      if (cookieArr[i].indexOf(cookieKey) === 0) {
-        result = cookieArr[i].slice(cookieKey.length, cookieArr[i].length);
-        return result;
-      }
-    }
-    return result;
-  };
 
   useEffect(() => {
     // query를 객체 형태로 가져오는 함수
@@ -83,9 +39,6 @@ function App() {
   // 아이디, 비밀번호에 대한 Auth 확인
   const { data } = useQuery(
     'auth',
-    // if (authorizationCode) {
-    //   getAccessToken(authorizationCode);
-    // }
     () =>
       axios
         .get(`${process.env.REACT_APP_API_URL}/user/auth`, {
@@ -103,7 +56,7 @@ function App() {
         <Route path="/" element={<MainPage />} />
         <Route path="/join" element={<Join />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/myroom" element={<MyRoom />} />
+        <Route path="/myroom" element={data ? <MyRoom /> : <Login />} />
         <Route path="/findname" element={<FindName />} />
         <Route path="/findpw" element={<FindPw />} />
         <Route path="/rooms/:roomId" element={<RoomDetail />} />
@@ -120,5 +73,3 @@ function App() {
 }
 
 export default App;
-
-// http://localhost:3000/token?access_token=eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJIT1NUIl0sInVzZXJuYW1lIjoiR3dhbmdIeXVuIEplb24iLCJzdWIiOiJHd2FuZ0h5dW4gSmVvbiIsImlhdCI6MTY2NDM0NjIyMiwiZXhwIjoxNjY0MzQ5ODIyfQ.iz4QUTLoYrRQxBhhWdMZnAmp0QLdWh3Ylu5mbfZLuDM&refresh_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJHd2FuZ0h5dW4gSmVvbiIsImlhdCI6MTY2NDM0NjIyMiwiZXhwIjoxNjY0MzQ5ODIyfQ.NZeBGUpg0a4xae69eaIXhHuw6dNXnHmCTE4_Rm28Djk

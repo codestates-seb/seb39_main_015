@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import rooftopImg from '../images/roomImg/02_rooftop_1x_w3000.png';
 import unitsImg from '../images/roomImg/01_units_1x_w9000.png';
@@ -177,6 +177,10 @@ const Building = ({ roobits }) => {
 
   unitTest();
 
+  useEffect(() => {
+    oneTwoUnit(Object.keys(roobits).length);
+  }, []);
+
   return (
     <BuildingStyle totalFloor={parseInt((unitCount - 1) / 3) + 1}>
       {/* <img src="img/02_rooftop_1x_w3000.png" alt="rooftop" /> */}
@@ -204,13 +208,13 @@ const Building = ({ roobits }) => {
             }`}
           ></li>
           <li
-            className={`item rooftop ${isOne ? 'onlyOne remove' : ''} ${
+            className={`item rooftop ${isOne ? 'remove' : ''} ${
               isTwo ? 'onlyTwo' : ''
             }`}
           ></li>
           <li
-            className={`item rooftop ${isOne ? 'onlyOne remove' : ''} ${
-              isTwo ? 'onlyTwo remove' : ''
+            className={`item rooftop ${isOne ? 'remove' : ''} ${
+              isTwo ? 'remove' : ''
             }`}
           ></li>
         </ul>

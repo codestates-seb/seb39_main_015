@@ -1,5 +1,6 @@
 package seb15.roobits.room.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Range;
@@ -21,7 +22,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-
+@AllArgsConstructor
 public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -86,11 +87,11 @@ public class Room {
     }
 
 
-    public Room(long roomId, String roomName, String password, LocalDate dDay) {
-        this.roomId = roomId;
-        this.roomName = roomName;
-        this.password = password;
-        this.dDay = dDay;
-    }
+//    public Room(long roomId, String roomName, String password, LocalDate dDay) {
+//        this.roomId = roomId;
+//        this.roomName = roomName;
+//        this.password = password;
+//        this.dDay = dDay;
+//    }
 
 }

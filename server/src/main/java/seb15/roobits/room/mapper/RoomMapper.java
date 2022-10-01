@@ -20,5 +20,5 @@ public interface RoomMapper {
     ResponseRoomStatus roomToResponseRoomStatus(Room room);
 
 
-    MyRoomResponseDto roomToMyRoomResponseDto(Room room);
+//    MyRoomResponseDto roomToMyRoomResponseDto(Room room);
 }

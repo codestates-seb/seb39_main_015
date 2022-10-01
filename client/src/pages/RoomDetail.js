@@ -6,10 +6,10 @@ import { useQuery } from 'react-query';
 import { roomDetailData } from '../data/DummyData';
 
 const RoomDetail = () => {
-  const { roomId = 1 } = useParams();
+  const { roomId } = useParams();
   //useLocation 으로 경로에서 roomId 받아오기
   //쿼리로 룸 정보 받아와서 저장
-  roomId;
+  console.log(roomId);
   const { data, isLoading } = useQuery(
     'roobits',
     () =>

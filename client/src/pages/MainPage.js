@@ -55,7 +55,7 @@ export default function MainPage() {
       <Body>
         <Section>
           <Column1>
-            <h1>Welcom to Roobits {emoji.get('smile')}</h1>
+            <h1>Welcome to Roobits {emoji.get('smile')}</h1>
             <div>소중한 사람들과 추억을 남겨보세요!</div>
             <div>D-Day를 더 특별하게 만들어 드립니다.</div>
             <Link to="/myroom">

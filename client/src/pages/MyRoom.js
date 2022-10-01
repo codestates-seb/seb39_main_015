@@ -1,14 +1,15 @@
 import styled from 'styled-components';
 import { Body, OrangeButton, WhiteButton } from '../styled/Style.js';
-import { ShareIcon } from '../images/shareIcon.js';
+// import { ShareIcon } from '../images/shareIcon.js';
 import ReactTooltip from 'react-tooltip';
-import { useEffect, useState, useRef } from 'react';
-import {
-  FacebookShareButton,
-  FacebookIcon,
-  TwitterShareButton,
-  TwitterIcon,
-} from 'react-share';
+import { useState, useEffect, useRef } from 'react';
+// import {
+//   FacebookShareButton,
+//   FacebookIcon,
+//   TwitterShareButton,
+//   TwitterIcon,
+// } from 'react-share';
+import { LinkShareButton } from '../components/LinkShareButton.js';
 
 const backData = {
   username: 'kimcoding',
@@ -142,78 +143,79 @@ const WhiteButtonOrangeBorder = styled(WhiteButton)`
 const Space = styled.span`
   margin-left: ${(props) => props.space || '10px'};
 `;
-const ShareButtonWrapper = styled.div`
-  position: relative;
-  cursor: pointer;
-`;
-const ShareButtonPopup = styled.div`
-  display: flex;
-  position: absolute;
-  top: 25px;
-  left: 50%;
-  transform: translate(-50%, 0);
-  background-color: white;
-  flex-direction: column;
+// const ShareButtonWrapper = styled.div`
+//   position: relative;
+//   cursor: pointer;
+// `;
+// const ShareButtonPopup = styled.div`
+//   display: flex;
+//   position: absolute;
+//   top: 25px;
+//   left: 50%;
+//   transform: translate(-50%, 0);
+//   background-color: white;
+//   flex-direction: column;
 
-  animation-name: fadein;
-  animation-duration: 1s;
-  animation-direction: alternate;
-  @keyframes fadein {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-  @keyframes fadeout {
-    from {
-      opacity: 1;
-    }
-    to {
-      opacity: 0;
-    }
-  }
-`;
+//   animation-name: fadein;
+//   animation-duration: 1s;
+//   animation-direction: alternate;
+//   @keyframes fadein {
+//     from {
+//       opacity: 0;
+//     }
+//     to {
+//       opacity: 1;
+//     }
+//   }
+//   @keyframes fadeout {
+//     from {
+//       opacity: 1;
+//     }
+//     to {
+//       opacity: 0;
+//     }
+//   }
+// `;
 
-const ShareButton = styled.div``;
+// const ShareButton = styled.div``;
 
-const Facebook_Twitter_Button = styled.div`
-  :active {
-    box-shadow: none !important;
-    transform: scale(1) !important;
-  }
-  :hover {
-    transform: scale(1.02);
-  }
-`;
+// const Facebook_Twitter_Button = styled.div`
+//   :active {
+//     box-shadow: none !important;
+//     transform: scale(1) !important;
+//   }
+//   :hover {
+//     transform: scale(1.02);
+//   }
+// `;
 
-const KakaoButton = styled.button`
-  border: 0;
-  width: 30px;
-  height: 33.5px;
-  outline: 0;
-  padding: 0;
-  margin: 0;
-  background-color: transparent;
-  cursor: pointer;
-  :active {
-    box-shadow: none !important;
-    transform: scale(1) !important;
-  }
-  :hover {
-    transform: scale(1.02);
-  }
-  > img {
-    border-radius: 99px;
-  }
-`;
+// const KakaoButton = styled.button`
+//   border: 0;
+//   width: 30px;
+//   height: 33.5px;
+//   outline: 0;
+//   padding: 0;
+//   margin: 0;
+//   background-color: transparent;
+//   cursor: pointer;
+//   :active {
+//     box-shadow: none !important;
+//     transform: scale(1) !important;
+//   }
+//   :hover {
+//     transform: scale(1.02);
+//   }
+//   > img {
+//     border-radius: 99px;
+//   }
+// `;
 
 export default function MyRoom() {
   const [tooltip, showTooltip] = useState(true);
+
+  // urlShare Button 필요 부분 (시작)
   const [urlDropDown, setUrlDropDown] = useState('');
   const ref = useRef();
-
   useEffect(() => {
     document.addEventListener('mousedown', clickOutside);
 
@@ -225,94 +227,55 @@ export default function MyRoom() {
   const clickOutside = (event) => {
     if (urlDropDown && !ref.current.contains(event.target)) {
       console.log(event.target);
-      console.log(ref);
       setUrlDropDown('');
     }
   };
-
-  const kakaoShare = (url) => {
-    window.Kakao.Share.sendScrap({
-      requestUrl: url,
-    });
-  };
+  // urlShare Button 필요 부분 (끝)
 
   return (
     <div>
       <MyRoomBody>
         <MyRoomWrapper>
-          {backData.rooms.map((ele) => (
-            <RoomBox key={ele.roomId}>
-              <RoomTheme>{ele.roomTheme}</RoomTheme>
-              <RoomTitle>{ele.roomName}</RoomTitle>
-              <RoomControlBar>
-                <RoomDday>
-                  <p
-                    data-for="dday"
-                    data-tip={`${ele.dDay}`}
-                    // data-iscapture="true"
-                    onMouseEnter={() => showTooltip(true)}
-                    onMouseLeave={() => {
-                      showTooltip(false);
-                      // setTimeout(() => showTooltip(false), 1000);
-                      setTimeout(() => showTooltip(true), 100);
-                    }}
-                  >
-                    D-{ele.restDay}
-                  </p>
-                </RoomDday>
-                <ButtonSection>
-                  <ShareButtonWrapper>
-                    <ShareButton onClick={() => setUrlDropDown(ele.roomId)}>
-                      <ShareIcon />
-                    </ShareButton>
-                    {ele.roomId === urlDropDown ? (
-                      <ShareButtonPopup ref={ref}>
-                        <KakaoButton
-                          type="button"
-                          onClick={() => kakaoShare(ele.url)}
-                        >
-                          <img
-                            src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
-                            alt="카카오톡 공유 버튼"
-                            height={'30px'}
-                            width={'30px'}
-                          />
-                        </KakaoButton>
-                        <Facebook_Twitter_Button>
-                          <FacebookShareButton url={ele.url}>
-                            <FacebookIcon
-                              size={30}
-                              round={true}
-                              // borderRadius={99}
-                            ></FacebookIcon>
-                          </FacebookShareButton>
-                        </Facebook_Twitter_Button>
-                        <Facebook_Twitter_Button>
-                          <TwitterShareButton url={ele.url}>
-                            <TwitterIcon
-                              size={30}
-                              round={true}
-                              // borderRadius={99}
-                            ></TwitterIcon>
-                          </TwitterShareButton>
-                        </Facebook_Twitter_Button>
-                      </ShareButtonPopup>
-                    ) : (
-                      ''
-                    )}
-                  </ShareButtonWrapper>
-                  <Space space={'12px'} />
-                  <WhiteButtonOrangeBorder width="53px" height="26px">
-                    Edit
-                  </WhiteButtonOrangeBorder>
-                  <Space space={'8px'} />
-                  <OrangeButton width="65px" height="26px">
-                    Delete
-                  </OrangeButton>
-                </ButtonSection>
-              </RoomControlBar>
-            </RoomBox>
-          ))}
+          {backData.rooms.map((ele) => {
+            return (
+              <RoomBox key={ele.roomId}>
+                <RoomTheme>{ele.roomTheme}</RoomTheme>
+                <RoomTitle>{ele.roomName}</RoomTitle>
+                <RoomControlBar>
+                  <RoomDday>
+                    <p
+                      data-for="dday"
+                      data-tip={`${ele.dDay}`}
+                      onMouseEnter={() => showTooltip(true)}
+                      onMouseLeave={() => {
+                        showTooltip(false);
+                        setTimeout(() => showTooltip(true), 100);
+                      }}
+                    >
+                      D-{ele.restDay}
+                    </p>
+                  </RoomDday>
+                  <ButtonSection>
+                    {/* urlShare Button 컴포넌트 */}
+                    <LinkShareButton
+                      roomData={ele}
+                      urlDropDown={urlDropDown}
+                      setUrlDropDown={setUrlDropDown}
+                      ComponentRef={ref}
+                    />
+                    <Space space={'12px'} />
+                    <WhiteButtonOrangeBorder width="53px" height="26px">
+                      Edit
+                    </WhiteButtonOrangeBorder>
+                    <Space space={'8px'} />
+                    <OrangeButton width="65px" height="26px">
+                      Delete
+                    </OrangeButton>
+                  </ButtonSection>
+                </RoomControlBar>
+              </RoomBox>
+            );
+          })}
         </MyRoomWrapper>
         <p>운영할 수 있는 최대 룸 개수는 3개 입니다.</p>
       </MyRoomBody>

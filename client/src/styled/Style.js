@@ -13,7 +13,7 @@ export const Body = styled.div`
 export const FormWrapper = styled.div`
   height: ${(props) => props.height || 'auto'};
   width: ${(props) => props.width || 'auto'};
-  background-color: white;
+  background-color: rgba(255, 255, 255, 1);
   border: 1px solid #d9d9d9;
   box-shadow: 0px 5px 8px rgba(104, 104, 104, 0.04);
   border-radius: 14px;
@@ -21,7 +21,7 @@ export const FormWrapper = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-
+  z-index: 101;
   > img {
     max-width: 124px;
     height: auto;
@@ -105,18 +105,7 @@ export const OrangeButton = styled(WhiteButton)`
   justify-content: center;
   align-items: center;
   padding: 0px;
-  :hover .cross {
-    animation-name: rotate;
-    animation-duration: 1s;
-    @keyframes rotate {
-      from {
-        transform: translate(-50%, -50%) rotate(0deg);
-      }
-      to {
-        transform: translate(-50%, -50%) rotate(180deg);
-      }
-    }
-  }
+
   .createRoom {
     font-family: 'Noto Sans KR';
     font-style: normal;

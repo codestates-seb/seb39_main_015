@@ -94,9 +94,8 @@ function App() {
           },
         })
         .then((res) => res.data),
-    { staleTime: 1000 * 60 * 5 }
+    { staleTime: 1000 * 60 * 5, retry: false }
   );
-  data;
   return (
     <div>
       {!/^\/rooms\/+/.test(location.pathname) && <Header />}
@@ -110,7 +109,9 @@ function App() {
         <Route path="/rooms/:roomId" element={<RoomDetail />} />
         <Route
           path="/edituser"
-          element={<EditUser getCookieValue={getCookieValue} />}
+          element={
+            data ? <EditUser getCookieValue={getCookieValue} /> : <Login />
+          }
         />
       </Routes>
       <ReactQueryDevtools initialIsOpen={false} />

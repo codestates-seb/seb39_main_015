@@ -139,6 +139,7 @@ const EditUser = ({ getCookieValue }) => {
   };
 
   // 유효성 검사 실행 useEffect
+
   useEffect(() => {
     setIsValid(false);
     if (pwRegex.test(password) && password === passwordCheck) {
@@ -162,55 +163,59 @@ const EditUser = ({ getCookieValue }) => {
             <FontAwesomeIcon icon={faEnvelope} />
           </LogoWrapper>
         </UserInfoWrapper>
-        <form onSubmit={(e) => handleSubmit(e)}>
-          <InputWrapper>
-            <Input
-              type="password"
-              id="password"
-              name="password"
-              value={password}
-              height={'45px'}
-              width={'314px'}
-              onChange={handlePW}
-              required
-              placeholder="비밀번호"
-            />
-            <LogoWrapper>
-              <FontAwesomeIcon icon={faLock} />
-            </LogoWrapper>
-            <p>{passwordMsg}</p>
-          </InputWrapper>
-          <InputWrapper>
-            <Input
-              type="password"
-              id="password"
-              name="password"
-              value={passwordCheck}
-              height={'45px'}
-              width={'314px'}
-              onChange={handlePwCheck}
-              required
-              placeholder="비밀번호 확인"
-            />
-            <LogoWrapper>
-              <FontAwesomeIcon icon={faLock} />
-            </LogoWrapper>
-            <p>{passwordCheckMsg}</p>
-          </InputWrapper>
-          <div>
-            <WhiteButton
-              height={'45px'}
-              width={'150px'}
-              onClick={() => navigate('/')}
-            >
-              취소
-            </WhiteButton>
-            <Space />
-            <OrangeButton height={'45px'} width={'150px'} type="submit">
-              수정 완료
-            </OrangeButton>
-          </div>
-        </form>
+        {userInfo.provider === 'roobits' ? (
+          <form onSubmit={(e) => handleSubmit(e)}>
+            <InputWrapper>
+              <Input
+                type="password"
+                id="password"
+                name="password"
+                value={password}
+                height={'45px'}
+                width={'314px'}
+                onChange={handlePW}
+                required
+                placeholder="비밀번호"
+              />
+              <LogoWrapper>
+                <FontAwesomeIcon icon={faLock} />
+              </LogoWrapper>
+              <p>{passwordMsg}</p>
+            </InputWrapper>
+            <InputWrapper>
+              <Input
+                type="password"
+                id="password"
+                name="password"
+                value={passwordCheck}
+                height={'45px'}
+                width={'314px'}
+                onChange={handlePwCheck}
+                required
+                placeholder="비밀번호 확인"
+              />
+              <LogoWrapper>
+                <FontAwesomeIcon icon={faLock} />
+              </LogoWrapper>
+              <p>{passwordCheckMsg}</p>
+            </InputWrapper>
+            <div>
+              <WhiteButton
+                height={'45px'}
+                width={'150px'}
+                onClick={() => navigate('/')}
+              >
+                취소
+              </WhiteButton>
+              <Space />
+              <OrangeButton height={'45px'} width={'150px'} type="submit">
+                수정 완료
+              </OrangeButton>
+            </div>
+          </form>
+        ) : (
+          ''
+        )}
         <div>
           회원 탈퇴 하실건가요?{' '}
           <StyledLink to="/#sectionOne" onClick={deleteUser}>

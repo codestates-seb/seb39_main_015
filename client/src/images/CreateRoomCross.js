@@ -7,11 +7,11 @@ export const CreateRoomCross = () => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g filter="url(#filter0_i_614_18)">
+      <g filter="url(#filter0_i_259_1868)">
         <line
-          x1="11.6001"
+          x1="12"
           y1="22"
-          x2="11.6001"
+          x2="12"
           y2="2"
           stroke="#F58A5C"
           strokeWidth="4"
@@ -19,9 +19,9 @@ export const CreateRoomCross = () => {
         />
         <line
           x1="2"
-          y1="11.6001"
+          y1="12"
           x2="22"
-          y2="11.6001"
+          y2="12"
           stroke="#F58A5C"
           strokeWidth="4"
           strokeLinecap="round"
@@ -29,7 +29,7 @@ export const CreateRoomCross = () => {
       </g>
       <defs>
         <filter
-          id="filter0_i_614_18"
+          id="filter0_i_259_1868"
           x="0"
           y="0"
           width="25"
@@ -55,12 +55,12 @@ export const CreateRoomCross = () => {
           <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
           <feColorMatrix
             type="matrix"
-            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"
+            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"
           />
           <feBlend
             mode="normal"
             in2="shape"
-            result="effect1_innerShadow_614_18"
+            result="effect1_innerShadow_259_1868"
           />
         </filter>
       </defs>

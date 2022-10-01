@@ -12,6 +12,7 @@ import { useState, useEffect, useRef } from 'react';
 import { LinkShareButton } from '../components/LinkShareButton.js';
 import { CreateRoomCircle } from '../images/CreateRoomCircle.js';
 import { CreateRoomCross } from '../images/CreateRoomCross.js';
+import RoomModal from '../components/RoomModal.js';
 
 const backData = {
   username: 'kimcoding',
@@ -159,10 +160,11 @@ const CreateRoomButton = styled(OrangeButton)`
 
 export default function MyRoom() {
   const [tooltip, showTooltip] = useState(true);
-
   // urlShare Button 필요 부분 (시작)
   const [urlDropDown, setUrlDropDown] = useState('');
+  const [modalOpen, setModalOpen] = useState(false);
   const ref = useRef();
+  const modalRef = useRef();
   useEffect(() => {
     document.addEventListener('mousedown', clickOutside);
 
@@ -175,6 +177,9 @@ export default function MyRoom() {
     if (urlDropDown && !ref.current.contains(event.target)) {
       console.log(event.target);
       setUrlDropDown('');
+    }
+    if (modalOpen && !modalRef.current.contains(event.target)) {
+      setModalOpen(false);
     }
   };
   // urlShare Button 필요 부분 (끝)
@@ -225,7 +230,11 @@ export default function MyRoom() {
           })}
         </MyRoomWrapper>
         <p>운영할 수 있는 최대 룸 개수는 3개 입니다.</p>
-        <CreateRoomButton width={'172px'} height={'60px'}>
+        <CreateRoomButton
+          width={'172px'}
+          height={'60px'}
+          onClick={() => setModalOpen(true)}
+        >
           <div className="createRoom">룸 만들기</div>
           <div className="crosshair">
             <CreateRoomCircle />
@@ -237,6 +246,11 @@ export default function MyRoom() {
       </MyRoomBody>
       {tooltip && (
         <ReactTooltip id="dday" place="bottom" type="dark" effect="solid" />
+      )}
+      {modalOpen ? (
+        <RoomModal modalRef={modalRef} setModalOpen={setModalOpen} />
+      ) : (
+        ''
       )}
     </div>
   );

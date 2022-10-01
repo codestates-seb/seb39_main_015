@@ -24,9 +24,6 @@ public class RoomPatchDto {
     @Length(min= 3, max= 20, message = "룸 이름을 3~20자 이내로 적어야 합니다.")
     private String roomName;
 
-    @Length(min= 6, max=20, message = "패스워드는 6~20자 이내여야 합니다.")
-    private String password;
-
     @Future(message = "오늘 후의 날짜여야 합니다.")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate dDay;

@@ -33,10 +33,6 @@ public class Room {
     private String roomName;
 
     @Column
-    @Length(min= 6, max=20, message = "패스워드는 6~20자 이내여야 합니다.")
-    private String password;
-
-    @Column
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Future(message = "오늘 후의 날짜여야 합니다.")
     private LocalDate dDay;
@@ -45,8 +41,7 @@ public class Room {
     private long restDay;
 
     @Column
-    @Enumerated(EnumType.STRING)
-    public RoomTheme roomTheme = RoomTheme.THEME_BASIC;
+    public String roomTheme;
 
     @Column
     @Range(min= 1, max= 300)
@@ -87,11 +82,11 @@ public class Room {
     }
 
 
-//    public Room(long roomId, String roomName, String password, LocalDate dDay) {
-//        this.roomId = roomId;
-//        this.roomName = roomName;
-//        this.password = password;
-//        this.dDay = dDay;
-//    }
+
+    public Room(long roomId, String roomName, LocalDate dDay) {
+        this.roomId = roomId;
+        this.roomName = roomName;
+        this.dDay = dDay;
+    }
 
 }

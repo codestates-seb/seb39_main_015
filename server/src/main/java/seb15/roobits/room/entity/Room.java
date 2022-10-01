@@ -1,5 +1,6 @@
 package seb15.roobits.room.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Range;
@@ -21,6 +22,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@AllArgsConstructor
 public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,7 +41,6 @@ public class Room {
     private long restDay;
 
     @Column
-    @Enumerated(EnumType.STRING)
     public String roomTheme;
 
     @Column
@@ -79,6 +80,7 @@ public class Room {
 //            roobit.addRoobit(this);9
 //        }
     }
+
 
 
     public Room(long roomId, String roomName, LocalDate dDay) {

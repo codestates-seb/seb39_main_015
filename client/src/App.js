@@ -8,7 +8,7 @@ import FindName from './pages/FindName.js';
 import FindPw from './pages/FindPw.js';
 import EditUser from './pages/EditUser';
 import Header from './components/Header.js';
-import /*useState, useEffect */ 'react';
+import { useEffect } from 'react';
 import axios from 'axios';
 import { useQuery } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
@@ -40,15 +40,6 @@ function App() {
   //   });
   // };
 
-  // useEffect(() => {
-  //   const authorizationCode = window.location.hash;
-  //   if (authorizationCode) {
-  //     console.log(authorizationCode);
-  //     getAccessToken(authorizationCode);
-  //   }
-  //   authHandler();
-  // }, []);
-
   // 'key'에 맞는 쿠키 찾는 함수
   const getCookieValue = (key) => {
     let cookieKey = key + '=';
@@ -67,6 +58,24 @@ function App() {
     }
     return result;
   };
+
+  useEffect(() => {
+    // query를 객체 형태로 가져오는 함수
+    function get_query() {
+      var url = document.location.href;
+      var qs = url.substring(url.indexOf('?') + 1).split('&');
+      for (var i = 0, result = {}; i < qs.length; i++) {
+        qs[i] = qs[i].split('=');
+        result[qs[i][0]] = decodeURIComponent(qs[i][1]);
+      }
+      return result;
+    }
+    const googleAccessToken = get_query();
+    if (googleAccessToken.access_token) {
+      document.cookie = `Authorization=Bearer ${googleAccessToken.access_token}`;
+      window.location.replace('/#sectionOne');
+    }
+  }, []);
 
   // 아이디, 비밀번호에 대한 Auth 확인
   const { data } = useQuery(
@@ -106,3 +115,5 @@ function App() {
 }
 
 export default App;
+
+// http://localhost:3000/token?access_token=eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6WyJIT1NUIl0sInVzZXJuYW1lIjoiR3dhbmdIeXVuIEplb24iLCJzdWIiOiJHd2FuZ0h5dW4gSmVvbiIsImlhdCI6MTY2NDM0NjIyMiwiZXhwIjoxNjY0MzQ5ODIyfQ.iz4QUTLoYrRQxBhhWdMZnAmp0QLdWh3Ylu5mbfZLuDM&refresh_token=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJHd2FuZ0h5dW4gSmVvbiIsImlhdCI6MTY2NDM0NjIyMiwiZXhwIjoxNjY0MzQ5ODIyfQ.NZeBGUpg0a4xae69eaIXhHuw6dNXnHmCTE4_Rm28Djk

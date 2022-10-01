@@ -97,18 +97,21 @@ const Login = () => {
     //   `https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile&response_type=token&redirect_uri=http://localhost:3000&client_id=${CLIENT_ID}`
     // );
     setIsLoading(true);
-    axios
-      .post(`${process.env.REACT_APP_API_URL}/user/googleauth`)
-      .then((res) => {
-        console.log(res.data);
-        setIsLoading(false);
-        navigate('/');
-      })
-      .catch((res) => {
-        console.log(res.data);
-        setIsLoading(false);
-        navigate('/login');
-      });
+    window.location.assign(
+      `${process.env.REACT_APP_API_URL}/oauth2/authorization/google`
+    );
+    // axios
+    //   .post(`${process.env.REACT_APP_API_URL}/user/googleauth`)
+    //   .then((res) => {
+    //     console.log(res.data);
+    //     setIsLoading(false);
+    //     navigate('/');
+    //   })
+    //   .catch((res) => {
+    //     console.log(res.data);
+    //     setIsLoading(false);
+    //     navigate('/login');
+    //   });
   };
 
   // useEffect(() => {

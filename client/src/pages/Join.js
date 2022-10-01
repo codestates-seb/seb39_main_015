@@ -43,6 +43,7 @@ const Join = () => {
   const [isValid, setIsValid] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [nameValid, setNameValid] = useState(false);
+  const [emailValid, setEmailValid] = useState(false);
 
   console.log(`nameValid: ${nameValid}`);
   console.log(`isValid: ${isValid}`);
@@ -151,6 +152,31 @@ const Join = () => {
     }
   };
 
+  const emailCheck = (e) => {
+    e.preventDefault();
+
+    setIsLoading(true);
+    if (email) {
+      axios
+        .post(`${process.env.REACT_APP_API_URL}/user/useremailcheck`, {
+          email,
+        })
+        .then((res) => {
+          console.log(res.data);
+          setIsLoading(false);
+          if (res.data.emailCheck === true) {
+            setEmailValid(true);
+          } else {
+            alert('이미 존재하는 이메일입니다.');
+          }
+        })
+        .catch((res) => {
+          console.log(res.data);
+          setIsLoading(false);
+        });
+    }
+  };
+
   // 유효성 검사 실행 useEffect
   useEffect(() => {
     setIsValid(false);
@@ -240,6 +266,21 @@ const Join = () => {
             <LogoWrapper>
               <FontAwesomeIcon icon={faEnvelope} />
             </LogoWrapper>
+            <ButtonPosition>
+              {emailValid ? (
+                <GreenButton width="65px" height="25px">
+                  확인 완료
+                </GreenButton>
+              ) : (
+                <OrangeButton
+                  width="65px"
+                  height="25px"
+                  onClick={(e) => emailCheck(e)}
+                >
+                  중복 체크
+                </OrangeButton>
+              )}
+            </ButtonPosition>
             <p>{emailMsg}</p>
           </InputWrapper>
           {/* <label htmlFor="password">Password</label> */}

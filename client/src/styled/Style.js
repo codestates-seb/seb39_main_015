@@ -84,6 +84,7 @@ export const WhiteButton = styled.button`
   font-weight: 500;
   font-size: 16px;
   background-color: white;
+  cursor: pointer;
   /* margin-bottom: 24px; */
   :active {
     box-shadow: none !important;

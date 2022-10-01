@@ -8,6 +8,8 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
+window.Kakao.init(`${process.env.REACT_APP_KAKAO_KEY}`);
+
 const queryClient = new QueryClient();
 root.render(
   <QueryClientProvider client={queryClient}>

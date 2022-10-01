@@ -60,7 +60,7 @@ const FindName = () => {
       setIsLoading(true);
       isLoading;
       axios
-        .post(`/user/findpw/sendemail`, {
+        .post(`${process.env.REACT_APP_API_URL}/user/findpw/sendemail`, {
           username,
           email,
         })

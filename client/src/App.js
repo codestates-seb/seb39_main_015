@@ -1,5 +1,5 @@
 import './App.css';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import Join from './pages/Join.js';
 import Login from './pages/Login.js';
 import MyRoom from './pages/MyRoom.js';
@@ -12,6 +12,7 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import { useQuery } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
+import RoomDetail from './pages/RoomDetail';
 
 function App() {
   // const [accessToken, setAccessToken] = useState('');
@@ -39,6 +40,8 @@ function App() {
   //     return res.data;
   //   });
   // };
+
+  const location = useLocation();
 
   // 'key'에 맞는 쿠키 찾는 함수
   const getCookieValue = (key) => {
@@ -96,7 +99,7 @@ function App() {
   data;
   return (
     <div>
-      <Header />
+      {!/^\/rooms\/+/.test(location.pathname) && <Header />}
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/join" element={<Join />} />
@@ -104,6 +107,7 @@ function App() {
         <Route path="/myroom" element={<MyRoom />} />
         <Route path="/findname" element={<FindName />} />
         <Route path="/findpw" element={<FindPw />} />
+        <Route path="/rooms/:roomId" element={<RoomDetail />} />
         <Route
           path="/edituser"
           element={<EditUser getCookieValue={getCookieValue} />}

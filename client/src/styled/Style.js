@@ -101,7 +101,43 @@ export const OrangeButton = styled(WhiteButton)`
   background-color: #f58a5c;
   color: white;
   border: none;
-  /* margin-bottom: 10px; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+  :hover .cross {
+    animation-name: rotate;
+    animation-duration: 1s;
+    @keyframes rotate {
+      from {
+        transform: translate(-50%, -50%) rotate(0deg);
+      }
+      to {
+        transform: translate(-50%, -50%) rotate(180deg);
+      }
+    }
+  }
+  .createRoom {
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    width: 112px;
+  }
+  .crosshair {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .cross {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 24px;
+      height: 24px;
+    }
+  }
 `;
 
 export const BlackButton = styled(WhiteButton)`

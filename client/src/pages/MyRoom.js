@@ -10,6 +10,8 @@ import { useState, useEffect, useRef } from 'react';
 //   TwitterIcon,
 // } from 'react-share';
 import { LinkShareButton } from '../components/LinkShareButton.js';
+import { CreateRoomCircle } from '../images/CreateRoomCircle.js';
+import { CreateRoomCross } from '../images/CreateRoomCross.js';
 
 const backData = {
   username: 'kimcoding',
@@ -278,6 +280,15 @@ export default function MyRoom() {
           })}
         </MyRoomWrapper>
         <p>운영할 수 있는 최대 룸 개수는 3개 입니다.</p>
+        <OrangeButton width={'172px'} height={'60px'}>
+          <div className="createRoom">룸 만들기</div>
+          <div className="crosshair">
+            <CreateRoomCircle />
+            <div className="cross">
+              <CreateRoomCross />
+            </div>
+          </div>
+        </OrangeButton>
       </MyRoomBody>
       {tooltip && (
         <ReactTooltip id="dday" place="bottom" type="dark" effect="solid" />

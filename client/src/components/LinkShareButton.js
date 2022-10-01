@@ -75,6 +75,7 @@ const KakaoButton = styled.button`
   }
 `;
 
+// 상위 컴포넌트(MyRoom.js)에서 props 4개 받음
 export const LinkShareButton = ({
   roomData,
   urlDropDown,

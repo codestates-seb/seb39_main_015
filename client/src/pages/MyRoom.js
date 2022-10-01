@@ -146,6 +146,9 @@ const Space = styled.span`
   margin-left: ${(props) => props.space || '10px'};
 `;
 const CreateRoomButton = styled(OrangeButton)`
+  position: absolute;
+  right: 100px;
+  bottom: 60px;
   box-shadow: inset -19px -6px 15px rgba(99, 51, 51, 0.09);
   filter: drop-shadow(4px 4px 10px rgba(0, 0, 0, 0.25));
   :hover {

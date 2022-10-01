@@ -68,7 +68,7 @@ const CarouselStyle = styled.div`
   }
 `;
 
-const Carousel = ({ cards }) => {
+const Carousel = ({ cards, setRoomTheme }) => {
   const images = useRef(cards);
 
   const [current, setCurrent] = useState(0);
@@ -88,6 +88,14 @@ const Carousel = ({ cards }) => {
 
   useEffect(() => {
     setStyle({ marginLeft: `-${current}00%` });
+    if (
+      setRoomTheme &&
+      cards.length > 0 &&
+      cards[0].type === 'theme' &&
+      images.current[current].number !== -1
+    ) {
+      setRoomTheme(images.current[current].roomTheme);
+    }
   }, [current]);
 
   return (
@@ -124,11 +132,13 @@ const Carousel = ({ cards }) => {
             &gt;
           </button>
         </div>
-        <p>{images.current[current].title}</p>
+        {cards.length > 0 && cards[0].title !== undefined ? (
+          <p>{images.current[current].title}</p>
+        ) : null}
         <div className="position">
           {images.current.map((x, i) => (
             <div
-              key={i}
+              key={x.number}
               className={i === current ? 'dot current' : 'dot'}
             ></div>
           ))}

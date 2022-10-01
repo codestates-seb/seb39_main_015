@@ -89,6 +89,7 @@ const Carousel = ({ cards, setRoomTheme }) => {
   useEffect(() => {
     setStyle({ marginLeft: `-${current}00%` });
     if (
+      setRoomTheme &&
       cards.length > 0 &&
       cards[0].type === 'theme' &&
       images.current[current].number !== -1

@@ -145,72 +145,14 @@ const WhiteButtonOrangeBorder = styled(WhiteButton)`
 const Space = styled.span`
   margin-left: ${(props) => props.space || '10px'};
 `;
-// const ShareButtonWrapper = styled.div`
-//   position: relative;
-//   cursor: pointer;
-// `;
-// const ShareButtonPopup = styled.div`
-//   display: flex;
-//   position: absolute;
-//   top: 25px;
-//   left: 50%;
-//   transform: translate(-50%, 0);
-//   background-color: white;
-//   flex-direction: column;
-
-//   animation-name: fadein;
-//   animation-duration: 1s;
-//   animation-direction: alternate;
-//   @keyframes fadein {
-//     from {
-//       opacity: 0;
-//     }
-//     to {
-//       opacity: 1;
-//     }
-//   }
-//   @keyframes fadeout {
-//     from {
-//       opacity: 1;
-//     }
-//     to {
-//       opacity: 0;
-//     }
-//   }
-// `;
-
-// const ShareButton = styled.div``;
-
-// const Facebook_Twitter_Button = styled.div`
-//   :active {
-//     box-shadow: none !important;
-//     transform: scale(1) !important;
-//   }
-//   :hover {
-//     transform: scale(1.02);
-//   }
-// `;
-
-// const KakaoButton = styled.button`
-//   border: 0;
-//   width: 30px;
-//   height: 33.5px;
-//   outline: 0;
-//   padding: 0;
-//   margin: 0;
-//   background-color: transparent;
-//   cursor: pointer;
-//   :active {
-//     box-shadow: none !important;
-//     transform: scale(1) !important;
-//   }
-//   :hover {
-//     transform: scale(1.02);
-//   }
-//   > img {
-//     border-radius: 99px;
-//   }
-// `;
+const CreateRoomButton = styled(OrangeButton)`
+  box-shadow: inset -19px -6px 15px rgba(99, 51, 51, 0.09);
+  filter: drop-shadow(4px 4px 10px rgba(0, 0, 0, 0.25));
+  :hover {
+    box-shadow: none;
+    transform: scale(1);
+  }
+`;
 
 export default function MyRoom() {
   const [tooltip, showTooltip] = useState(true);
@@ -280,7 +222,7 @@ export default function MyRoom() {
           })}
         </MyRoomWrapper>
         <p>운영할 수 있는 최대 룸 개수는 3개 입니다.</p>
-        <OrangeButton width={'172px'} height={'60px'}>
+        <CreateRoomButton width={'172px'} height={'60px'}>
           <div className="createRoom">룸 만들기</div>
           <div className="crosshair">
             <CreateRoomCircle />
@@ -288,7 +230,7 @@ export default function MyRoom() {
               <CreateRoomCross />
             </div>
           </div>
-        </OrangeButton>
+        </CreateRoomButton>
       </MyRoomBody>
       {tooltip && (
         <ReactTooltip id="dday" place="bottom" type="dark" effect="solid" />

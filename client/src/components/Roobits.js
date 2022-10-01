@@ -1,5 +1,6 @@
 //import catsImg from '../images/roomImg/03_cats_1x_w3200.png';
 //import lettersImg from '../images/roomImg/04_letters_1x_w400.png';
+import styled from 'styled-components';
 
 /*
 {
@@ -11,15 +12,17 @@
 }
 */
 
+const RoobitsWrapper = styled.ul``;
+
 const Roobits = ({ unitRoobits }) => {
   return (
-    <ul>
+    <RoobitsWrapper>
       {unitRoobits.map((roobit) => (
         <li key={roobit.roobitId}>
           <p>{roobit.nickname}</p>
         </li>
       ))}
-    </ul>
+    </RoobitsWrapper>
   );
 };
 

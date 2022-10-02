@@ -6,6 +6,7 @@ import axios from 'axios';
 import 'react-datepicker/dist/react-datepicker.css';
 import { ReactComponent as CancelIcon } from '../images/cancel-icon.svg';
 import { getCookieValue } from '../hook/getCookieValue';
+import { useMutation } from 'react-query';
 
 const DatePickerComponent = ({ dDayDate, setDdayDate }) => {
   const CustomInput = forwardRef(({ value, onClick }, ref) => {
@@ -37,7 +38,6 @@ const DatePickerComponent = ({ dDayDate, setDdayDate }) => {
 };
 
 const RoomModal = ({ handleOpenModal }) => {
-  const [isLoading, setIsLoading] = useState(false);
   const [roomName, setRoomName] = useState('');
   const [isValid, setIsValid] = useState(false);
   const [dDayDate, setDdayDate] = useState(
@@ -66,7 +66,8 @@ const RoomModal = ({ handleOpenModal }) => {
   const handleOnSubmit = (e) => {
     e.preventDefault();
     if (isValid) {
-      setIsLoading(true);
+      const dDay = setDateStr(dDayDate);
+      mutate({ roomName, dDay, roomTheme, roobitAmount });
     } else {
       alert('룸 이름을 확인해주세요!');
     }
@@ -91,28 +92,28 @@ const RoomModal = ({ handleOpenModal }) => {
     ];
   }, []);
 
-  const postRoom = (reqData) => {
-    console.log(reqData);
-    //${process.env.REACT_APP_API_URL}
-    axios
-      .post(`${process.env.REACT_APP_API_URL}/rooms`, reqData, {
+  const { mutate } = useMutation(
+    (data) =>
+      axios.post(`${process.env.REACT_APP_API_URL}/rooms`, data, {
         headers: {
           Authorization: `${getCookieValue('Authorization')}`,
         },
-      })
-      .then((res) => {
-        console.log(res.data);
-        alert('룸 만들기 성공!');
-        setIsLoading(false);
+      }),
+    {
+      onMutate: (data) => {
+        console.log('onMutate', data);
+      },
+      onSuccess: (data) => {
+        alert('성공');
+        console.log('onSuccess', data);
         //navigate('/myroom');
-      })
-      .catch((res) => {
-        console.log(res.data);
-        alert('룸 만들기 실패...');
-        setIsLoading(false);
-        //navigate('/login');
-      });
-  };
+      },
+      onError: (err) => {
+        alert('실패');
+        console.log(err);
+      },
+    }
+  );
 
   useEffect(() => {
     if (/^.{2,20}$/.test(roomName)) {
@@ -123,13 +124,6 @@ const RoomModal = ({ handleOpenModal }) => {
       setRoomNameMsg('2 ~ 20자 이내로 입력해주세요.');
     }
   }, [roomName]);
-
-  useEffect(() => {
-    if (isLoading) {
-      const dDay = setDateStr(dDayDate);
-      postRoom({ roomName, dDay, roomTheme, roobitAmount });
-    }
-  }, [isLoading]);
 
   return (
     <FormWrapper

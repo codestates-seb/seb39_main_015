@@ -123,7 +123,6 @@ const Join = () => {
       // `${process.env.REACT_APP_API_URL}/user/join`
       setIsLoading(true);
       isLoading;
-
       axios
         .post(`${process.env.REACT_APP_API_URL}/user/join`, {
           username,
@@ -184,9 +183,11 @@ const Join = () => {
               })
               .then((res) => {
                 document.cookie = `emailCode=${res.data.createKey}`;
-                setIsLoading(false);
                 setEmailCodeSend(true);
-                // alert('이메일로 인증코드를 보내드렸습니다!');수정
+                setIsLoading(false);
+                setTimeout(() => {
+                  alert('이메일로 인증코드를 보내드렸습니다!');
+                }, 500);
               });
           } else {
             alert('이미 존재하는 이메일입니다.');

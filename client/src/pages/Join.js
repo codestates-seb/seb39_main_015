@@ -52,7 +52,6 @@ const Join = () => {
   const [emailCode, setEmailCode] = useState('');
   const [emailValid, setEmailValid] = useState(false);
 
-  console.log(`nameValid: ${nameValid}`);
   console.log(`isValid: ${isValid}`);
 
   // dpRegex는 idRegex로 변경됨
@@ -120,7 +119,7 @@ const Join = () => {
       return;
     }
 
-    if (isValid && nameValid && emailValid) {
+    if (isValid) {
       // `${process.env.REACT_APP_API_URL}/user/join`
       setIsLoading(true);
       isLoading;
@@ -187,7 +186,7 @@ const Join = () => {
                 document.cookie = `emailCode=${res.data.createKey}`;
                 setIsLoading(false);
                 setEmailCodeSend(true);
-                // alert('이메일로 인증코드를 보내드렸습니다!');
+                // alert('이메일로 인증코드를 보내드렸습니다!');수정
               });
           } else {
             alert('이미 존재하는 이메일입니다.');
@@ -222,11 +221,13 @@ const Join = () => {
       idRegex.test(username) &&
       emailRegex.test(email) &&
       pwRegex.test(password) &&
-      password === passwordCheck
+      password === passwordCheck &&
+      nameValid &&
+      emailValid
     ) {
       setIsValid(true);
     }
-  }, [username, email, password, passwordCheck]);
+  }, [username, email, password, passwordCheck, nameValid, emailValid]);
 
   return (
     <Body>

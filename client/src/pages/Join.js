@@ -115,7 +115,7 @@ const Join = () => {
       return;
     }
 
-    if (isValid && nameValid) {
+    if (isValid && nameValid && emailValid) {
       // `${process.env.REACT_APP_API_URL}/user/join`
       setIsLoading(true);
       isLoading;

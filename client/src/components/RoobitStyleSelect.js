@@ -21,7 +21,7 @@ const SelectStyle = styled.div`
   }
 `;
 
-const ImgStyle = styled.div`
+const RoobitImgStyle = styled.div`
   width: 100%;
   height: 100%;
   font-size: 0;
@@ -38,9 +38,7 @@ const RoobitStyleSelect = ({ setRoobitStyle }) => {
     <SelectStyle>
       {roobitStyles.map((style, i) => (
         <button type="button" key={style} onClick={() => setRoobitStyle(style)}>
-          <ImgStyle className="style-img" idx={i}>
-            {style}
-          </ImgStyle>
+          <RoobitImgStyle idx={i}>{style}</RoobitImgStyle>
         </button>
       ))}
     </SelectStyle>

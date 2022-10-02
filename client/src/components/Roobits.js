@@ -1,8 +1,7 @@
-import catsImg from '../images/roomImg/03_cats_1x_w3200.png';
-import lettersImg from '../images/roomImg/04_letters_1x_w400.png';
 import styled from 'styled-components';
 import { getRoobitType } from '../hook/getRoobitType';
 import { haveTo } from '../hook/haveTo';
+import RoobitOneImg from '../styled/RoobitOneImg';
 
 /*
 {
@@ -62,41 +61,11 @@ const RoobitsWrapper = styled.ul`
   }
 `;
 
-/** 개별 루빗(고양이) 배치 */
 const RoobitLi = styled.li`
-  --type: ${(props) => String(props.roobitType.type)};
-  --style: ${(props) => String(props.roobitType.style)};
-  --roobit-style: calc(100% / 7 * var(--style)) calc(100% / 4.5 * var(--type));
-
-  --roobit-width: calc(100%);
   --font-shadow-color: rgba(255, 255, 255, 0.6);
   --font-shadow: -1px 0 var(--font-shadow-color), 0 1px var(--font-shadow-color),
     1px 0 var(--font-shadow-color), 0 -1px var(--font-shadow-color);
-
-  display: inline-block;
-  width: var(--roobit-width);
-  height: 0;
-  padding-top: var(--roobit-width);
   position: relative;
-
-  background-image: url(${catsImg});
-  background-repeat: no-repeat;
-  background-size: calc(100% * 8);
-  background-position: var(--roobit-style);
-
-  &.letter::before {
-    content: '';
-    display: block;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-repeat: no-repeat;
-    background-size: 100%;
-    background-position-y: calc(25% * var(--type));
-    background-image: url(${lettersImg});
-  }
 
   .nickname {
     white-space: nowrap;
@@ -131,11 +100,11 @@ const Roobits = ({ unitRoobits }) => {
   return (
     <RoobitsWrapper>
       {unitRoobits.map((roobit) => (
-        <RoobitLi
-          key={roobit.roobitId}
-          roobitType={getRoobitType(roobit.style)}
-          className={haveTo(roobit.reception) && 'letter'}
-        >
+        <RoobitLi key={roobit.roobitId}>
+          <RoobitOneImg
+            roobitCode={getRoobitType(roobit.style)}
+            className={haveTo(roobit.reception) && 'letter'}
+          />
           {haveTo(roobit.reception) && (
             <p className="reception">{roobit.reception}</p>
           )}

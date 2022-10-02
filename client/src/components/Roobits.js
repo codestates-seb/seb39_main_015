@@ -2,6 +2,7 @@ import catsImg from '../images/roomImg/03_cats_1x_w3200.png';
 import lettersImg from '../images/roomImg/04_letters_1x_w400.png';
 import styled from 'styled-components';
 import { getRoobitType } from '../hook/getRoobitType';
+import { haveTo } from '../hook/haveTo';
 
 /*
 {
@@ -76,8 +77,6 @@ const RoobitLi = styled.li`
   width: var(--roobit-width);
   height: 0;
   padding-top: var(--roobit-width);
-  outline: none;
-  border: none;
   position: relative;
 
   background-image: url(${catsImg});
@@ -127,13 +126,6 @@ const RoobitLi = styled.li`
     transform: translate(-50%);
   }
 `;
-
-const haveTo = (reception) => {
-  if (reception !== 'to everyone') {
-    return true;
-  }
-  return false;
-};
 
 const Roobits = ({ unitRoobits }) => {
   return (

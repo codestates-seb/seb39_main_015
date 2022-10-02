@@ -60,12 +60,7 @@ function App() {
         <Route path="/findname" element={<FindName />} />
         <Route path="/findpw" element={<FindPw />} />
         <Route path="/rooms/:roomId" element={<RoomDetail />} />
-        <Route
-          path="/edituser"
-          element={
-            data ? <EditUser getCookieValue={getCookieValue} /> : <Login />
-          }
-        />
+        <Route path="/edituser" element={data ? <EditUser /> : <Login />} />
       </Routes>
       <ReactQueryDevtools initialIsOpen={false} />
     </div>

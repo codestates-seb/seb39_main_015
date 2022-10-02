@@ -18,6 +18,7 @@ import { faLock } from '@fortawesome/free-solid-svg-icons';
 import signUpLogo from '../images/cat.png';
 import styled from 'styled-components';
 import { useQueryClient } from 'react-query';
+import { getCookieValue } from '../hook/getCookieValue.js';
 
 // 디자인 컨셉 결정 후 일괄 적용할 예정이기 때문에 styled 폴더에서 가져온 요소는 모두 삭제.
 // 추후 컨셉이 결정되면 필요한 스타일을 미리 만들어두고 사용할 것.
@@ -51,7 +52,7 @@ const Space = styled.span`
   margin-left: 10px;
 `;
 
-const EditUser = ({ getCookieValue }) => {
+const EditUser = () => {
   const queryClient = useQueryClient();
   const userInfo = queryClient.getQueryData('auth');
   // 기존 displayName은 username으로 변경됨
@@ -128,10 +129,17 @@ const EditUser = ({ getCookieValue }) => {
     const confirmMsg = confirm('정말 탈퇴하시겠습니까?');
     if (confirmMsg) {
       axios
-        .delete(`${process.env.REACT_APP_API_URL}/user/delete`)
+        .delete(`${process.env.REACT_APP_API_URL}/user/delete`, {
+          headers: {
+            Authorization: `${getCookieValue('Authorization')}`,
+          },
+        })
         .then((res) => {
           console.log(res.data);
-          navigate('/#sectionOne');
+          document.cookie =
+            'Authorization' + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+          queryClient.invalidateQueries('auth');
+          window.location.replace('/#sectionOne');
           alert('회원 탈퇴 완료 되었습니다.');
         })
         .catch((res) => console.log(res.data));

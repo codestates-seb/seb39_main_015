@@ -69,6 +69,7 @@ const BuildingStyle = styled.div`
     height: var(--rooftop-height);
 
     background-image: url(${rooftopImg});
+    background-size: 100% 100%;
   }
 
   .btns {

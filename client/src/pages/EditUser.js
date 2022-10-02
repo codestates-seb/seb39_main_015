@@ -62,6 +62,7 @@ const EditUser = () => {
   const [passwordCheckMsg, setPasswordCheckMsg] = useState('');
   const [isValid, setIsValid] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [passwordPass, setPasswordPass] = useState(false);
 
   const username = userInfo.username; //queryClient.getQuerysData('auth')
   const email = userInfo.email; //queryClient.getQueryData('auth')
@@ -146,6 +147,29 @@ const EditUser = () => {
     }
   };
 
+  // 진입 전 비밀번호 확인
+  const enterPasswordCheck = () => {
+    if (password) {
+      axios
+        .post(
+          `${process.env.REACT_APP_API_URL}/user/checkpw`,
+          { password },
+          {
+            headers: {
+              Authorization: `${getCookieValue('Authorization')}`,
+            },
+          }
+        )
+        .then((res) => {
+          if (res.data.passwordCheck === true) {
+            setPasswordPass(true);
+            setPassword('');
+          }
+        })
+        .catch((res) => console.log(res.data));
+    }
+  };
+
   // 유효성 검사 실행 useEffect
 
   useEffect(() => {
@@ -171,7 +195,35 @@ const EditUser = () => {
             <FontAwesomeIcon icon={faEnvelope} />
           </LogoWrapper>
         </UserInfoWrapper>
-        {userInfo.provider === 'roobits' ? (
+        {userInfo.provider === 'roobits' && !passwordPass ? (
+          <>
+            <InputWrapper>
+              <Input
+                type="password"
+                id="login-password"
+                name="password"
+                height={'45px'}
+                width={'314px'}
+                required
+                placeholder="기존 비밀번호 입력"
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <LogoWrapper>
+                <FontAwesomeIcon icon={faLock} />
+              </LogoWrapper>
+            </InputWrapper>
+            <OrangeButton
+              height={'45px'}
+              width={'150px'}
+              onClick={enterPasswordCheck}
+            >
+              확인
+            </OrangeButton>
+          </>
+        ) : (
+          ''
+        )}
+        {userInfo.provider === 'roobits' && passwordPass ? (
           <form onSubmit={(e) => handleSubmit(e)}>
             <InputWrapper>
               <Input
@@ -183,7 +235,7 @@ const EditUser = () => {
                 width={'314px'}
                 onChange={handlePW}
                 required
-                placeholder="비밀번호"
+                placeholder="새로운 비밀번호"
               />
               <LogoWrapper>
                 <FontAwesomeIcon icon={faLock} />
@@ -200,7 +252,7 @@ const EditUser = () => {
                 width={'314px'}
                 onChange={handlePwCheck}
                 required
-                placeholder="비밀번호 확인"
+                placeholder="새로운 비밀번호 확인"
               />
               <LogoWrapper>
                 <FontAwesomeIcon icon={faLock} />

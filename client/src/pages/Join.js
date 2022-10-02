@@ -11,7 +11,7 @@ import {
   InputWrapper,
   StyledLink,
   GreenButton,
-  WhiteButton,
+  // WhiteButton,
 } from '../styled/Style.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faEnvelope } from '@fortawesome/free-regular-svg-icons';
@@ -270,7 +270,10 @@ const Join = () => {
               value={email}
               height={'45px'}
               width={'314px'}
-              onChange={handleEmail}
+              onChange={(e) => {
+                handleEmail(e);
+                setEmailCodeSend(false);
+              }}
               required
               placeholder="이메일"
             />
@@ -279,13 +282,13 @@ const Join = () => {
             </LogoWrapper>
             <ButtonPosition>
               {emailCodeSend ? (
-                <WhiteButton
+                <GreenButton
                   width="65px"
                   height="25px"
                   onClick={(e) => emailCheck(e)}
                 >
                   다시 받기
-                </WhiteButton>
+                </GreenButton>
               ) : (
                 <OrangeButton
                   width="65px"

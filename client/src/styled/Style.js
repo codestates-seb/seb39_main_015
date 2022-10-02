@@ -37,6 +37,9 @@ export const FormWrapper = styled.div`
   > div {
     margin-top: 25px;
   }
+  div {
+    display: flex;
+  }
 `;
 
 export const InputWrapper = styled.div`

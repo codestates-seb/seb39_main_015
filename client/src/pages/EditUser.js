@@ -164,6 +164,9 @@ const EditUser = () => {
           if (res.data.passwordCheck === true) {
             setPasswordPass(true);
             setPassword('');
+          } else {
+            alert('비밀번호가 일치하지 않습니다.');
+            setPassword('');
           }
         })
         .catch((res) => console.log(res.data));

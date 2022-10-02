@@ -19,6 +19,7 @@ import { faLock } from '@fortawesome/free-solid-svg-icons';
 import signUpLogo from '../images/cat.png';
 import styled from 'styled-components';
 import { getCookieValue } from '../hook/getCookieValue.js';
+import { Loading } from '../components/Loading.js';
 
 // 디자인 컨셉 결정 후 일괄 적용할 예정이기 때문에 styled 폴더에서 가져온 요소는 모두 삭제.
 // 추후 컨셉이 결정되면 필요한 스타일을 미리 만들어두고 사용할 것.
@@ -147,7 +148,6 @@ const Join = () => {
   const usernameCheck = (e) => {
     e.preventDefault();
 
-    setIsLoading(true);
     if (username) {
       axios
         .post(`${process.env.REACT_APP_API_URL}/user/usernamecheck`, {
@@ -155,7 +155,6 @@ const Join = () => {
         })
         .then((res) => {
           console.log(res.data);
-          setIsLoading(false);
           if (res.data.usernameCheck === true) {
             setNameValid(true);
           } else {
@@ -164,7 +163,6 @@ const Join = () => {
         })
         .catch((res) => {
           console.log(res.data);
-          setIsLoading(false);
         });
     }
   };
@@ -173,23 +171,23 @@ const Join = () => {
   const emailCheck = (e) => {
     e.preventDefault();
 
-    setIsLoading(true);
     if (email) {
       axios
         .post(`${process.env.REACT_APP_API_URL}/user/useremailcheck`, {
           email,
         })
         .then((res) => {
-          setIsLoading(false);
           if (res.data.emailCheck === true) {
+            setIsLoading(true);
             axios
               .post(`${process.env.REACT_APP_API_URL}/user/auth/sendemail`, {
                 email,
               })
               .then((res) => {
                 document.cookie = `emailCode=${res.data.createKey}`;
-                alert('이메일로 인증코드를 보내드렸습니다!');
+                setIsLoading(false);
                 setEmailCodeSend(true);
+                // alert('이메일로 인증코드를 보내드렸습니다!');
               });
           } else {
             alert('이미 존재하는 이메일입니다.');
@@ -228,6 +226,7 @@ const Join = () => {
 
   return (
     <Body>
+      {isLoading ? <Loading /> : ''}
       <FormWrapper height={'545px'} width={'476px'}>
         <img alt="회원가입 로고" src={signUpLogo}></img>
         <form onSubmit={(e) => handleSubmit(e)}>
@@ -263,7 +262,6 @@ const Join = () => {
             </ButtonPosition>
             <p>{usernameMsg}</p>
           </InputWrapper>
-          {/* <label htmlFor="email">Email</label> */}
           <InputWrapper>
             <Input
               type="email"

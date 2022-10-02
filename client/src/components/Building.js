@@ -145,37 +145,6 @@ const Building = ({ roobits }) => {
       setIsTwo(false);
     }
   };
-  /**만약 유닛 개수 증가하는 테스트를 하고 싶으면 이걸 사용 */
-  const unitTest = () => {
-    const [dummyArr, setDummyArr] = useState(Array(4).fill(0));
-    const handlePlusBtn = () => {
-      const num = dummyArr.length;
-      if (num < 30) {
-        setDummyArr([...dummyArr, 0]);
-        oneTwoUnit(num + 1);
-      }
-    };
-
-    const handleMinusBtn = () => {
-      const num = dummyArr.length;
-      if (num > 1) {
-        setDummyArr(dummyArr.slice(0, dummyArr.length - 1));
-        oneTwoUnit(num - 1);
-      }
-    };
-    return (
-      <div className="btns">
-        <button className="addBtn" onClick={handlePlusBtn}>
-          유닛 추가 +
-        </button>
-        <button className="removeBtn" onClick={handleMinusBtn}>
-          유닛 제거 -
-        </button>
-      </div>
-    );
-  };
-
-  unitTest();
 
   useEffect(() => {
     oneTwoUnit(Object.keys(roobits).length);

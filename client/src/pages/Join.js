@@ -11,12 +11,14 @@ import {
   InputWrapper,
   StyledLink,
   GreenButton,
+  WhiteButton,
 } from '../styled/Style.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faEnvelope } from '@fortawesome/free-regular-svg-icons';
 import { faLock } from '@fortawesome/free-solid-svg-icons';
 import signUpLogo from '../images/cat.png';
 import styled from 'styled-components';
+import { getCookieValue } from '../hook/getCookieValue.js';
 
 // 디자인 컨셉 결정 후 일괄 적용할 예정이기 때문에 styled 폴더에서 가져온 요소는 모두 삭제.
 // 추후 컨셉이 결정되면 필요한 스타일을 미리 만들어두고 사용할 것.
@@ -45,6 +47,8 @@ const Join = () => {
   const [isValid, setIsValid] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [nameValid, setNameValid] = useState(false);
+  const [emailCodeSend, setEmailCodeSend] = useState(false);
+  const [emailCode, setEmailCode] = useState('');
   const [emailValid, setEmailValid] = useState(false);
 
   console.log(`nameValid: ${nameValid}`);
@@ -165,6 +169,7 @@ const Join = () => {
     }
   };
 
+  // email 중복 방지, 유효성 체크 함수
   const emailCheck = (e) => {
     e.preventDefault();
 
@@ -177,7 +182,15 @@ const Join = () => {
         .then((res) => {
           setIsLoading(false);
           if (res.data.emailCheck === true) {
-            setEmailValid(true);
+            axios
+              .post(`${process.env.REACT_APP_API_URL}/user/auth/sendemail`, {
+                email,
+              })
+              .then((res) => {
+                document.cookie = `emailCode=${res.data.createKey}`;
+                alert('이메일로 인증코드를 보내드렸습니다!');
+                setEmailCodeSend(true);
+              });
           } else {
             alert('이미 존재하는 이메일입니다.');
           }
@@ -186,6 +199,17 @@ const Join = () => {
           console.log(res.data);
           setIsLoading(false);
         });
+    }
+  };
+
+  const emailCodeCheck = (e) => {
+    e.preventDefault();
+
+    if (getCookieValue('emailCode') === emailCode) {
+      setEmailValid(true);
+    } else {
+      alert('코드가 일치하지 않습니다!');
+      setEmailCode('');
     }
   };
 
@@ -200,31 +224,7 @@ const Join = () => {
     ) {
       setIsValid(true);
     }
-  }, [username, email, password]);
-
-  // isLoading과 isValid 를 상시 확인 => 둘다 true일 경우 axios 요청 송부
-  // useEffect(() => {
-  //   if (isLoading && isValid) {
-  //     // `${process.env.REACT_APP_API_URL}/users/join`
-  //     axios
-  //       .post('/fakeuri', {
-  //         username,
-  //         email,
-  //         password,
-  //       })
-  //       .then((res) => {
-  //         console.log(res.data);
-  //         setIsLoading(false);
-  //         navigate('/login');
-  //       })
-  //       .catch(() => {
-  //         //더미 데이터 적용
-  //         setIsLoading(false);
-  //         navigate('/join');
-  //         //이 후 통신이 잘 되면 이 부분은 수정해야됩니다.
-  //       });
-  //   }
-  // }, [isLoading, isValid]);
+  }, [username, email, password, passwordCheck]);
 
   return (
     <Body>
@@ -280,21 +280,62 @@ const Join = () => {
               <FontAwesomeIcon icon={faEnvelope} />
             </LogoWrapper>
             <ButtonPosition>
-              {emailValid ? (
-                <GreenButton width="65px" height="25px">
-                  확인 완료
-                </GreenButton>
+              {emailCodeSend ? (
+                <WhiteButton
+                  width="65px"
+                  height="25px"
+                  onClick={(e) => emailCheck(e)}
+                >
+                  다시 받기
+                </WhiteButton>
               ) : (
                 <OrangeButton
                   width="65px"
                   height="25px"
                   onClick={(e) => emailCheck(e)}
                 >
-                  중복 체크
+                  코드 받기
                 </OrangeButton>
               )}
             </ButtonPosition>
             <p>{emailMsg}</p>
+          </InputWrapper>
+          <InputWrapper>
+            <Input
+              id="emailCode"
+              name="emailCode"
+              value={emailCode}
+              height={'45px'}
+              width={'314px'}
+              onChange={(e) => setEmailCode(e.target.value)}
+              required
+              placeholder={
+                emailCodeSend
+                  ? '이메일로 받으신 인증코드를 기입해주세요'
+                  : '이메일 작성 후 코드받기를 눌러주세요'
+              }
+              disabled={!emailCodeSend}
+            />
+            <LogoWrapper>
+              <FontAwesomeIcon icon={faEnvelope} />
+            </LogoWrapper>
+            <ButtonPosition>
+              {emailValid
+                ? emailCodeSend && (
+                    <GreenButton width="65px" height="25px">
+                      인증 완료
+                    </GreenButton>
+                  )
+                : emailCodeSend && (
+                    <OrangeButton
+                      width="65px"
+                      height="25px"
+                      onClick={(e) => emailCodeCheck(e)}
+                    >
+                      인증 받기
+                    </OrangeButton>
+                  )}
+            </ButtonPosition>
           </InputWrapper>
           <InputWrapper>
             <Input

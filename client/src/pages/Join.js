@@ -205,6 +205,8 @@ const Join = () => {
 
     if (getCookieValue('emailCode') === emailCode) {
       setEmailValid(true);
+      document.cookie =
+        'emailCode' + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     } else {
       alert('코드가 일치하지 않습니다!');
       setEmailCode('');
@@ -238,7 +240,10 @@ const Join = () => {
               value={username}
               height={'45px'}
               width={'314px'}
-              onChange={handleDN}
+              onChange={(e) => {
+                handleDN(e);
+                setNameValid(false);
+              }}
               required
               placeholder="아이디"
             />
@@ -273,6 +278,8 @@ const Join = () => {
               onChange={(e) => {
                 handleEmail(e);
                 setEmailCodeSend(false);
+                setEmailCode('');
+                setEmailValid(false);
               }}
               required
               placeholder="이메일"
@@ -312,7 +319,7 @@ const Join = () => {
               required
               placeholder={
                 emailCodeSend
-                  ? '이메일로 받으신 인증코드를 기입해주세요'
+                  ? '인증코드를 기입해주세요'
                   : '이메일 작성 후 코드받기를 눌러주세요'
               }
               disabled={!emailCodeSend}

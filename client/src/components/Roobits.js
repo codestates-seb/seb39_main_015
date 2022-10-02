@@ -1,6 +1,7 @@
 import catsImg from '../images/roomImg/03_cats_1x_w3200.png';
 import lettersImg from '../images/roomImg/04_letters_1x_w400.png';
 import styled from 'styled-components';
+import { getRoobitType } from '../hook/getRoobitType';
 
 /*
 {
@@ -126,15 +127,6 @@ const RoobitLi = styled.li`
     transform: translate(-50%);
   }
 `;
-
-/** 스타일 코드에 따라 루빗 스타일 값을 숫자로 변환하는 함수 : type-자세 style-무늬 */
-const getRoobitType = (typeStr) => {
-  let [all, type, style] = typeStr.match(/^([\d]+)([\D]+)$/);
-  type = Number(type) - 1;
-  style = style.toUpperCase().charCodeAt(0) - 65;
-  //각 코드를 숫자로 변경
-  return { all, type, style };
-};
 
 const haveTo = (reception) => {
   if (reception !== 'to everyone') {

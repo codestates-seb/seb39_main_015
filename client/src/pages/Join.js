@@ -171,7 +171,7 @@ const Join = () => {
   const emailCheck = (e) => {
     e.preventDefault();
 
-    if (email) {
+    if (email && emailRegex.test(email)) {
       axios
         .post(`${process.env.REACT_APP_API_URL}/user/useremailcheck`, {
           email,
@@ -197,6 +197,8 @@ const Join = () => {
           console.log(res.data);
           setIsLoading(false);
         });
+    } else if (!emailRegex.test(email)) {
+      alert('이메일 형식에 맞춰서 작성해주세요!');
     }
   };
 

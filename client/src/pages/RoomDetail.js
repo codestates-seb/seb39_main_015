@@ -6,26 +6,30 @@ import { useQuery } from 'react-query';
 import {
   //roomDetailData,
   //roomDetailData_1,
-  roomDetailData_2,
+  //roomDetailData_2,
   // roomDetailData_3,
-  // roomDetailData_4,
-  //roomDetailData_12,
+  //roomDetailData_4,
+  roomDetailData_12,
 } from '../data/DummyData';
 
 const RoomDetail = () => {
   const { roomId } = useParams();
   //useLocation 으로 경로에서 roomId 받아오기
   //쿼리로 룸 정보 받아와서 저장
-  `${process.env.REACT_APP_API_URL}/rooms/${roomId}`;
 
   const { data, isLoading } = useQuery(
     'roobits',
     () =>
       axios
-        .get(`/fakeurl`)
-        .then((res) => res.data)
-        .catch(() => roomDetailData_2),
-    { staleTime: 1000 * 60 * 5, retry: 0 }
+        .get(`${process.env.REACT_APP_API_URL}/rooms/${roomId}`)
+        .catch(() => roomDetailData_12 /* 실패할 경우 더미 데이터 표시 */),
+    {
+      staleTime: 1000 * 60 * 30,
+      retry: 1,
+      onError: (err) => {
+        console.log(err);
+      },
+    }
   );
 
   let roomStatus, roomData, roobits;

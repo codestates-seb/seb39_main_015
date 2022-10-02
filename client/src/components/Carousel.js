@@ -1,9 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import catsImg from '../images/roomImg/03_cats_1x_w3200.png';
 import { getRoobitType } from '../hook/getRoobitType';
+import RoobitOneImg from '../styled/RoobitOneImg';
 
-catsImg;
 const CarouselStyle = styled.div`
   div {
     transition: margin 0.3s ease-out;
@@ -71,24 +70,10 @@ const CarouselStyle = styled.div`
   }
 `;
 
-const RoobitCarouselImg = styled.div`
-  --type: ${(props) => String(props.roobitType.type)};
-  --style: ${(props) => String(props.roobitType.style)};
-  --roobit-style: calc(100% / 7 * var(--style)) calc(100% / 4.5 * var(--type));
-
-  width: 100%;
-  height: 100%;
-
-  background-image: url(${catsImg});
-  background-repeat: no-repeat;
-  background-size: calc(100% * 8);
-  background-position: var(--roobit-style);
-`;
-
-const Carousel = ({ cards, setData, roobitStyle }) => {
+const Carousel = ({ cards, setData, roobitType, roobitStyle }) => {
   const images = useRef(cards);
 
-  const [current, setCurrent] = useState(0);
+  const [current, setCurrent] = useState(Number(roobitType) - 1);
   const [style, setStyle] = useState({
     marginLeft: `-${current}00%`,
   });
@@ -128,8 +113,8 @@ const Carousel = ({ cards, setData, roobitStyle }) => {
               {images.current.map((img, i) => (
                 <div key={i} className={`img ${img.type}`}>
                   {img.type === 'roobit' && (
-                    <RoobitCarouselImg
-                      roobitType={getRoobitType(i + 1 + roobitStyle)}
+                    <RoobitOneImg
+                      roobitCode={getRoobitType(i + 1 + roobitStyle)}
                     />
                   )}
                 </div>

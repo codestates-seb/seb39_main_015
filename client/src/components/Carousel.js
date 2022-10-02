@@ -70,10 +70,12 @@ const CarouselStyle = styled.div`
   }
 `;
 
-const Carousel = ({ cards, setData, roobitType, roobitStyle }) => {
+const Carousel = ({ cards = [], setData, roobitType, roobitStyle }) => {
   const images = useRef(cards);
-
-  const [current, setCurrent] = useState(Number(roobitType) - 1);
+  const [current, setCurrent] = useState(() => {
+    if (roobitType) return Number(roobitType) - 1;
+    else return 0;
+  });
   const [style, setStyle] = useState({
     marginLeft: `-${current}00%`,
   });
@@ -131,7 +133,7 @@ const Carousel = ({ cards, setData, roobitType, roobitStyle }) => {
             &gt;
           </button>
         </div>
-        {cards.length > 0 && cards[0].title !== undefined && (
+        {cards.length > 0 && cards[0].type === 'theme' && (
           <p>{images.current[current].title}</p>
         )}
         <div className="position">

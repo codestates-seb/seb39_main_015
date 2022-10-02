@@ -37,9 +37,11 @@ const Join = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [passwordCheck, setPasswordCheck] = useState('');
   const [usernameMsg, setUsernameMsg] = useState('');
   const [emailMsg, setEmailMsg] = useState('');
   const [passwordMsg, setPasswordMsg] = useState('');
+  const [passwordCheckMsg, setPasswordCheckMsg] = useState('');
   const [isValid, setIsValid] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [nameValid, setNameValid] = useState(false);
@@ -90,6 +92,17 @@ const Join = () => {
       );
     } else {
       setPasswordMsg('');
+    }
+  };
+
+  //패스워드 일치 여부
+  const handlePwCheck = (e) => {
+    const iptPasswordCheck = e.target.value;
+    setPasswordCheck(iptPasswordCheck);
+    if (iptPasswordCheck === password) {
+      setPasswordCheckMsg('');
+    } else {
+      setPasswordCheckMsg('비밀번호가 같지 않습니다.');
     }
   };
 
@@ -162,7 +175,6 @@ const Join = () => {
           email,
         })
         .then((res) => {
-          console.log(res.data);
           setIsLoading(false);
           if (res.data.emailCheck === true) {
             setEmailValid(true);
@@ -183,7 +195,8 @@ const Join = () => {
     if (
       idRegex.test(username) &&
       emailRegex.test(email) &&
-      pwRegex.test(password)
+      pwRegex.test(password) &&
+      password === passwordCheck
     ) {
       setIsValid(true);
     }
@@ -283,7 +296,6 @@ const Join = () => {
             </ButtonPosition>
             <p>{emailMsg}</p>
           </InputWrapper>
-          {/* <label htmlFor="password">Password</label> */}
           <InputWrapper>
             <Input
               type="password"
@@ -300,6 +312,23 @@ const Join = () => {
               <FontAwesomeIcon icon={faLock} />
             </LogoWrapper>
             <p>{passwordMsg}</p>
+          </InputWrapper>
+          <InputWrapper>
+            <Input
+              type="password"
+              id="password"
+              name="password"
+              value={passwordCheck}
+              height={'45px'}
+              width={'314px'}
+              onChange={handlePwCheck}
+              required
+              placeholder="비밀번호 확인"
+            />
+            <LogoWrapper>
+              <FontAwesomeIcon icon={faLock} />
+            </LogoWrapper>
+            <p>{passwordCheckMsg}</p>
           </InputWrapper>
           <div>
             <OrangeButton height={'45px'} width={'314px'} type="submit">

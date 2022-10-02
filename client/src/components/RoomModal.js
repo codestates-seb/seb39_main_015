@@ -72,19 +72,19 @@ const RoomModal = ({ handleOpenModal }) => {
     }
   };
 
-  const themes = useMemo(() => {
+  const themesArr = useMemo(() => {
     return [
       {
         type: 'theme',
         number: 1,
-        roomTheme: 'CATS',
+        value: 'CATS',
         src: 'https://picsum.photos/id/100/100/100',
         title: '🐈 고양이와 개발자의 방 🧑‍💻',
       },
       {
         type: 'theme',
         number: -1,
-        roomTheme: 'COMING_SOON',
+        value: 'COMING_SOON',
         src: 'https://picsum.photos/id/19/100/100',
         title: 'Coming Soon 💌',
       },
@@ -175,7 +175,7 @@ const RoomModal = ({ handleOpenModal }) => {
         </section>
         <section id="theme">
           <label htmlFor="theme">테마 선택</label>
-          <Carousel cards={themes} setRoomTheme={setRoomTheme} />
+          <Carousel cards={themesArr} setData={setRoomTheme} />
         </section>
         <section>
           <button type="reset">초기화</button>

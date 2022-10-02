@@ -3,6 +3,7 @@ import { Body, OrangeButton, WhiteButton } from '../styled/Style.js';
 // import { ShareIcon } from '../images/shareIcon.js';
 import ReactTooltip from 'react-tooltip';
 import { useState, useEffect, useRef } from 'react';
+import RoomMoalBtn from '../components/RoomModalBtn';
 // import {
 //   FacebookShareButton,
 //   FacebookIcon,
@@ -279,6 +280,7 @@ export default function MyRoom() {
         </MyRoomWrapper>
         <p>운영할 수 있는 최대 룸 개수는 3개 입니다.</p>
       </MyRoomBody>
+      <RoomMoalBtn />
       {tooltip && (
         <ReactTooltip id="dday" place="bottom" type="dark" effect="solid" />
       )}

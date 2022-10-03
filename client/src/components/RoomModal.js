@@ -79,14 +79,12 @@ const RoomModal = ({ handleOpenModal }) => {
         type: 'theme',
         number: 1,
         value: 'CATS',
-        src: 'https://picsum.photos/id/100/100/100',
         title: '🐈 고양이와 개발자의 방 🧑‍💻',
       },
       {
         type: 'theme',
         number: -1,
         value: 'COMING_SOON',
-        src: 'https://picsum.photos/id/19/100/100',
         title: 'Coming Soon 💌',
       },
     ];

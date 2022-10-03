@@ -1,9 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
+import { getRoobitType } from '../hook/getRoobitType';
+import RoobitOneImg from '../styled/RoobitOneImg';
+import thumbnailImg from '../images/thumbnail_01.png';
 
 const CarouselStyle = styled.div`
   div {
-    transition: all 0.3s ease-out;
+    transition: margin 0.3s ease-out;
   }
 
   .container {
@@ -19,8 +22,8 @@ const CarouselStyle = styled.div`
 
   .window {
     background: #ccc;
-    width: 211px;
-    height: 120px;
+    width: 180px;
+    height: 180px;
 
     overflow: hidden;
   }
@@ -30,12 +33,12 @@ const CarouselStyle = styled.div`
   }
 
   .img {
-    width: 211px;
-    height: 120px;
-    background-position: 50% 50%;
-    background-size: contain;
+    width: 180px;
+    height: 180px;
     background-repeat: no-repeat;
     flex: none;
+
+    padding: 15px;
   }
 
   .btn {
@@ -66,12 +69,22 @@ const CarouselStyle = styled.div`
   .current {
     background: gray;
   }
+
+  .thumbnail {
+    width: 100%;
+    height: 100%;
+    background-image: url(${thumbnailImg});
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
 `;
 
-const Carousel = ({ cards, setRoomTheme }) => {
+const Carousel = ({ cards = [], setData, roobitType, roobitStyle }) => {
   const images = useRef(cards);
-
-  const [current, setCurrent] = useState(0);
+  const [current, setCurrent] = useState(() => {
+    if (roobitType) return Number(roobitType) - 1;
+    else return 0;
+  });
   const [style, setStyle] = useState({
     marginLeft: `-${current}00%`,
   });
@@ -88,13 +101,8 @@ const Carousel = ({ cards, setRoomTheme }) => {
 
   useEffect(() => {
     setStyle({ marginLeft: `-${current}00%` });
-    if (
-      setRoomTheme &&
-      cards.length > 0 &&
-      cards[0].type === 'theme' &&
-      images.current[current].number !== -1
-    ) {
-      setRoomTheme(images.current[current].roomTheme);
+    if (setData && cards.length > 0 && images.current[current].number !== -1) {
+      setData(images.current[current].value);
     }
   }, [current]);
 
@@ -114,11 +122,14 @@ const Carousel = ({ cards, setRoomTheme }) => {
           <div className="window">
             <div className="flexbox" style={style}>
               {images.current.map((img, i) => (
-                <div
-                  key={i}
-                  className="img"
-                  style={{ backgroundImage: `url(${img.src})` }}
-                ></div>
+                <div key={i} className={`img ${img.type}`}>
+                  {img.type === 'roobit' && (
+                    <RoobitOneImg
+                      roobitCode={getRoobitType(i + 1 + roobitStyle)}
+                    />
+                  )}
+                  {img.type === 'theme' && <div className="thumbnail"></div>}
+                </div>
               ))}
             </div>
           </div>
@@ -132,9 +143,9 @@ const Carousel = ({ cards, setRoomTheme }) => {
             &gt;
           </button>
         </div>
-        {cards.length > 0 && cards[0].title !== undefined ? (
+        {cards.length > 0 && cards[0].type === 'theme' && (
           <p>{images.current[current].title}</p>
-        ) : null}
+        )}
         <div className="position">
           {images.current.map((x, i) => (
             <div

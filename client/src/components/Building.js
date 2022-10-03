@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import rooftopImg from '../images/roomImg/02_rooftop_1x_w3000.png';
 import unitsImg from '../images/roomImg/01_units_1x_w9000.png';
@@ -69,6 +69,7 @@ const BuildingStyle = styled.div`
     height: var(--rooftop-height);
 
     background-image: url(${rooftopImg});
+    background-size: 100% 100%;
   }
 
   .btns {
@@ -145,37 +146,10 @@ const Building = ({ roobits }) => {
       setIsTwo(false);
     }
   };
-  /**만약 유닛 개수 증가하는 테스트를 하고 싶으면 이걸 사용 */
-  const unitTest = () => {
-    const [dummyArr, setDummyArr] = useState(Array(4).fill(0));
-    const handlePlusBtn = () => {
-      const num = dummyArr.length;
-      if (num < 30) {
-        setDummyArr([...dummyArr, 0]);
-        oneTwoUnit(num + 1);
-      }
-    };
 
-    const handleMinusBtn = () => {
-      const num = dummyArr.length;
-      if (num > 1) {
-        setDummyArr(dummyArr.slice(0, dummyArr.length - 1));
-        oneTwoUnit(num - 1);
-      }
-    };
-    return (
-      <div className="btns">
-        <button className="addBtn" onClick={handlePlusBtn}>
-          유닛 추가 +
-        </button>
-        <button className="removeBtn" onClick={handleMinusBtn}>
-          유닛 제거 -
-        </button>
-      </div>
-    );
-  };
-
-  unitTest();
+  useEffect(() => {
+    oneTwoUnit(Object.keys(roobits).length);
+  }, []);
 
   return (
     <BuildingStyle totalFloor={parseInt((unitCount - 1) / 3) + 1}>
@@ -204,13 +178,13 @@ const Building = ({ roobits }) => {
             }`}
           ></li>
           <li
-            className={`item rooftop ${isOne ? 'onlyOne remove' : ''} ${
+            className={`item rooftop ${isOne ? 'remove' : ''} ${
               isTwo ? 'onlyTwo' : ''
             }`}
           ></li>
           <li
-            className={`item rooftop ${isOne ? 'onlyOne remove' : ''} ${
-              isTwo ? 'onlyTwo remove' : ''
+            className={`item rooftop ${isOne ? 'remove' : ''} ${
+              isTwo ? 'remove' : ''
             }`}
           ></li>
         </ul>

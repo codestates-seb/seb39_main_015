@@ -3,22 +3,33 @@ import CreateRoobitBtn from '../components/CreateRoobitBtn';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { useQuery } from 'react-query';
-import { roomDetailData } from '../data/DummyData';
+import {
+  //roomDetailData,
+  //roomDetailData_1,
+  //roomDetailData_2,
+  // roomDetailData_3,
+  //roomDetailData_4,
+  roomDetailData_12,
+} from '../data/DummyData';
 
 const RoomDetail = () => {
   const { roomId } = useParams();
   //useLocation 으로 경로에서 roomId 받아오기
   //쿼리로 룸 정보 받아와서 저장
-  console.log(roomId);
+
   const { data, isLoading } = useQuery(
     'roobits',
     () =>
-      //`${process.env.REACT_APP_API_URL}/rooms/${roomId}`
       axios
-        .get(`/fakeurl`)
-        .then((res) => res.data)
-        .catch(() => roomDetailData),
-    { staleTime: 1000 * 60 * 5, retry: 0 }
+        .get(`${process.env.REACT_APP_API_URL}/rooms/${roomId}`)
+        .catch(() => roomDetailData_12 /* 실패할 경우 더미 데이터 표시 */),
+    {
+      staleTime: 1000 * 60 * 30,
+      retry: 1,
+      onError: (err) => {
+        console.log(err);
+      },
+    }
   );
 
   let roomStatus, roomData, roobits;

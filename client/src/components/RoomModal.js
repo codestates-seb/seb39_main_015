@@ -6,18 +6,8 @@ import axios from 'axios';
 import 'react-datepicker/dist/react-datepicker.css';
 import { ReactComponent as CancelIcon } from '../images/cancel-icon.svg';
 import { getCookieValue } from '../hook/getCookieValue';
-import styled from 'styled-components';
-import { useQueryClient } from 'react-query';
+import { useMutation } from 'react-query';
 
-const ModalBody = styled(Body)`
-  background-color: rgba(145, 145, 145, 0.8);
-  width: 100%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 100;
-`;
 
 const DatePickerComponent = ({ dDayDate, setDdayDate }) => {
   const CustomInput = forwardRef(({ value, onClick }, ref) => {
@@ -48,8 +38,7 @@ const DatePickerComponent = ({ dDayDate, setDdayDate }) => {
   );
 };
 
-const RoomModal = ({ modalRef, setModalOpen }) => {
-  const [isLoading, setIsLoading] = useState(false);
+const RoomModal = ({ handleOpenModal }) => {
   const [roomName, setRoomName] = useState('');
   const [isValid, setIsValid] = useState(false);
   const [dDayDate, setDdayDate] = useState(
@@ -79,53 +68,52 @@ const RoomModal = ({ modalRef, setModalOpen }) => {
   const handleOnSubmit = (e) => {
     e.preventDefault();
     if (isValid) {
-      setIsLoading(true);
+      const dDay = setDateStr(dDayDate);
+      mutate({ roomName, dDay, roomTheme, roobitAmount });
     } else {
       alert('룸 이름을 확인해주세요!');
     }
   };
 
-  const themes = useMemo(() => {
+  const themesArr = useMemo(() => {
     return [
       {
         type: 'theme',
         number: 1,
-        roomTheme: 'CATS',
-        src: 'https://picsum.photos/id/100/100/100',
+        value: 'CATS',
         title: '🐈 고양이와 개발자의 방 🧑‍💻',
       },
       {
         type: 'theme',
         number: -1,
-        roomTheme: 'COMING_SOON',
-        src: 'https://picsum.photos/id/19/100/100',
+        value: 'COMING_SOON',
         title: 'Coming Soon 💌',
       },
     ];
   }, []);
 
-  const postRoom = (reqData) => {
-    console.log(reqData);
-    //${process.env.REACT_APP_API_URL}
-    axios
-      .post(`${process.env.REACT_APP_API_URL}/rooms`, reqData, {
+  const { mutate } = useMutation(
+    (data) =>
+      axios.post(`${process.env.REACT_APP_API_URL}/rooms`, data, {
         headers: {
           Authorization: `${getCookieValue('Authorization')}`,
         },
-      })
-      .then((res) => {
-        console.log(res.data);
-        alert('룸 만들기 성공!');
-        setIsLoading(false);
-        setModalOpen(false);
-        queryClient.invalidateQueries('myRoom');
-      })
-      .catch((res) => {
-        console.log(res.data);
-        alert('룸 만들기 실패...');
-        setIsLoading(false);
-      });
-  };
+      }),
+    {
+      onMutate: (data) => {
+        console.log('onMutate', data);
+      },
+      onSuccess: (data) => {
+        alert('성공');
+        console.log('onSuccess', data);
+        //navigate('/myroom');
+      },
+      onError: (err) => {
+        alert('실패');
+        console.log(err);
+      },
+    }
+  );
 
   useEffect(() => {
     if (/^.{2,20}$/.test(roomName)) {
@@ -137,71 +125,59 @@ const RoomModal = ({ modalRef, setModalOpen }) => {
     }
   }, [roomName]);
 
-  useEffect(() => {
-    if (isLoading) {
-      const dDay = setDateStr(dDayDate);
-      postRoom({ roomName, dDay, roomTheme, roobitAmount });
-    }
-  }, [isLoading]);
-
   return (
-    <ModalBody>
-      <FormWrapper
-        width="476px"
-        height="634px"
-        onClick={(e) => e.stopPropagation()}
-        ref={modalRef}
-      >
-        <CancelIcon stroke="#aaa" onClick={() => setModalOpen(false)} />
-        <h2>Make a room</h2>
-        <form onReset={handleOnReset}>
-          <section>
-            <label htmlFor="room-name">룸 이름</label>
-            <input
-              id="room-name"
-              type="text"
-              placeholder="최대 20자까지 작성 가능합니다."
-              minLength={2}
-              maxLength={20}
-              name="roomName"
-              required
-              onChange={(e) => setRoomName(e.target.value.trim())}
-            />
-            <p>{roomNameMsg}</p>
-          </section>
-          <section>
-            <label htmlFor="d-day">D-day</label>
-            <DatePickerComponent
-              dDayDate={dDayDate}
-              setDdayDate={setDdayDate}
-            />
-          </section>
-          <section>
-            <label htmlFor="max-roobits">최대 루빗 개수</label>
-            <select
-              id="roobits-num"
-              name="roobitAmount"
-              onChange={(e) => setRoobitAmount(Number(e.target.value))}
-            >
-              <option value="300">300 (max)</option>
-              <option value="250">250</option>
-              <option value="200">200</option>
-              <option value="150">150</option>
-              <option value="100">100</option>
-              <option value="50">50</option>
-            </select>
-          </section>
-          <section id="theme">
-            <label htmlFor="theme">테마 선택</label>
-            <Carousel cards={themes} setRoomTheme={setRoomTheme} />
-          </section>
-          <section>
-            <button type="reset">초기화</button>
-            <button onClick={handleOnSubmit}>룸 만들기</button>
-          </section>
-        </form>
-      </FormWrapper>
-    </ModalBody>
+    <FormWrapper
+      width="476px"
+      height="634px"
+      onClick={(e) => e.stopPropagation()}
+    >
+      <CancelIcon stroke="#aaa" onClick={handleOpenModal} />
+      <h2>Make a room</h2>
+      <form onReset={handleOnReset}>
+        <section>
+          <label htmlFor="room-name">룸 이름</label>
+          <input
+            id="room-name"
+            type="text"
+            placeholder="최대 20자까지 작성 가능합니다."
+            minLength={2}
+            maxLength={20}
+            name="roomName"
+            required
+            onChange={(e) => setRoomName(e.target.value.trim())}
+          />
+          <p>{roomNameMsg}</p>
+        </section>
+        <section>
+          <label htmlFor="d-day">D-day</label>
+          <DatePickerComponent dDayDate={dDayDate} setDdayDate={setDdayDate} />
+        </section>
+        <section>
+          <label htmlFor="max-roobits">최대 루빗 개수</label>
+          <select
+            id="roobits-num"
+            name="roobitAmount"
+            onChange={(e) => setRoobitAmount(Number(e.target.value))}
+          >
+            <option value="300">300 (max)</option>
+            <option value="250">250</option>
+            <option value="200">200</option>
+            <option value="150">150</option>
+            <option value="100">100</option>
+            <option value="50">50</option>
+          </select>
+        </section>
+        <section id="theme">
+          <label htmlFor="theme">테마 선택</label>
+          <Carousel cards={themesArr} setData={setRoomTheme} />
+        </section>
+        <section>
+          <button type="reset">초기화</button>
+          <button onClick={handleOnSubmit}>룸 만들기</button>
+        </section>
+      </form>
+    </FormWrapper>
+
   );
 };
 

@@ -3,6 +3,7 @@ import { Body, OrangeButton, WhiteButton } from '../styled/Style.js';
 // import { ShareIcon } from '../images/shareIcon.js';
 import ReactTooltip from 'react-tooltip';
 import { useState, useEffect, useRef } from 'react';
+import RoomMoalBtn from '../components/RoomModalBtn';
 // import {
 //   FacebookShareButton,
 //   FacebookIcon,
@@ -286,6 +287,7 @@ export default function MyRoom() {
           </div>
         </CreateRoomButton>
       </MyRoomBody>
+      <RoomMoalBtn />
       {tooltip && (
         <ReactTooltip id="dday" place="bottom" type="dark" effect="solid" />
       )}

@@ -1,10 +1,9 @@
 import styled from 'styled-components';
 import catImage from '../images/cat.png';
 import { Link } from 'react-router-dom';
-// React query devtools
 import { BlackButton, WhiteButton } from '../styled/Style';
-import { useQueryClient } from 'react-query';
 import { MyInfo } from '../images/MyInfo.js';
+import { getCookieValue } from '../hook/getCookieValue';
 
 export const HeaderStyle = styled.div`
   position: fixed;
@@ -83,8 +82,7 @@ export default function Header() {
     // navigate('/login');
   };
 
-  const queryClient = useQueryClient();
-  const userInfo = queryClient.getQueryData('auth');
+  const auth = getCookieValue('Authorization').length;
 
   return (
     <HeaderStyle>
@@ -100,7 +98,7 @@ export default function Header() {
         </Button>
       </Navigator>
       <ButtonSection>
-        {userInfo ? (
+        {auth ? (
           <Link to="/edituser">
             <ProfiileWrapper>
               <MyInfo />
@@ -114,7 +112,7 @@ export default function Header() {
             <Space />
           </Link>
         )}
-        {userInfo ? (
+        {auth ? (
           <WhiteButton width="95px" height="42px" onClick={logoutHandler}>
             로그아웃
           </WhiteButton>

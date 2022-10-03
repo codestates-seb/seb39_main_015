@@ -11,12 +11,15 @@ import {
   InputWrapper,
   StyledLink,
   GreenButton,
+  // WhiteButton,
 } from '../styled/Style.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faEnvelope } from '@fortawesome/free-regular-svg-icons';
 import { faLock } from '@fortawesome/free-solid-svg-icons';
 import signUpLogo from '../images/cat.png';
 import styled from 'styled-components';
+import { getCookieValue } from '../hook/getCookieValue.js';
+import { Loading } from '../components/Loading.js';
 
 // 디자인 컨셉 결정 후 일괄 적용할 예정이기 때문에 styled 폴더에서 가져온 요소는 모두 삭제.
 // 추후 컨셉이 결정되면 필요한 스타일을 미리 만들어두고 사용할 것.
@@ -37,15 +40,18 @@ const Join = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [passwordCheck, setPasswordCheck] = useState('');
   const [usernameMsg, setUsernameMsg] = useState('');
   const [emailMsg, setEmailMsg] = useState('');
   const [passwordMsg, setPasswordMsg] = useState('');
+  const [passwordCheckMsg, setPasswordCheckMsg] = useState('');
   const [isValid, setIsValid] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [nameValid, setNameValid] = useState(false);
+  const [emailCodeSend, setEmailCodeSend] = useState(false);
+  const [emailCode, setEmailCode] = useState('');
   const [emailValid, setEmailValid] = useState(false);
 
-  console.log(`nameValid: ${nameValid}`);
   console.log(`isValid: ${isValid}`);
 
   // dpRegex는 idRegex로 변경됨
@@ -93,6 +99,17 @@ const Join = () => {
     }
   };
 
+  //패스워드 일치 여부
+  const handlePwCheck = (e) => {
+    const iptPasswordCheck = e.target.value;
+    setPasswordCheck(iptPasswordCheck);
+    if (iptPasswordCheck === password) {
+      setPasswordCheckMsg('');
+    } else {
+      setPasswordCheckMsg('비밀번호가 같지 않습니다.');
+    }
+  };
+
   // 제출 버튼 클릭 : 모든 유효성 검사가 통과되었다면 isLoading 값을 true로 변경
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -102,11 +119,10 @@ const Join = () => {
       return;
     }
 
-    if (isValid && nameValid) {
+    if (isValid) {
       // `${process.env.REACT_APP_API_URL}/user/join`
       setIsLoading(true);
       isLoading;
-
       axios
         .post(`${process.env.REACT_APP_API_URL}/user/join`, {
           username,
@@ -130,7 +146,6 @@ const Join = () => {
   const usernameCheck = (e) => {
     e.preventDefault();
 
-    setIsLoading(true);
     if (username) {
       axios
         .post(`${process.env.REACT_APP_API_URL}/user/usernamecheck`, {
@@ -138,7 +153,6 @@ const Join = () => {
         })
         .then((res) => {
           console.log(res.data);
-          setIsLoading(false);
           if (res.data.usernameCheck === true) {
             setNameValid(true);
           } else {
@@ -147,25 +161,34 @@ const Join = () => {
         })
         .catch((res) => {
           console.log(res.data);
-          setIsLoading(false);
         });
     }
   };
 
+  // email 중복 방지, 유효성 체크 함수
   const emailCheck = (e) => {
     e.preventDefault();
 
-    setIsLoading(true);
-    if (email) {
+    if (email && emailRegex.test(email)) {
       axios
         .post(`${process.env.REACT_APP_API_URL}/user/useremailcheck`, {
           email,
         })
         .then((res) => {
-          console.log(res.data);
-          setIsLoading(false);
           if (res.data.emailCheck === true) {
-            setEmailValid(true);
+            setIsLoading(true);
+            axios
+              .post(`${process.env.REACT_APP_API_URL}/user/auth/sendemail`, {
+                email,
+              })
+              .then((res) => {
+                document.cookie = `emailCode=${res.data.createKey}`;
+                setEmailCodeSend(true);
+                setIsLoading(false);
+                setTimeout(() => {
+                  alert('이메일로 인증코드를 보내드렸습니다!');
+                }, 500);
+              });
           } else {
             alert('이미 존재하는 이메일입니다.');
           }
@@ -174,6 +197,21 @@ const Join = () => {
           console.log(res.data);
           setIsLoading(false);
         });
+    } else if (!emailRegex.test(email)) {
+      alert('이메일 형식에 맞춰서 작성해주세요!');
+    }
+  };
+
+  const emailCodeCheck = (e) => {
+    e.preventDefault();
+
+    if (getCookieValue('emailCode') === emailCode) {
+      setEmailValid(true);
+      document.cookie =
+        'emailCode' + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    } else {
+      alert('코드가 일치하지 않습니다!');
+      setEmailCode('');
     }
   };
 
@@ -183,38 +221,18 @@ const Join = () => {
     if (
       idRegex.test(username) &&
       emailRegex.test(email) &&
-      pwRegex.test(password)
+      pwRegex.test(password) &&
+      password === passwordCheck &&
+      nameValid &&
+      emailValid
     ) {
       setIsValid(true);
     }
-  }, [username, email, password]);
-
-  // isLoading과 isValid 를 상시 확인 => 둘다 true일 경우 axios 요청 송부
-  // useEffect(() => {
-  //   if (isLoading && isValid) {
-  //     // `${process.env.REACT_APP_API_URL}/users/join`
-  //     axios
-  //       .post('/fakeuri', {
-  //         username,
-  //         email,
-  //         password,
-  //       })
-  //       .then((res) => {
-  //         console.log(res.data);
-  //         setIsLoading(false);
-  //         navigate('/login');
-  //       })
-  //       .catch(() => {
-  //         //더미 데이터 적용
-  //         setIsLoading(false);
-  //         navigate('/join');
-  //         //이 후 통신이 잘 되면 이 부분은 수정해야됩니다.
-  //       });
-  //   }
-  // }, [isLoading, isValid]);
+  }, [username, email, password, passwordCheck, nameValid, emailValid]);
 
   return (
     <Body>
+      {isLoading ? <Loading /> : ''}
       <FormWrapper height={'545px'} width={'476px'}>
         <img alt="회원가입 로고" src={signUpLogo}></img>
         <form onSubmit={(e) => handleSubmit(e)}>
@@ -226,7 +244,10 @@ const Join = () => {
               value={username}
               height={'45px'}
               width={'314px'}
-              onChange={handleDN}
+              onChange={(e) => {
+                handleDN(e);
+                setNameValid(false);
+              }}
               required
               placeholder="아이디"
             />
@@ -250,7 +271,6 @@ const Join = () => {
             </ButtonPosition>
             <p>{usernameMsg}</p>
           </InputWrapper>
-          {/* <label htmlFor="email">Email</label> */}
           <InputWrapper>
             <Input
               type="email"
@@ -259,7 +279,12 @@ const Join = () => {
               value={email}
               height={'45px'}
               width={'314px'}
-              onChange={handleEmail}
+              onChange={(e) => {
+                handleEmail(e);
+                setEmailCodeSend(false);
+                setEmailCode('');
+                setEmailValid(false);
+              }}
               required
               placeholder="이메일"
             />
@@ -267,9 +292,13 @@ const Join = () => {
               <FontAwesomeIcon icon={faEnvelope} />
             </LogoWrapper>
             <ButtonPosition>
-              {emailValid ? (
-                <GreenButton width="65px" height="25px">
-                  확인 완료
+              {emailCodeSend ? (
+                <GreenButton
+                  width="65px"
+                  height="25px"
+                  onClick={(e) => emailCheck(e)}
+                >
+                  다시 받기
                 </GreenButton>
               ) : (
                 <OrangeButton
@@ -277,13 +306,49 @@ const Join = () => {
                   height="25px"
                   onClick={(e) => emailCheck(e)}
                 >
-                  중복 체크
+                  코드 받기
                 </OrangeButton>
               )}
             </ButtonPosition>
             <p>{emailMsg}</p>
           </InputWrapper>
-          {/* <label htmlFor="password">Password</label> */}
+          <InputWrapper>
+            <Input
+              id="emailCode"
+              name="emailCode"
+              value={emailCode}
+              height={'45px'}
+              width={'314px'}
+              onChange={(e) => setEmailCode(e.target.value)}
+              required
+              placeholder={
+                emailCodeSend
+                  ? '인증코드를 기입해주세요'
+                  : '이메일 작성 후 코드받기를 눌러주세요'
+              }
+              disabled={!emailCodeSend}
+            />
+            <LogoWrapper>
+              <FontAwesomeIcon icon={faEnvelope} />
+            </LogoWrapper>
+            <ButtonPosition>
+              {emailValid
+                ? emailCodeSend && (
+                    <GreenButton width="65px" height="25px">
+                      인증 완료
+                    </GreenButton>
+                  )
+                : emailCodeSend && (
+                    <OrangeButton
+                      width="65px"
+                      height="25px"
+                      onClick={(e) => emailCodeCheck(e)}
+                    >
+                      인증 받기
+                    </OrangeButton>
+                  )}
+            </ButtonPosition>
+          </InputWrapper>
           <InputWrapper>
             <Input
               type="password"
@@ -300,6 +365,23 @@ const Join = () => {
               <FontAwesomeIcon icon={faLock} />
             </LogoWrapper>
             <p>{passwordMsg}</p>
+          </InputWrapper>
+          <InputWrapper>
+            <Input
+              type="password"
+              id="password"
+              name="password"
+              value={passwordCheck}
+              height={'45px'}
+              width={'314px'}
+              onChange={handlePwCheck}
+              required
+              placeholder="비밀번호 확인"
+            />
+            <LogoWrapper>
+              <FontAwesomeIcon icon={faLock} />
+            </LogoWrapper>
+            <p>{passwordCheckMsg}</p>
           </InputWrapper>
           <div>
             <OrangeButton height={'45px'} width={'314px'} type="submit">

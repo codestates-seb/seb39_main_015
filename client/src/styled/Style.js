@@ -13,7 +13,7 @@ export const Body = styled.div`
 export const FormWrapper = styled.div`
   height: ${(props) => props.height || 'auto'};
   width: ${(props) => props.width || 'auto'};
-  background-color: white;
+  background-color: rgba(255, 255, 255, 1);
   border: 1px solid #d9d9d9;
   box-shadow: 0px 5px 8px rgba(104, 104, 104, 0.04);
   border-radius: 14px;
@@ -21,7 +21,7 @@ export const FormWrapper = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-
+  z-index: 101;
   > img {
     max-width: 124px;
     height: auto;
@@ -101,7 +101,32 @@ export const OrangeButton = styled(WhiteButton)`
   background-color: #f58a5c;
   color: white;
   border: none;
-  /* margin-bottom: 10px; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+
+  .createRoom {
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    width: 112px;
+  }
+  .crosshair {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .cross {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 24px;
+      height: 24px;
+    }
+  }
 `;
 
 export const BlackButton = styled(WhiteButton)`

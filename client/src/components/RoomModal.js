@@ -6,7 +6,7 @@ import axios from 'axios';
 import 'react-datepicker/dist/react-datepicker.css';
 import { ReactComponent as CancelIcon } from '../images/cancel-icon.svg';
 import { getCookieValue } from '../hook/getCookieValue';
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 
 const DatePickerComponent = ({ dDayDate, setDdayDate }) => {
   const CustomInput = forwardRef(({ value, onClick }, ref) => {
@@ -46,6 +46,7 @@ const RoomModal = ({ handleOpenModal }) => {
   const [roobitAmount, setRoobitAmount] = useState(300);
   const [roomTheme, setRoomTheme] = useState('CATS');
   const [roomNameMsg, setRoomNameMsg] = useState('');
+  const queryClient = useQueryClient();
 
   const setDateStr = (dateObj) => {
     return (
@@ -104,7 +105,8 @@ const RoomModal = ({ handleOpenModal }) => {
       onSuccess: (data) => {
         alert('성공');
         console.log('onSuccess', data);
-        //navigate('/myroom');
+        queryClient.invalidateQueries('myRoom');
+        handleOpenModal();
       },
       onError: (err) => {
         alert('실패');

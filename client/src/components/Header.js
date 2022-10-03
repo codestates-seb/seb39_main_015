@@ -1,9 +1,9 @@
 import styled from 'styled-components';
-import catImage from '../images/cat.png';
 import { Link } from 'react-router-dom';
 import { BlackButton, WhiteButton } from '../styled/Style';
 import { MyInfo } from '../images/MyInfo.js';
 import { getCookieValue } from '../hook/getCookieValue';
+import { ReactComponent as LogoImg } from '../images/logo.svg';
 
 export const HeaderStyle = styled.div`
   position: fixed;
@@ -26,7 +26,8 @@ const Navigator = styled.div`
 `;
 const Logo = styled.div`
   height: 100%;
-  > img {
+  font-size: 0%;
+  > svg {
     object-fit: cover;
     max-height: 80px;
     height: auto;
@@ -88,7 +89,10 @@ export default function Header() {
     <HeaderStyle>
       <Navigator>
         <Logo onClick={() => window.location.replace('/#sectionOne')}>
-          <img alt="logo" src={catImage} />
+          <h1>
+            Roobits
+            <LogoImg />
+          </h1>
         </Logo>
         <Button onClick={() => window.location.replace('/#sectionTwo')}>
           About

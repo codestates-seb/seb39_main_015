@@ -1,13 +1,12 @@
 package seb15.roobits.room.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
+
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import seb15.roobits.globaldto.SingleResponseDto;
 import seb15.roobits.member.entity.Member;
 import seb15.roobits.member.service.MemberService;
-import seb15.roobits.roobit.dto.RoobitsListResponseDto;
-import seb15.roobits.roobit.entity.Roobit;
+
 import seb15.roobits.roobit.service.RoobitService;
 import seb15.roobits.room.dto.RoomPatchDto;
 import seb15.roobits.room.dto.RoomPostDto;
@@ -36,10 +35,10 @@ public class RoomController {
     private final MemberService memberService;
 
 
-
     @PostMapping
     public ResponseEntity postRoom(@AuthenticationPrincipal Member auth,
                                    @Valid @RequestBody RoomPostDto roomPostDto) {
+
         if(auth == null){
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }

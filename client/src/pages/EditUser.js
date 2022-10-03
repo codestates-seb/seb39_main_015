@@ -52,6 +52,10 @@ const Space = styled.span`
   margin-left: 10px;
 `;
 
+const ButtonWrapper = styled.div`
+  display: flex;
+`;
+
 const EditUser = () => {
   const queryClient = useQueryClient();
   const userInfo = queryClient.getQueryData('auth');
@@ -262,7 +266,7 @@ const EditUser = () => {
               </LogoWrapper>
               <p>{passwordCheckMsg}</p>
             </InputWrapper>
-            <div>
+            <ButtonWrapper>
               <WhiteButton
                 height={'45px'}
                 width={'150px'}
@@ -274,7 +278,7 @@ const EditUser = () => {
               <OrangeButton height={'45px'} width={'150px'} type="submit">
                 수정 완료
               </OrangeButton>
-            </div>
+            </ButtonWrapper>
           </form>
         ) : (
           ''

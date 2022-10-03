@@ -34,10 +34,6 @@ public class RoomController {
     private final RoomMapper roomMapper;
     private final MemberService memberService;
 
-    private final RoobitService roobitService;
-
-
-
 
     @PostMapping
     public ResponseEntity postRoom(@AuthenticationPrincipal Member auth,

@@ -4,19 +4,13 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.Range;
-import org.springframework.format.annotation.DateTimeFormat;
-import seb15.roobits.room.entity.Room;
 
-import javax.persistence.Column;
 import javax.validation.constraints.Future;
-import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
 
-@Setter
+
 @Getter
+@Setter
 public class RoomPatchDto {
 
     private long roomId;

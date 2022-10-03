@@ -11,18 +11,19 @@ import java.util.regex.Pattern;
 @Component
 public class CallWeather {
 
-        //타임아웃을 설정해야 한다. 응답값을 받을 때까지 무한정 대기하지 않게 해야 한다.
-
         private final WeatherVO weatherVO;
+        private static OpenWeatherAPI openWeatherAPI;
 
-        public CallWeather(WeatherVO weatherVO) {
+        public CallWeather(RestTemplateConfig restTemplateConfig, WeatherVO weatherVO, OpenWeatherAPI openWeatherAPI) {
                 this.weatherVO = weatherVO;
+                this.openWeatherAPI = openWeatherAPI;
         }
 
         public static String getWeatherData(Room findRoom) {
 
                 final String BASE_URL = "http://api.openweathermap.org/data/2.5/weather";
-                final String apiKey = "24e26078efa2daaa13f768a933dc18d1"; // 발급받은 API key
+                final String apiKey = openWeatherAPI.getOpenWeatherKey(); // 발급받은 API key
+
                 String weather;
 
                 StringBuilder urlBuilder = new StringBuilder(BASE_URL);

@@ -11,3 +11,23 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+:root {
+  --point-color:#FF8753;
+  --input-border-color: #DCDCDC;
+  --background: #FBFBFA;
+  --black-font-color: rgba(25, 25, 25, 0.8);
+  --white-font-color: #FFFFFF;
+  --black: rgba(25, 25, 25, 0.9);
+  --error-msg-color: #DD5858;
+  --sucess-msg-color: #60A84E;
+  --light-gray: #FBFBFB;
+  --dark-gray: #AAAAAA;
+  --modal-border-color: #D9D9D9;
+  --unit-border-color: #715844;
+  --icon-color: #9C9C9C;
+
+  --modal-shadow:  0px 5px 8px rgba(104, 104, 104, 0.04);
+  --floating-btn-shadow:  4px 4px 10px rgba(0, 0, 0, 0.25);
+  --list-shadow: -8px 0px 21px rgba(104, 104, 104, 0.09);
+}

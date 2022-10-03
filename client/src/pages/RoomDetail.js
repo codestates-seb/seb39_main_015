@@ -42,7 +42,7 @@ const RoomDetail = () => {
 
   return (
     <div>
-      {auth && <BackwardBtnStyle />}
+      {auth > 0 && <BackwardBtnStyle />}
       {roomStatus === 'closed' || roobits === undefined ? (
         <p>룸 종료 페이지 컴포넌트</p>
       ) : (

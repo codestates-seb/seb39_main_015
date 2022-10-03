@@ -14,6 +14,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faEnvelope } from '@fortawesome/free-regular-svg-icons';
 import logInLogo from '../images/cat.png';
 import { useNavigate } from 'react-router-dom';
+import { Loading } from '../components/Loading.js';
 // import { useQueryClient } from 'react-query';
 
 // const LoginFormWrapper = styled.div`
@@ -49,12 +50,6 @@ const FindName = () => {
   const hadleSubmit = (e) => {
     e.preventDefault();
 
-    const usernameInput = e.target.username.value;
-    const emailInput = e.target.email.value;
-
-    setUsername(usernameInput);
-    setEmail(emailInput);
-
     if (email !== '' && username !== '' && isValid) {
       //`${process.env.REACT_APP_API_URL}/users/login`
       setIsLoading(true);
@@ -68,7 +63,9 @@ const FindName = () => {
           //   dispatch(loginInfoActions.set(res.data));
           console.log(res.data);
           setIsLoading(false);
-          alert('등록된 이메일로 비밀번호를 보내드렸습니다!');
+          setTimeout(() => {
+            alert('등록된 이메일로 비밀번호를 보내드렸습니다!');
+          }, 500);
           navigate('/login');
         })
         .catch((res) => {
@@ -90,6 +87,7 @@ const FindName = () => {
 
   return (
     <Body>
+      {isLoading ? <Loading /> : ''}
       <FormWrapper width={'476px'} height={'628px'}>
         <img alt="login logo" src={logInLogo} />
         <form onSubmit={(e) => hadleSubmit(e)}>
@@ -101,6 +99,7 @@ const FindName = () => {
               width={'314px'}
               required
               placeholder="아이디"
+              onChange={(e) => setUsername(e.target.value)}
             />
             <LogoWrapper>
               <FontAwesomeIcon icon={faUser} />
@@ -125,7 +124,7 @@ const FindName = () => {
           </InputWrapper>
           <div>
             <OrangeButton type="submit" height={'45px'} width={'314px'}>
-              비밀번호 찾기
+              임시 비밀번호 받기
             </OrangeButton>
           </div>
         </form>

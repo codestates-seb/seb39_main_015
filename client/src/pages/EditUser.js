@@ -18,6 +18,7 @@ import { faLock } from '@fortawesome/free-solid-svg-icons';
 import signUpLogo from '../images/cat.png';
 import styled from 'styled-components';
 import { useQueryClient } from 'react-query';
+import { getCookieValue } from '../hook/getCookieValue.js';
 
 // 디자인 컨셉 결정 후 일괄 적용할 예정이기 때문에 styled 폴더에서 가져온 요소는 모두 삭제.
 // 추후 컨셉이 결정되면 필요한 스타일을 미리 만들어두고 사용할 것.
@@ -51,7 +52,11 @@ const Space = styled.span`
   margin-left: 10px;
 `;
 
-const EditUser = ({ getCookieValue }) => {
+const ButtonWrapper = styled.div`
+  display: flex;
+`;
+
+const EditUser = () => {
   const queryClient = useQueryClient();
   const userInfo = queryClient.getQueryData('auth');
   // 기존 displayName은 username으로 변경됨
@@ -61,6 +66,7 @@ const EditUser = ({ getCookieValue }) => {
   const [passwordCheckMsg, setPasswordCheckMsg] = useState('');
   const [isValid, setIsValid] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [passwordPass, setPasswordPass] = useState(false);
 
   const username = userInfo.username; //queryClient.getQuerysData('auth')
   const email = userInfo.email; //queryClient.getQueryData('auth')
@@ -128,17 +134,51 @@ const EditUser = ({ getCookieValue }) => {
     const confirmMsg = confirm('정말 탈퇴하시겠습니까?');
     if (confirmMsg) {
       axios
-        .delete(`${process.env.REACT_APP_API_URL}/user/delete`)
+        .delete(`${process.env.REACT_APP_API_URL}/user/delete`, {
+          headers: {
+            Authorization: `${getCookieValue('Authorization')}`,
+          },
+        })
         .then((res) => {
           console.log(res.data);
-          navigate('/#sectionOne');
+          document.cookie =
+            'Authorization' + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+          queryClient.invalidateQueries('auth');
+          window.location.replace('/#sectionOne');
           alert('회원 탈퇴 완료 되었습니다.');
         })
         .catch((res) => console.log(res.data));
     }
   };
 
+  // 진입 전 비밀번호 확인
+  const enterPasswordCheck = () => {
+    if (password) {
+      axios
+        .post(
+          `${process.env.REACT_APP_API_URL}/user/checkpw`,
+          { password },
+          {
+            headers: {
+              Authorization: `${getCookieValue('Authorization')}`,
+            },
+          }
+        )
+        .then((res) => {
+          if (res.data.passwordCheck === true) {
+            setPasswordPass(true);
+            setPassword('');
+          } else {
+            alert('비밀번호가 일치하지 않습니다.');
+            setPassword('');
+          }
+        })
+        .catch((res) => console.log(res.data));
+    }
+  };
+
   // 유효성 검사 실행 useEffect
+
   useEffect(() => {
     setIsValid(false);
     if (pwRegex.test(password) && password === passwordCheck) {
@@ -162,55 +202,87 @@ const EditUser = ({ getCookieValue }) => {
             <FontAwesomeIcon icon={faEnvelope} />
           </LogoWrapper>
         </UserInfoWrapper>
-        <form onSubmit={(e) => handleSubmit(e)}>
-          <InputWrapper>
-            <Input
-              type="password"
-              id="password"
-              name="password"
-              value={password}
-              height={'45px'}
-              width={'314px'}
-              onChange={handlePW}
-              required
-              placeholder="비밀번호"
-            />
-            <LogoWrapper>
-              <FontAwesomeIcon icon={faLock} />
-            </LogoWrapper>
-            <p>{passwordMsg}</p>
-          </InputWrapper>
-          <InputWrapper>
-            <Input
-              type="password"
-              id="password"
-              name="password"
-              value={passwordCheck}
-              height={'45px'}
-              width={'314px'}
-              onChange={handlePwCheck}
-              required
-              placeholder="비밀번호 확인"
-            />
-            <LogoWrapper>
-              <FontAwesomeIcon icon={faLock} />
-            </LogoWrapper>
-            <p>{passwordCheckMsg}</p>
-          </InputWrapper>
-          <div>
-            <WhiteButton
+        {userInfo.provider === 'roobits' && !passwordPass ? (
+          <>
+            <InputWrapper>
+              <Input
+                type="password"
+                id="login-password"
+                name="password"
+                height={'45px'}
+                width={'314px'}
+                required
+                placeholder="기존 비밀번호 입력"
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <LogoWrapper>
+                <FontAwesomeIcon icon={faLock} />
+              </LogoWrapper>
+            </InputWrapper>
+            <OrangeButton
               height={'45px'}
               width={'150px'}
-              onClick={() => navigate('/')}
+              onClick={enterPasswordCheck}
             >
-              취소
-            </WhiteButton>
-            <Space />
-            <OrangeButton height={'45px'} width={'150px'} type="submit">
-              수정 완료
+              확인
             </OrangeButton>
-          </div>
-        </form>
+          </>
+        ) : (
+          ''
+        )}
+        {userInfo.provider === 'roobits' && passwordPass ? (
+          <form onSubmit={(e) => handleSubmit(e)}>
+            <InputWrapper>
+              <Input
+                type="password"
+                id="password"
+                name="password"
+                value={password}
+                height={'45px'}
+                width={'314px'}
+                onChange={handlePW}
+                required
+                placeholder="새로운 비밀번호"
+              />
+              <LogoWrapper>
+                <FontAwesomeIcon icon={faLock} />
+              </LogoWrapper>
+              <p>{passwordMsg}</p>
+            </InputWrapper>
+            <InputWrapper>
+              <Input
+                type="password"
+                id="password"
+                name="password"
+                value={passwordCheck}
+                height={'45px'}
+                width={'314px'}
+                onChange={handlePwCheck}
+                required
+                placeholder="새로운 비밀번호 확인"
+              />
+              <LogoWrapper>
+                <FontAwesomeIcon icon={faLock} />
+              </LogoWrapper>
+              <p>{passwordCheckMsg}</p>
+            </InputWrapper>
+            <ButtonWrapper>
+              <WhiteButton
+                height={'45px'}
+                width={'150px'}
+                onClick={() => navigate('/')}
+              >
+                취소
+              </WhiteButton>
+              <Space />
+              <OrangeButton height={'45px'} width={'150px'} type="submit">
+                수정 완료
+              </OrangeButton>
+            </ButtonWrapper>
+          </form>
+        ) : (
+          ''
+        )}
         <div>
           회원 탈퇴 하실건가요?{' '}
           <StyledLink to="/#sectionOne" onClick={deleteUser}>

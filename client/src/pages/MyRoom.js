@@ -10,36 +10,42 @@ import { useState, useEffect, useRef } from 'react';
 //   TwitterIcon,
 // } from 'react-share';
 import { LinkShareButton } from '../components/LinkShareButton.js';
+import { CreateRoomCircle } from '../images/CreateRoomCircle.js';
+import { CreateRoomCross } from '../images/CreateRoomCross.js';
+import RoomModal from '../components/RoomModal.js';
+import axios from 'axios';
+import { getCookieValue } from '../hook/getCookieValue.js';
+import { useQueryClient, useQuery } from 'react-query';
 
-const backData = {
-  username: 'kimcoding',
-  rooms: [
-    {
-      roomId: 1,
-      roomName: '코드스테이츠 39기',
-      dDay: '2022-10-19',
-      restDay: 21,
-      roomTheme: 'cats',
-      url: 'https://github.com/Gwanghyun-Jeon',
-    },
-    {
-      roomId: 2,
-      roomName: '매주 피자 먹기 챌린지',
-      dDay: '2022-10-24',
-      restDay: 27,
-      roomTheme: 'cats',
-      url: 'https://github.com/Gwanghyun-Jeon',
-    },
-    {
-      roomId: 3,
-      roomName: 'javaScript 30일 뿌수기',
-      dDay: '2022-10-27',
-      restDay: 30,
-      roomTheme: 'cats',
-      url: 'https://github.com/Gwanghyun-Jeon',
-    },
-  ],
-};
+// const backData = {
+//   username: 'kimcoding',
+//   rooms: [
+//     {
+//       roomId: 1,
+//       roomName: '코드스테이츠 39기',
+//       dDay: '2022-10-19',
+//       restDay: 21,
+//       roomTheme: 'cats',
+//       url: 'https://github.com/Gwanghyun-Jeon',
+//     },
+//     {
+//       roomId: 2,
+//       roomName: '매주 피자 먹기 챌린지',
+//       dDay: '2022-10-24',
+//       restDay: 27,
+//       roomTheme: 'cats',
+//       url: 'https://github.com/Gwanghyun-Jeon',
+//     },
+//     {
+//       roomId: 3,
+//       roomName: 'javaScript 30일 뿌수기',
+//       dDay: '2022-10-27',
+//       restDay: 30,
+//       roomTheme: 'cats',
+//       url: 'https://github.com/Gwanghyun-Jeon',
+//     },
+//   ],
+// };
 
 const MyRoomBody = styled(Body)`
   flex-direction: column;
@@ -62,7 +68,7 @@ const MyRoomWrapper = styled.div`
   width: 1188px;
   height: 305px;
   display: flex;
-  justify-content: space-between;
+  justify-content: start;
 `;
 
 const RoomBox = styled.div`
@@ -143,79 +149,40 @@ const WhiteButtonOrangeBorder = styled(WhiteButton)`
 const Space = styled.span`
   margin-left: ${(props) => props.space || '10px'};
 `;
-// const ShareButtonWrapper = styled.div`
-//   position: relative;
-//   cursor: pointer;
-// `;
-// const ShareButtonPopup = styled.div`
-//   display: flex;
-//   position: absolute;
-//   top: 25px;
-//   left: 50%;
-//   transform: translate(-50%, 0);
-//   background-color: white;
-//   flex-direction: column;
-
-//   animation-name: fadein;
-//   animation-duration: 1s;
-//   animation-direction: alternate;
-//   @keyframes fadein {
-//     from {
-//       opacity: 0;
-//     }
-//     to {
-//       opacity: 1;
-//     }
-//   }
-//   @keyframes fadeout {
-//     from {
-//       opacity: 1;
-//     }
-//     to {
-//       opacity: 0;
-//     }
-//   }
-// `;
-
-// const ShareButton = styled.div``;
-
-// const Facebook_Twitter_Button = styled.div`
-//   :active {
-//     box-shadow: none !important;
-//     transform: scale(1) !important;
-//   }
-//   :hover {
-//     transform: scale(1.02);
-//   }
-// `;
-
-// const KakaoButton = styled.button`
-//   border: 0;
-//   width: 30px;
-//   height: 33.5px;
-//   outline: 0;
-//   padding: 0;
-//   margin: 0;
-//   background-color: transparent;
-//   cursor: pointer;
-//   :active {
-//     box-shadow: none !important;
-//     transform: scale(1) !important;
-//   }
-//   :hover {
-//     transform: scale(1.02);
-//   }
-//   > img {
-//     border-radius: 99px;
-//   }
-// `;
+const CreateRoomButton = styled(OrangeButton)`
+  position: absolute;
+  right: 100px;
+  bottom: 60px;
+  box-shadow: inset -19px -6px 15px rgba(99, 51, 51, 0.09);
+  filter: drop-shadow(4px 4px 10px rgba(0, 0, 0, 0.25));
+  :hover {
+    box-shadow: none;
+    transform: scale(1);
+  }
+`;
 
 export default function MyRoom() {
   const [tooltip, showTooltip] = useState(true);
-
   // urlShare Button 필요 부분 (시작)
   const [urlDropDown, setUrlDropDown] = useState('');
+  const [modalOpen, setModalOpen] = useState(false);
   const ref = useRef();
+  const modalRef = useRef();
+  const queryClient = useQueryClient();
+
+  const { data } = useQuery(
+    'myRoom',
+    () =>
+      axios
+        .get(`${process.env.REACT_APP_API_URL}/user/myroom`, {
+          headers: {
+            Authorization: `${getCookieValue('Authorization')}`,
+          },
+        })
+        .then((res) => res.data),
+    { staleTime: 1000 * 60 * 5 }
+  );
+
   useEffect(() => {
     document.addEventListener('mousedown', clickOutside);
 
@@ -229,6 +196,9 @@ export default function MyRoom() {
       console.log(event.target);
       setUrlDropDown('');
     }
+    if (modalOpen && !modalRef.current.contains(event.target)) {
+      setModalOpen(false);
+    }
   };
   // urlShare Button 필요 부분 (끝)
 
@@ -236,51 +206,93 @@ export default function MyRoom() {
     <div>
       <MyRoomBody>
         <MyRoomWrapper>
-          {backData.rooms.map((ele) => {
-            return (
-              <RoomBox key={ele.roomId}>
-                <RoomTheme>{ele.roomTheme}</RoomTheme>
-                <RoomTitle>{ele.roomName}</RoomTitle>
-                <RoomControlBar>
-                  <RoomDday>
-                    <p
-                      data-for="dday"
-                      data-tip={`${ele.dDay}`}
-                      onMouseEnter={() => showTooltip(true)}
-                      onMouseLeave={() => {
-                        showTooltip(false);
-                        setTimeout(() => showTooltip(true), 100);
-                      }}
-                    >
-                      D-{ele.restDay}
-                    </p>
-                  </RoomDday>
-                  <ButtonSection>
-                    {/* urlShare Button 컴포넌트 */}
-                    <LinkShareButton
-                      roomData={ele}
-                      urlDropDown={urlDropDown}
-                      setUrlDropDown={setUrlDropDown}
-                      ComponentRef={ref}
-                    />
-                    <Space space={'12px'} />
-                    <WhiteButtonOrangeBorder width="53px" height="26px">
-                      Edit
-                    </WhiteButtonOrangeBorder>
-                    <Space space={'8px'} />
-                    <OrangeButton width="65px" height="26px">
-                      Delete
-                    </OrangeButton>
-                  </ButtonSection>
-                </RoomControlBar>
-              </RoomBox>
-            );
-          })}
+          {data &&
+            data.rooms.map((ele) => {
+              return (
+                <RoomBox key={ele.roomId}>
+                  <RoomTheme>{ele.roomTheme}</RoomTheme>
+                  <RoomTitle>{ele.roomName}</RoomTitle>
+                  <RoomControlBar>
+                    <RoomDday>
+                      <p
+                        data-for="dday"
+                        data-tip={`${ele.dDay}`}
+                        onMouseEnter={() => showTooltip(true)}
+                        onMouseLeave={() => {
+                          showTooltip(false);
+                          setTimeout(() => showTooltip(true), 100);
+                        }}
+                      >
+                        D-{ele.restDay}
+                      </p>
+                    </RoomDday>
+                    <ButtonSection>
+                      {/* urlShare Button 컴포넌트 */}
+                      <LinkShareButton
+                        roomData={ele}
+                        urlDropDown={urlDropDown}
+                        setUrlDropDown={setUrlDropDown}
+                        ComponentRef={ref}
+                      />
+                      <Space space={'12px'} />
+                      <WhiteButtonOrangeBorder width="53px" height="26px">
+                        Edit
+                      </WhiteButtonOrangeBorder>
+                      <Space space={'8px'} />
+                      <OrangeButton
+                        width="65px"
+                        height="26px"
+                        onClick={() => {
+                          let answer = confirm('정말 삭제 하시겠습니까?');
+                          if (answer) {
+                            axios
+                              .delete(
+                                `${process.env.REACT_APP_API_URL}/rooms/${ele.roomId}`,
+                                {
+                                  headers: {
+                                    Authorization: `${getCookieValue(
+                                      'Authorization'
+                                    )}`,
+                                  },
+                                }
+                              )
+                              .then((res) => {
+                                console.log(res.data);
+                                queryClient.invalidateQueries('myRoom');
+                              });
+                          }
+                        }}
+                      >
+                        Delete
+                      </OrangeButton>
+                    </ButtonSection>
+                  </RoomControlBar>
+                </RoomBox>
+              );
+            })}
         </MyRoomWrapper>
         <p>운영할 수 있는 최대 룸 개수는 3개 입니다.</p>
+        <CreateRoomButton
+          width={'172px'}
+          height={'60px'}
+          onClick={() => setModalOpen(true)}
+        >
+          <div className="createRoom">룸 만들기</div>
+          <div className="crosshair">
+            <CreateRoomCircle />
+            <div className="cross">
+              <CreateRoomCross />
+            </div>
+          </div>
+        </CreateRoomButton>
       </MyRoomBody>
       {tooltip && (
         <ReactTooltip id="dday" place="bottom" type="dark" effect="solid" />
+      )}
+      {modalOpen ? (
+        <RoomModal modalRef={modalRef} setModalOpen={setModalOpen} />
+      ) : (
+        ''
       )}
     </div>
   );

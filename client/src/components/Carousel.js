@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { getRoobitType } from '../hook/getRoobitType';
 import RoobitOneImg from '../styled/RoobitOneImg';
+import thumbnailImg from '../images/thumbnail_01.png';
 
 const CarouselStyle = styled.div`
   div {
@@ -68,6 +69,14 @@ const CarouselStyle = styled.div`
   .current {
     background: gray;
   }
+
+  .thumbnail {
+    width: 100%;
+    height: 100%;
+    background-image: url(${thumbnailImg});
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
 `;
 
 const Carousel = ({ cards = [], setData, roobitType, roobitStyle }) => {
@@ -119,6 +128,7 @@ const Carousel = ({ cards = [], setData, roobitType, roobitStyle }) => {
                       roobitCode={getRoobitType(i + 1 + roobitStyle)}
                     />
                   )}
+                  {img.type === 'theme' && <div className="thumbnail"></div>}
                 </div>
               ))}
             </div>

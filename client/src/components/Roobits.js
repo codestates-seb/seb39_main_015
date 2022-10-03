@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { getRoobitType } from '../hook/getRoobitType';
 import { haveTo } from '../hook/haveTo';
 import RoobitOneImg from '../styled/RoobitOneImg';
+import catMeow from '../audios/cat_meow.wav';
 
 /*
 {
@@ -97,11 +98,13 @@ const RoobitLi = styled.li`
 `;
 
 const Roobits = ({ unitRoobits }) => {
+  const audio = new Audio(catMeow);
   return (
     <RoobitsWrapper>
       {unitRoobits.map((roobit) => (
         <RoobitLi key={roobit.roobitId}>
           <RoobitOneImg
+            onClick={() => audio.play()}
             roobitCode={getRoobitType(roobit.style)}
             className={haveTo(roobit.reception) && 'letter'}
           />

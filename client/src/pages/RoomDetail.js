@@ -1,5 +1,6 @@
 import Building from '../components/Building';
 import CreateRoobitBtn from '../components/CreateRoobitBtn';
+import BackwardBtnStyle from '../components/BackwardBtn';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { useQuery } from 'react-query';
@@ -11,11 +12,11 @@ import {
   //roomDetailData_4,
   roomDetailData_12,
 } from '../data/DummyData';
+import { getCookieValue } from '../hook/getCookieValue';
 
 const RoomDetail = () => {
   const { roomId } = useParams();
-  //useLocation 으로 경로에서 roomId 받아오기
-  //쿼리로 룸 정보 받아와서 저장
+  const auth = getCookieValue('Authorization').length;
 
   const { data, isLoading } = useQuery(
     'roobits',
@@ -41,6 +42,7 @@ const RoomDetail = () => {
 
   return (
     <div>
+      {auth && <BackwardBtnStyle />}
       {roomStatus === 'closed' || roobits === undefined ? (
         <p>룸 종료 페이지 컴포넌트</p>
       ) : (

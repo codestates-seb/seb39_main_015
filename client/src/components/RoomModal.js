@@ -7,6 +7,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { ReactComponent as CancelIcon } from '../images/cancel-icon.svg';
 import { getCookieValue } from '../hook/getCookieValue';
 import styled from 'styled-components';
+import { useQueryClient } from 'react-query';
 
 const ModalBody = styled(Body)`
   background-color: rgba(145, 145, 145, 0.8);
@@ -57,6 +58,7 @@ const RoomModal = ({ modalRef, setModalOpen }) => {
   const [roobitAmount, setRoobitAmount] = useState(300);
   const [roomTheme, setRoomTheme] = useState('CATS');
   const [roomNameMsg, setRoomNameMsg] = useState('');
+  const queryClient = useQueryClient();
 
   const setDateStr = (dateObj) => {
     return (
@@ -115,13 +117,13 @@ const RoomModal = ({ modalRef, setModalOpen }) => {
         console.log(res.data);
         alert('룸 만들기 성공!');
         setIsLoading(false);
-        //navigate('/myroom');
+        setModalOpen(false);
+        queryClient.invalidateQueries('myRoom');
       })
       .catch((res) => {
         console.log(res.data);
         alert('룸 만들기 실패...');
         setIsLoading(false);
-        //navigate('/login');
       });
   };
 

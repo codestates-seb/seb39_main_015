@@ -15,7 +15,7 @@ import { CreateRoomCross } from '../images/CreateRoomCross.js';
 import RoomModal from '../components/RoomModal.js';
 import axios from 'axios';
 import { getCookieValue } from '../hook/getCookieValue.js';
-import { useQuery } from 'react-query';
+import { useQueryClient, useQuery } from 'react-query';
 
 // const backData = {
 //   username: 'kimcoding',
@@ -68,7 +68,7 @@ const MyRoomWrapper = styled.div`
   width: 1188px;
   height: 305px;
   display: flex;
-  justify-content: space-between;
+  justify-content: start;
 `;
 
 const RoomBox = styled.div`
@@ -168,6 +168,7 @@ export default function MyRoom() {
   const [modalOpen, setModalOpen] = useState(false);
   const ref = useRef();
   const modalRef = useRef();
+  const queryClient = useQueryClient();
 
   const { data } = useQuery(
     'myRoom',
@@ -255,7 +256,10 @@ export default function MyRoom() {
                                   },
                                 }
                               )
-                              .then((res) => console.log(res.data));
+                              .then((res) => {
+                                console.log(res.data);
+                                queryClient.invalidateQueries('myRoom');
+                              });
                           }
                         }}
                       >

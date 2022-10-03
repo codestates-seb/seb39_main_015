@@ -12,7 +12,6 @@ import {
 } from '../styled/Style.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faEnvelope } from '@fortawesome/free-regular-svg-icons';
-import logInLogo from '../images/cat.png';
 import { useNavigate } from 'react-router-dom';
 import { Loading } from '../components/Loading.js';
 // import { useQueryClient } from 'react-query';
@@ -89,7 +88,7 @@ const FindName = () => {
     <Body>
       {isLoading ? <Loading /> : ''}
       <FormWrapper width={'476px'} height={'628px'}>
-        <img alt="login logo" src={logInLogo} />
+        <h2>Find PW</h2>
         <form onSubmit={(e) => hadleSubmit(e)}>
           <InputWrapper>
             <Input

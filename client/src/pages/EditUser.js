@@ -15,7 +15,6 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faEnvelope } from '@fortawesome/free-regular-svg-icons';
 import { faLock } from '@fortawesome/free-solid-svg-icons';
-import signUpLogo from '../images/cat.png';
 import styled from 'styled-components';
 import { useQueryClient } from 'react-query';
 import { getCookieValue } from '../hook/getCookieValue.js';
@@ -189,7 +188,7 @@ const EditUser = () => {
   return (
     <Body>
       <FormWrapper height={'545px'} width={'476px'}>
-        <img alt="회원가입 로고" src={signUpLogo}></img>
+        <h2>Edit your porfile</h2>
         <UserInfoWrapper>
           <UserInfoUnit>{username}</UserInfoUnit>
           <LogoWrapper>

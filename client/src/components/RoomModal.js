@@ -8,6 +8,13 @@ import { ReactComponent as CancelIcon } from '../images/cancel-icon.svg';
 import { getCookieValue } from '../hook/getCookieValue';
 import { useMutation, useQueryClient } from 'react-query';
 
+const getTomorrowDate = () => {
+  const today = new Date();
+  const tomorrow = new Date(today);
+  tomorrow.setDate(today.getDate() + 1);
+  return tomorrow;
+};
+
 const DatePickerComponent = ({ dDayDate, setDdayDate }) => {
   const CustomInput = forwardRef(({ value, onClick }, ref) => {
     return (
@@ -40,9 +47,7 @@ const DatePickerComponent = ({ dDayDate, setDdayDate }) => {
 const RoomModal = ({ handleOpenModal }) => {
   const [roomName, setRoomName] = useState('');
   const [isValid, setIsValid] = useState(false);
-  const [dDayDate, setDdayDate] = useState(
-    new Date().setDate(new Date().getDate() + 1)
-  );
+  const [dDayDate, setDdayDate] = useState(() => getTomorrowDate()); //초기 렌더시에만 함수 실행
   const [roobitAmount, setRoobitAmount] = useState(300);
   const [roomTheme, setRoomTheme] = useState('CATS');
   const [roomNameMsg, setRoomNameMsg] = useState('');
@@ -61,7 +66,7 @@ const RoomModal = ({ handleOpenModal }) => {
   };
 
   const handleOnReset = () => {
-    setDdayDate(new Date());
+    setDdayDate(getTomorrowDate());
   };
 
   const handleOnSubmit = (e) => {

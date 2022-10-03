@@ -34,7 +34,6 @@ public class RoomController {
     private final RoomService roomService;
     private final RoomMapper roomMapper;
     private final MemberService memberService;
-    private final RoobitService roobitService;
 
 
 

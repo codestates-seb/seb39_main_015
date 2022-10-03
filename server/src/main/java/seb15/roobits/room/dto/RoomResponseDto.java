@@ -9,6 +9,7 @@ import java.util.List;
 
 @Getter
 @Setter
+
 public class RoomResponseDto {
     private long roomId;
     private String roomName;

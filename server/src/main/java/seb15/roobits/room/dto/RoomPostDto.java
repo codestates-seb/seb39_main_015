@@ -14,8 +14,8 @@ import java.time.LocalDate;
 public class RoomPostDto {
 
     private long memberId;
-    @Length(min= 2, max= 20, message = "룸 이름을 3~20자 이내로 적어야 합니다.")
 
+    @Length(min= 2, max= 20, message = "룸 이름을 3~20자 이내로 적어야 합니다.")
     private String roomName;
 
     @Future(message = "오늘 후의 날짜여야 합니다.")

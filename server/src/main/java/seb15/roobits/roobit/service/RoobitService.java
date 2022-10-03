@@ -18,22 +18,41 @@ import java.util.Optional;
 public class RoobitService {
     private final RoomService roomService;
     private final RoobitRepository roobitRepository;
-
+    private final RoobitValidator roobitValidator;
     public RoobitService(RoomService roomService,
-                         RoobitRepository roobitRepository) {
+                         RoobitRepository roobitRepository,
+                         RoobitValidator roobitValidator) {
         this.roomService = roomService;
         this.roobitRepository = roobitRepository;
+        this.roobitValidator = roobitValidator;
     }
 
     public Roobit createRoobit(Roobit roobit) {
-        verifyRoobit(roobit);
-        Roobit savedRoobit = saveRoobit(roobit);
+        Roobit savedRoobit = roobitRepository.save(roobit);;
         return savedRoobit;
     }
 
     @Transactional(readOnly = true)
-    public Roobit findRoobit(long roobitId) {
-        return findVerifiedRoobit(roobitId);
+    public Roobit findRoobit(long roobitId){  //  1003 YU 루빗 딱 한개
+        Optional<Roobit> optionalRoobit = roobitRepository.findById(roobitId);
+        Roobit findRoobit = optionalRoobit.orElseThrow(() ->
+                new BusinessLogicException(ExceptionCode.ROOBIT_NOT_FOUND));
+        roobitValidator.updateRoobitStatus(findRoobit);
+        return findRoobit;
+    }
+
+//    @Transactional(readOnly = true)
+//    public Roobit findRoobitsByRoomId(long roomId) {  //  1003 YU , roomId에 해당하는 모든 루빗
+//        Optional<Roobit> optionalRoobit = roobitRepository.findById(roomId);
+//        System.out.println(optionalRoobit);
+//        List<Roobit> roobits = new ArrayList();
+////        roobits.add(optionalRoobit);
+//        return null;
+//    }
+
+    public Page<Roobit> findRoobitsByRoomId(int page, int size) {
+        return roobitRepository.findAll(PageRequest.of(page, size,
+                Sort.by("roobitId").descending()));
     }
 
     public Page<Roobit> findRoobits(int page, int size) {

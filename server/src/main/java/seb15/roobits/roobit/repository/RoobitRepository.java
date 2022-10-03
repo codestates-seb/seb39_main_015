@@ -1,7 +1,5 @@
 package seb15.roobits.roobit.repository;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import seb15.roobits.roobit.entity.Roobit;
@@ -9,9 +7,14 @@ import seb15.roobits.roobit.entity.Roobit;
 @Repository
 public interface RoobitRepository extends JpaRepository<Roobit, Long> {
 
-    public static Page<Roobit> findByRoomId(long roomId, PageRequest roobitId){
-        return null;
-    }
+//    public static Page<Roobit> findByRoomId(long roomId, PageRequest roobitId){
+//        return null;
+//    }
+//
+//    public Roobit findRoobitByRoomId(long roomId);
+
+//    @EntityGraph(attributePaths = {"roobits"})
+//    List<Roobits> findAll();
 
 //    @Query(value = "SELECT c FROM Roobit c WHERE c.roomId = :roomId")
 //    Page<Roobit> findByRoomId(long roomId);

@@ -11,42 +11,10 @@ import RoomMoalBtn from '../components/RoomModalBtn';
 //   TwitterIcon,
 // } from 'react-share';
 import { LinkShareButton } from '../components/LinkShareButton.js';
-import { CreateRoomCircle } from '../images/CreateRoomCircle.js';
-import { CreateRoomCross } from '../images/CreateRoomCross.js';
 import RoomModal from '../components/RoomModal.js';
 import axios from 'axios';
 import { getCookieValue } from '../hook/getCookieValue.js';
 import { useQueryClient, useQuery } from 'react-query';
-
-// const backData = {
-//   username: 'kimcoding',
-//   rooms: [
-//     {
-//       roomId: 1,
-//       roomName: '코드스테이츠 39기',
-//       dDay: '2022-10-19',
-//       restDay: 21,
-//       roomTheme: 'cats',
-//       url: 'https://github.com/Gwanghyun-Jeon',
-//     },
-//     {
-//       roomId: 2,
-//       roomName: '매주 피자 먹기 챌린지',
-//       dDay: '2022-10-24',
-//       restDay: 27,
-//       roomTheme: 'cats',
-//       url: 'https://github.com/Gwanghyun-Jeon',
-//     },
-//     {
-//       roomId: 3,
-//       roomName: 'javaScript 30일 뿌수기',
-//       dDay: '2022-10-27',
-//       restDay: 30,
-//       roomTheme: 'cats',
-//       url: 'https://github.com/Gwanghyun-Jeon',
-//     },
-//   ],
-// };
 
 const MyRoomBody = styled(Body)`
   flex-direction: column;
@@ -149,17 +117,6 @@ const WhiteButtonOrangeBorder = styled(WhiteButton)`
 `;
 const Space = styled.span`
   margin-left: ${(props) => props.space || '10px'};
-`;
-const CreateRoomButton = styled(OrangeButton)`
-  position: absolute;
-  right: 100px;
-  bottom: 60px;
-  box-shadow: inset -19px -6px 15px rgba(99, 51, 51, 0.09);
-  filter: drop-shadow(4px 4px 10px rgba(0, 0, 0, 0.25));
-  :hover {
-    box-shadow: none;
-    transform: scale(1);
-  }
 `;
 
 export default function MyRoom() {
@@ -273,19 +230,6 @@ export default function MyRoom() {
             })}
         </MyRoomWrapper>
         <p>운영할 수 있는 최대 룸 개수는 3개 입니다.</p>
-        <CreateRoomButton
-          width={'172px'}
-          height={'60px'}
-          onClick={() => setModalOpen(true)}
-        >
-          <div className="createRoom">룸 만들기</div>
-          <div className="crosshair">
-            <CreateRoomCircle />
-            <div className="cross">
-              <CreateRoomCross />
-            </div>
-          </div>
-        </CreateRoomButton>
       </MyRoomBody>
       <RoomMoalBtn />
       {tooltip && (

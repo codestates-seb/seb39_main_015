@@ -1,5 +1,5 @@
 import { forwardRef, useEffect, useMemo, useState } from 'react';
-import { Body, FormWrapper } from '../styled/Style';
+import { FormWrapper } from '../styled/Style';
 import Carousel from './Carousel';
 import DatePicker from 'react-datepicker';
 import axios from 'axios';
@@ -7,7 +7,6 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { ReactComponent as CancelIcon } from '../images/cancel-icon.svg';
 import { getCookieValue } from '../hook/getCookieValue';
 import { useMutation } from 'react-query';
-
 
 const DatePickerComponent = ({ dDayDate, setDdayDate }) => {
   const CustomInput = forwardRef(({ value, onClick }, ref) => {
@@ -47,7 +46,6 @@ const RoomModal = ({ handleOpenModal }) => {
   const [roobitAmount, setRoobitAmount] = useState(300);
   const [roomTheme, setRoomTheme] = useState('CATS');
   const [roomNameMsg, setRoomNameMsg] = useState('');
-  const queryClient = useQueryClient();
 
   const setDateStr = (dateObj) => {
     return (
@@ -177,7 +175,6 @@ const RoomModal = ({ handleOpenModal }) => {
         </section>
       </form>
     </FormWrapper>
-
   );
 };
 

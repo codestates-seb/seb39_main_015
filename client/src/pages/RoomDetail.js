@@ -1,6 +1,6 @@
 import Building from '../components/Building';
 import CreateRoobitBtn from '../components/CreateRoobitBtn';
-import BackwardBtnStyle from '../components/BackwardBtn';
+import BackwardBtn from '../components/BackwardBtn';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { useQuery } from 'react-query';
@@ -42,7 +42,7 @@ const RoomDetail = () => {
 
   return (
     <div>
-      {auth > 0 && <BackwardBtnStyle />}
+      {auth > 0 && <BackwardBtn />}
       {roomStatus === 'closed' || roobits === undefined ? (
         <p>룸 종료 페이지 컴포넌트</p>
       ) : (

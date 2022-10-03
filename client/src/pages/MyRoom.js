@@ -174,7 +174,7 @@ export default function MyRoom() {
                     <RoomDday>
                       <p
                         data-for="dday"
-                        data-tip={`${ele.dDay}`}
+                        data-tip={`${ele.dday}`}
                         onMouseEnter={() => showTooltip(true)}
                         onMouseLeave={() => {
                           showTooltip(false);

@@ -6,7 +6,10 @@ const ScrollBackground = styled.div`
   width: 454px;
   height: 5px;
   background: white;
-  border-radius: 99px;
+  border-top-left-radius: 99px;
+  border-top-right-radius: 99px;
+  padding-top: 5px;
+  z-index: 60;
 `;
 
 const ScrollTrackerBar = styled.div`
@@ -14,7 +17,12 @@ const ScrollTrackerBar = styled.div`
   width: ${(props) => props.ratio}%;
   height: 5px;
   background-color: #ff8753;
-  border-radius: 99px;
+  border-top-left-radius: 99px;
+  border-top-right-radius: 99px;
+  border-bottom-left-radius: ${(props) =>
+    props.ratio >= 99 ? 'none' : '99px'};
+  border-bottom-right-radius: ${(props) =>
+    props.ratio >= 99 ? 'none' : '99px'};
 `;
 
 export function ScrollTracker({ scrollRef }) {

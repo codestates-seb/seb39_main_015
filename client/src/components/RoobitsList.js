@@ -58,7 +58,7 @@ const RoobitUnitWrapper = styled.div`
   flex-direction: column;
   overflow: auto;
   width: 456px;
-  height: 650px;
+  height: 600px;
   background: #fbfbfb;
   border: 1px solid #d9d9d9;
   border-radius: 8px;

@@ -21,6 +21,21 @@ const BuildingStyle = styled.div`
   --one-rooftop-height: calc(var(--one-item-height) * (3 / 5));
   --two-rooftop-height: calc(var(--two-item-height) * (3 / 5));
 
+  /** 줌 인 줌 아웃 구현을 위한 변수 */
+  --floor: ${(props) => parseInt(props.idx / 3) || 0};
+  --nth: ${(props) => props.idx % 3 || 0};
+  --zoom-translate-x: calc(
+    50% - (var(--item-width) * var(--nth)) - (var(--item-width) / 2)
+  );
+  --zoom-translate-y: calc(
+    -50% + (var(--item-height) * var(--floor)) + (var(--item-height) / 2)
+  );
+
+  --zoom-transform-origin: calc(
+      var(--item-width) * var(--nth) + (var(--item-width) / 2)
+    )
+    calc(100% - (var(--item-height) * var(--floor)) - (var(--item-height) / 2));
+
   .wrapper {
     border: 1px solid red;
 
@@ -29,20 +44,49 @@ const BuildingStyle = styled.div`
     bottom: 0;
     left: 0;
     right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .container {
-    /* outline: 5px solid #ccc; */
+    outline: 5px solid #ccc;
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     height: auto;
     width: var(--container-width);
     display: flex;
     flex-wrap: wrap-reverse;
     align-content: flex-start;
     margin: 0 auto;
+    transition: all 0.6s ease;
+
+    /**줌 인 아웃에 적용할 피봇 확인용 - 확대 기능 구현 후 삭제 */
+    &::after {
+      content: 'Pivot';
+      position: absolute;
+      color: red;
+      width: 4px;
+      height: 4px;
+      line-height: 30px;
+      transform: translate(-50%, -50%);
+      background-color: red;
+      border-radius: 50%;
+
+      /** transform-origin: x y; 를 각각 top left 에 적용*/
+      top: calc(
+        100% - (var(--item-height) * var(--floor)) - (var(--item-height) / 2)
+      ); /**3은 4층에 해당 유닛수 / 3 */
+      left: calc(
+        var(--item-width) * var(--nth) + (var(--item-width) / 2)
+      ); /** 0은 인덱스 % 3 */
+    }
+  }
+
+  /** 줌 인 줌 아웃 처리 */
+  .wrapper.zoom-in-mode > .container {
+    transform-origin: var(--zoom-transform-origin);
+    transform: translate(var(--zoom-translate-x), var(--zoom-translate-y))
+      scale(3);
   }
 
   .container.onlyOne {
@@ -133,7 +177,7 @@ const BuildingStyle = styled.div`
   }
 `;
 
-const Building = ({ roobits }) => {
+const Building = ({ roobits, isZoomIn }) => {
   const unitCount = Object.keys(roobits).length;
   const [isOne, setIsOne] = useState(false);
   const [isTwo, setIsTwo] = useState(false);
@@ -156,9 +200,9 @@ const Building = ({ roobits }) => {
   }, []);
 
   return (
-    <BuildingStyle totalFloor={parseInt((unitCount - 1) / 3) + 1}>
+    <BuildingStyle totalFloor={parseInt((unitCount - 1) / 3) + 1} idx={9}>
       {/* <img src="img/02_rooftop_1x_w3000.png" alt="rooftop" /> */}
-      <div className="wrapper">
+      <div className={`wrapper ${isZoomIn ? 'zoom-in-mode' : 'zoom-out-mode'}`}>
         <ul
           className={`container ${isOne ? 'onlyOne' : ''} ${
             isTwo ? 'onlyTwo' : ''

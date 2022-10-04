@@ -3,10 +3,13 @@ package seb15.roobits.room.controller;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import seb15.roobits.globaldto.MultiResponseDto;
 import seb15.roobits.globaldto.SingleResponseDto;
 import seb15.roobits.member.entity.Member;
 import seb15.roobits.member.service.MemberService;
 
+import seb15.roobits.roobit.entity.Roobit;
+import seb15.roobits.roobit.mapper.RoobitMapper;
 import seb15.roobits.roobit.service.RoobitService;
 import seb15.roobits.room.dto.RoomPatchDto;
 import seb15.roobits.room.dto.RoomPostDto;
@@ -22,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
+import java.util.List;
 
 @RestController
 @RequestMapping("/rooms")
@@ -33,7 +37,9 @@ public class RoomController {
     private final RoomService roomService;
     private final RoomMapper roomMapper;
     private final MemberService memberService;
+    private final RoobitService roobitService;
 
+    private final RoobitMapper roobitMapper;
 
     @PostMapping
     public ResponseEntity postRoom(@AuthenticationPrincipal Member auth,
@@ -60,19 +66,19 @@ public class RoomController {
                 HttpStatus.OK);
     }
 
-    @GetMapping("/{room-id}")
-    public ResponseEntity getRoom(@PathVariable("room-id") @Positive long roomId) {
-        Room room = roomService.findRoom(roomId);
-
-        if (room.getRoomStatus() == RoomStatus.ROOM_CLOSED) {
-            return new ResponseEntity<>(roomMapper.roomToResponseRoomStatus(room),
-                    HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(
-                    new SingleResponseDto<>(roomMapper.roomToRoomResponseDto(room)),
-                    HttpStatus.OK);
-        }
-    }
+//    @GetMapping("/{room-id}")
+//    public ResponseEntity getRoom(@PathVariable("room-id") @Positive long roomId) {
+//        Room room = roomService.findRoom(roomId);
+//
+//        if (room.getRoomStatus() == RoomStatus.ROOM_CLOSED) {
+//            return new ResponseEntity<>(roomMapper.roomToResponseRoomStatus(room),
+//                    HttpStatus.OK);
+//        } else {
+//            return new ResponseEntity<>(
+//                    new SingleResponseDto<>(roomMapper.roomToRoomResponseDto(room)),
+//                    HttpStatus.OK);
+//        }
+//    }
 
     @DeleteMapping("/{room-id}")
     public ResponseEntity deleteRoom(@PathVariable("room-id") long roomId) {
@@ -80,4 +86,35 @@ public class RoomController {
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    @GetMapping("/{room-id}")  // 1004
+    public ResponseEntity getRoom(@PathVariable("room-id") @Positive long roomId) {
+        Room room = roomService.findRoom(roomId);
+        List<Roobit> roobitsById = roobitService.findRoobitsByRoomId(roomId);
+        List<List<Roobit>> roobitsFloor = roobitService.findRoobitsFloorByRoomId(roomId);
+//        if (room.getRoomStatus() == RoomStatus.ROOM_CLOSED) {
+//            return new ResponseEntity<>(
+//                    new MultiResponseDto<>(   roomMapper.roomToResponseRoomStatus(room) , roobitsFloor )   ,   HttpStatus.OK);
+//        } else {
+        return new ResponseEntity<>(
+                new MultiResponseDto<>(    roomMapper.roomToRoomResponseDto(room), roobitMapper.floorDtos(roobitsFloor)  )     ,  HttpStatus.OK);
+        //   }
+    }
+
+
+    /*
+        @GetMapping("/rooms/floors/{room-id}")   // 나중에 roomId에 붙일 부분
+    public ResponseEntity getFloorRoom(@PathVariable("room-id") @Positive long roomId) {
+        List<Roobit> roobitsById = roobitService.findRoobitsByRoomId(roomId);
+        List<List<Roobit>> roobitsFloor = roobitService.findRoobitsFloorByRoomId(roomId);
+        if (roobitsById.get(0).getRoobitStatus()== Roobit.RoobitStatus.ROOBIT_OPEN) {
+            return new ResponseEntity<>(
+                    new MultiResponseDto<>(roobitMapper.floorDtos(roobitsFloor)), HttpStatus.OK);   //디데이일 때는 body도 출력
+        } else {
+            return new ResponseEntity<>(
+                    new MultiResponseDto<>(roobitMapper.floorNullDtos(roobitsFloor)), HttpStatus.OK);  // 디데이아닐 땐 body Null
+        }
+    }
+     */
+
 }

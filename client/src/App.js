@@ -15,6 +15,7 @@ import { ReactQueryDevtools } from 'react-query/devtools';
 import RoomDetail from './pages/RoomDetail';
 import { getCookieValue } from './hook/getCookieValue.js';
 import { Loading } from './components/Loading.js';
+import { RoobitListTestPage } from './pages/RoobitListTestPage';
 
 function App() {
   const location = useLocation();
@@ -65,6 +66,7 @@ function App() {
         <Route path="/rooms/:roomId" element={<RoomDetail />} />
         <Route path="/edituser" element={data ? <EditUser /> : <Login />} />
         <Route path="/loading" element={<Loading />} />
+        <Route path="/rooms/roobitslist" element={<RoobitListTestPage />} />
       </Routes>
       <ReactQueryDevtools initialIsOpen={false} />
     </div>

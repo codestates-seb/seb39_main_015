@@ -192,14 +192,85 @@ const BuildingStyle = styled.div`
   }
 `;
 
-// const convertCSSLenghtToNum = (lengthStr) => {
-//   return lengthStr.match(/^(.*\d+)(\w*)$/)[1];
-// };
+const ArrowBtnWrapper = styled.div`
+  position: fixed;
+  top: 3vh;
+  bottom: 3vh;
+  left: 3vw;
+  right: 3vw;
+  z-index: 50;
+
+  button {
+    position: absolute;
+    font-size: 0;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+  }
+
+  svg {
+    fill: #999;
+    opacity: 0.5;
+    stroke: #fff;
+    stroke-width: 0.2em;
+  }
+
+  button:hover {
+    & svg {
+      fill: var(--point-color);
+      opacity: 0.8;
+    }
+  }
+
+  .up {
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .down {
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%) rotate(180deg);
+  }
+
+  .left {
+    left: 0;
+    top: 50%;
+    transform-origin: top left;
+    transform: translateY(100%) rotate(-90deg);
+  }
+
+  .right {
+    right: 0;
+    top: 50%;
+    transform-origin: top right;
+    transform: translateY(100%) rotate(90deg);
+  }
+`;
+
+const ArrowSvg = () => {
+  return (
+    <svg
+      width="99"
+      height="49"
+      viewBox="0 0 99 49"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M46.8239 1.40878C48.3452 0.0394391 50.6548 0.0394391 52.1761 1.40878L96.7459 41.527C99.4705 43.9795 97.7356 48.5 94.0698 48.5H4.93016C1.26436 48.5 -0.470487 43.9795 2.25412 41.527L46.8239 1.40878Z"
+        fill="current"
+      />
+    </svg>
+  );
+};
 
 const Building = ({ roobits, isZoomIn }) => {
-  const unitCount = Object.keys(roobits).length;
+  const unitCount = roobits.length;
   const [isOne, setIsOne] = useState(false);
   const [isTwo, setIsTwo] = useState(false);
+  const [idx, setIdx] = useState(unitCount - 1);
 
   const oneTwoUnit = (num) => {
     if (num === 1) {
@@ -215,48 +286,82 @@ const Building = ({ roobits, isZoomIn }) => {
   };
 
   useEffect(() => {
-    oneTwoUnit(Object.keys(roobits).length);
+    oneTwoUnit(roobits.length);
   }, []);
 
   return (
-    <BuildingStyle totalFloor={parseInt((unitCount - 1) / 3) + 1} idx={0}>
-      {/* <img src="img/02_rooftop_1x_w3000.png" alt="rooftop" /> */}
-      <div className={`wrapper ${isZoomIn ? 'zoom-in-mode' : 'zoom-out-mode'}`}>
-        <ul
-          className={`container ${isOne ? 'onlyOne' : ''} ${
-            isTwo ? 'onlyTwo' : ''
-          }`}
+    <>
+      {isZoomIn && (
+        <ArrowBtnWrapper>
+          {idx + 3 < unitCount && (
+            <button className="up" onClick={() => setIdx((prev) => prev + 3)}>
+              위<ArrowSvg />
+            </button>
+          )}
+          {idx - 3 >= 0 && (
+            <button className="down" onClick={() => setIdx((prev) => prev - 3)}>
+              아래
+              <ArrowSvg />
+            </button>
+          )}
+          {idx - 1 >= 0 && (
+            <button className="left" onClick={() => setIdx((prev) => prev - 1)}>
+              왼쪽
+              <ArrowSvg />
+            </button>
+          )}
+          {idx + 1 < unitCount && (
+            <button
+              className="right"
+              onClick={() => setIdx((prev) => prev + 1)}
+            >
+              오른쪽
+              <ArrowSvg />
+            </button>
+          )}
+        </ArrowBtnWrapper>
+      )}
+      <BuildingStyle totalFloor={parseInt((unitCount - 1) / 3) + 1} idx={idx}>
+        {/* <img src="img/02_rooftop_1x_w3000.png" alt="rooftop" /> */}
+        <div
+          className={`wrapper ${isZoomIn ? 'zoom-in-mode' : 'zoom-out-mode'}`}
         >
-          {Array(unitCount)
-            .fill(0)
-            .map((el, i) => (
-              <li
-                key={i}
-                className={`item room ${isOne ? 'onlyOne' : ''} ${
-                  isTwo ? 'onlyTwo' : ''
-                }`}
-              >
-                <Roobits unitRoobits={roobits[i + 1]} audioUrl={catMeow} />
-              </li>
-            ))}
-          <li
-            className={`item rooftop ${isOne ? 'onlyOne' : ''} ${
+          <ul
+            className={`container ${isOne ? 'onlyOne' : ''} ${
               isTwo ? 'onlyTwo' : ''
             }`}
-          ></li>
-          <li
-            className={`item rooftop ${isOne ? 'remove' : ''} ${
-              isTwo ? 'onlyTwo' : ''
-            }`}
-          ></li>
-          <li
-            className={`item rooftop ${isOne ? 'remove' : ''} ${
-              isTwo ? 'remove' : ''
-            }`}
-          ></li>
-        </ul>
-      </div>
-    </BuildingStyle>
+          >
+            {Array(unitCount)
+              .fill(0)
+              .map((el, i) => (
+                <li
+                  key={i}
+                  className={`item room ${isOne ? 'onlyOne' : ''} ${
+                    isTwo ? 'onlyTwo' : ''
+                  }`}
+                >
+                  <Roobits unitRoobits={roobits[i]} audioUrl={catMeow} />
+                </li>
+              ))}
+            <li
+              className={`item rooftop ${isOne ? 'onlyOne' : ''} ${
+                isTwo ? 'onlyTwo' : ''
+              }`}
+            ></li>
+            <li
+              className={`item rooftop ${isOne ? 'remove' : ''} ${
+                isTwo ? 'onlyTwo' : ''
+              }`}
+            ></li>
+            <li
+              className={`item rooftop ${isOne ? 'remove' : ''} ${
+                isTwo ? 'remove' : ''
+              }`}
+            ></li>
+          </ul>
+        </div>
+      </BuildingStyle>
+    </>
   );
 };
 

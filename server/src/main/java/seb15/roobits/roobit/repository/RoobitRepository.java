@@ -7,4 +7,5 @@ import seb15.roobits.roobit.entity.Roobit;
 @Repository
 public interface RoobitRepository extends JpaRepository<Roobit, Long> {
 
+
 }

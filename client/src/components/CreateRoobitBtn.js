@@ -1,5 +1,8 @@
 import CreateRoobitModal from './CreateRoobitModal';
-import { CreaterFloatingBtnStyle, ModalWrapper } from '../styled/FloatingBtn';
+import {
+  CreaterFloatingBtnStyle,
+  ModalWrapper,
+} from '../styled/RightFloatingBtn';
 import { useState } from 'react';
 
 const CreateRoobitBtn = () => {

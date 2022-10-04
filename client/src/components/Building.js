@@ -69,7 +69,6 @@ const BuildingStyle = styled.div`
   }
 
   .container {
-    outline: 5px solid #ccc;
     position: absolute;
     height: auto;
     width: var(--container-width);
@@ -206,39 +205,33 @@ const BuildingStyle = styled.div`
     height: 100%;
   }
 
-  .wrapper.zoom-out-mode button.zoomIn:hover:after {
+  .wrapper.zoom-out-mode button.zoomIn::after {
     content: '';
     position: absolute;
     cursor: pointer;
+    opacity: 1;
     top: calc(-1 * var(--unit-border-width));
     bottom: calc(-1 * var(--unit-border-width));
     left: calc(-1 * var(--unit-border-width));
     right: calc(-1 * var(--unit-border-width));
     background: url(${zoomInBigIcon}) no-repeat center rgba(0, 0, 0, 0.4);
     background-size: 40%;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  .wrapper.zoom-out-mode button.zoomIn:hover::after {
+    opacity: 1;
   }
 `;
 
-const ArrowBtnWrapper = styled.div`
+const ArrowBtn = styled.button`
   position: fixed;
-  top: 3vh;
-  bottom: 3vh;
-  left: 3vw;
-  right: 3vw;
+  font-size: 0;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
   z-index: 50;
-
-  .keyEvent {
-    width: 0;
-    height: 0;
-  }
-
-  button {
-    position: absolute;
-    font-size: 0;
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-  }
 
   svg {
     fill: #999;
@@ -247,34 +240,34 @@ const ArrowBtnWrapper = styled.div`
     stroke-width: 0.2em;
   }
 
-  button:hover {
+  &:hover {
     & svg {
       fill: var(--point-color);
       opacity: 0.8;
     }
   }
 
-  .up {
-    top: 0;
+  &.up {
+    top: 3vh;
     left: 50%;
     transform: translateX(-50%);
   }
 
-  .down {
-    bottom: 0;
+  &.down {
+    bottom: 3vh;
     left: 50%;
     transform: translateX(-50%) rotate(180deg);
   }
 
-  .left {
-    left: 0;
+  &.left {
+    left: 2vw;
     top: 50%;
     transform-origin: top left;
     transform: translateY(100%) rotate(-90deg);
   }
 
-  .right {
-    right: 0;
+  &.right {
+    right: 2vw;
     top: 50%;
     transform-origin: top right;
     transform: translateY(100%) rotate(90deg);
@@ -329,34 +322,40 @@ const Building = ({ roobits, isZoomIn, setIsZoomIn }) => {
   return (
     <>
       {isZoomIn && (
-        <ArrowBtnWrapper>
+        <>
           {idx + 3 < unitCount && (
-            <button className="up" onClick={() => setIdx((prev) => prev + 3)}>
+            <ArrowBtn className="up" onClick={() => setIdx((prev) => prev + 3)}>
               위<ArrowSvg />
-            </button>
+            </ArrowBtn>
           )}
           {idx - 3 >= 0 && (
-            <button className="down" onClick={() => setIdx((prev) => prev - 3)}>
+            <ArrowBtn
+              className="down"
+              onClick={() => setIdx((prev) => prev - 3)}
+            >
               아래
               <ArrowSvg />
-            </button>
+            </ArrowBtn>
           )}
           {idx - 1 >= 0 && (
-            <button className="left" onClick={() => setIdx((prev) => prev - 1)}>
+            <ArrowBtn
+              className="left"
+              onClick={() => setIdx((prev) => prev - 1)}
+            >
               왼쪽
               <ArrowSvg />
-            </button>
+            </ArrowBtn>
           )}
           {idx + 1 < unitCount && (
-            <button
+            <ArrowBtn
               className="right"
               onClick={() => setIdx((prev) => prev + 1)}
             >
               오른쪽
               <ArrowSvg />
-            </button>
+            </ArrowBtn>
           )}
-        </ArrowBtnWrapper>
+        </>
       )}
       <BuildingStyle totalFloor={parseInt((unitCount - 1) / 3) + 1} idx={idx}>
         <div

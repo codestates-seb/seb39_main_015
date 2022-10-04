@@ -1,6 +1,5 @@
 package seb15.roobits.roobit.controller;
 
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -17,7 +16,6 @@ import seb15.roobits.room.service.RoomService;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -45,43 +43,29 @@ public class RoobitController{
         Roobit createdRoobit = roobitService.createRoobit(roobit);
 
         return new ResponseEntity<>(
-                new SingleResponseDto<>(roobitMapper.roobitToRoobitResponseDto(createdRoobit)), HttpStatus.CREATED);
+                new SingleResponseDto<>(roobitMapper.roobitToRoobitIdResponseDto(createdRoobit)), HttpStatus.CREATED);
     }
 
-    @GetMapping("/get/{roobit-id}")   // 작성된 루빗 조회 (필요없을 듯)
+    @GetMapping("/get/{roobit-id}")   // 작성된 루빗 하나 조회
     public ResponseEntity getRoobit(@PathVariable("roobit-id") @Positive long roobitId) {
         Roobit roobit = roobitService.findRoobit(roobitId);
-        return new ResponseEntity<>((roobitMapper.roobitToRoobitIdResponseDto(roobit)), HttpStatus.OK);
+        if (roobit.getRoobitStatus()== Roobit.RoobitStatus.ROOBIT_OPEN) {
+            return new ResponseEntity<>((roobitMapper.roobitToRoobitResponseDto(roobit)), HttpStatus.OK);   //디데이일 때는 body도 출력
+        } else {
+            return new ResponseEntity<>((roobitMapper.roobitToRoobitNullResponseDto(roobit)), HttpStatus.OK);  // 디데이 아닐 땐 body Null
+        }
     }
 
     @GetMapping("/rooms/{room-id}")   // 나중에 roomId에 붙일 부분
     public ResponseEntity getRoom(@PathVariable("room-id") @Positive long roomId) {
-        int page = 1;
-        int size = 300;
-        Page<Roobit> pageRoobits = roobitService.findRoobitsByRoomId(page - 1, 300);
-        List<Roobit> roobits = pageRoobits.getContent();
-        List<Roobit> roobitsById = new ArrayList<>();
-
-        for (int i = 0; i < roobits.size(); i++) {
-            roobits.get(i);
-            long roomNum;
-            roomNum = roobits.get(i).getRoom().getRoomId();
-            if (roomNum == roomId) {
-                System.out.println(roobits.get(i));
-                roobitsById.add(roobits.get(i));
-            }
-        }
-//         return new ResponseEntity<>(
-//               new MultiResponseDto<>(roobitMapper.roobitsToRoobitResponsesDtos(roobitsById)), HttpStatus.OK);
-
-            if (roobitsById.get(0).getRoobitStatus()== Roobit.RoobitStatus.ROOBIT_OPEN) {
-                return new ResponseEntity<>(
-                        new MultiResponseDto<>(roobitMapper.roobitsToRoobitResponsesDtos(roobitsById)), HttpStatus.OK);   //디데이일 때는 body도 출력
+        List<Roobit> roobitsById = roobitService.findRoobitsByRoomId(roomId);
+        if (roobitsById.get(0).getRoobitStatus()== Roobit.RoobitStatus.ROOBIT_OPEN) {
+            return new ResponseEntity<>(
+                    new MultiResponseDto<>(roobitMapper.roobitsToRoobitResponsesDtos(roobitsById)), HttpStatus.OK);   //디데이일 때는 body도 출력
             } else {
-                return new ResponseEntity<>(
-                        new MultiResponseDto<>(roobitMapper.roobitsToRoobitNullResponsesDtos(roobitsById)), HttpStatus.OK);  // 디데이아닐 땐 body Null
+            return new ResponseEntity<>(
+                    new MultiResponseDto<>(roobitMapper.roobitsToRoobitNullResponsesDtos(roobitsById)), HttpStatus.OK);  // 디데이 아닐 땐 body Null
             }
-
     }
 
     @DeleteMapping("/delete/{roobit-id}")   // 특정 루빗 삭제

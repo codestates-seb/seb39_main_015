@@ -50,12 +50,18 @@ const FloorIndicator = styled.div`
   }
 `;
 const RoobitUnitWrapper = styled.div`
-  border: solid 1px;
   display: flex;
   flex-direction: column;
   overflow: auto;
   width: 456px;
   height: 650px;
+  background: #fbfbfb;
+  border: 1px solid #d9d9d9;
+  border-radius: 8px;
+  ::-webkit-scrollbar {
+    display: none; /* Chrome , Safari , Opera */
+  }
+  padding: 15px 21px 15px 21px;
 `;
 const Space = styled.span`
   margin-left: ${(props) => props.space || '10px'};

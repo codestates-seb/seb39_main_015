@@ -5,7 +5,6 @@ import { haveTo } from '../hook/haveTo';
 
 const RoobitUnitBox = styled.div`
   display: flex;
-  border: solid 1px;
 `;
 const RoobitOneWrapper = styled.div`
   min-width: 80px;

@@ -1,5 +1,9 @@
 import styled from 'styled-components';
-import { Body, OrangeButton, WhiteButton } from '../styled/Style.js';
+import {
+  Body,
+  OrangeButton,
+  WhiteButtonOrangeBorder,
+} from '../styled/Style.js';
 // import { ShareIcon } from '../images/shareIcon.js';
 import ReactTooltip from 'react-tooltip';
 import { useState, useEffect, useRef } from 'react';
@@ -110,10 +114,6 @@ const ButtonSection = styled.div`
   align-items: center;
   justify-content: start;
   /* position: relative; */
-`;
-const WhiteButtonOrangeBorder = styled(WhiteButton)`
-  border-color: #f58a5c;
-  color: #f58a5c;
 `;
 const Space = styled.span`
   margin-left: ${(props) => props.space || '10px'};

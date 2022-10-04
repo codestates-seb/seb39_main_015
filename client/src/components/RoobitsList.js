@@ -1,25 +1,49 @@
 import styled from 'styled-components';
 import { roomDetailData_12 } from '../data/DummyData';
 import { useQueryClient } from 'react-query';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { RoobitUnit } from './RoobitUnit';
-// import axios from 'axios';
+import {
+  LogoWrapper,
+  Input,
+  InputWrapper,
+  WhiteButtonOrangeBorder,
+  OrangeButton,
+} from '../styled/Style';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 
 const RoobitsListBody = styled.div`
   width: 590px;
+  height: 100vh;
   border: 1px solid;
+  padding-left: 67px;
+  padding-right: 67px;
 `;
-const SearchBarSection = styled.div``;
-const FloorIndicator = styled.div``;
-const RoobitUnitWrapper = styled.div``;
+const FloorIndicator = styled.div`
+  display: flex;
+`;
+const RoobitUnitWrapper = styled.div`
+  border: solid 1px;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  width: 456px;
+  height: 650px;
+`;
 
 export const RoobitsList = () => {
   const queryClient = useQueryClient();
   const [selectedFloor, setSelectedFloor] = useState('all');
   const [searchKeyword, setSearchKeyword] = useState('');
-
+  const ref = useRef(null);
+  //   console.log(ref.current.scrollTop);
   // API 연결 및 쿼리 정상 연결 되면 아래 코드 사용
   const { roobits } = queryClient.getQueryData('roobits') || roomDetailData_12;
+  useEffect(() => {
+    queryClient.invalidateQueries('roobits');
+    ref.current.scrollTo(0, 0);
+  }, [selectedFloor]);
 
   let floor = { all: Object.keys(roobits) };
   for (let i = 1; i <= Math.ceil(Object.keys(roobits).length / 3); i++) {
@@ -34,22 +58,45 @@ export const RoobitsList = () => {
 
   return (
     <RoobitsListBody>
-      <SearchBarSection>
-        <input
+      <InputWrapper>
+        <Input
+          type="search"
+          id="search"
+          name="search"
           value={searchKeyword}
-          onChange={(e) => {
-            setSearchKeyword(e.target.value);
-          }}
+          height={'45px'}
+          width={'456px'}
+          onChange={(e) => setSearchKeyword(e.target.value)}
+          placeholder="검색어를 입력하세요."
         />
-      </SearchBarSection>
+        <LogoWrapper>
+          <FontAwesomeIcon icon={faMagnifyingGlass} />
+        </LogoWrapper>
+      </InputWrapper>
       <FloorIndicator>
-        {Object.keys(floor).map((ele) => (
-          <button key={ele} onClick={() => setSelectedFloor(ele)}>
-            {ele}
-          </button>
-        ))}
+        {Object.keys(floor).map((ele) =>
+          ele === selectedFloor ? (
+            <OrangeButton
+              width={'51px'}
+              height={'36px'}
+              key={ele}
+              onClick={() => setSelectedFloor(ele)}
+            >
+              {ele === 'all' ? 'All' : ele}
+            </OrangeButton>
+          ) : (
+            <WhiteButtonOrangeBorder
+              width={'51px'}
+              height={'36px'}
+              key={ele}
+              onClick={() => setSelectedFloor(ele)}
+            >
+              {ele === 'all' ? 'All' : ele}
+            </WhiteButtonOrangeBorder>
+          )
+        )}
       </FloorIndicator>
-      <RoobitUnitWrapper>
+      <RoobitUnitWrapper ref={ref}>
         {floor[selectedFloor].map((unit) => {
           return roobits[unit].map((data) => {
             // console.log(data.nickname.includes(searchKeyword));

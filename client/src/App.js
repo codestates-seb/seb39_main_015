@@ -53,6 +53,7 @@ function App() {
         .then((res) => res.data),
     { staleTime: 1000 * 60 * 5, retry: false }
   );
+
   return (
     <div>
       {!/^\/rooms\/+/.test(location.pathname) && <Header />}

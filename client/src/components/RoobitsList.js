@@ -17,9 +17,6 @@ export const RoobitsList = () => {
   const queryClient = useQueryClient();
   const [selectedFloor, setSelectedFloor] = useState('all');
   const [searchKeyword, setSearchKeyword] = useState('');
-  //   const [roobitsRender, setRoobitsRender] = useState({});
-  //   const [searchRes, setSearchRes] = useState(false);
-  //   const [searchRoobits, setSearchRoobits] = useState('');
 
   // API 연결 및 쿼리 정상 연결 되면 아래 코드 사용
   const { roobits } = queryClient.getQueryData('roobits') || roomDetailData_12;

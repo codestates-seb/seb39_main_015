@@ -8,7 +8,8 @@ const RoobitUnitBox = styled.div`
   border: solid 1px;
 `;
 const RoobitOneWrapper = styled.div`
-  border: solid 1px;
+  min-width: 80px;
+  height: 80px;
 `;
 const RoobitBody = styled.div``;
 const RoobitMsgFrom = styled.div``;

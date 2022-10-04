@@ -17,11 +17,7 @@ const RoobitMsgTo = styled.div``;
 
 export const RoobitUnit = ({ unit }) => {
   const toConverter = (to) => {
-    if (to === 'to everyone') {
-      return 'to. everyone';
-    } else {
-      return `to. ${to}`;
-    }
+    return to.replace('to', 'to.');
   };
   return (
     <RoobitUnitBox>

@@ -31,7 +31,6 @@ const FloorIndicator = styled.div`
   flex-wrap: nowrap;
   overflow-x: auto;
   align-items: center;
-  margin-top: 20px;
   ::-webkit-scrollbar {
     display: none; /* Chrome , Safari , Opera */
   }
@@ -77,8 +76,10 @@ const DropDown = styled.span`
   top: 25px;
   left: -10px;
   background-color: #fbfbfb;
+  border-radius: 8px;
   width: 80px;
   z-index: 50;
+  opacity: 0.8;
 
   animation-name: fadein;
   animation-duration: 0.5s;
@@ -88,12 +89,12 @@ const DropDown = styled.span`
       opacity: 0;
     }
     to {
-      opacity: 1;
+      opacity: 0.8;
     }
   }
   @keyframes fadeout {
     from {
-      opacity: 1;
+      opacity: 0.8;
     }
     to {
       opacity: 0;

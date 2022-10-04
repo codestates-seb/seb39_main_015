@@ -14,7 +14,7 @@ public class CallWeather {
         private final WeatherVO weatherVO;
         private static OpenWeatherAPI openWeatherAPI;
 
-        public CallWeather(RestTemplateConfig restTemplateConfig, WeatherVO weatherVO, OpenWeatherAPI openWeatherAPI) {
+        public CallWeather(WeatherVO weatherVO, OpenWeatherAPI openWeatherAPI) {
                 this.weatherVO = weatherVO;
                 this.openWeatherAPI = openWeatherAPI;
         }

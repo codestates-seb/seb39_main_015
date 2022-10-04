@@ -22,6 +22,11 @@ const RoobitsListBody = styled.div`
 `;
 const FloorIndicator = styled.div`
   display: flex;
+  overflow-x: auto;
+  ::-webkit-scrollbar {
+    display: none; /* Chrome , Safari , Opera */
+  }
+  flex-wrap: nowrap;
 `;
 const RoobitUnitWrapper = styled.div`
   border: solid 1px;
@@ -30,6 +35,9 @@ const RoobitUnitWrapper = styled.div`
   overflow: auto;
   width: 456px;
   height: 650px;
+  ::-webkit-scrollbar {
+    display: none; /* Chrome , Safari , Opera */
+  }
 `;
 
 export const RoobitsList = () => {
@@ -37,8 +45,8 @@ export const RoobitsList = () => {
   const [selectedFloor, setSelectedFloor] = useState('all');
   const [searchKeyword, setSearchKeyword] = useState('');
   const ref = useRef(null);
-  //   console.log(ref.current.scrollTop);
-  // API 연결 및 쿼리 정상 연결 되면 아래 코드 사용
+
+  // API 연결 및 쿼리 정상 연결 되면 아래 코드 수정
   const { roobits } = queryClient.getQueryData('roobits') || roomDetailData_12;
   useEffect(() => {
     queryClient.invalidateQueries('roobits');
@@ -77,7 +85,7 @@ export const RoobitsList = () => {
         {Object.keys(floor).map((ele) =>
           ele === selectedFloor ? (
             <OrangeButton
-              width={'51px'}
+              width={'151px'}
               height={'36px'}
               key={ele}
               onClick={() => setSelectedFloor(ele)}
@@ -86,7 +94,7 @@ export const RoobitsList = () => {
             </OrangeButton>
           ) : (
             <WhiteButtonOrangeBorder
-              width={'51px'}
+              width={'151px'}
               height={'36px'}
               key={ele}
               onClick={() => setSelectedFloor(ele)}

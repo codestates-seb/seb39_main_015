@@ -1,4 +1,4 @@
-# 📮 Roobits !! 💎
+# 📮 Roobits
 
 ### [당신의 추억을 bits로 남기세요](https://github.com/Gwanghyun-Jeon "추억을 남기러 가볼까요?")
 
@@ -9,7 +9,7 @@
 | 전광현<br>(FE, 팀장) | 이유진<br>(FE) | 조현화<br>(BE) | 유하경<br>(BE) | 염빛나리<br>(BE) |
 | :---: | :---: | :---: | :---: | :---: |
 | <img alt="전광현" src="https://avatars.githubusercontent.com/u/73211553?v=4" height="100" width="100"> | <img alt="이유진" src="https://avatars.githubusercontent.com/u/89282099?v=4" height="100" width="100"> | <img alt="조현화" src="https://avatars.githubusercontent.com/u/104138036?v=4" height="100" width="100"> | <img alt="유하경" src="https://avatars.githubusercontent.com/u/76886589?v=4" height="100" width="100"> | <img alt="염빛나리" src="https://avatars.githubusercontent.com/u/103120984?v=4" height="100" width="100"> |
-| [@GH](https://github.com/Gwanghyun-Jeon) | [@nuuco](https://github.com/nuuco) | [@CHOHYUNHWA](https://github.com/CHOHYUNHWA) | [@EstelleYU](https://github.com/EstelleYU) | [@bytenari](https://github.com/bytenari) |
+| [@GH](https://github.com/Gwanghyun-Jeon) | [@nuuco](https://github.com/nuuco) | [@CHOHYUNHWA](https://github.com/CHOHYUNHWA) | [@Estelle](https://github.com/EstelleYU) | [@bytenari](https://github.com/bytenari) |
 ### 커뮤니케이션 방식
 - 매일 13:30 부터 17:30 사이에는 온라인 상태를 유지합니다.
 - 매일 13시30분에는 진행된 개발에 대한 간단한 브리핑을 진행합니다. 이슈가 없다면 빠르게 끝냅니다.
@@ -24,9 +24,9 @@
 | :---: | :---: | :---: |
 | <img alt="git logo" src="https://git-scm.com/images/logos/logomark-orange@2x.png" width="65" height="65" > | <img alt="github logo" src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="65" height="65"> | <img alt="Discord logo" src="https://assets-global.website-files.com/6257adef93867e50d84d30e2/62595384e89d1d54d704ece7_3437c10597c1526c3dbd98c737c2bcae.svg" height="65" width="65"> |
 ### Front-end
-| Html | JavaScript | React | React<br>Query | Redux | Styled-<br>Components | esLint | Prettier |
-| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| <img alt="Html" src ="https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/HTML5_logo_and_wordmark.svg/440px-HTML5_logo_and_wordmark.svg.png" width="65" height="65" /> | <div style="display: flex; align-items: flex-start;"><img src="https://techstack-generator.vercel.app/js-icon.svg" alt="icon" width="75" height="75" /></div> | <div style="display: flex; align-items: flex-start;"><img src="https://techstack-generator.vercel.app/react-icon.svg" alt="icon" width="65" height="65" /></div> | <img alt="react-query icon" src="https://raw.githubusercontent.com/TanStack/query/9511933f258b9f87f000938d1583e2b301e3d912/media/emblem-light.svg" width="65" height="65" /> | <div style="display: flex; align-items: flex-start;"><img src="https://techstack-generator.vercel.app/redux-icon.svg" alt="icon" width="65" height="65" /></div> | <img src="https://styled-components.com/logo.png" alt="styled-components icon" width="65" height="65" /> | <div style="display: flex; align-items: flex-start;"><img src="https://techstack-generator.vercel.app/eslint-icon.svg" alt="icon" width="65" height="65" /></div> | <div style="display: flex; align-items: flex-start;"><img src="https://techstack-generator.vercel.app/prettier-icon.svg" alt="icon" width="65" height="65" /></div> |
+| Html | JavaScript | React | Redux | Styled-<br>Components | esLint | Prettier |
+| :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| <img alt="Html" src ="https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/HTML5_logo_and_wordmark.svg/440px-HTML5_logo_and_wordmark.svg.png" width="65" height="65" /> | <div style="display: flex; align-items: flex-start;"><img src="https://techstack-generator.vercel.app/js-icon.svg" alt="icon" width="75" height="75" /></div> | <div style="display: flex; align-items: flex-start;"><img src="https://techstack-generator.vercel.app/react-icon.svg" alt="icon" width="65" height="65" /></div> | <div style="display: flex; align-items: flex-start;"><img src="https://techstack-generator.vercel.app/redux-icon.svg" alt="icon" width="65" height="65" /></div> | <img src="https://styled-components.com/logo.png" alt="styled-components icon" width="65" height="65" /> | <div style="display: flex; align-items: flex-start;"><img src="https://techstack-generator.vercel.app/eslint-icon.svg" alt="icon" width="65" height="65" /></div> | <div style="display: flex; align-items: flex-start;"><img src="https://techstack-generator.vercel.app/prettier-icon.svg" alt="icon" width="65" height="65" /></div> |
 ### Back-end
 | Java | mySQL | Rest | AWS | Spring | Spring<br>Boot |
 | :---: | :---: | :---: | :---: | :---: | :---: |
@@ -36,13 +36,11 @@
 ### Branch
 - `main` : 서비스 운영 브랜치입니다.
 - `dev` : 개발 환경 브랜치입니다. 개별적으로 작업했던 내용을 합치고 검토합니다.
-- `backend` : 서버전용 브랜치입니다. dev브랜치에 PR 이전에 서버프로그램에 문제가 있는지 없는지 확인용 입니다.
 - `feat/fe(or be)/...` : 프론트(백엔드) 세부 브랜치입니다.
 ### Commit & Pull-Request Message
 | "feat: ~ " | 새로운 기능 추가 |
 | :---: | :--- |
 | "fix: ~ " | 버그 수정 |
-| "test: ~ " | 테스트용 코드 푸쉬 |
 | "design: ~ " | css와 같은 UI 수정 |
 | "docs: ~ " | 문서 수정 (ex. README.md) |
 | "remove: ~ " | 파일을 삭제만 한 경우 |

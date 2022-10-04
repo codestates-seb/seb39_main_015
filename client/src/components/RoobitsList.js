@@ -33,9 +33,11 @@ const RoobitsListBody = styled.div`
 `;
 const FloorIndicator = styled.div`
   height: 40px;
-  width: 456px;
+  width: 458px;
   display: flex;
   margin-bottom: 10px;
+  padding-left: 1px;
+  padding-right: 1px;
   flex-wrap: nowrap;
   overflow-x: auto;
   align-items: center;
@@ -119,6 +121,16 @@ const DropDown = styled.span`
     border: none;
     background-color: transparent;
     cursor: pointer;
+  }
+`;
+const FloorOrangeButton = styled(OrangeButton)`
+  :hover {
+    box-shadow: none;
+  }
+`;
+const FloorWhiteButton = styled(WhiteButtonOrangeBorder)`
+  :hover {
+    box-shadow: none;
   }
 `;
 
@@ -211,26 +223,26 @@ export const RoobitsList = () => {
         {Object.keys(floor).map((ele) =>
           ele === selectedFloor ? (
             <>
-              <OrangeButton
+              <FloorOrangeButton
                 width={'66px'}
                 height={'36px'}
                 key={ele}
                 onClick={() => setSelectedFloor(ele)}
               >
                 {ele === '0' ? 'All' : `${ele}F`}
-              </OrangeButton>
+              </FloorOrangeButton>
               <Space space={'8px'} />
             </>
           ) : (
             <>
-              <WhiteButtonOrangeBorder
+              <FloorWhiteButton
                 width={'51px'}
                 height={'36px'}
                 key={ele}
                 onClick={() => setSelectedFloor(ele)}
               >
                 {ele === '0' ? 'All' : `${ele}F`}
-              </WhiteButtonOrangeBorder>
+              </FloorWhiteButton>
               <Space space={'8px'} />
             </>
           )

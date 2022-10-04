@@ -9,9 +9,9 @@ const RoobitOneImg = styled.div`
   --type: ${(props) => String(props.roobitCode.type) || '0'};
   --style: ${(props) => String(props.roobitCode.style) || '0'};
   --roobit-style: calc(100% / 7 * var(--style)) calc(100% / 4.5 * var(--type));
-  --roobit-width: calc(100%);
+  --roobit-width: 100%;
 
-  display: inline-block;
+  display: block;
   width: var(--roobit-width);
   height: 0;
   padding-top: var(--roobit-width);

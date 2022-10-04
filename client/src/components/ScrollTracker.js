@@ -19,8 +19,6 @@ const ScrollTrackerBar = styled.div`
   background-color: #ff8753;
   border-top-left-radius: 99px;
   border-top-right-radius: 99px;
-  border-bottom-left-radius: ${(props) =>
-    props.ratio >= 99 ? 'none' : '99px'};
   border-bottom-right-radius: ${(props) =>
     props.ratio >= 99 ? 'none' : '99px'};
 `;

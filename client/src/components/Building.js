@@ -74,27 +74,6 @@ const BuildingStyle = styled.div`
     align-content: flex-start;
     margin: 0 auto;
     transition: transform 0.6s, transform-origin 0.6s ease;
-
-    /**줌 인 아웃에 적용할 피봇 확인용 - 확대 기능 구현 후 삭제 */
-    &::after {
-      content: 'Pivot';
-      position: absolute;
-      color: red;
-      width: 4px;
-      height: 4px;
-      line-height: 30px;
-      transform: translate(-50%, -50%);
-      background-color: red;
-      border-radius: 50%;
-
-      /** transform-origin: x y; 를 각각 top left 에 적용*/
-      top: calc(
-        100% - (var(--item-height) * var(--floor)) - (var(--item-height) / 2)
-      ); /**3은 4층에 해당 유닛수 / 3 */
-      left: calc(
-        var(--item-width) * var(--nth) + (var(--item-width) / 2)
-      ); /** 0은 인덱스 % 3 */
-    }
   }
 
   /** 줌 인 줌 아웃 처리 */

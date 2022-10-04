@@ -1,6 +1,7 @@
 package seb15.roobits.member.dto;
 
 import lombok.*;
+import seb15.roobits.member.entity.Member;
 import seb15.roobits.room.dto.MyRoomResponseDto;
 
 import javax.validation.constraints.Email;
@@ -16,7 +17,6 @@ public class MemberDto {
     @Getter
     @Builder
     @AllArgsConstructor
-    @NoArgsConstructor
     public static class Join {
         @NotBlank(message = "아이디는 공백이 아니여야 합니다.")
         @Pattern(regexp = "^[a-zA-Z0-9]*$", message = "아이디는 영문 대소문자와 숫자만 가능합니다.")
@@ -122,6 +122,7 @@ public class MemberDto {
     public static class FindUsernameResponse {
 
         private String username;
+        private Member.MemberStatus memberStatus;
 
         public void setUsername(String username){
             this.username = username;

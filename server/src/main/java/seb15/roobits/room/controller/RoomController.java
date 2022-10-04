@@ -27,12 +27,14 @@ import javax.validation.constraints.Positive;
 @RequestMapping("/rooms")
 @Validated
 @RequiredArgsConstructor
-
 @Slf4j
 public class RoomController {
     private final RoomService roomService;
     private final RoomMapper roomMapper;
     private final MemberService memberService;
+
+    private final RoobitService roobitService;
+
 
 
     @PostMapping

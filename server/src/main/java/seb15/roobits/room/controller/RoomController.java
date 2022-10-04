@@ -27,7 +27,6 @@ import javax.validation.constraints.Positive;
 @RequestMapping("/rooms")
 @Validated
 @RequiredArgsConstructor
-
 @Slf4j
 public class RoomController {
     private final RoomService roomService;
@@ -35,7 +34,6 @@ public class RoomController {
     private final MemberService memberService;
 
     private final RoobitService roobitService;
-
 
 
 

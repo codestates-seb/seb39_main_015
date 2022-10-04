@@ -13,8 +13,8 @@ import seb15.roobits.room.service.RoomService;
 
 import java.util.Optional;
 
-@Transactional
 @Service
+@Transactional
 public class RoobitService {
     private final RoomService roomService;
     private final RoobitRepository roobitRepository;

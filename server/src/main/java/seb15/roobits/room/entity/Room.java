@@ -13,7 +13,6 @@ import javax.persistence.Id;
 
 import javax.persistence.*;
 import javax.validation.constraints.Future;
-import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,8 +39,9 @@ public class Room {
     @Column
     private long restDay;
 
+//    @Enumerated(EnumType.STRING)
     @Column
-    public String roomTheme;
+    private String roomTheme;
 
     @Column
     @Range(min= 1, max= 300)

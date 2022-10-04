@@ -1,12 +1,12 @@
 //package seb15.roobits.room.entity;
-//
-//import lombok.Getter;
-//import org.springframework.context.annotation.ComponentScan;
-//
+
+import lombok.Getter;
+import org.springframework.context.annotation.ComponentScan;
+
 //@ComponentScan
 //@Getter
-//public enum RoomTheme { //enum 객체 분리
-//    THEME_BASIC(1, "기본 테마");
+//public enum RoomTheme {
+//    THEME_CATS(1, "CATS");
 //
 //    @Getter
 //    public int themeNumber;
@@ -19,3 +19,4 @@
 //        this.themeDescription = themeDescription;
 //    }
 //}
+

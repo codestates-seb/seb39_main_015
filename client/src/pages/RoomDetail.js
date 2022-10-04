@@ -58,7 +58,11 @@ const RoomDetail = () => {
           <h1>{roomData.roomName}</h1>
           <p>{roomData.restDay}</p>
           <p>{roomData.dDay}</p>
-          <Building roobits={roobits} isZoomIn={isZoomIn} />
+          <Building
+            roobits={roobits}
+            isZoomIn={isZoomIn}
+            setIsZoomIn={setIsZoomIn}
+          />
 
           <LeftFloatingBtn
             className={isZoomIn ? 'zoom-out' : 'zoom-in'}

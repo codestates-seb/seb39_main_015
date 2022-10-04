@@ -4,6 +4,7 @@ import rooftopImg from '../images/roomImg/02_rooftop_1x_w3000.png';
 import unitsImg from '../images/roomImg/01_units_1x_w9000.png';
 import Roobits from './Roobits';
 import catMeow from '../audios/cat_meow.wav';
+import zoomInBigIcon from '../images/zoomInBigIcon.svg';
 
 const BuildingStyle = styled.div`
   --total-floor: ${(props) => (props.totalFloor <= 2 ? 2 : props.totalFloor)};
@@ -11,7 +12,8 @@ const BuildingStyle = styled.div`
   --item-width: calc(var(--item-height) * (3 / 2));
   --rooftop-height: calc(var(--item-height) * (3 / 5));
   --container-width: calc(var(--item-width) * 3);
-  --unit-border: calc(var(--item-height) * 0.05) solid #715844;
+  --unit-border-width: calc(var(--item-height) * 0.05);
+  --unit-border: var(--unit-border-width) solid #715844;
 
   /** 유닛이 1개, 2개 일 때 사이즈 분기 처리 */
   --one-item-height: min(var(--item-height) * 2, 80vh * (5 / 8));
@@ -126,6 +128,7 @@ const BuildingStyle = styled.div`
   .room {
     border: var(--unit-border);
     background-image: url(${unitsImg});
+    position: relative;
   }
 
   .rooftop {
@@ -190,6 +193,30 @@ const BuildingStyle = styled.div`
   .room:nth-last-child(4) {
     border-right: var(--unit-border);
   }
+
+  /** 호버시 줌 인 아이콘 등장 */
+  button.zoomIn {
+    margin: 0;
+    padding: 0;
+    display: block;
+    background-color: transparent;
+
+    border: none;
+    width: 100%;
+    height: 100%;
+  }
+
+  .wrapper.zoom-out-mode button.zoomIn:hover:after {
+    content: '';
+    position: absolute;
+    cursor: pointer;
+    top: calc(-1 * var(--unit-border-width));
+    bottom: calc(-1 * var(--unit-border-width));
+    left: calc(-1 * var(--unit-border-width));
+    right: calc(-1 * var(--unit-border-width));
+    background: url(${zoomInBigIcon}) no-repeat center rgba(0, 0, 0, 0.4);
+    background-size: 40%;
+  }
 `;
 
 const ArrowBtnWrapper = styled.div`
@@ -199,6 +226,11 @@ const ArrowBtnWrapper = styled.div`
   left: 3vw;
   right: 3vw;
   z-index: 50;
+
+  .keyEvent {
+    width: 0;
+    height: 0;
+  }
 
   button {
     position: absolute;
@@ -266,7 +298,7 @@ const ArrowSvg = () => {
   );
 };
 
-const Building = ({ roobits, isZoomIn }) => {
+const Building = ({ roobits, isZoomIn, setIsZoomIn }) => {
   const unitCount = roobits.length;
   const [isOne, setIsOne] = useState(false);
   const [isTwo, setIsTwo] = useState(false);
@@ -283,6 +315,11 @@ const Building = ({ roobits, isZoomIn }) => {
       setIsOne(false);
       setIsTwo(false);
     }
+  };
+
+  const handleUnitClick = (i) => () => {
+    setIdx(i);
+    setIsZoomIn(true);
   };
 
   useEffect(() => {
@@ -322,7 +359,6 @@ const Building = ({ roobits, isZoomIn }) => {
         </ArrowBtnWrapper>
       )}
       <BuildingStyle totalFloor={parseInt((unitCount - 1) / 3) + 1} idx={idx}>
-        {/* <img src="img/02_rooftop_1x_w3000.png" alt="rooftop" /> */}
         <div
           className={`wrapper ${isZoomIn ? 'zoom-in-mode' : 'zoom-out-mode'}`}
         >
@@ -340,7 +376,9 @@ const Building = ({ roobits, isZoomIn }) => {
                     isTwo ? 'onlyTwo' : ''
                   }`}
                 >
-                  <Roobits unitRoobits={roobits[i]} audioUrl={catMeow} />
+                  <button className="zoomIn" onClick={handleUnitClick(i)}>
+                    <Roobits unitRoobits={roobits[i]} audioUrl={catMeow} />
+                  </button>
                 </li>
               ))}
             <li

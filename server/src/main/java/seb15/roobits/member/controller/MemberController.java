@@ -93,7 +93,7 @@ public class MemberController {
 
         Member member = memberMapper.findToMember(memberFindDto);
         Member findUsername = memberService.findUserId(member);
-        if(findUsername.getProvider() == "google"){
+        if(findUsername.getProvider().equals("google")){
             MemberDto.FindUsernameResponse response = memberMapper.memberToFindUsernameResponse(findUsername);
             response.setUsername("일치하는 회원정보가 없습니다");
         return new ResponseEntity(response,HttpStatus.NOT_FOUND);

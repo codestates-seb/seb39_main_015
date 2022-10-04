@@ -19,6 +19,15 @@ import { useState } from 'react';
 
 /** 줌인 줌아웃 구현을 위한 styled-components */
 const Frame = styled.section`
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  &::after {
+  }
+
   &.zoom-in-mode {
     transform: scale(2);
   }

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import rooftopImg from '../images/roomImg/02_rooftop_1x_w3000.png';
 import unitsImg from '../images/roomImg/01_units_1x_w9000.png';
 import Roobits from './Roobits';
+import catMeow from '../audios/cat_meow.wav';
 
 const BuildingStyle = styled.div`
   --total-floor: ${(props) => (props.totalFloor <= 2 ? 2 : props.totalFloor)};
@@ -23,16 +24,19 @@ const BuildingStyle = styled.div`
   .wrapper {
     border: 1px solid red;
 
-    width: 100vw;
-    height: 90vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
   }
 
   .container {
     /* outline: 5px solid #ccc; */
-
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     height: auto;
     width: var(--container-width);
     display: flex;
@@ -169,7 +173,7 @@ const Building = ({ roobits }) => {
                   isTwo ? 'onlyTwo' : ''
                 }`}
               >
-                <Roobits unitRoobits={roobits[i + 1]} />
+                <Roobits unitRoobits={roobits[i + 1]} audioUrl={catMeow} />
               </li>
             ))}
           <li

@@ -79,6 +79,8 @@ const RoobitLi = styled.li`
     top: 100%;
     left: 50%;
     transform: translate(-50%);
+
+    font-size: 0;
   }
 
   .reception {
@@ -93,6 +95,8 @@ const RoobitLi = styled.li`
     top: -20%;
     left: 50%;
     transform: translate(-50%);
+
+    font-size: 0;
   }
 `;
 

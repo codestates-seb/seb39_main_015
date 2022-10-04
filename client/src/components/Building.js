@@ -70,6 +70,7 @@ const BuildingStyle = styled.div`
     flex-wrap: wrap-reverse;
     align-content: flex-start;
     margin: 0 auto;
+    transition: transform 0.6s, transform-origin 0.6s ease;
 
     /**줌 인 아웃에 적용할 피봇 확인용 - 확대 기능 구현 후 삭제 */
     &::after {
@@ -94,13 +95,6 @@ const BuildingStyle = styled.div`
   }
 
   /** 줌 인 줌 아웃 처리 */
-  .wrapper.zoom-in-mode > .container {
-    transition: transform 0.6s, transform-origin 0.6s ease;
-  }
-  .wrapper.zoom-out-mode > .container {
-    transition: transform 0.6s, transform-origin 0.6s ease;
-  }
-
   .wrapper.zoom-in-mode > .container:not(.onlyOne),
   .wrapper.zoom-in-mode > .container:not(.onlyTwo) {
     transform-origin: var(--zoom-transform-origin);

@@ -3,6 +3,7 @@ import { roomDetailData_30 } from '../data/DummyData';
 import { useQueryClient } from 'react-query';
 import { useState, useEffect, useRef } from 'react';
 import { RoobitUnit } from './RoobitUnit';
+import { ScrollTracker } from './ScrollTracker';
 import {
   LogoWrapper,
   Input,
@@ -15,15 +16,19 @@ import {
   faMagnifyingGlass,
   faCaretDown,
 } from '@fortawesome/free-solid-svg-icons';
+// logo 변경 예정
 import signUpLogo from '../images/cat.png';
 
 const RoobitsListBody = styled.div`
   width: 590px;
   height: 100vh;
-  border: 1px solid;
   display: flex;
   flex-direction: column;
   align-items: center;
+  background: #ffffff;
+  border: 1px solid #d9d9d9;
+  box-shadow: -8px 0px 21px rgba(104, 104, 104, 0.09);
+  border-radius: 14px 0px 0px 14px;
   > img {
     max-width: 124px;
     height: auto;
@@ -44,7 +49,6 @@ const FloorIndicator = styled.div`
   ::-webkit-scrollbar {
     display: none; /* Chrome , Safari , Opera */
   }
-  -webkit-overflow-scrolling: touch;
   button {
     flex: 0 0 auto;
   }
@@ -58,10 +62,10 @@ const RoobitUnitWrapper = styled.div`
   background: #fbfbfb;
   border: 1px solid #d9d9d9;
   border-radius: 8px;
-  ::-webkit-scrollbar {
-    display: none; /* Chrome , Safari , Opera */
-  }
   padding: 15px 21px 15px 21px;
+  ::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+  }
 `;
 const Space = styled.span`
   margin-left: ${(props) => props.space || '10px'};
@@ -152,17 +156,6 @@ export const RoobitsList = () => {
   // API 연결 및 쿼리 정상 연결 되면 아래 코드 수정
   const { roobits } = queryClient.getQueryData('roobits') || roomDetailData_30;
 
-  useEffect(() => {
-    queryClient.invalidateQueries('roobits');
-    ref.current.scrollTo(0, 0);
-    if (selectedFloor >= 6) {
-      horizontalRef.current.scrollTo(208, 0);
-    }
-    if (selectedFloor <= 5) {
-      horizontalRef.current.scrollTo(0, 0);
-    }
-  }, [selectedFloor]);
-
   let floor = { 0: Object.keys(roobits) };
   for (let i = 1; i <= Math.ceil(Object.keys(roobits).length / 3); i++) {
     if (floor[0][floor[0].length - 1] - (3 * (i - 1) + 1) >= 2) {
@@ -173,6 +166,17 @@ export const RoobitsList = () => {
       floor[i] = [3 * (i - 1) + 1];
     }
   }
+
+  useEffect(() => {
+    queryClient.invalidateQueries('roobits');
+    ref.current.scrollTo(0, 0);
+    if (selectedFloor >= 6) {
+      horizontalRef.current.scrollTo(208, 0);
+    }
+    if (selectedFloor <= 5) {
+      horizontalRef.current.scrollTo(0, 0);
+    }
+  }, [selectedFloor]);
 
   return (
     <RoobitsListBody>
@@ -254,6 +258,7 @@ export const RoobitsList = () => {
           )
         )}
       </FloorIndicator>
+      <ScrollTracker scrollRef={ref} />
       <RoobitUnitWrapper ref={ref}>
         {floor[selectedFloor].map((unit) => {
           return roobits[unit].map((data) => {

@@ -4,6 +4,7 @@ export const CreaterFloatingBtnStyle = styled.button`
   position: fixed;
   bottom: 60px;
   right: 100px;
+  z-index: 200;
 
   height: 60px;
   border: none;

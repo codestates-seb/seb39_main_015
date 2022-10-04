@@ -7,6 +7,7 @@ import styled from 'styled-components';
 
 /** className="zoom-in", "zoom-out", "share"(default) */
 const LeftFloatingBtn = styled.button`
+  z-index: 100;
   position: fixed;
   bottom: 60px;
   left: 100px;

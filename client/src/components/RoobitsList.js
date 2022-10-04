@@ -15,6 +15,7 @@ import {
   faMagnifyingGlass,
   faCaretDown,
 } from '@fortawesome/free-solid-svg-icons';
+import signUpLogo from '../images/cat.png';
 
 const RoobitsListBody = styled.div`
   width: 590px;
@@ -23,11 +24,18 @@ const RoobitsListBody = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  > img {
+    max-width: 124px;
+    height: auto;
+    width: auto;
+    margin-bottom: 33px;
+  }
 `;
 const FloorIndicator = styled.div`
   height: 40px;
   width: 456px;
   display: flex;
+  margin-bottom: 10px;
   flex-wrap: nowrap;
   overflow-x: auto;
   align-items: center;
@@ -116,7 +124,7 @@ const DropDown = styled.span`
 
 export const RoobitsList = () => {
   const queryClient = useQueryClient();
-  const [selectedFloor, setSelectedFloor] = useState('all');
+  const [selectedFloor, setSelectedFloor] = useState('0');
   const [searchKeyword, setSearchKeyword] = useState('');
   const [searchOption, setSearchOption] = useState('내용');
   const [dropDown, setDropDown] = useState(false);
@@ -125,10 +133,11 @@ export const RoobitsList = () => {
 
   // API 연결 및 쿼리 정상 연결 되면 아래 코드 수정
   const { roobits } = queryClient.getQueryData('roobits') || roomDetailData_30;
+
   useEffect(() => {
     queryClient.invalidateQueries('roobits');
     ref.current.scrollTo(0, 0);
-    if (selectedFloor >= 7) {
+    if (selectedFloor >= 6) {
       horizontalRef.current.scrollTo(208, 0);
     }
     if (selectedFloor <= 5) {
@@ -136,19 +145,20 @@ export const RoobitsList = () => {
     }
   }, [selectedFloor]);
 
-  let floor = { all: Object.keys(roobits) };
+  let floor = { 0: Object.keys(roobits) };
   for (let i = 1; i <= Math.ceil(Object.keys(roobits).length / 3); i++) {
-    if (floor.all[floor.all.length - 1] - (3 * (i - 1) + 1) >= 2) {
+    if (floor[0][floor[0].length - 1] - (3 * (i - 1) + 1) >= 2) {
       floor[i] = [3 * (i - 1) + 1, 3 * (i - 1) + 2, 3 * (i - 1) + 3];
-    } else if (floor.all[floor.all.length - 1] - (3 * (i - 1) + 1) === 1) {
+    } else if (floor.all[floor[0].length - 1] - (3 * (i - 1) + 1) === 1) {
       floor[i] = [3 * (i - 1) + 1, 3 * (i - 1) + 2];
-    } else if (floor.all[floor.all.length - 1] - (3 * (i - 1) + 1) === 0) {
+    } else if (floor.all[floor[0].length - 1] - (3 * (i - 1) + 1) === 0) {
       floor[i] = [3 * (i - 1) + 1];
     }
   }
 
   return (
     <RoobitsListBody>
+      <img alt="회원가입 로고" src={signUpLogo}></img>
       <InputWrapper>
         <SearchInput
           type="search"
@@ -207,7 +217,7 @@ export const RoobitsList = () => {
                 key={ele}
                 onClick={() => setSelectedFloor(ele)}
               >
-                {ele === 'all' ? 'All' : `${ele}F`}
+                {ele === '0' ? 'All' : `${ele}F`}
               </OrangeButton>
               <Space space={'8px'} />
             </>
@@ -219,7 +229,7 @@ export const RoobitsList = () => {
                 key={ele}
                 onClick={() => setSelectedFloor(ele)}
               >
-                {ele === 'all' ? 'All' : `${ele}F`}
+                {ele === '0' ? 'All' : `${ele}F`}
               </WhiteButtonOrangeBorder>
               <Space space={'8px'} />
             </>

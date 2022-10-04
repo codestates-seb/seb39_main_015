@@ -30,11 +30,23 @@ const BuildingStyle = styled.div`
   --zoom-translate-y: calc(
     -50% + (var(--item-height) * var(--floor)) + (var(--item-height) / 2)
   );
-
   --zoom-transform-origin: calc(
       var(--item-width) * var(--nth) + (var(--item-width) / 2)
     )
     calc(100% - (var(--item-height) * var(--floor)) - (var(--item-height) / 2));
+
+  /** 줌 인 줌 아웃 - 유닛이 한 개인 경우 */
+  --one-zoom-translate-x: 0;
+  --one-zoom-translate-y: calc(-50% + (var(--one-item-height) / 2));
+  --one-zoom-transform-origin: 50% calc(100% - (var(--one-item-height) / 2));
+
+  /** 줌 인 줌 아웃 - 유닛이 두 개인 경우 */
+  --two-zoom-translate-x: calc(25% - (50% * var(--nth)));
+  --two-zoom-translate-y: calc(-50% + (var(--two-item-height) / 2));
+  --two-zoom-transform-origin: calc(
+      var(--two-item-width) * var(--nth) + (var(--two-item-width) / 2)
+    )
+    calc(100% - (var(--two-item-height) / 2));
 
   .wrapper {
     border: 1px solid red;
@@ -58,7 +70,6 @@ const BuildingStyle = styled.div`
     flex-wrap: wrap-reverse;
     align-content: flex-start;
     margin: 0 auto;
-    transition: all 0.6s ease;
 
     /**줌 인 아웃에 적용할 피봇 확인용 - 확대 기능 구현 후 삭제 */
     &::after {
@@ -84,9 +95,36 @@ const BuildingStyle = styled.div`
 
   /** 줌 인 줌 아웃 처리 */
   .wrapper.zoom-in-mode > .container {
+    transition: transform 0.6s, transform-origin 0.6s ease;
+  }
+  .wrapper.zoom-out-mode > .container {
+    transition: transform 0.6s, transform-origin 0.6s ease;
+  }
+
+  .wrapper.zoom-in-mode > .container:not(.onlyOne),
+  .wrapper.zoom-in-mode > .container:not(.onlyTwo) {
     transform-origin: var(--zoom-transform-origin);
     transform: translate(var(--zoom-translate-x), var(--zoom-translate-y))
       scale(3);
+  }
+
+  .wrapper.zoom-in-mode > .container.onlyOne {
+    transform-origin: var(--one-zoom-transform-origin);
+    transform: translate(
+        var(--one-zoom-translate-x),
+        var(--one-zoom-translate-y)
+      )
+      scale(2);
+  }
+
+  .wrapper.zoom-in-mode > .container.onlyTwo {
+    transform-origin: var(--two-zoom-transform-origin);
+    transform: translate(
+        var(--two-zoom-translate-x),
+        var(--two-zoom-translate-y)
+      )
+      scale(2);
+    /**-25%  (1) / 25% (0) */
   }
 
   .container.onlyOne {
@@ -200,7 +238,7 @@ const Building = ({ roobits, isZoomIn }) => {
   }, []);
 
   return (
-    <BuildingStyle totalFloor={parseInt((unitCount - 1) / 3) + 1} idx={9}>
+    <BuildingStyle totalFloor={parseInt((unitCount - 1) / 3) + 1} idx={0}>
       {/* <img src="img/02_rooftop_1x_w3000.png" alt="rooftop" /> */}
       <div className={`wrapper ${isZoomIn ? 'zoom-in-mode' : 'zoom-out-mode'}`}>
         <ul

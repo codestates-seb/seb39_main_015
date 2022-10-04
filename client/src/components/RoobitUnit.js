@@ -5,6 +5,7 @@ import { haveTo } from '../hook/haveTo';
 
 const RoobitUnitBox = styled.div`
   display: flex;
+  border: solid 1px;
 `;
 const RoobitOneWrapper = styled.div`
   border: solid 1px;
@@ -27,7 +28,7 @@ export const RoobitUnit = ({ unit }) => {
       <RoobitOneWrapper>
         <RoobitOneImg
           roobitCode={getRoobitType(unit.style)}
-          className={haveTo('to xxx') ? 'letter' : ''}
+          className={haveTo(unit.reception) ? 'letter' : ''}
         />
       </RoobitOneWrapper>
       <RoobitBody>

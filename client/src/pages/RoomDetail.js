@@ -6,12 +6,12 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import {
-  //roomDetailData,
+  roomDetailData,
   //roomDetailData_1,
   //roomDetailData_2,
   //roomDetailData_3,
   //roomDetailData_4,
-  roomDetailData_12,
+  //roomDetailData_12,
 } from '../data/DummyData';
 import { getCookieValue } from '../hook/getCookieValue';
 import { useState } from 'react';
@@ -19,17 +19,19 @@ import { useState } from 'react';
 /** 줌인 줌아웃 구현을 위한 styled-components */
 
 const RoomDetail = () => {
-  const [isZoomIn, setIsZoomIn] = useState(false);
+  const [isZoomIn, setIsZoomIn] = useState(true);
   setIsZoomIn;
   const { roomId } = useParams();
   const auth = getCookieValue('Authorization').length;
+  roomId;
 
+  //`${process.env.REACT_APP_API_URL}/rooms/${roomId}`
   const { data, isLoading } = useQuery(
     'roobits',
     () =>
       axios
-        .get(`${process.env.REACT_APP_API_URL}/rooms/${roomId}`)
-        .catch(() => roomDetailData_12 /* 실패할 경우 더미 데이터 표시 */),
+        .get(`/fake`)
+        .catch(() => roomDetailData /* 실패할 경우 더미 데이터 표시 */),
     {
       staleTime: 1000 * 60 * 30,
       retry: 1,

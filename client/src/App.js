@@ -32,7 +32,9 @@ function App() {
     }
     const googleAccessToken = get_query();
     if (googleAccessToken.access_token) {
-      document.cookie = `Authorization=Bearer ${googleAccessToken.access_token}`;
+      const date = new Date();
+      date.setTime(date.getTime() + 60 * 60 * 1000);
+      document.cookie = `Authorization=Bearer ${googleAccessToken.access_token};expires=${date};`;
       window.location.replace('/#sectionOne');
     }
   }, []);

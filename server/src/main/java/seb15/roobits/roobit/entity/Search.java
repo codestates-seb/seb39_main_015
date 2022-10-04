@@ -1,4 +1,4 @@
-package seb15.roobits.roobit.entity;//package seb15.roobits.roobit.entity;
+//package seb15.roobits.roobit.entity;
 //
 //public class Search {
 //

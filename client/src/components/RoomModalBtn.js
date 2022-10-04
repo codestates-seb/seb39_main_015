@@ -1,6 +1,9 @@
 import RoomModal from './RoomModal';
 import { useState } from 'react';
-import { CreaterFloatingBtnStyle, ModalWrapper } from '../styled/FloatingBtn';
+import {
+  CreaterFloatingBtnStyle,
+  ModalWrapper,
+} from '../styled/RightFloatingBtn';
 
 const RoomModalBtn = () => {
   const [isOpen, setIsOpen] = useState(false);

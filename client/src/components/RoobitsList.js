@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { roomDetailData_12 } from '../data/DummyData';
+import { roomDetailData_30 } from '../data/DummyData';
 import { useQueryClient } from 'react-query';
 import { useState, useEffect, useRef } from 'react';
 import { RoobitUnit } from './RoobitUnit';
@@ -11,22 +11,34 @@ import {
   OrangeButton,
 } from '../styled/Style';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import {
+  faMagnifyingGlass,
+  faCaretDown,
+} from '@fortawesome/free-solid-svg-icons';
 
 const RoobitsListBody = styled.div`
   width: 590px;
   height: 100vh;
   border: 1px solid;
-  padding-left: 67px;
-  padding-right: 67px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 const FloorIndicator = styled.div`
+  height: 40px;
+  width: 456px;
   display: flex;
+  flex-wrap: nowrap;
   overflow-x: auto;
+  align-items: center;
+  margin-top: 20px;
   ::-webkit-scrollbar {
     display: none; /* Chrome , Safari , Opera */
   }
-  flex-wrap: nowrap;
+  -webkit-overflow-scrolling: touch;
+  button {
+    flex: 0 0 auto;
+  }
 `;
 const RoobitUnitWrapper = styled.div`
   border: solid 1px;
@@ -35,8 +47,69 @@ const RoobitUnitWrapper = styled.div`
   overflow: auto;
   width: 456px;
   height: 650px;
-  ::-webkit-scrollbar {
-    display: none; /* Chrome , Safari , Opera */
+`;
+const Space = styled.span`
+  margin-left: ${(props) => props.space || '10px'};
+`;
+
+const SearchInput = styled(Input)`
+  padding-left: 105px;
+`;
+const SearchOption = styled.span`
+  position: absolute;
+  left: 35px;
+  width: 60px;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  > button {
+    font-size: 16px;
+    border: none;
+    background-color: transparent;
+    color: #9c9c9c;
+    height: 16px;
+    padding: 0px;
+    cursor: pointer;
+  }
+`;
+const DropDown = styled.span`
+  position: absolute;
+  top: 25px;
+  left: -10px;
+  background-color: #fbfbfb;
+  width: 80px;
+  z-index: 50;
+
+  animation-name: fadein;
+  animation-duration: 0.5s;
+  animation-direction: alternate;
+  @keyframes fadein {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes fadeout {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+
+  > button {
+    height: 35px;
+    width: 80px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
   }
 `;
 
@@ -44,13 +117,22 @@ export const RoobitsList = () => {
   const queryClient = useQueryClient();
   const [selectedFloor, setSelectedFloor] = useState('all');
   const [searchKeyword, setSearchKeyword] = useState('');
+  const [searchOption, setSearchOption] = useState('내용');
+  const [dropDown, setDropDown] = useState(false);
   const ref = useRef(null);
+  const horizontalRef = useRef(null);
 
   // API 연결 및 쿼리 정상 연결 되면 아래 코드 수정
-  const { roobits } = queryClient.getQueryData('roobits') || roomDetailData_12;
+  const { roobits } = queryClient.getQueryData('roobits') || roomDetailData_30;
   useEffect(() => {
     queryClient.invalidateQueries('roobits');
     ref.current.scrollTo(0, 0);
+    if (selectedFloor >= 7) {
+      horizontalRef.current.scrollTo(208, 0);
+    }
+    if (selectedFloor <= 5) {
+      horizontalRef.current.scrollTo(0, 0);
+    }
   }, [selectedFloor]);
 
   let floor = { all: Object.keys(roobits) };
@@ -67,7 +149,7 @@ export const RoobitsList = () => {
   return (
     <RoobitsListBody>
       <InputWrapper>
-        <Input
+        <SearchInput
           type="search"
           id="search"
           name="search"
@@ -80,27 +162,66 @@ export const RoobitsList = () => {
         <LogoWrapper>
           <FontAwesomeIcon icon={faMagnifyingGlass} />
         </LogoWrapper>
+        <SearchOption>
+          <button onClick={() => setDropDown(!dropDown)}>
+            {`${searchOption}`}
+            <Space space={'4px'} />
+            <FontAwesomeIcon icon={faCaretDown} />
+          </button>
+          <DropDown hidden={dropDown}>
+            <button
+              onClick={() => {
+                setSearchOption('작성자');
+                setDropDown(!dropDown);
+              }}
+            >
+              작성자 검색
+            </button>
+            <button
+              onClick={() => {
+                setSearchOption('내용');
+                setDropDown(!dropDown);
+              }}
+            >
+              내용 검색
+            </button>
+            <button
+              onClick={() => {
+                setSearchOption('받는이');
+                setDropDown(!dropDown);
+              }}
+            >
+              받는이 검색
+            </button>
+          </DropDown>
+        </SearchOption>
       </InputWrapper>
-      <FloorIndicator>
+      <FloorIndicator ref={horizontalRef}>
         {Object.keys(floor).map((ele) =>
           ele === selectedFloor ? (
-            <OrangeButton
-              width={'151px'}
-              height={'36px'}
-              key={ele}
-              onClick={() => setSelectedFloor(ele)}
-            >
-              {ele === 'all' ? 'All' : ele}
-            </OrangeButton>
+            <>
+              <OrangeButton
+                width={'66px'}
+                height={'36px'}
+                key={ele}
+                onClick={() => setSelectedFloor(ele)}
+              >
+                {ele === 'all' ? 'All' : `${ele}F`}
+              </OrangeButton>
+              <Space space={'8px'} />
+            </>
           ) : (
-            <WhiteButtonOrangeBorder
-              width={'151px'}
-              height={'36px'}
-              key={ele}
-              onClick={() => setSelectedFloor(ele)}
-            >
-              {ele === 'all' ? 'All' : ele}
-            </WhiteButtonOrangeBorder>
+            <>
+              <WhiteButtonOrangeBorder
+                width={'51px'}
+                height={'36px'}
+                key={ele}
+                onClick={() => setSelectedFloor(ele)}
+              >
+                {ele === 'all' ? 'All' : `${ele}F`}
+              </WhiteButtonOrangeBorder>
+              <Space space={'8px'} />
+            </>
           )
         )}
       </FloorIndicator>
@@ -108,17 +229,22 @@ export const RoobitsList = () => {
         {floor[selectedFloor].map((unit) => {
           return roobits[unit].map((data) => {
             // console.log(data.nickname.includes(searchKeyword));
-            return data.nickname
-              .toLowerCase()
-              .includes(searchKeyword.toLowerCase()) ||
-              data.body.toLowerCase().includes(searchKeyword.toLowerCase()) ||
-              data.reception
-                .toLowerCase()
-                .includes(searchKeyword.toLowerCase()) ? (
-              <RoobitUnit key={data.roobitId} unit={data} />
-            ) : (
-              ''
-            );
+            if (
+              searchOption === '내용' &&
+              data.body.toLowerCase().includes(searchKeyword.toLowerCase())
+            ) {
+              return <RoobitUnit key={data.roobitId} unit={data} />;
+            } else if (
+              searchOption === '작성자' &&
+              data.nickname.toLowerCase().includes(searchKeyword.toLowerCase())
+            ) {
+              return <RoobitUnit key={data.roobitId} unit={data} />;
+            } else if (
+              searchOption === '받는이' &&
+              data.reception.toLowerCase().includes(searchKeyword.toLowerCase())
+            ) {
+              return <RoobitUnit key={data.roobitId} unit={data} />;
+            }
           });
         })}
       </RoobitUnitWrapper>

@@ -34,11 +34,13 @@ const BuildingStyle = styled.div`
       var(--item-width) * var(--nth) + (var(--item-width) / 2)
     )
     calc(100% - (var(--item-height) * var(--floor)) - (var(--item-height) / 2));
+  --zoom-scale: 2;
 
   /** 줌 인 줌 아웃 - 유닛이 한 개인 경우 */
   --one-zoom-translate-x: 0;
   --one-zoom-translate-y: calc(-50% + (var(--one-item-height) / 2));
   --one-zoom-transform-origin: 50% calc(100% - (var(--one-item-height) / 2));
+  --one-zoom-scale: 2;
 
   /** 줌 인 줌 아웃 - 유닛이 두 개인 경우 */
   --two-zoom-translate-x: calc(25% - (50% * var(--nth)));
@@ -47,6 +49,7 @@ const BuildingStyle = styled.div`
       var(--two-item-width) * var(--nth) + (var(--two-item-width) / 2)
     )
     calc(100% - (var(--two-item-height) / 2));
+  --two-zoom-scale: 2;
 
   .wrapper {
     border: 1px solid red;
@@ -99,7 +102,7 @@ const BuildingStyle = styled.div`
   .wrapper.zoom-in-mode > .container:not(.onlyTwo) {
     transform-origin: var(--zoom-transform-origin);
     transform: translate(var(--zoom-translate-x), var(--zoom-translate-y))
-      scale(3);
+      scale(var(--zoom-scale));
   }
 
   .wrapper.zoom-in-mode > .container.onlyOne {
@@ -108,7 +111,7 @@ const BuildingStyle = styled.div`
         var(--one-zoom-translate-x),
         var(--one-zoom-translate-y)
       )
-      scale(2);
+      scale(var(--one-zoom-scale));
   }
 
   .wrapper.zoom-in-mode > .container.onlyTwo {
@@ -117,8 +120,7 @@ const BuildingStyle = styled.div`
         var(--two-zoom-translate-x),
         var(--two-zoom-translate-y)
       )
-      scale(2);
-    /**-25%  (1) / 25% (0) */
+      scale(var(--two-zoom-scale));
   }
 
   .container.onlyOne {

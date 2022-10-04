@@ -34,13 +34,15 @@ const BuildingStyle = styled.div`
       var(--item-width) * var(--nth) + (var(--item-width) / 2)
     )
     calc(100% - (var(--item-height) * var(--floor)) - (var(--item-height) / 2));
-  --zoom-scale: 2;
+  --zoom-scale: calc(100 / (90 / (var(--total-floor) + 0.1)));
+
+  /**scale은 number(단위 없는 정수나 소수) 만 받기 때문에 length(px, vh, rem 등) 자료형을 넣으면 작동이 안 된다. */
 
   /** 줌 인 줌 아웃 - 유닛이 한 개인 경우 */
   --one-zoom-translate-x: 0;
   --one-zoom-translate-y: calc(-50% + (var(--one-item-height) / 2));
   --one-zoom-transform-origin: 50% calc(100% - (var(--one-item-height) / 2));
-  --one-zoom-scale: 2;
+  --one-zoom-scale: calc(100 / (90 / (var(--total-floor) - 0.5)));
 
   /** 줌 인 줌 아웃 - 유닛이 두 개인 경우 */
   --two-zoom-translate-x: calc(25% - (50% * var(--nth)));
@@ -49,7 +51,7 @@ const BuildingStyle = styled.div`
       var(--two-item-width) * var(--nth) + (var(--two-item-width) / 2)
     )
     calc(100% - (var(--two-item-height) / 2));
-  --two-zoom-scale: 2;
+  --two-zoom-scale: calc(100 / (90 / (var(--total-floor) - 0.5)));
 
   .wrapper {
     border: 1px solid red;
@@ -189,6 +191,10 @@ const BuildingStyle = styled.div`
     border-right: var(--unit-border);
   }
 `;
+
+// const convertCSSLenghtToNum = (lengthStr) => {
+//   return lengthStr.match(/^(.*\d+)(\w*)$/)[1];
+// };
 
 const Building = ({ roobits, isZoomIn }) => {
   const unitCount = Object.keys(roobits).length;

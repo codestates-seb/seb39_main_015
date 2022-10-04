@@ -98,7 +98,7 @@ const DropDown = styled.span`
   background-color: #fbfbfb;
   border-radius: 8px;
   width: 80px;
-  z-index: 50;
+  z-index: 70;
   opacity: 0.8;
 
   animation-name: fadein;
@@ -150,6 +150,8 @@ export const RoobitsList = () => {
   const [searchKeyword, setSearchKeyword] = useState('');
   const [searchOption, setSearchOption] = useState('내용');
   const [dropDown, setDropDown] = useState(false);
+  const [isDrag, setIsDrag] = useState(false);
+  const [startX, setStartX] = useState();
   const ref = useRef(null);
   const horizontalRef = useRef(null);
 
@@ -167,15 +169,43 @@ export const RoobitsList = () => {
     }
   }
 
+  const onDragStart = (e) => {
+    e.preventDefault();
+    setIsDrag(true);
+    setStartX(e.pageX + horizontalRef.current.scrollLeft);
+  };
+  const onDragEnd = (e) => {
+    setIsDrag(false);
+    e;
+  };
+  const onDragMove = (e) => {
+    if (isDrag) {
+      const { scrollWidth, clientWidth, scrollLeft } = horizontalRef.current;
+      horizontalRef.current.scrollLeft = startX - e.pageX;
+
+      if (scrollLeft === 0) {
+        setStartX(e.pageX);
+      } else if (scrollWidth <= clientWidth + scrollLeft) {
+        setStartX(e.pageX + scrollLeft);
+      }
+    }
+  };
+  const throttle = (func, ms) => {
+    let throttled = false;
+    return (...args) => {
+      if (!throttled) {
+        throttled = true;
+        setTimeout(() => {
+          func(...args);
+          throttled = false;
+        }, ms);
+      }
+    };
+  };
+  const onThrottleDragMove = throttle(onDragMove, 100);
+
   useEffect(() => {
-    queryClient.invalidateQueries('roobits');
     ref.current.scrollTo(0, 0);
-    if (selectedFloor >= 6) {
-      horizontalRef.current.scrollTo(208, 0);
-    }
-    if (selectedFloor <= 5) {
-      horizontalRef.current.scrollTo(0, 0);
-    }
   }, [selectedFloor]);
 
   return (
@@ -201,7 +231,7 @@ export const RoobitsList = () => {
             <Space space={'4px'} />
             <FontAwesomeIcon icon={faCaretDown} />
           </button>
-          <DropDown hidden={dropDown}>
+          <DropDown hidden={!dropDown}>
             <button
               onClick={() => {
                 setSearchOption('작성자');
@@ -229,7 +259,13 @@ export const RoobitsList = () => {
           </DropDown>
         </SearchOption>
       </InputWrapper>
-      <FloorIndicator ref={horizontalRef}>
+      <FloorIndicator
+        ref={horizontalRef}
+        onMouseDown={onDragStart}
+        onMouseMove={isDrag ? onThrottleDragMove : null}
+        onMouseUp={onDragEnd}
+        onMouseLeave={onDragEnd}
+      >
         {Object.keys(floor).map((ele) =>
           ele === selectedFloor ? (
             <>

@@ -84,7 +84,7 @@ public class Member extends Auditable {
 
 //    룸부분 결합후 작업
 //@JsonManagedReference
-    @OneToMany(mappedBy = "member" ,cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "member" ,cascade = CascadeType.ALL)
     private List<Room> rooms = new ArrayList<>();
 
 //    public void setRoom(Room room){

@@ -87,5 +87,4 @@ public class RoobitService {
         findRoobit.setRoobitStatus(Roobit.RoobitStatus.ROOBIT_DELETED);
         roobitRepository.save(findRoobit);
     }
-
 }

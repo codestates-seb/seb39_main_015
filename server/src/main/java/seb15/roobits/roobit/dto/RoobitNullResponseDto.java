@@ -25,7 +25,7 @@ public class RoobitNullResponseDto {  // 디데이 아닐 땐 body는 Null
     }
 
     private String nickname;
-    //    private String body;
+    private String body;
     private String email;
     private String reception;
     private String style;
@@ -33,6 +33,5 @@ public class RoobitNullResponseDto {  // 디데이 아닐 땐 body는 Null
     @CreatedDate
     private LocalDateTime createdAt;
     private Roobit.RoobitStatus roobitStatus;
-
 
 }

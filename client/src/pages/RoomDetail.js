@@ -31,6 +31,7 @@ const RoomDetail = () => {
     () =>
       axios
         .get(`${process.env.REACT_APP_API_URL}/rooms/${roomId}`)
+        .then((res) => res.data)
         .catch(() => roomDetailData_16 /* 실패할 경우 더미 데이터 표시 */),
     {
       staleTime: 1000 * 60 * 30,

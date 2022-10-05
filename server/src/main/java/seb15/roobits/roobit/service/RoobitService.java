@@ -78,7 +78,7 @@ public class RoobitService {
 
     public Page<Roobit> findRoobits(int page, int size) {  // 룸 id 상관없이 모든 루빗 다 가져올 때
         return roobitRepository.findAll(PageRequest.of(page, size,
-                Sort.by("roobitId").descending()));
+                Sort.by("roobitId").ascending()));
     }
 
     public void deleteRoobit(long roobitId) {

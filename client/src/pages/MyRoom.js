@@ -65,6 +65,7 @@ const RoomTheme = styled.div`
   border-radius: 8px;
   width: 348px;
   height: 202px;
+  cursor: pointer;
   /* position: absolute;
   left: 50%;
   right: 50%;
@@ -168,8 +169,20 @@ export default function MyRoom() {
             data.rooms.map((ele) => {
               return (
                 <RoomBox key={ele.roomId}>
-                  <RoomTheme>{ele.roomTheme}</RoomTheme>
-                  <RoomTitle>{ele.roomName}</RoomTitle>
+                  <RoomTheme
+                    onClick={() => {
+                      window.location.assign(ele.url);
+                    }}
+                  >
+                    {ele.roomTheme}
+                  </RoomTheme>
+                  <RoomTitle
+                    onClick={() => {
+                      window.location.assign(ele.url);
+                    }}
+                  >
+                    {ele.roomName}
+                  </RoomTitle>
                   <RoomControlBar>
                     <RoomDday>
                       <p

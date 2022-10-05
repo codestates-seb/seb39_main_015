@@ -24,3 +24,4 @@ public interface RoobitMapper {
     List<List<RoobitNullResponseDto>> floorNullDtos(List<List<Roobit>> roobits);   // body Null로 리턴하는 루빗들을 리스트로
 
 }
+

@@ -38,7 +38,6 @@ public class RoomController {
     private final RoomService roomService;
     private final RoomMapper roomMapper;
     private final MemberService memberService;
-
     private final RoobitService roobitService;
     private final RoobitMapper roobitMapper;
 
@@ -103,9 +102,10 @@ public class RoomController {
                     new MultiResponseDto<>(roomMapper.roomToRoomResponseDto(room), roobitMapper.floorDtos(roobitsFloor)), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
         }
     }
-
+     */
 
     /*
         @GetMapping("/rooms/floors/{room-id}")   // 나중에 roomId에 붙일 부분
@@ -121,6 +121,7 @@ public class RoomController {
         }
     }
      */
+
 
 }
 

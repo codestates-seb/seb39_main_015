@@ -1,4 +1,10 @@
-import { FormWrapper } from '../styled/Style';
+import {
+  FormWrapper,
+  InputWrapper,
+  Input,
+  WhiteButton,
+  OrangeButton,
+} from '../styled/Style';
 import Carousel from './Carousel';
 import RoobitStyleSelect from './RoobitStyleSelect';
 import { ReactComponent as CancelIcon } from '../images/cancel-icon.svg';
@@ -143,24 +149,28 @@ const CreateRoobitModal = ({ handleOpenModal }) => {
                 roobitStyle={roobitStyle}
               />
               <RoobitStyleSelect setRoobitStyle={setRoobitStyle} />
-              <button onClick={() => setIsPhaseOne(false)}>
+              <OrangeButton
+                height={'45px'}
+                width={'100%'}
+                onClick={() => setIsPhaseOne(false)}
+              >
                 글 작성하러 가기
-              </button>
+              </OrangeButton>
             </section>
           ) : (
             <section>
-              <RoobitImgWrapper>
-                <RoobitOneImg
-                  roobitCode={getRoobitType(roobitType + roobitStyle)}
-                  className={haveTo(`to ${receptionIpt}`) ? 'letter' : ''}
-                />
-              </RoobitImgWrapper>
               <button onClick={() => setIsPhaseOne(true)}>
                 루빗 디자인 수정
+                <RoobitImgWrapper>
+                  <RoobitOneImg
+                    roobitCode={getRoobitType(roobitType + roobitStyle)}
+                    className={haveTo(`to ${receptionIpt}`) ? 'letter' : ''}
+                  />
+                </RoobitImgWrapper>
               </button>
-              <div>
+              <InputWrapper>
                 <label htmlFor="from">from.</label>
-                <input
+                <Input
                   id="from"
                   maxLength={10}
                   placeholder="닉네임 (최대 10자)"
@@ -168,7 +178,7 @@ const CreateRoobitModal = ({ handleOpenModal }) => {
                   value={nicknameIpt}
                   onChange={handleNicknameIpt}
                 />
-              </div>
+              </InputWrapper>
               <div>
                 <textarea
                   maxLength={140}
@@ -179,18 +189,22 @@ const CreateRoobitModal = ({ handleOpenModal }) => {
                 />
                 <p>{bodyIpt.length} / 140</p>
               </div>
-              <div>
+              <InputWrapper>
                 <label htmlFor="to">to.</label>
-                <input
+                <Input
                   maxLength={20}
                   id="to"
                   required
                   value={receptionIpt}
                   onChange={handleReceptionIpt}
                 />
-              </div>
-              <button type="reset">초기화</button>
-              <button type="submit">작성 완료</button>
+              </InputWrapper>
+              <WhiteButton height={'45px'} width={'164px'} type="reset">
+                초기화
+              </WhiteButton>
+              <OrangeButton height={'45px'} width={'164px'} type="submit">
+                작성 완료
+              </OrangeButton>
             </section>
           )}
         </form>

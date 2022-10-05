@@ -156,9 +156,6 @@ public class MemberService {
         if (findUserMember == null) {
             throw new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND);
         }
-        if (findUserMember.getMemberStatus() == Member.MemberStatus.MEMBER_QUIT)
-            throw new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND);
         return findUserMember;
     }
-
 }

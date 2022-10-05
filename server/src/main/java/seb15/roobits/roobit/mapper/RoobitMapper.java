@@ -20,5 +20,7 @@ public interface RoobitMapper {
     List<RoobitResponseDto> roobitsToRoobitResponsesDtos(List<Roobit> roobits);  // body까지 전체 리턴을 리스트로
     List<RoobitNullResponseDto> roobitsToRoobitNullResponsesDtos(List<Roobit> roobits);  // body Null로 리턴하는 루빗들을 리스트로
 
+    List<List<RoobitResponseDto>> floorDtos(List<List<Roobit>> roobits);  // body까지 전체 리턴을 리스트로
+    List<List<RoobitNullResponseDto>> floorNullDtos(List<List<Roobit>> roobits);   // body Null로 리턴하는 루빗들을 리스트로
 
 }

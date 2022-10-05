@@ -28,7 +28,6 @@ public class RoobitNullResponseDto {  // 디데이 아닐 땐 body는 Null
 //    private String body;
     private String email;
     private String reception;
-//    private String ToReception;  // 1005YU
     private String style;
 
     @CreatedDate

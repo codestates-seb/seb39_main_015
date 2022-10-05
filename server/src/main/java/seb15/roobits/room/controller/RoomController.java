@@ -106,21 +106,6 @@ public class RoomController {
         }
     }
 
-    /*
-        @GetMapping("/rooms/floors/{room-id}")   // 나중에 roomId에 붙일 부분
-    public ResponseEntity getFloorRoom(@PathVariable("room-id") @Positive long roomId) {
-        List<Roobit> roobitsById = roobitService.findRoobitsByRoomId(roomId);
-        List<List<Roobit>> roobitsFloor = roobitService.findRoobitsFloorByRoomId(roomId);
-        if (roobitsById.get(0).getRoobitStatus()== Roobit.RoobitStatus.ROOBIT_OPEN) {
-            return new ResponseEntity<>(
-                    new MultiResponseDto<>(roobitMapper.floorDtos(roobitsFloor)), HttpStatus.OK);   //디데이일 때는 body도 출력
-        } else {
-            return new ResponseEntity<>(
-                    new MultiResponseDto<>(roobitMapper.floorNullDtos(roobitsFloor)), HttpStatus.OK);  // 디데이아닐 땐 body Null
-        }
-    }
-     */
-
 
 }
 

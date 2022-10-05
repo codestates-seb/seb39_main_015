@@ -33,14 +33,12 @@ import java.util.List;
 @RequestMapping("/rooms")
 @Validated
 @RequiredArgsConstructor
-
 @Slf4j
 public class RoomController {
     private final RoomService roomService;
     private final RoomMapper roomMapper;
     private final MemberService memberService;
     private final RoobitService roobitService;
-
     private final RoobitMapper roobitMapper;
 
     @PostMapping

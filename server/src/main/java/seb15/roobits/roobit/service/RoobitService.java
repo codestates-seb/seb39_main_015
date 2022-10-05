@@ -14,11 +14,10 @@ import seb15.roobits.room.service.RoomService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 import static java.lang.Math.min;
 
-@Transactional
 @Service
+@Transactional
 public class RoobitService {
     private final RoomService roomService;
     private final RoobitRepository roobitRepository;

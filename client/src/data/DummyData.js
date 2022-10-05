@@ -4152,7 +4152,7 @@ export const roomDetailData_30 = {
         roobitId: 10,
         nickname: 'AJR',
         body: '30번 룸 끝',
-        reception: 'to everyone',
+        reception: 'everyone',
         style: '4H',
       },
     ],

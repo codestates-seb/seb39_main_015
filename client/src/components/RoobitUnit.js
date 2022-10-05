@@ -51,9 +51,6 @@ const RoobitMsgTo = styled.div`
 `;
 
 export const RoobitUnit = ({ unit }) => {
-  const toConverter = (to) => {
-    return to.replace('to', 'to.');
-  };
   return (
     <RoobitUnitBox>
       <RoobitOneWrapper>
@@ -65,7 +62,7 @@ export const RoobitUnit = ({ unit }) => {
       <RoobitBody>
         <RoobitMsgFrom>{`From. ${unit.nickname}`}</RoobitMsgFrom>
         <RoobitMsgContent>{unit.body}</RoobitMsgContent>
-        <RoobitMsgTo>{toConverter(unit.reception)}</RoobitMsgTo>
+        <RoobitMsgTo>{`to. ${unit.reception}`}</RoobitMsgTo>
       </RoobitBody>
     </RoobitUnitBox>
   );

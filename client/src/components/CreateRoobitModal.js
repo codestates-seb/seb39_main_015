@@ -107,7 +107,7 @@ const CreateRoobitModal = ({ handleOpenModal }) => {
       roomId: Number(roomId),
       nickname: nicknameIpt,
       body: bodyIpt,
-      reception: 'to ' + receptionIpt,
+      reception: receptionIpt,
       style: String(roobitType) + roobitStyle,
     });
   };

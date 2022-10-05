@@ -31,7 +31,10 @@ public class RoobitService {
     }
 
     public Roobit createRoobit(Roobit roobit) {
-        Roobit savedRoobit = roobitRepository.save(roobit);;
+//        String reception = roobit.getReception();  // 1005 YU
+//        String toReception = "to " + reception;  // 1005 YU
+//        roobit.setToReception(toReception);  // 1005 YU
+        Roobit savedRoobit = roobitRepository.save(roobit);
         return savedRoobit;
     }
 
@@ -78,7 +81,7 @@ public class RoobitService {
 
     public Page<Roobit> findRoobits(int page, int size) {  // 룸 id 상관없이 모든 루빗 다 가져올 때
         return roobitRepository.findAll(PageRequest.of(page, size,
-                Sort.by("roobitId").ascending()));
+                Sort.by("roobitId").ascending()));  // 1005YU
     }
 
     public void deleteRoobit(long roobitId) {

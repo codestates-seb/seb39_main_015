@@ -13,7 +13,7 @@ import RoobitOneImg from '../styled/RoobitOneImg';
 import { getRoobitType } from '../hook/getRoobitType';
 import styled from 'styled-components';
 import { haveTo } from '../hook/haveTo';
-import { useMutation, useQueryClient } from 'react-query';
+import { useMutation } from 'react-query';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { Loading } from './Loading';
@@ -72,7 +72,7 @@ const CreateRoobitModal = ({ handleOpenModal }) => {
     style : 25L
     }
   */
-  const queryClient = useQueryClient();
+  //const queryClient = useQueryClient();
   const { mutate, isLoading } = useMutation(
     (data) => axios.post(`${process.env.REACT_APP_API_URL}/roobits/post`, data),
     {
@@ -83,8 +83,8 @@ const CreateRoobitModal = ({ handleOpenModal }) => {
         console.log('onSuccess', data);
         alert('성공');
         // postTodo가 성공하면 roobits로 맵핑된 useQuery api 함수를 실행합니다.
-        queryClient.invalidateQueries('roobits');
-        //location.reload();
+        //queryClient.invalidateQueries('roobits');
+        location.reload();
         handleOpenModal();
       },
       onError: (err) => {
@@ -104,7 +104,7 @@ const CreateRoobitModal = ({ handleOpenModal }) => {
     e.preventDefault();
     //쿼리 함수 실행
     mutate({
-      roomId,
+      roomId: Number(roomId),
       nickname: nicknameIpt,
       body: bodyIpt,
       reception: 'to ' + receptionIpt,

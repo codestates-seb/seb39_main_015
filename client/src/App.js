@@ -10,7 +10,7 @@ import EditUser from './pages/EditUser';
 import Header from './components/Header.js';
 import { useEffect } from 'react';
 import axios from 'axios';
-import { useQuery, useQueryClient } from 'react-query';
+import { useQuery } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import RoomDetail from './pages/RoomDetail';
 import { getCookieValue } from './hook/getCookieValue.js';
@@ -19,7 +19,6 @@ import { RoobitListTestPage } from './pages/RoobitListTestPage';
 
 function App() {
   const location = useLocation();
-  const queryClient = useQueryClient();
 
   useEffect(() => {
     // query를 객체 형태로 가져오는 함수
@@ -56,7 +55,7 @@ function App() {
   );
   data;
 
-  const authData = queryClient.getQueriesData('auth');
+  const authData = getCookieValue('Authorization');
 
   return (
     <div>

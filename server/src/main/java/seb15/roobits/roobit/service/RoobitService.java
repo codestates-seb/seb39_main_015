@@ -11,64 +11,81 @@ import seb15.roobits.roobit.entity.Roobit;
 import seb15.roobits.roobit.repository.RoobitRepository;
 import seb15.roobits.room.service.RoomService;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import static java.lang.Math.min;
 
 @Service
 @Transactional
 public class RoobitService {
     private final RoomService roomService;
     private final RoobitRepository roobitRepository;
-
+    private final RoobitValidator roobitValidator;
     public RoobitService(RoomService roomService,
-                         RoobitRepository roobitRepository) {
+                         RoobitRepository roobitRepository,
+                         RoobitValidator roobitValidator) {
         this.roomService = roomService;
         this.roobitRepository = roobitRepository;
+        this.roobitValidator = roobitValidator;
     }
 
     public Roobit createRoobit(Roobit roobit) {
-        verifyRoobit(roobit);
-        Roobit savedRoobit = saveRoobit(roobit);
+        Roobit savedRoobit = roobitRepository.save(roobit);;
         return savedRoobit;
     }
 
     @Transactional(readOnly = true)
-    public Roobit findRoobit(long roobitId) {
-        return findVerifiedRoobit(roobitId);
+    public Roobit findRoobit(long roobitId){  //  1003 YU 루빗 딱 한개
+        Optional<Roobit> optionalRoobit = roobitRepository.findById(roobitId);
+        Roobit findRoobit = optionalRoobit.orElseThrow(() ->
+                new BusinessLogicException(ExceptionCode.ROOBIT_NOT_FOUND));
+        roobitValidator.updateRoobitStatus(findRoobit);
+        return findRoobit;
     }
 
-    public Page<Roobit> findRoobits(int page, int size) {
+    @Transactional(readOnly = true)
+    public List<Roobit> findRoobitsByRoomId(long roomId) {  // roomId에 해당하는 모든 루빗
+        int page = 1;
+        int size = 300;
+        Page<Roobit> pageRoobits = findRoobits(page - 1, 300);
+        List<Roobit> roobits = pageRoobits.getContent();
+        List<Roobit> roobitsById = new ArrayList<>();
+
+        for (int i = 0; i < roobits.size(); i++) {
+            roobits.get(i);
+            long roomNum;
+            roomNum = roobits.get(i).getRoom().getRoomId();
+            if (roomNum == roomId) {
+                // System.out.println(roobits.get(i));
+                roobitsById.add(roobits.get(i));
+            }
+        }
+        return roobitsById;
+    }
+
+    @Transactional(readOnly = true) // 읽기 전용으로 조회하면 메모리를 절약 가능
+    public List<List<Roobit>> findRoobitsFloorByRoomId(long roomId) {  // 조회 - roomId에 해당하는 모든 루빗
+        List<Roobit> roobitsById = findRoobitsByRoomId(roomId);
+        int limit = 10;
+        List<List<Roobit>> roobitsFloor = new ArrayList<>();
+        for(int j = 0; j < roobitsById.size(); j += limit){
+            List<Roobit> floor =  new ArrayList<>(roobitsById.subList(j, min(j + limit, roobitsById.size())));
+            roobitsFloor.add(floor) ;
+        }
+        return roobitsFloor;
+    }
+
+    public Page<Roobit> findRoobits(int page, int size) {  // 룸 id 상관없이 모든 루빗 다 가져올 때
         return roobitRepository.findAll(PageRequest.of(page, size,
                 Sort.by("roobitId").descending()));
     }
 
     public void deleteRoobit(long roobitId) {
-        Roobit findRoobit = findVerifiedRoobit(roobitId);
-        int step = findRoobit.getRoobitStatus().getStatusNumber();    // 소프트 딜리트
+        Roobit findRoobit = findRoobit(roobitId);
+        int step = findRoobit.getRoobitStatus().getStatusNumber();
         findRoobit.setRoobitStatus(Roobit.RoobitStatus.ROOBIT_DELETED);
         roobitRepository.save(findRoobit);
     }
 
-//    public void deleteRoobit(long roobitId) {   // 하드 딜리트
-//        roobitRepository.deleteById(roobitId);
-//    }
-
-
-    public Roobit findVerifiedRoobit(long roobitId) {
-        Optional<Roobit> optionalRoobit = roobitRepository.findById(roobitId);
-        Roobit findRoobit =
-                optionalRoobit.orElseThrow(() ->
-                        new BusinessLogicException(ExceptionCode.ROOBIT_NOT_FOUND));
-        return findRoobit;
-    }
-
-    private void verifyRoobit(Roobit roobit) {
-        roomService.findRoom(roobit.getRoom().getRoomId());
-    }   //내가 쓰던 findVerifiedRoom에서 findRoom으로 변경했음 (0929 YU)
-
-    private Roobit saveRoobit(Roobit roobit) {
-        return roobitRepository.save(roobit);
-    }
-
 }
-
-

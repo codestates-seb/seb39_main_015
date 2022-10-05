@@ -10,6 +10,7 @@ import { haveTo } from '../hook/haveTo';
 import { useMutation, useQueryClient } from 'react-query';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { Loading } from './Loading';
 
 const RoobitImgWrapper = styled.div`
   width: 100px;
@@ -66,7 +67,7 @@ const CreateRoobitModal = ({ handleOpenModal }) => {
     }
   */
   const queryClient = useQueryClient();
-  const { mutate } = useMutation(
+  const { mutate, isLoading } = useMutation(
     (data) => axios.post(`${process.env.REACT_APP_API_URL}/roobits/post`, data),
     {
       onMutate: (data) => {
@@ -123,75 +124,78 @@ const CreateRoobitModal = ({ handleOpenModal }) => {
     } else alert('20자 이하로 작성해주세요.');
   };
   return (
-    <FormWrapper
-      width="476px"
-      height="634px"
-      onClick={(e) => e.stopPropagation()}
-    >
-      <CancelIcon stroke="#aaa" onClick={handleOpenModal} />
-      <h2>Create a Roobit</h2>
-      <form onReset={handleOnReset} onSubmit={handleOnSubmit}>
-        {isPhaseOne ? (
-          <section>
-            <Carousel
-              cards={roobitTypesArr}
-              setData={setRoobitType}
-              roobitType={roobitType}
-              roobitStyle={roobitStyle}
-            />
-            <RoobitStyleSelect setRoobitStyle={setRoobitStyle} />
-            <button onClick={() => setIsPhaseOne(false)}>
-              글 작성하러 가기
-            </button>
-          </section>
-        ) : (
-          <section>
-            <RoobitImgWrapper>
-              <RoobitOneImg
-                roobitCode={getRoobitType(roobitType + roobitStyle)}
-                className={haveTo(`to ${receptionIpt}`) ? 'letter' : ''}
+    <>
+      {isLoading && <Loading />}
+      <FormWrapper
+        width="476px"
+        height="634px"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <CancelIcon stroke="#aaa" onClick={handleOpenModal} />
+        <h2>Create a Roobit</h2>
+        <form onReset={handleOnReset} onSubmit={handleOnSubmit}>
+          {isPhaseOne ? (
+            <section>
+              <Carousel
+                cards={roobitTypesArr}
+                setData={setRoobitType}
+                roobitType={roobitType}
+                roobitStyle={roobitStyle}
               />
-            </RoobitImgWrapper>
-            <button onClick={() => setIsPhaseOne(true)}>
-              루빗 디자인 수정
-            </button>
-            <div>
-              <label htmlFor="from">from.</label>
-              <input
-                id="from"
-                maxLength={10}
-                placeholder="닉네임 (최대 10자)"
-                required
-                value={nicknameIpt}
-                onChange={handleNicknameIpt}
-              />
-            </div>
-            <div>
-              <textarea
-                maxLength={140}
-                placeholder="140자까지 작성 가능합니다."
-                required
-                value={bodyIpt}
-                onChange={handleBodyIpt}
-              />
-              <p>{bodyIpt.length} / 140</p>
-            </div>
-            <div>
-              <label htmlFor="to">to.</label>
-              <input
-                maxLength={20}
-                id="to"
-                required
-                value={receptionIpt}
-                onChange={handleReceptionIpt}
-              />
-            </div>
-            <button type="reset">초기화</button>
-            <button type="submit">작성 완료</button>
-          </section>
-        )}
-      </form>
-    </FormWrapper>
+              <RoobitStyleSelect setRoobitStyle={setRoobitStyle} />
+              <button onClick={() => setIsPhaseOne(false)}>
+                글 작성하러 가기
+              </button>
+            </section>
+          ) : (
+            <section>
+              <RoobitImgWrapper>
+                <RoobitOneImg
+                  roobitCode={getRoobitType(roobitType + roobitStyle)}
+                  className={haveTo(`to ${receptionIpt}`) ? 'letter' : ''}
+                />
+              </RoobitImgWrapper>
+              <button onClick={() => setIsPhaseOne(true)}>
+                루빗 디자인 수정
+              </button>
+              <div>
+                <label htmlFor="from">from.</label>
+                <input
+                  id="from"
+                  maxLength={10}
+                  placeholder="닉네임 (최대 10자)"
+                  required
+                  value={nicknameIpt}
+                  onChange={handleNicknameIpt}
+                />
+              </div>
+              <div>
+                <textarea
+                  maxLength={140}
+                  placeholder="140자까지 작성 가능합니다."
+                  required
+                  value={bodyIpt}
+                  onChange={handleBodyIpt}
+                />
+                <p>{bodyIpt.length} / 140</p>
+              </div>
+              <div>
+                <label htmlFor="to">to.</label>
+                <input
+                  maxLength={20}
+                  id="to"
+                  required
+                  value={receptionIpt}
+                  onChange={handleReceptionIpt}
+                />
+              </div>
+              <button type="reset">초기화</button>
+              <button type="submit">작성 완료</button>
+            </section>
+          )}
+        </form>
+      </FormWrapper>
+    </>
   );
 };
 

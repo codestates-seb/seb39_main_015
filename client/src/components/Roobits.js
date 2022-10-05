@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import { getRoobitType } from '../hook/getRoobitType';
 import { haveTo } from '../hook/haveTo';
 import RoobitOneImg from '../styled/RoobitOneImg';
-import catMeow from '../audios/cat_meow.wav';
 
 /*
 {
@@ -22,7 +21,7 @@ const RoobitsWrapper = styled.ul`
 
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  grid-template-rows: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 33%);
 
   grid-template-areas:
     'a b c d e f'
@@ -80,6 +79,8 @@ const RoobitLi = styled.li`
     top: 100%;
     left: 50%;
     transform: translate(-50%);
+
+    font-size: 0;
   }
 
   .reception {
@@ -94,11 +95,13 @@ const RoobitLi = styled.li`
     top: -20%;
     left: 50%;
     transform: translate(-50%);
+
+    font-size: 0;
   }
 `;
 
-const Roobits = ({ unitRoobits }) => {
-  const audio = new Audio(catMeow);
+const Roobits = ({ unitRoobits = [], audioUrl }) => {
+  const audio = new Audio(audioUrl);
   return (
     <RoobitsWrapper>
       {unitRoobits.map((roobit) => (

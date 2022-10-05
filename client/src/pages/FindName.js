@@ -12,7 +12,6 @@ import {
 } from '../styled/Style.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
-import logInLogo from '../images/cat.png';
 // import { useQueryClient } from 'react-query';
 
 // const LoginFormWrapper = styled.div`
@@ -84,7 +83,7 @@ const FindName = () => {
   return (
     <Body>
       <FormWrapper width={'476px'} height={'628px'}>
-        <img alt="login logo" src={logInLogo} />
+        <h2>Find ID</h2>
         {username ? (
           <div>ID : {username}</div>
         ) : (

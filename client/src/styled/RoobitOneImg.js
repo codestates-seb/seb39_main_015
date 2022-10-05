@@ -3,15 +3,15 @@ import catsImg from '../images/roomImg/03_cats_1x_w3200.png';
 import lettersImg from '../images/roomImg/04_letters_1x_w400.png';
 
 /** 스타일코드에 따라 루빗 이미지를 보여주는 styled-components
- * <RoobitOneImg roobitCode={getRoobitType("1A")} className={haveTo("to xxx") ? 'letter' : ''}/>
+ * <RoobitOneImg roobitCode={getRoobitType("1A")} className={haveTo("xxx") ? 'letter' : ''}/>
  */
 const RoobitOneImg = styled.div`
   --type: ${(props) => String(props.roobitCode.type) || '0'};
   --style: ${(props) => String(props.roobitCode.style) || '0'};
   --roobit-style: calc(100% / 7 * var(--style)) calc(100% / 4.5 * var(--type));
-  --roobit-width: calc(100%);
+  --roobit-width: 100%;
 
-  display: inline-block;
+  display: block;
   width: var(--roobit-width);
   height: 0;
   padding-top: var(--roobit-width);

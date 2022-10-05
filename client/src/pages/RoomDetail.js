@@ -1,54 +1,80 @@
 import Building from '../components/Building';
 import CreateRoobitBtn from '../components/CreateRoobitBtn';
+import BackwardBtn from '../components/BackwardBtn';
+import LeftFloatingBtn from '../styled/LeftFloatingBtn';
+import { Loading } from '../components/Loading';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { useQuery } from 'react-query';
-import {
-  //roomDetailData,
-  //roomDetailData_1,
-  //roomDetailData_2,
-  // roomDetailData_3,
-  //roomDetailData_4,
-  roomDetailData_12,
-} from '../data/DummyData';
+// import {
+//   //roomDetailData,
+//   //roomDetailData_1,
+//   //roomDetailData_2,
+//   //roomDetailData_3,
+//   //roomDetailData_4,
+//   roomDetailData_16,
+//   //roomDetailData_30,
+// } from '../data/DummyData';
+import { getCookieValue } from '../hook/getCookieValue';
+import { useState } from 'react';
+
+/** 줌인 줌아웃 구현을 위한 styled-components */
 
 const RoomDetail = () => {
+  const [isZoomIn, setIsZoomIn] = useState(true);
+  setIsZoomIn;
   const { roomId } = useParams();
-  //useLocation 으로 경로에서 roomId 받아오기
-  //쿼리로 룸 정보 받아와서 저장
+  const auth = getCookieValue('Authorization').length;
+  roomId;
 
-  const { data, isLoading } = useQuery(
+  const { data, isLoading, isError } = useQuery(
     'roobits',
     () =>
       axios
-        .get(`${process.env.REACT_APP_API_URL}/rooms/${roomId}`)
-        .catch(() => roomDetailData_12 /* 실패할 경우 더미 데이터 표시 */),
+        .get(`/fa`)
+        .then((res) => res.data)
+        .catch(() => '유효하지 않은 페이지'),
     {
       staleTime: 1000 * 60 * 30,
       retry: 1,
-      onError: (err) => {
-        console.log(err);
+      onError: () => {
+        console.log('요청 에러');
       },
     }
   );
 
   let roomStatus, roomData, roobits;
-  if (!isLoading) {
+  if (!isLoading && !isError) {
     ({ roomStatus, roomData, roobits } = data);
   } else {
-    return <p>로딩 컴포넌트</p>;
+    return <Loading />;
   }
+
+  if (isError) return <p>유효하지 않은 페이지</p>;
 
   return (
     <div>
-      {roomStatus === 'closed' || roobits === undefined ? (
+      {auth > 0 && <BackwardBtn />}
+      {roomStatus === 'ROOM_CLOSED' ||
+      roomStatus === 'ROOM_DELETED' ||
+      roobits === undefined ? (
         <p>룸 종료 페이지 컴포넌트</p>
       ) : (
         <>
           <h1>{roomData.roomName}</h1>
           <p>{roomData.restDay}</p>
-          <p>{roomData.dDay}</p>
-          <Building roobits={roobits} />
+          <p>{roomData.dday}</p>
+          <Building
+            roobits={roobits}
+            isZoomIn={isZoomIn}
+            setIsZoomIn={setIsZoomIn}
+          />
+
+          <LeftFloatingBtn
+            className={isZoomIn ? 'zoom-out' : 'zoom-in'}
+            onClick={() => setIsZoomIn((prev) => !prev)}
+          />
+          <LeftFloatingBtn className="share" />
           <CreateRoobitBtn />
         </>
       )}

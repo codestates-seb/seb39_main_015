@@ -15,7 +15,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { faLock } from '@fortawesome/free-solid-svg-icons';
 import { faGooglePlusG } from '@fortawesome/free-brands-svg-icons';
-import logInLogo from '../images/cat.png';
 import styled from 'styled-components';
 // import { useQueryClient } from 'react-query';
 
@@ -144,7 +143,7 @@ const Login = () => {
   return (
     <Body>
       <FormWrapper width={'476px'} height={'628px'}>
-        <img alt="login logo" src={logInLogo} />
+        <h2>Log in</h2>
         <form onSubmit={(e) => hadleSubmit(e)}>
           {/* <label htmlFor="username">ID</label> */}
           <InputWrapperLogin>

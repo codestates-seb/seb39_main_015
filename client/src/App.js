@@ -10,7 +10,7 @@ import EditUser from './pages/EditUser';
 import Header from './components/Header.js';
 import { useEffect } from 'react';
 import axios from 'axios';
-import { useQuery } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import RoomDetail from './pages/RoomDetail';
 import { getCookieValue } from './hook/getCookieValue.js';
@@ -19,6 +19,7 @@ import { RoobitListTestPage } from './pages/RoobitListTestPage';
 
 function App() {
   const location = useLocation();
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     // query를 객체 형태로 가져오는 함수
@@ -53,6 +54,9 @@ function App() {
         .then((res) => res.data),
     { staleTime: 1000 * 60 * 5, retry: false }
   );
+  data;
+
+  const authData = queryClient.getQueriesData('auth');
 
   return (
     <div>
@@ -61,11 +65,11 @@ function App() {
         <Route path="/" element={<MainPage />} />
         <Route path="/join" element={<Join />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/myroom" element={data ? <MyRoom /> : <Login />} />
+        <Route path="/myroom" element={authData ? <MyRoom /> : <Login />} />
         <Route path="/findname" element={<FindName />} />
         <Route path="/findpw" element={<FindPw />} />
         <Route path="/rooms/:roomId" element={<RoomDetail />} />
-        <Route path="/edituser" element={data ? <EditUser /> : <Login />} />
+        <Route path="/edituser" element={authData ? <EditUser /> : <Login />} />
         <Route path="/loading" element={<Loading />} />
         <Route path="/rooms/roobitslist" element={<RoobitListTestPage />} />
       </Routes>

@@ -56,8 +56,6 @@ const BuildingStyle = styled.div`
   --two-zoom-scale: calc(100 / (90 / (var(--total-floor) - 0.5)));
 
   .wrapper {
-    border: 1px solid red;
-
     position: fixed;
     top: 0;
     bottom: 0;

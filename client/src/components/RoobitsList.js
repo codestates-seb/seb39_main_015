@@ -157,15 +157,18 @@ export const RoobitsList = () => {
 
   // API 연결 및 쿼리 정상 연결 되면 아래 코드 수정
   const { roobits } = queryClient.getQueryData('roobits') || roomDetailData_30;
+  let floor = { 0: [] };
+  for (let r = 0; r < roobits.length; r++) {
+    floor[0].push(r);
+  }
 
-  let floor = { 0: Object.keys(roobits) };
   for (let i = 1; i <= Math.ceil(Object.keys(roobits).length / 3); i++) {
-    if (floor[0][floor[0].length - 1] - (3 * (i - 1) + 1) >= 2) {
-      floor[i] = [3 * (i - 1) + 1, 3 * (i - 1) + 2, 3 * (i - 1) + 3];
-    } else if (floor.all[floor[0].length - 1] - (3 * (i - 1) + 1) === 1) {
-      floor[i] = [3 * (i - 1) + 1, 3 * (i - 1) + 2];
-    } else if (floor.all[floor[0].length - 1] - (3 * (i - 1) + 1) === 0) {
-      floor[i] = [3 * (i - 1) + 1];
+    if (floor[0][floor[0].length - 1] - 3 * (i - 1) >= 2) {
+      floor[i] = [3 * (i - 1), 3 * (i - 1) + 1, 3 * (i - 1) + 2];
+    } else if (floor[0][floor[0].length - 1] - (3 * (i - 1) + 1) === 1) {
+      floor[i] = [3 * (i - 1), 3 * (i - 1) + 1];
+    } else if (floor[0][floor[0].length - 1] - (3 * (i - 1) + 1) === 0) {
+      floor[i] = [3 * (i - 1)];
     }
   }
 

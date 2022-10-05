@@ -1995,8 +1995,8 @@ export const roomDetailData_30 = {
     url: 'www.asdf.com',
     roobitAmount: 300,
   },
-  roobits: {
-    1: [
+  roobits: [
+    [
       {
         roobitId: 1,
         nickname: '열자를작성해보았어용',
@@ -2068,7 +2068,7 @@ export const roomDetailData_30 = {
         style: '4H',
       },
     ],
-    2: [
+    [
       {
         roobitId: 1,
         nickname: '열자를작성해보았어용',
@@ -2140,7 +2140,7 @@ export const roomDetailData_30 = {
         style: '4H',
       },
     ],
-    3: [
+    [
       {
         roobitId: 1,
         nickname: '3자바중독',
@@ -2212,7 +2212,7 @@ export const roomDetailData_30 = {
         style: '4H',
       },
     ],
-    4: [
+    [
       {
         roobitId: 1,
         nickname: '4자바중독',
@@ -2284,7 +2284,7 @@ export const roomDetailData_30 = {
         style: '4H',
       },
     ],
-    5: [
+    [
       {
         roobitId: 1,
         nickname: '열자를작성해보았어용',
@@ -2356,7 +2356,7 @@ export const roomDetailData_30 = {
         style: '4H',
       },
     ],
-    6: [
+    [
       {
         roobitId: 1,
         nickname: '열자를작성해보았어용',
@@ -2428,7 +2428,7 @@ export const roomDetailData_30 = {
         style: '4H',
       },
     ],
-    7: [
+    [
       {
         roobitId: 1,
         nickname: '3자바중독',
@@ -2500,7 +2500,7 @@ export const roomDetailData_30 = {
         style: '4H',
       },
     ],
-    8: [
+    [
       {
         roobitId: 1,
         nickname: '4자바중독',
@@ -2572,7 +2572,7 @@ export const roomDetailData_30 = {
         style: '4H',
       },
     ],
-    9: [
+    [
       {
         roobitId: 1,
         nickname: '열자를작성해보았어용',
@@ -2644,7 +2644,7 @@ export const roomDetailData_30 = {
         style: '4H',
       },
     ],
-    10: [
+    [
       {
         roobitId: 1,
         nickname: '열자를작성해보았어용',
@@ -2716,7 +2716,7 @@ export const roomDetailData_30 = {
         style: '4H',
       },
     ],
-    11: [
+    [
       {
         roobitId: 1,
         nickname: '3자바중독',
@@ -2788,7 +2788,7 @@ export const roomDetailData_30 = {
         style: '4H',
       },
     ],
-    12: [
+    [
       {
         roobitId: 1,
         nickname: '4자바중독',
@@ -2860,7 +2860,7 @@ export const roomDetailData_30 = {
         style: '4H',
       },
     ],
-    13: [
+    [
       {
         roobitId: 1,
         nickname: '4자바중독',
@@ -2932,7 +2932,7 @@ export const roomDetailData_30 = {
         style: '4H',
       },
     ],
-    14: [
+    [
       {
         roobitId: 1,
         nickname: '4자바중독',
@@ -3004,7 +3004,7 @@ export const roomDetailData_30 = {
         style: '4H',
       },
     ],
-    15: [
+    [
       {
         roobitId: 1,
         nickname: '4자바중독',
@@ -3076,7 +3076,7 @@ export const roomDetailData_30 = {
         style: '4H',
       },
     ],
-    16: [
+    [
       {
         roobitId: 1,
         nickname: '4자바중독',
@@ -3148,7 +3148,7 @@ export const roomDetailData_30 = {
         style: '4H',
       },
     ],
-    17: [
+    [
       {
         roobitId: 1,
         nickname: '4자바중독',
@@ -3220,7 +3220,7 @@ export const roomDetailData_30 = {
         style: '4H',
       },
     ],
-    18: [
+    [
       {
         roobitId: 1,
         nickname: '4자바중독',
@@ -3292,7 +3292,7 @@ export const roomDetailData_30 = {
         style: '4H',
       },
     ],
-    19: [
+    [
       {
         roobitId: 1,
         nickname: '4자바중독',
@@ -3364,7 +3364,7 @@ export const roomDetailData_30 = {
         style: '4H',
       },
     ],
-    20: [
+    [
       {
         roobitId: 1,
         nickname: '4자바중독',
@@ -3436,7 +3436,7 @@ export const roomDetailData_30 = {
         style: '4H',
       },
     ],
-    21: [
+    [
       {
         roobitId: 1,
         nickname: '4자바중독',
@@ -3508,7 +3508,7 @@ export const roomDetailData_30 = {
         style: '4H',
       },
     ],
-    22: [
+    [
       {
         roobitId: 1,
         nickname: '4자바중독',
@@ -3580,7 +3580,7 @@ export const roomDetailData_30 = {
         style: '4H',
       },
     ],
-    23: [
+    [
       {
         roobitId: 1,
         nickname: '4자바중독',
@@ -3652,7 +3652,7 @@ export const roomDetailData_30 = {
         style: '4H',
       },
     ],
-    24: [
+    [
       {
         roobitId: 1,
         nickname: '4자바중독',
@@ -3724,7 +3724,7 @@ export const roomDetailData_30 = {
         style: '4H',
       },
     ],
-    25: [
+    [
       {
         roobitId: 1,
         nickname: '4자바중독',
@@ -3796,7 +3796,7 @@ export const roomDetailData_30 = {
         style: '4H',
       },
     ],
-    26: [
+    [
       {
         roobitId: 1,
         nickname: '4자바중독',
@@ -3868,7 +3868,7 @@ export const roomDetailData_30 = {
         style: '4H',
       },
     ],
-    27: [
+    [
       {
         roobitId: 1,
         nickname: '4자바중독',
@@ -3940,7 +3940,7 @@ export const roomDetailData_30 = {
         style: '4H',
       },
     ],
-    28: [
+    [
       {
         roobitId: 1,
         nickname: '4자바중독',
@@ -4012,7 +4012,7 @@ export const roomDetailData_30 = {
         style: '4H',
       },
     ],
-    29: [
+    [
       {
         roobitId: 1,
         nickname: '4자바중독',
@@ -4084,7 +4084,7 @@ export const roomDetailData_30 = {
         style: '4H',
       },
     ],
-    30: [
+    [
       {
         roobitId: 1,
         nickname: '4자바중독',
@@ -4156,5 +4156,5 @@ export const roomDetailData_30 = {
         style: '4H',
       },
     ],
-  },
+  ],
 };

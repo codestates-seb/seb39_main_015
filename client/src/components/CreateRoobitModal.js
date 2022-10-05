@@ -164,7 +164,7 @@ const CreateRoobitModal = ({ handleOpenModal }) => {
                 <RoobitImgWrapper>
                   <RoobitOneImg
                     roobitCode={getRoobitType(roobitType + roobitStyle)}
-                    className={haveTo(`to ${receptionIpt}`) ? 'letter' : ''}
+                    className={haveTo(receptionIpt) ? 'letter' : ''}
                   />
                 </RoobitImgWrapper>
               </button>

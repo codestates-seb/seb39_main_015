@@ -52,7 +52,9 @@ const RoomDetail = () => {
   return (
     <div>
       {auth > 0 && <BackwardBtn />}
-      {roomStatus === 'closed' || roobits === undefined ? (
+      {roomStatus === 'ROOM_CLOSED' ||
+      roomStatus === 'ROOM_DELETED' ||
+      roobits === undefined ? (
         <p>룸 종료 페이지 컴포넌트</p>
       ) : (
         <>

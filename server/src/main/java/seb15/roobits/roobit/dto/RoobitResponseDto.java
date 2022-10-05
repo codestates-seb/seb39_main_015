@@ -23,7 +23,8 @@ public class RoobitResponseDto {
     private String nickname;
     private String body;
     private String email;
-    private String ToReception;  // 1005YU
+    private String reception;
+//    private String ToReception;  // 1005YU
     private String style;
 
     @CreatedDate

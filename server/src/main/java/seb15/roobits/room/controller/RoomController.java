@@ -3,10 +3,7 @@ package seb15.roobits.room.controller;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import seb15.roobits.exception.BusinessLogicException;
-import seb15.roobits.exception.ExceptionCode;
 import seb15.roobits.globaldto.MultiResponseDto;
-import seb15.roobits.globaldto.SingleResponseDto;
 import seb15.roobits.member.entity.Member;
 import seb15.roobits.member.service.MemberService;
 

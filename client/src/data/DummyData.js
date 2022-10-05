@@ -3,7 +3,7 @@ export const roomDetailData_1 = {
   roomData: {
     roomId: 1,
     roomName: '🌟39th Forever🥳',
-    dDay: '2022-09-15',
+    dday: '2022-09-15',
     restDay: 30,
     roomTheme: 'CATS',
     viewCount: 55,
@@ -51,7 +51,7 @@ export const roomDetailData_2 = {
   roomData: {
     roomId: 1,
     roomName: '🌟39th Forever🥳',
-    dDay: '2022-09-15',
+    dday: '2022-09-15',
     restDay: 30,
     roomTheme: 'CATS',
     viewCount: 55,
@@ -206,7 +206,7 @@ export const roomDetailData_3 = {
   roomData: {
     roomId: 1,
     roomName: '🌟39th Forever🥳',
-    dDay: '2022-09-15',
+    dday: '2022-09-15',
     restDay: 30,
     roomTheme: 'CATS',
     viewCount: 55,
@@ -427,7 +427,7 @@ export const roomDetailData_4 = {
   roomData: {
     roomId: 1,
     roomName: '🌟39th Forever🥳',
-    dDay: '2022-09-15',
+    dday: '2022-09-15',
     restDay: 30,
     roomTheme: 'CATS',
     viewCount: 55,
@@ -798,7 +798,7 @@ export const roomDetailData = {
   roomData: {
     roomId: 1,
     roomName: '🌟39th Forever🥳',
-    dDay: '2022-09-15',
+    dday: '2022-09-15',
     restDay: 30,
     roomTheme: 'CATS',
     viewCount: 55,
@@ -1104,7 +1104,7 @@ export const roomDetailData_30 = {
   roomData: {
     roomId: 1,
     roomName: '🌟39th Forever🥳',
-    dDay: '2022-09-15',
+    dday: '2022-09-15',
     restDay: 30,
     roomTheme: 'CATS',
     viewCount: 55,
@@ -3284,7 +3284,7 @@ export const roomDetailData_16 = {
   roomData: {
     roomId: 1,
     roomName: '🌟39th Forever🥳',
-    dDay: '2022-09-15',
+    dday: '2022-09-15',
     restDay: 30,
     roomTheme: 'CATS',
     viewCount: 55,

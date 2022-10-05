@@ -71,7 +71,9 @@ const Login = () => {
         .then((res) => {
           setIsLoading(false);
           if (res.headers.authorization) {
-            document.cookie = `Authorization=${res.headers.authorization}`;
+            const date = new Date();
+            date.setTime(date.getTime() + 60 * 60 * 1000);
+            document.cookie = `Authorization=${res.headers.authorization};expires=${date};`;
             window.location.replace('/#sectionOne');
           } else {
             alert('아이디 혹은 비밀번호가 일치하지 않습니다.');

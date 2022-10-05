@@ -326,7 +326,7 @@ const Join = () => {
                   ? '인증코드를 기입해주세요'
                   : '이메일 작성 후 코드받기를 눌러주세요'
               }
-              disabled={!emailCodeSend}
+              disabled={!emailCodeSend || emailValid}
             />
             <LogoWrapper>
               <FontAwesomeIcon icon={faEnvelope} />

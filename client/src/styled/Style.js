@@ -97,6 +97,11 @@ export const WhiteButton = styled.button`
   }
 `;
 
+export const WhiteButtonOrangeBorder = styled(WhiteButton)`
+  border-color: #f58a5c;
+  color: #f58a5c;
+`;
+
 export const OrangeButton = styled(WhiteButton)`
   background-color: #f58a5c;
   color: white;

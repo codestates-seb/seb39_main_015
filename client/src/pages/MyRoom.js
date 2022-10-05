@@ -1,5 +1,9 @@
 import styled from 'styled-components';
-import { Body, OrangeButton, WhiteButton } from '../styled/Style.js';
+import {
+  Body,
+  OrangeButton,
+  WhiteButtonOrangeBorder,
+} from '../styled/Style.js';
 // import { ShareIcon } from '../images/shareIcon.js';
 import ReactTooltip from 'react-tooltip';
 import { useState, useEffect, useRef } from 'react';
@@ -61,6 +65,7 @@ const RoomTheme = styled.div`
   border-radius: 8px;
   width: 348px;
   height: 202px;
+  cursor: pointer;
   /* position: absolute;
   left: 50%;
   right: 50%;
@@ -110,10 +115,6 @@ const ButtonSection = styled.div`
   align-items: center;
   justify-content: start;
   /* position: relative; */
-`;
-const WhiteButtonOrangeBorder = styled(WhiteButton)`
-  border-color: #f58a5c;
-  color: #f58a5c;
 `;
 const Space = styled.span`
   margin-left: ${(props) => props.space || '10px'};
@@ -168,13 +169,25 @@ export default function MyRoom() {
             data.rooms.map((ele) => {
               return (
                 <RoomBox key={ele.roomId}>
-                  <RoomTheme>{ele.roomTheme}</RoomTheme>
-                  <RoomTitle>{ele.roomName}</RoomTitle>
+                  <RoomTheme
+                    onClick={() => {
+                      window.location.assign(ele.url);
+                    }}
+                  >
+                    {ele.roomTheme}
+                  </RoomTheme>
+                  <RoomTitle
+                    onClick={() => {
+                      window.location.assign(ele.url);
+                    }}
+                  >
+                    {ele.roomName}
+                  </RoomTitle>
                   <RoomControlBar>
                     <RoomDday>
                       <p
                         data-for="dday"
-                        data-tip={`${ele.dDay}`}
+                        data-tip={`${ele.dday}`}
                         onMouseEnter={() => showTooltip(true)}
                         onMouseLeave={() => {
                           showTooltip(false);

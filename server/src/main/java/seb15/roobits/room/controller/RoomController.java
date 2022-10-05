@@ -105,7 +105,6 @@ public class RoomController {
 
         }
     }
-     */
 
     /*
         @GetMapping("/rooms/floors/{room-id}")   // 나중에 roomId에 붙일 부분

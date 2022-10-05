@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import styled from 'styled-components';
 import { getRoobitType } from '../hook/getRoobitType';
 import { haveTo } from '../hook/haveTo';
@@ -101,7 +102,7 @@ const RoobitLi = styled.li`
 `;
 
 const Roobits = ({ unitRoobits = [], audioUrl }) => {
-  const audio = new Audio(audioUrl);
+  const audio = useMemo(() => new Audio(audioUrl));
   return (
     <RoobitsWrapper>
       {unitRoobits.map((roobit) => (

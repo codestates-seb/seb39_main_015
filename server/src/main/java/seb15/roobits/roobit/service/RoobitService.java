@@ -31,7 +31,10 @@ public class RoobitService {
     }
 
     public Roobit createRoobit(Roobit roobit) {
-        Roobit savedRoobit = roobitRepository.save(roobit);;
+        String reception = roobit.getReception();  // 1005 YU
+        String toReception = "to " + reception;  // 1005 YU
+        roobit.setToReception(toReception);  // 1005 YU
+        Roobit savedRoobit = roobitRepository.save(roobit);
         return savedRoobit;
     }
 

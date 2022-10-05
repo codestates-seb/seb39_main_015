@@ -60,7 +60,7 @@ const RoomDetail = () => {
         <>
           <h1>{roomData.roomName}</h1>
           <p>{roomData.restDay}</p>
-          <p>{roomData.dDay}</p>
+          <p>{roomData.dday}</p>
           <Building
             roobits={roobits}
             isZoomIn={isZoomIn}

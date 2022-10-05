@@ -293,10 +293,10 @@ const Building = ({ roobits, isZoomIn, setIsZoomIn }) => {
   const unitCount = roobits.length;
   const [isOne, setIsOne] = useState(false);
   const [isTwo, setIsTwo] = useState(false);
-  const [idx, setIdx] = useState(unitCount - 1);
+  const [idx, setIdx] = useState(unitCount - 1 < 0 ? 0 : unitCount - 1);
 
   const oneTwoUnit = (num) => {
-    if (num === 1) {
+    if (num <= 1) {
       setIsOne(true);
       setIsTwo(false);
     } else if (num === 2) {
@@ -364,7 +364,7 @@ const Building = ({ roobits, isZoomIn, setIsZoomIn }) => {
               isTwo ? 'onlyTwo' : ''
             }`}
           >
-            {Array(unitCount)
+            {Array(unitCount || 1)
               .fill(0)
               .map((el, i) => (
                 <li

@@ -100,7 +100,7 @@ const RoobitLi = styled.li`
   }
 `;
 
-const Roobits = ({ unitRoobits, audioUrl }) => {
+const Roobits = ({ unitRoobits = [], audioUrl }) => {
   const audio = new Audio(audioUrl);
   return (
     <RoobitsWrapper>

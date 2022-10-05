@@ -14,9 +14,10 @@ import seb15.roobits.room.service.RoomService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import static java.lang.Math.min;
 
-@Transactional
 @Service
+@Transactional
 public class RoobitService {
     private final RoomService roomService;
     private final RoobitRepository roobitRepository;
@@ -62,8 +63,8 @@ public class RoobitService {
         }
         return roobitsById;
     }
-    
-        @Transactional(readOnly = true) // 읽기 전용으로 조회하면 메모리를 절약 가능
+
+    @Transactional(readOnly = true) // 읽기 전용으로 조회하면 메모리를 절약 가능
     public List<List<Roobit>> findRoobitsFloorByRoomId(long roomId) {  // 조회 - roomId에 해당하는 모든 루빗
         List<Roobit> roobitsById = findRoobitsByRoomId(roomId);
         int limit = 10;
@@ -77,7 +78,7 @@ public class RoobitService {
 
     public Page<Roobit> findRoobits(int page, int size) {  // 룸 id 상관없이 모든 루빗 다 가져올 때
         return roobitRepository.findAll(PageRequest.of(page, size,
-                Sort.by("roobitId").descending()));
+                Sort.by("roobitId").ascending()));
     }
 
     public void deleteRoobit(long roobitId) {
@@ -86,7 +87,4 @@ public class RoobitService {
         findRoobit.setRoobitStatus(Roobit.RoobitStatus.ROOBIT_DELETED);
         roobitRepository.save(findRoobit);
     }
-
 }
-
-

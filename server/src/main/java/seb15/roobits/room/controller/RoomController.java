@@ -3,6 +3,8 @@ package seb15.roobits.room.controller;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import seb15.roobits.exception.BusinessLogicException;
+import seb15.roobits.exception.ExceptionCode;
 import seb15.roobits.globaldto.MultiResponseDto;
 import seb15.roobits.globaldto.SingleResponseDto;
 import seb15.roobits.member.entity.Member;
@@ -31,14 +33,12 @@ import java.util.List;
 @RequestMapping("/rooms")
 @Validated
 @RequiredArgsConstructor
-
 @Slf4j
 public class RoomController {
     private final RoomService roomService;
     private final RoomMapper roomMapper;
     private final MemberService memberService;
     private final RoobitService roobitService;
-
     private final RoobitMapper roobitMapper;
 
     @PostMapping
@@ -58,7 +58,7 @@ public class RoomController {
 
     @PatchMapping("/{room-id}")
     public ResponseEntity patchRoom(@PathVariable("room-id") @Positive long roomId,
-                                  @Valid @RequestBody RoomPatchDto roomPatchDto) {
+                                    @Valid @RequestBody RoomPatchDto roomPatchDto) {
         roomPatchDto.setRoomId(roomId);
         Room room = roomService.updateRoom(roomMapper.roomPatchDtoToRoom(roomPatchDto));
 
@@ -92,15 +92,20 @@ public class RoomController {
         Room room = roomService.findRoom(roomId);
         List<Roobit> roobitsById = roobitService.findRoobitsByRoomId(roomId);
         List<List<Roobit>> roobitsFloor = roobitService.findRoobitsFloorByRoomId(roomId);
-//        if (room.getRoomStatus() == RoomStatus.ROOM_CLOSED) {
-//            return new ResponseEntity<>(
-//                    new MultiResponseDto<>(   roomMapper.roomToResponseRoomStatus(room) , roobitsFloor )   ,   HttpStatus.OK);
-//        } else {
-        return new ResponseEntity<>(
-                new MultiResponseDto<>(    roomMapper.roomToRoomResponseDto(room), roobitMapper.floorDtos(roobitsFloor)  )     ,  HttpStatus.OK);
-        //   }
-    }
+        if (room.getRoomStatus() == RoomStatus.ROOM_CLOSED) {
+            return new ResponseEntity<>(roomMapper.roomToResponseRoomStatus(room), HttpStatus.OK);
+        } else if (room.getRoomStatus() == RoomStatus.ROOM_ONGOING) {
+            return new ResponseEntity<>(
+                    new MultiResponseDto<>(roomMapper.roomToRoomResponseDto(room), roobitMapper.floorNullDtos(roobitsFloor)), HttpStatus.OK);
+        } else if (room.getRoomStatus() == RoomStatus.ROOM_OPENED) {
+            return new ResponseEntity<>(
+                    new MultiResponseDto<>(roomMapper.roomToRoomResponseDto(room), roobitMapper.floorDtos(roobitsFloor)), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
+        }
+    }
+     */
 
     /*
         @GetMapping("/rooms/floors/{room-id}")   // 나중에 roomId에 붙일 부분
@@ -117,4 +122,6 @@ public class RoomController {
     }
      */
 
+
 }
+

@@ -15,5 +15,6 @@ public class MultiResponseDto<T> {
         this.roomData = roomData;
         this.roobits = roobits;
     }
-
 }
+
+

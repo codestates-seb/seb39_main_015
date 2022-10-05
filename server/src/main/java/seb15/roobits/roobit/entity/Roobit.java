@@ -33,7 +33,7 @@ public class Roobit extends Auditable {
     @Column(length = 20, nullable = true)
     private String email;
 
-    @Column(length = 10, nullable = false)
+    @Column(length = 20, nullable = false)
     private String reception;
 
     @Column(length = 2, nullable = false)

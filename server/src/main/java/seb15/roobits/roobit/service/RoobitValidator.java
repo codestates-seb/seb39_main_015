@@ -39,5 +39,5 @@ public class RoobitValidator {
             roobit.setRoobitStatus(Roobit.RoobitStatus.ROOBIT_CLOSED);
         }
     }
-
 }
+

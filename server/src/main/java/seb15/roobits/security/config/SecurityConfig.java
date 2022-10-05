@@ -72,7 +72,7 @@ public class SecurityConfig {
 
         http.authorizeRequests()
                 .antMatchers("/sample.yml/**").authenticated()
-                .antMatchers("/rooms/**").access("hasRole('ROLE_HOST') or hasRole('ROLE_MANAGER')")
+//                .antMatchers("/rooms/**").access("hasRole('ROLE_HOST') or hasRole('ROLE_MANAGER')")
                 .antMatchers("/manager/**").access("hasRole('ROLE_MANAGER')")
                 .anyRequest().permitAll();
 

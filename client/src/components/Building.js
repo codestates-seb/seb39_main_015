@@ -197,6 +197,7 @@ const BuildingStyle = styled.div`
     padding: 0;
     display: block;
     background-color: transparent;
+    cursor: default;
 
     border: none;
     width: 100%;
@@ -206,7 +207,6 @@ const BuildingStyle = styled.div`
   .wrapper.zoom-out-mode button.zoomIn::after {
     content: '';
     position: absolute;
-    cursor: pointer;
     opacity: 1;
     top: calc(-1 * var(--unit-border-width));
     bottom: calc(-1 * var(--unit-border-width));
@@ -219,6 +219,7 @@ const BuildingStyle = styled.div`
   }
 
   .wrapper.zoom-out-mode button.zoomIn:hover::after {
+    cursor: zoom-in;
     opacity: 1;
   }
 `;

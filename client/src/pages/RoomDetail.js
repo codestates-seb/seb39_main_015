@@ -6,14 +6,15 @@ import { Loading } from '../components/Loading';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { useQuery } from 'react-query';
-import {
-  //roomDetailData,
-  //roomDetailData_1,
-  //roomDetailData_2,
-  //roomDetailData_3,
-  //roomDetailData_4,
-  roomDetailData_16,
-} from '../data/DummyData';
+// import {
+//   //roomDetailData,
+//   //roomDetailData_1,
+//   //roomDetailData_2,
+//   //roomDetailData_3,
+//   //roomDetailData_4,
+//   roomDetailData_16,
+//   //roomDetailData_30,
+// } from '../data/DummyData';
 import { getCookieValue } from '../hook/getCookieValue';
 import { useState } from 'react';
 
@@ -26,28 +27,30 @@ const RoomDetail = () => {
   const auth = getCookieValue('Authorization').length;
   roomId;
 
-  const { data, isLoading } = useQuery(
+  const { data, isLoading, isError } = useQuery(
     'roobits',
     () =>
       axios
-        .get(`${process.env.REACT_APP_API_URL}/rooms/${roomId}`)
+        .get(`/fa`)
         .then((res) => res.data)
-        .catch(() => roomDetailData_16 /* 실패할 경우 더미 데이터 표시 */),
+        .catch(() => '유효하지 않은 페이지'),
     {
       staleTime: 1000 * 60 * 30,
       retry: 1,
-      onError: (err) => {
-        console.log(err);
+      onError: () => {
+        console.log('요청 에러');
       },
     }
   );
 
   let roomStatus, roomData, roobits;
-  if (!isLoading) {
+  if (!isLoading && !isError) {
     ({ roomStatus, roomData, roobits } = data);
   } else {
     return <Loading />;
   }
+
+  if (isError) return <p>유효하지 않은 페이지</p>;
 
   return (
     <div>

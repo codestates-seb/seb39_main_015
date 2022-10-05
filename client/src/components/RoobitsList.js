@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { roomDetailData_30 } from '../data/DummyData';
+import { roomDetailData_30 } from '../data/DummyData.js';
 import { useQueryClient } from 'react-query';
 import { useState, useEffect, useRef } from 'react';
 import { RoobitUnit } from './RoobitUnit';

@@ -3,7 +3,7 @@ import catsImg from '../images/roomImg/03_cats_1x_w3200.png';
 import lettersImg from '../images/roomImg/04_letters_1x_w400.png';
 
 /** 스타일코드에 따라 루빗 이미지를 보여주는 styled-components
- * <RoobitOneImg roobitCode={getRoobitType("1A")} className={haveTo("to xxx") ? 'letter' : ''}/>
+ * <RoobitOneImg roobitCode={getRoobitType("1A")} className={haveTo("xxx") ? 'letter' : ''}/>
  */
 const RoobitOneImg = styled.div`
   --type: ${(props) => String(props.roobitCode.type) || '0'};

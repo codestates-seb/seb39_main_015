@@ -6,15 +6,15 @@ import { Loading } from '../components/Loading';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { useQuery } from 'react-query';
-// import {
-//   //roomDetailData,
-//   //roomDetailData_1,
-//   //roomDetailData_2,
-//   //roomDetailData_3,
-//   //roomDetailData_4,
-//   roomDetailData_16,
-//   //roomDetailData_30,
-// } from '../data/DummyData';
+import {
+  //roomDetailData,
+  //roomDetailData_1,
+  //roomDetailData_2,
+  //roomDetailData_3,
+  //roomDetailData_4,
+  roomDetailData_16,
+  //roomDetailData_30,
+} from '../data/DummyData';
 import { getCookieValue } from '../hook/getCookieValue';
 import { useState } from 'react';
 
@@ -33,7 +33,7 @@ const RoomDetail = () => {
       axios
         .get(`/fa`)
         .then((res) => res.data)
-        .catch(() => '유효하지 않은 페이지'),
+        .catch(() => roomDetailData_16),
     {
       staleTime: 1000 * 60 * 30,
       retry: 1,

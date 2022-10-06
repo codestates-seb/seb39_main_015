@@ -67,12 +67,12 @@ public class SecurityConfig {
 ////                .antMatchers(HttpMethod.DELETE, "/*/members/**").hasRole("USER")  // (5) 추가
 //                .anyRequest().authenticated());//참고용
         http.oauth2Login(oauth2 -> oauth2
-                        .successHandler(new OAuth2MemberSuccessHandler(jwtTokenProvider, customAuthorityUtils, memberService,memberRepository)));
+                .successHandler(new OAuth2MemberSuccessHandler(jwtTokenProvider, customAuthorityUtils, memberService,memberRepository)));
 
 
         http.authorizeRequests()
                 .antMatchers("/sample.yml/**").authenticated()
-                .antMatchers("/rooms/**").access("hasRole('ROLE_HOST') or hasRole('ROLE_MANAGER')")
+//                .antMatchers("/rooms/**").access("hasRole('ROLE_HOST') or hasRole('ROLE_MANAGER')")
                 .antMatchers("/manager/**").access("hasRole('ROLE_MANAGER')")
                 .anyRequest().permitAll();
 

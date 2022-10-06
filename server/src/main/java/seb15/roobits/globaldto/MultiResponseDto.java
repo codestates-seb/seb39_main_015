@@ -1,17 +1,18 @@
 package seb15.roobits.globaldto;
 
 import lombok.Getter;
-import org.springframework.data.domain.Page;
+import seb15.roobits.roobit.entity.Roobit;
+import seb15.roobits.room.dto.RoomResponseDto;
 
 import java.util.List;
 
 @Getter
 public class MultiResponseDto<T> {
-    private List<T> roomData;
-    private PageInfo pageInfo;
+    private RoomResponseDto roomData;
+    private List<T> roobits;
 
-    public MultiResponseDto(List<T> roomData, Page page) {
+    public MultiResponseDto(RoomResponseDto roomData, List<T> roobits) {
         this.roomData = roomData;
-        this.pageInfo = new PageInfo(page.getNumber() + 1, page.getSize(), page.getTotalElements(), page.getTotalPages());
+        this.roobits = roobits;
     }
 }

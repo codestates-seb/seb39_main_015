@@ -37,8 +37,11 @@ out/
 .vscode/
 
 ### my ignore ###
+<<<<<<< HEAD
+=======
 src/main/resources/application.yml
 src/main/resources/application.properties
+>>>>>>> 8d77bf14e7d61f48ebb0e178ce914cb3fc16dcdb
 src/main/resources/**
 src/main/generated/**
 

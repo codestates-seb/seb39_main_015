@@ -4,6 +4,14 @@ import {
   ModalWrapper,
 } from '../styled/RightFloatingBtn';
 import { useState } from 'react';
+import styled from 'styled-components';
+
+const ShowListBtnStyle = styled(CreaterFloatingBtnStyle)`
+  ::before {
+    content: '≡' !important;
+    font-size: 36px;
+  }
+`;
 
 const ShowRoobitListBtn = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,9 +21,9 @@ const ShowRoobitListBtn = () => {
 
   return (
     <>
-      <CreaterFloatingBtnStyle type="button" onClick={handleOnClick}>
+      <ShowListBtnStyle type="button" onClick={handleOnClick}>
         루빗 리스트 보기
-      </CreaterFloatingBtnStyle>
+      </ShowListBtnStyle>
       {isOpen && (
         <ModalWrapper onClick={handleOnClick}>
           <RoobitsList handleOpenModal={handleOnClick} />

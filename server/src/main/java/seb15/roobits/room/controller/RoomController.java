@@ -64,19 +64,6 @@ public class RoomController {
                 HttpStatus.OK);
     }
 
-//    @GetMapping("/{room-id}")
-//    public ResponseEntity getRoom(@PathVariable("room-id") @Positive long roomId) {
-//        Room room = roomService.findRoom(roomId);
-//
-//        if (room.getRoomStatus() == RoomStatus.ROOM_CLOSED) {
-//            return new ResponseEntity<>(roomMapper.roomToResponseRoomStatus(room),
-//                    HttpStatus.OK);
-//        } else {
-//            return new ResponseEntity<>(
-//                    new SingleResponseDto<>(roomMapper.roomToRoomResponseDto(room)),
-//                    HttpStatus.OK);
-//        }
-//    }
 
     @DeleteMapping("/{room-id}")
     public ResponseEntity deleteRoom(@PathVariable("room-id") long roomId) {

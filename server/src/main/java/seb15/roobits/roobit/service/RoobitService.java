@@ -1,5 +1,6 @@
 package seb15.roobits.roobit.service;
 
+import net.bytebuddy.asm.Advice;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -7,10 +8,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import seb15.roobits.exception.BusinessLogicException;
 import seb15.roobits.exception.ExceptionCode;
+import seb15.roobits.roobit.dto.RoobitResponseDto;
 import seb15.roobits.roobit.entity.Roobit;
 import seb15.roobits.roobit.repository.RoobitRepository;
+import seb15.roobits.room.entity.Room;
+import seb15.roobits.room.repository.RoomRepository;
 import seb15.roobits.room.service.RoomService;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -20,12 +25,15 @@ import static java.lang.Math.min;
 @Transactional
 public class RoobitService {
     private final RoomService roomService;
+    private final RoomRepository roomRepository;
     private final RoobitRepository roobitRepository;
     private final RoobitValidator roobitValidator;
     public RoobitService(RoomService roomService,
+                         RoomRepository roomRepository,
                          RoobitRepository roobitRepository,
                          RoobitValidator roobitValidator) {
         this.roomService = roomService;
+        this.roomRepository = roomRepository;
         this.roobitRepository = roobitRepository;
         this.roobitValidator = roobitValidator;
     }
@@ -34,8 +42,20 @@ public class RoobitService {
 //        String reception = roobit.getReception();  // 1005 YU
 //        String toReception = "to " + reception;  // 1005 YU
 //        roobit.setToReception(toReception);  // 1005 YU
-        Roobit savedRoobit = roobitRepository.save(roobit);
-        return savedRoobit;
+        LocalDate dDayRoom = timeRoobit(roobit.getRoom().getRoomId());
+        //현재시간 < 디데이 보다 앞이라면 작성 가능
+        // 현재시간 >= 디데이 라면 null 리턴
+        if (LocalDate.now().isBefore(dDayRoom)) {
+            Roobit savedRoobit = roobitRepository.save(roobit);
+            return savedRoobit;
+        }
+        else return null;
+    }
+
+    public LocalDate timeRoobit(long roomId){
+        Room room = roomService.findRoom(roomId);
+        LocalDate dDayRoom = room.getDDay();
+        return dDayRoom;
     }
 
     @Transactional(readOnly = true)

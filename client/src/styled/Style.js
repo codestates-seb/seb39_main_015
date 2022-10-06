@@ -22,6 +22,11 @@ export const FormWrapper = styled.div`
   align-items: center;
   flex-direction: column;
   z-index: 101;
+
+  h2 {
+    padding-bottom: 20px;
+  }
+
   > img {
     max-width: 124px;
     height: auto;

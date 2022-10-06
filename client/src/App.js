@@ -61,7 +61,7 @@ function App() {
     <div>
       {!/^\/rooms\/+/.test(location.pathname) && <Header />}
       <Routes>
-        <Route path="/" element={<MainPage />} />
+        <Route path="/*" element={<MainPage />} />
         <Route path="/join" element={<Join />} />
         <Route path="/login" element={<Login />} />
         <Route path="/myroom" element={authData ? <MyRoom /> : <Login />} />

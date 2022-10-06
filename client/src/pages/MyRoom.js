@@ -15,10 +15,12 @@ import RoomMoalBtn from '../components/RoomModalBtn';
 //   TwitterIcon,
 // } from 'react-share';
 import { LinkShareButton } from '../components/LinkShareButton.js';
-import RoomModal from '../components/RoomModal.js';
+// import RoomModal from '../components/RoomModal.js';
 import axios from 'axios';
 import { getCookieValue } from '../hook/getCookieValue.js';
 import { useQueryClient, useQuery } from 'react-query';
+import RoomEditModal from '../components/RoomEditModal.js';
+import { ModalWrapper } from '../styled/RightFloatingBtn';
 
 const MyRoomBody = styled(Body)`
   flex-direction: column;
@@ -125,6 +127,7 @@ export default function MyRoom() {
   // urlShare Button 필요 부분 (시작)
   const [urlDropDown, setUrlDropDown] = useState('');
   const [modalOpen, setModalOpen] = useState(false);
+  const [editOpen, setEditOpen] = useState('');
   const ref = useRef();
   const modalRef = useRef();
   const queryClient = useQueryClient();
@@ -194,7 +197,7 @@ export default function MyRoom() {
                           setTimeout(() => showTooltip(true), 100);
                         }}
                       >
-                        D-{ele.restDay}
+                        {ele.restDay === 0 ? 'D-Day' : `D-${ele.restDay}`}
                       </p>
                     </RoomDday>
                     <ButtonSection>
@@ -206,7 +209,13 @@ export default function MyRoom() {
                         ComponentRef={ref}
                       />
                       <Space space={'12px'} />
-                      <WhiteButtonOrangeBorder width="53px" height="26px">
+                      <WhiteButtonOrangeBorder
+                        width="53px"
+                        height="26px"
+                        onClick={() => {
+                          setEditOpen(ele.roomId);
+                        }}
+                      >
                         Edit
                       </WhiteButtonOrangeBorder>
                       <Space space={'8px'} />
@@ -248,8 +257,13 @@ export default function MyRoom() {
       {tooltip && (
         <ReactTooltip id="dday" place="bottom" type="dark" effect="solid" />
       )}
-      {modalOpen ? (
-        <RoomModal modalRef={modalRef} setModalOpen={setModalOpen} />
+      {editOpen ? (
+        <ModalWrapper>
+          <RoomEditModal
+            setEditOpen={setEditOpen}
+            roomData={data.rooms.filter((ele) => ele.roomId === editOpen)[0]}
+          />
+        </ModalWrapper>
       ) : (
         ''
       )}

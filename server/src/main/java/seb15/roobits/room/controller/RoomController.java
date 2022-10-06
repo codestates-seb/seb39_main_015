@@ -3,10 +3,7 @@ package seb15.roobits.room.controller;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import seb15.roobits.exception.BusinessLogicException;
-import seb15.roobits.exception.ExceptionCode;
 import seb15.roobits.globaldto.MultiResponseDto;
-import seb15.roobits.globaldto.SingleResponseDto;
 import seb15.roobits.member.entity.Member;
 import seb15.roobits.member.service.MemberService;
 
@@ -103,24 +100,10 @@ public class RoomController {
                     new MultiResponseDto<>(roomMapper.roomToRoomResponseDto(room), roobitMapper.floorDtos(roobitsFloor)), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
         }
     }
 
-
-    /*
-        @GetMapping("/rooms/floors/{room-id}")   // 나중에 roomId에 붙일 부분
-    public ResponseEntity getFloorRoom(@PathVariable("room-id") @Positive long roomId) {
-        List<Roobit> roobitsById = roobitService.findRoobitsByRoomId(roomId);
-        List<List<Roobit>> roobitsFloor = roobitService.findRoobitsFloorByRoomId(roomId);
-        if (roobitsById.get(0).getRoobitStatus()== Roobit.RoobitStatus.ROOBIT_OPEN) {
-            return new ResponseEntity<>(
-                    new MultiResponseDto<>(roobitMapper.floorDtos(roobitsFloor)), HttpStatus.OK);   //디데이일 때는 body도 출력
-        } else {
-            return new ResponseEntity<>(
-                    new MultiResponseDto<>(roobitMapper.floorNullDtos(roobitsFloor)), HttpStatus.OK);  // 디데이아닐 땐 body Null
-        }
-    }
-     */
 
 }
 

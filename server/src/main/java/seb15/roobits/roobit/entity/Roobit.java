@@ -7,9 +7,7 @@ import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import seb15.roobits.auditable.Auditable;
-import seb15.roobits.member.entity.Member;
 import seb15.roobits.room.entity.Room;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -35,8 +33,11 @@ public class Roobit extends Auditable {
     @Column(length = 20, nullable = true)
     private String email;
 
-    @Column(length = 10, nullable = false)
+    @Column(length = 20, nullable = false)
     private String reception;
+
+//    @Column(length = 25)
+//    private String toReception;
 
     @Column(length = 2, nullable = false)
     private String style;
@@ -55,16 +56,8 @@ public class Roobit extends Auditable {
     @JoinColumn(name = "ROOM_ID")
     private Room room;
 
-    public void setRoom(Room room) {
+    public void addRoom(Room room) {
         this.room = room;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "MEMBER_ID")
-    private Member member;
-
-    public void setMember(Member member) {
-        this.member = member;
     }
 
     public enum RoobitStatus{

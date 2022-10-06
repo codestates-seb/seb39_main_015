@@ -1,5 +1,6 @@
 package seb15.roobits.member.controller;
 
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;

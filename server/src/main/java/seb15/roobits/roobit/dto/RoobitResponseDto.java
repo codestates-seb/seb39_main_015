@@ -20,16 +20,11 @@ public class RoobitResponseDto {
         this.roomId = room.getRoomId();
     }
 
-//    @Setter(AccessLevel.NONE)
-//    private long memberId;
-//    public void setMember(Member member) {
-//        this.memberId = member.getMemberId();
-//    }
-
     private String nickname;
     private String body;
     private String email;
     private String reception;
+//    private String ToReception;  // 1005YU
     private String style;
 
     @CreatedDate

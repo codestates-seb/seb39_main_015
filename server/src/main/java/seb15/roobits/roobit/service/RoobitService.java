@@ -104,6 +104,12 @@ public class RoobitService {
                 Sort.by("roobitId").ascending()));  // 1005YU
     }
 
+//    public long countAllRoobits(long roomId){
+//        List<Roobit> roobitsByRoomId= findRoobitsByRoomId(roomId);
+//        long totalRoobitCount = roobitsByRoomId.size();
+//        return totalRoobitCount;
+//    }
+
     public void deleteRoobit(long roobitId) {
         Roobit findRoobit = findRoobit(roobitId);
         int step = findRoobit.getRoobitStatus().getStatusNumber();

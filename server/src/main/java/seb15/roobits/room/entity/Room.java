@@ -80,12 +80,12 @@ public class Room {
 //        }
     }
 
-
-
     public Room(long roomId, String roomName, LocalDate dDay) {
         this.roomId = roomId;
         this.roomName = roomName;
         this.dDay = dDay;
     }
+
+    private long totalRoobitCount;
 
 }

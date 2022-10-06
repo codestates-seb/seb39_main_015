@@ -1,25 +1,21 @@
-
-
 package seb15.roobits.room.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import seb15.roobits.roobit.entity.Roobit;
+import org.springframework.format.annotation.DateTimeFormat;
+
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Getter
 @Setter
-
-public class RoomResponseDto {
+public class MyRoomResponseDto {
     private long roomId;
     private String roomName;
     private LocalDate dDay;
-    private long restDay;
-    private String weather;
+    private Long restDay;
     private String roomTheme;
-    private long roobitAmount;
-    private long viewCount;
     private String url;
 }

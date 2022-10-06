@@ -1,6 +1,8 @@
 package seb15.roobits.member.controller;
 
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -12,6 +14,7 @@ import seb15.roobits.member.dto.MemberDto;
 import seb15.roobits.member.entity.Member;
 import seb15.roobits.member.mapper.MemberMapper;
 import seb15.roobits.member.service.MemberService;
+import seb15.roobits.room.repository.RoomRepository;
 import seb15.roobits.security.auth.MemberDetailsService;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -29,6 +32,8 @@ public class MemberController {
     private final MemberMapper memberMapper;
 
     private final MemberDetailsService memberDetailsService;
+
+    private final RoomRepository roomRepository;
 
 
 
@@ -68,22 +73,36 @@ public class MemberController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-//    @GetMapping("/myroom")
-//    public ResponseEntity getMyRoom(@AuthenticationPrincipal Member auth){
-//        if(auth == null){
-//            return new ResponseEntity(HttpStatus.NOT_FOUND);
-//        }
-//        System.out.println(auth.getUsername());
-//        Member getMemberRoom =
-//                memberService.findMember(auth.getUsername());
-//        MemberDto.GetMyRoomResponse response = memberMapper.memberTogetMyRoomResponse(getMemberRoom);
-//        return new ResponseEntity<>(response,HttpStatus.OK);
-//    }
+    @GetMapping("/myroom")
+    public ResponseEntity getMyRoom(@AuthenticationPrincipal Member auth){
+        if(auth == null){
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+        System.out.println(auth.getUsername());
+        Member getMemberRoom =
+                memberService.findMember(auth.getUsername());
+        MemberDto.GetMyRoomResponse response = memberMapper.memberTogetMyRoomResponse(getMemberRoom);
+
+        return new ResponseEntity<>(response,HttpStatus.OK);
+    }
+
+    //findall을 통해서 진행한다.?
+
 
     @PostMapping("/finduser")
     public ResponseEntity findUsername(@RequestBody MemberDto.Find memberFindDto){
+
         Member member = memberMapper.findToMember(memberFindDto);
         Member findUsername = memberService.findUserId(member);
+        System.out.println(findUsername);
+        if(findUsername.getProvider() != null){
+            MemberDto.FindUsernameResponse response = memberMapper.memberToFindUsernameResponse(findUsername);
+            response.setUsername("일치하는 회원정보가 없습니다");
+            return new ResponseEntity(response,HttpStatus.OK);
+        }
+//        if(findUsername.getMemberStatus() == Member.MemberStatus.MEMBER_QUIT){
+//            MemberDto.FindUsernameResponse response = memberMapper.memberToFindUsernameResponse(findUsername);
+//        }
         MemberDto.FindUsernameResponse response = memberMapper.memberToFindUsernameResponse(findUsername);
         return new ResponseEntity(response,HttpStatus.OK);
     }
@@ -131,7 +150,7 @@ public class MemberController {
         checkAuth.setProvider(auth.getProvider());
         MemberDto.CheckAuthResponse response = memberMapper.memberToCheckAuthResponse(checkAuth);
         return new ResponseEntity<>(response, HttpStatus.OK);
-        }
+    }
 
 
     @GetMapping("/rooms")

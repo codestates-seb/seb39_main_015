@@ -1,8 +1,8 @@
 package seb15.roobits.member.dto;
 
 import lombok.*;
-//import seb15.roobits.room.dto.RoomDto;
-import seb15.roobits.room.entity.Room;
+import seb15.roobits.member.entity.Member;
+import seb15.roobits.room.dto.MyRoomResponseDto;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -17,6 +17,7 @@ public class MemberDto {
     @Getter
     @Builder
     @AllArgsConstructor
+    @NoArgsConstructor  // 1005 YU
     public static class Join {
         @NotBlank(message = "아이디는 공백이 아니여야 합니다.")
         @Pattern(regexp = "^[a-zA-Z0-9]*$", message = "아이디는 영문 대소문자와 숫자만 가능합니다.")
@@ -102,9 +103,31 @@ public class MemberDto {
     @Getter
     @Builder
     @AllArgsConstructor
+    public static class GetMyRoomResponse{
+        //        @Setter(AccessLevel.NONE)
+//        private Long memberId;
+        private String username;
+
+        //Room respon Dto로 응답.
+        private List<MyRoomResponseDto> rooms;
+//        public Room setRoom(){
+//            Room room = new Room();
+//            room.setRoomId(roomId);
+//            return room; // 룸부분 구현후에 작업
+//        }
+    }
+
+    @Getter
+    @Builder
+    @AllArgsConstructor
     public static class FindUsernameResponse {
 
         private String username;
+        private Member.MemberStatus memberStatus;
+
+        public void setUsername(String username){
+            this.username = username;
+        }
     }
 
     @Getter
@@ -129,42 +152,25 @@ public class MemberDto {
         }
     }
 
-        @Getter
-        @Builder
-        @AllArgsConstructor
-        public static class CheckPasswordResponse {
-            private Boolean passwordCheck;
+    @Getter
+    @Builder
+    @AllArgsConstructor
+    public static class CheckPasswordResponse {
+        private Boolean passwordCheck;
 
-            public void setCheck(Boolean passwordCheck) {
-                this.passwordCheck = passwordCheck;
-            }
-        }
-
-//    @Getter
-//    @Builder
-//    @AllArgsConstructor
-//    public static class GetMyRoomResponse{
-////        @Setter(AccessLevel.NONE)
-////        private Long memberId;
-//        private String username;
-//
-//        //Room respon Dto로 응답.
-//        private List<RoomDto.MyRoomResponseDto> rooms;
-//        public Room getRoom(){
-//            Room room = new Room();
-//            room.setRoomId(roomId);
-//            return room; // 룸부분 구현후에 작업
-//        }
-//}
-
-        @Getter
-        @Builder
-        @AllArgsConstructor
-        public static class CheckAuthResponse {
-            private Long memberId;
-            private String username;
-            private String email;
-            private String provider;
+        public void setCheck(Boolean passwordCheck) {
+            this.passwordCheck = passwordCheck;
         }
     }
 
+
+    @Getter
+    @Builder
+    @AllArgsConstructor
+    public static class CheckAuthResponse {
+        private Long memberId;
+        private String username;
+        private String email;
+        private String provider;
+    }
+}

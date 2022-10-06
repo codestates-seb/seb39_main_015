@@ -1,5 +1,6 @@
 package seb15.roobits.roobit.entity;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -7,15 +8,16 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import seb15.roobits.auditable.Auditable;
 import seb15.roobits.room.entity.Room;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @Getter
 @Setter
-@Entity (name = "ROOBITS")
+@Entity(name = "ROOBIT")
 @EntityListeners(AuditingEntityListener.class)
+@Table
+@Data
 public class Roobit extends Auditable {
 
     @Id
@@ -31,8 +33,11 @@ public class Roobit extends Auditable {
     @Column(length = 20, nullable = true)
     private String email;
 
-    @Column(length = 10, nullable = false)
+    @Column(length = 20, nullable = false)
     private String reception;
+
+//    @Column(length = 25)
+//    private String toReception;
 
     @Column(length = 2, nullable = false)
     private String style;
@@ -51,7 +56,7 @@ public class Roobit extends Auditable {
     @JoinColumn(name = "ROOM_ID")
     private Room room;
 
-    public void setRoom(Room room) {
+    public void addRoom(Room room) {
         this.room = room;
     }
 
@@ -72,5 +77,20 @@ public class Roobit extends Auditable {
             this.statusNumber = statusNumber;
             this.statusDescription = statusDescription;
         }
+
     }
+
+//    @Builder // 0928추가
+//    public Roobit(long roobitId, Roobit.RoobitStatus roobitStatus, Room room, String nickname, String body, String email, String reception, String style,LocalDateTime createdAt) {
+//        this.roobitId = roobitId;
+//        this.roobitStatus = roobitStatus;
+//        this.room = room;
+//        this.nickname = nickname;
+//        this.body = body;
+//        this.email = email;
+//        this.reception = reception;
+//        this.style = style;
+//        this.createdAt = createdAt;
+//    }
+
 }

@@ -33,7 +33,6 @@ public class Room {
 
     @Column
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Future(message = "오늘 후의 날짜여야 합니다.")
     private LocalDate dDay;
 
     @Column

@@ -58,6 +58,8 @@ public class RoomService {
         Optional<Room> optionalRoom = roomRepository.findById(roomId);
         Room findRoom = optionalRoom.orElseThrow(() ->
                 new BusinessLogicException(ExceptionCode.ROOM_NOT_FOUND));
+        Optional.ofNullable(findRoom.getDDay())
+                .ifPresent(dDay -> findRoom.setRestDay(Validator.calculateRestDay(findRoom)));
 
         validator.updatedRoomStatus(findRoom); // 룸 상태 업데이터
         validator.updateViewCount(findRoom); // 조회수 카운터

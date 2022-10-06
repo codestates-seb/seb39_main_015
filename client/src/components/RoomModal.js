@@ -136,7 +136,7 @@ const RoomModal = ({ handleOpenModal }) => {
       height="634px"
       onClick={(e) => e.stopPropagation()}
     >
-      <CancelIcon stroke="#aaa" onClick={handleOpenModal} />
+      <CancelIcon className="cancel" stroke="#aaa" onClick={handleOpenModal} />
       <h2>Make a room</h2>
       <form onReset={handleOnReset}>
         <section>

@@ -16,10 +16,12 @@ import {
   faMagnifyingGlass,
   faCaretDown,
 } from '@fortawesome/free-solid-svg-icons';
-// logo 변경 예정
-import signUpLogo from '../images/cat.png';
+import { ReactComponent as CancelIcon } from '../images/cancel-icon.svg';
 
 const RoobitsListBody = styled.div`
+  position: fixed;
+  z-index: 300;
+  right: 0;
   width: 590px;
   height: 100vh;
   display: flex;
@@ -29,15 +31,21 @@ const RoobitsListBody = styled.div`
   border: 1px solid #d9d9d9;
   box-shadow: -8px 0px 21px rgba(104, 104, 104, 0.09);
   border-radius: 14px 0px 0px 14px;
-  > img {
-    max-width: 124px;
+  > h2 {
+    padding-top: 30px;
+    margin-bottom: 20px;
     height: auto;
     width: auto;
-    margin-bottom: 33px;
+  }
+
+  .cancel {
+    position: absolute;
+    top: 16px;
+    right: 16px;
   }
 `;
 const FloorIndicator = styled.div`
-  height: 40px;
+  height: 50px;
   width: 458px;
   display: flex;
   margin-bottom: 10px;
@@ -144,7 +152,7 @@ const FloorWhiteButton = styled(WhiteButtonOrangeBorder)`
   }
 `;
 
-export const RoobitsList = () => {
+export const RoobitsList = ({ handleOpenModal }) => {
   const queryClient = useQueryClient();
   const [selectedFloor, setSelectedFloor] = useState('0');
   const [searchKeyword, setSearchKeyword] = useState('');
@@ -213,7 +221,8 @@ export const RoobitsList = () => {
 
   return (
     <RoobitsListBody>
-      <img alt="회원가입 로고" src={signUpLogo}></img>
+      <CancelIcon className="cancel" stroke="#aaa" onClick={handleOpenModal} />
+      <h2>Roobits list</h2>
       <InputWrapper>
         <SearchInput
           type="search"

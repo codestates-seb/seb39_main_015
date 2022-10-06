@@ -4,7 +4,7 @@ import BackwardBtn from '../components/BackwardBtn';
 import LeftFloatingBtn from '../styled/LeftFloatingBtn';
 import Weather from '../components/Weather';
 import RoomDataBox from '../components/RoomDataBox';
-import { RoobitsList } from '../components/RoobitsList';
+import ShowRoobitListBtn from '../components/ShowRoobitListBtn';
 import { Loading } from '../components/Loading';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
@@ -86,7 +86,7 @@ const RoomDetail = () => {
             onClick={() => setIsZoomIn((prev) => !prev)}
           />
           <LeftFloatingBtn className="share" />
-          {roomData.restDay !== 0 ? <CreateRoobitBtn /> : <RoobitsList />}
+          {roomData.restDay !== 0 ? <CreateRoobitBtn /> : <ShowRoobitListBtn />}
         </>
       )}
     </div>

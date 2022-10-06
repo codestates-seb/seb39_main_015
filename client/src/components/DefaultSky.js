@@ -27,7 +27,7 @@ const DefaultSkyStyle = styled.div`
     height: 60%;
     margin-bottom: -6px;
     position: absolute;
-    top: 0px;
+    top: 0;
     z-index: 2;
   }
   #sky-rect {

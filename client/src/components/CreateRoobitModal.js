@@ -137,7 +137,11 @@ const CreateRoobitModal = ({ handleOpenModal }) => {
         height="634px"
         onClick={(e) => e.stopPropagation()}
       >
-        <CancelIcon stroke="#aaa" onClick={handleOpenModal} />
+        <CancelIcon
+          className="cancel"
+          stroke="#aaa"
+          onClick={handleOpenModal}
+        />
         <h2>Create a Roobit</h2>
         <form onReset={handleOnReset} onSubmit={handleOnSubmit}>
           {isPhaseOne ? (

@@ -21,6 +21,7 @@ import { getCookieValue } from '../hook/getCookieValue.js';
 import { useQueryClient, useQuery } from 'react-query';
 import RoomEditModal from '../components/RoomEditModal.js';
 import { ModalWrapper } from '../styled/RightFloatingBtn';
+import themeThmbnailImg from '../images/thumbnail_01.png';
 
 const MyRoomBody = styled(Body)`
   flex-direction: column;
@@ -73,6 +74,11 @@ const RoomTheme = styled.div`
   right: 50%;
   transform: translate(-50%, 0%);
   top: 16px; */
+
+  /** 임시로 배경 넣겠습니다. */
+  font-size: 0;
+  background-image: url(${themeThmbnailImg});
+  background-size: cover;
 `;
 const RoomTitle = styled.div`
   height: 22px;

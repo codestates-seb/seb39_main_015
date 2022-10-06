@@ -24,7 +24,7 @@ public class Validator {
     }
 
     public void createUrl(Room room) {
-        String url = "http://localhost:8080/rooms/" + room.getRoomId();
+        String url = "http://localhost:3000/rooms/" + room.getRoomId();
         room.setUrl(url);
     }
 

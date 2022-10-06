@@ -32,14 +32,14 @@ const RoomDetail = () => {
 
   //`${process.env.REACT_APP_API_URL}/rooms/${roomId}`
   const { data, isLoading, isError } = useQuery(
-    'roobits',
+    ['roobits', roomId],
     () =>
       axios
         .get(`${process.env.REACT_APP_API_URL}/rooms/${roomId}`)
         .then((res) => res.data)
         .catch(() => roomDetailData_30),
     {
-      staleTime: 1000 * 60 * 30,
+      staleTime: 1000 * 60 * 10,
       retry: 1,
       // onError: (err) => {
       //   console.log('요청 err', err);

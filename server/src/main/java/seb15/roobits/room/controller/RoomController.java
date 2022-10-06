@@ -10,6 +10,7 @@ import seb15.roobits.member.service.MemberService;
 import seb15.roobits.roobit.entity.Roobit;
 import seb15.roobits.roobit.mapper.RoobitMapper;
 import seb15.roobits.roobit.service.RoobitService;
+import seb15.roobits.room.dto.ResponseRoomStatus;
 import seb15.roobits.room.dto.RoomPatchDto;
 import seb15.roobits.room.dto.RoomPostDto;
 import seb15.roobits.room.entity.Room;
@@ -90,6 +91,8 @@ public class RoomController {
         List<Roobit> roobitsById = roobitService.findRoobitsByRoomId(roomId);
         List<List<Roobit>> roobitsFloor = roobitService.findRoobitsFloorByRoomId(roomId);
         if (room.getRoomStatus() == RoomStatus.ROOM_CLOSED) {
+            long totalRoobitCount = roobitsById.size();
+            room.setTotalRoobitCount(totalRoobitCount);
             return new ResponseEntity<>(roomMapper.roomToResponseRoomStatus(room), HttpStatus.OK);
         } else if (room.getRoomStatus() == RoomStatus.ROOM_ONGOING) {
             return new ResponseEntity<>(

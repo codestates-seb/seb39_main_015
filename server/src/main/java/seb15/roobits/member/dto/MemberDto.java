@@ -17,7 +17,7 @@ public class MemberDto {
     @Getter
     @Builder
     @AllArgsConstructor
-    @NoArgsConstructor  // 1005 YU
+    @NoArgsConstructor
     public static class Join {
         @NotBlank(message = "아이디는 공백이 아니여야 합니다.")
         @Pattern(regexp = "^[a-zA-Z0-9]*$", message = "아이디는 영문 대소문자와 숫자만 가능합니다.")

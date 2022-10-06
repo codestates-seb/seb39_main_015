@@ -15,11 +15,12 @@ import RoomMoalBtn from '../components/RoomModalBtn';
 //   TwitterIcon,
 // } from 'react-share';
 import { LinkShareButton } from '../components/LinkShareButton.js';
-import RoomModal from '../components/RoomModal.js';
+// import RoomModal from '../components/RoomModal.js';
 import axios from 'axios';
 import { getCookieValue } from '../hook/getCookieValue.js';
 import { useQueryClient, useQuery } from 'react-query';
 import RoomEditModal from '../components/RoomEditModal.js';
+import { ModalWrapper } from '../styled/RightFloatingBtn';
 
 const MyRoomBody = styled(Body)`
   flex-direction: column;
@@ -256,16 +257,13 @@ export default function MyRoom() {
       {tooltip && (
         <ReactTooltip id="dday" place="bottom" type="dark" effect="solid" />
       )}
-      {modalOpen ? (
-        <RoomModal modalRef={modalRef} setModalOpen={setModalOpen} />
-      ) : (
-        ''
-      )}
       {editOpen ? (
-        <RoomEditModal
-          setEditOpen={setEditOpen}
-          roomData={data.rooms.filter((ele) => ele.roomId === editOpen)[0]}
-        />
+        <ModalWrapper>
+          <RoomEditModal
+            setEditOpen={setEditOpen}
+            roomData={data.rooms.filter((ele) => ele.roomId === editOpen)[0]}
+          />
+        </ModalWrapper>
       ) : (
         ''
       )}

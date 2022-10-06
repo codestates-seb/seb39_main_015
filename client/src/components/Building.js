@@ -7,6 +7,7 @@ import catMeow from '../audios/cat_meow.wav';
 import zoomInBigIcon from '../images/zoomInBigIcon.svg';
 
 const BuildingStyle = styled.div`
+  /* display: none; */
   --total-floor: ${(props) => (props.totalFloor <= 2 ? 2 : props.totalFloor)};
   --item-height: min(90vw / 3 * (2 / 3), 90vh / (var(--total-floor) + 0.8));
   --item-width: calc(var(--item-height) * (3 / 2));
@@ -221,6 +222,42 @@ const BuildingStyle = styled.div`
   .wrapper.zoom-out-mode button.zoomIn:hover::after {
     cursor: zoom-in;
     opacity: 1;
+  }
+
+  /** scale 조절 시 글자 크기 오류 수정 */
+  .wrapper.zoom-in-mode .nickname {
+    transform-origin: top center;
+  }
+  .wrapper.zoom-in-mode .msg-box {
+    transform-origin: top center;
+  }
+
+  .wrapper.zoom-in-mode .item:not(.onlyOne) .nickname,
+  .wrapper.zoom-in-mode .room:not(.onlyTwo) .nickname {
+    transform: translate(-50%) scale(calc(1 / var(--zoom-scale)));
+  }
+  .wrapper.zoom-in-mode .room:not(.onlyOne) .msg-box,
+  .wrapper.zoom-in-mode .room:not(.onlyTwo) .msg-box {
+    transform: translate(-50%) scale(calc(1 / var(--zoom-scale)));
+  }
+
+  .wrapper.zoom-in-mode .room.onlyOne .nickname {
+    transform: translate(-50%) scale(calc(1 / var(--one-zoom-scale)));
+  }
+  .wrapper.zoom-in-mode .room.onlyOne .msg-box {
+    transform: translate(-50%, -50%) scale(calc(1 / var(--one-zoom-scale)));
+  }
+
+  .wrapper.zoom-in-mode .room.onlyTwo .nickname {
+    transform: translate(-50%) scale(calc(1 / var(--two-zoom-scale)));
+  }
+  .wrapper.zoom-in-mode .room.onlyTwo .msg-box {
+    transform: translate(-50%, -50%) scale(calc(1 / var(--two-zoom-scale)));
+  }
+
+  .wrapper.zoom-out-mode .nickname,
+  .wrapper.zoom-out-mode .msg-box {
+    display: none;
   }
 `;
 

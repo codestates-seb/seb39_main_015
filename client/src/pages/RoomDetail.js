@@ -3,6 +3,7 @@ import CreateRoobitBtn from '../components/CreateRoobitBtn';
 import BackwardBtn from '../components/BackwardBtn';
 import LeftFloatingBtn from '../styled/LeftFloatingBtn';
 import Weather from '../components/Weather';
+import RoomDataBox from '../components/RoomDataBox';
 import { RoobitsList } from '../components/RoobitsList';
 import { Loading } from '../components/Loading';
 import axios from 'axios';
@@ -40,11 +41,20 @@ const RoomDetail = () => {
     {
       staleTime: 1000 * 60 * 30,
       retry: 1,
-      onError: () => {
-        console.log('요청 에러');
-      },
+      // onError: (err) => {
+      //   console.log('요청 err', err);
+      //   console.log('요청 error', error);
+      //   // return roomDetailData_30;
+      // }, //state 처리
     }
   );
+
+  //onError 로 처리하면 isError false 된다.
+
+  if (isError) {
+    console.dir('에러남!');
+    return <p>유효하지 않은 페이지</p>;
+  }
 
   let roomStatus, roomData, roobits;
   if (!isLoading && !isError) {
@@ -52,8 +62,6 @@ const RoomDetail = () => {
   } else {
     return <Loading />;
   }
-
-  if (isError) return <p>유효하지 않은 페이지</p>;
 
   return (
     <div>
@@ -65,9 +73,8 @@ const RoomDetail = () => {
       ) : (
         <>
           <Weather weather={roomData.weather} />
-          <h1>{roomData.roomName}</h1>
-          <p>{roomData.restDay}</p>
-          <p>{roomData.dday}</p>
+
+          <RoomDataBox roomData={roomData} isZoomIn={isZoomIn} />
           <Building
             roobits={roobits}
             isZoomIn={isZoomIn}

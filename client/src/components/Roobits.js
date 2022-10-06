@@ -70,8 +70,7 @@ const RoobitLi = styled.li`
 
   .nickname {
     white-space: nowrap;
-    color: rgba(0, 0, 0, 0.8);
-    font-size: 0.8rem;
+    color: black;
     text-shadow: var(--font-shadow);
     line-height: 1.2;
     font-weight: 600;
@@ -81,23 +80,61 @@ const RoobitLi = styled.li`
     left: 50%;
     transform: translate(-50%);
 
-    font-size: 0;
+    font-size: 1rem;
   }
 
-  .reception {
-    white-space: nowrap;
-    color: rgba(0, 0, 0, 0.8);
-    font-size: 0.8rem;
-    text-shadow: var(--font-shadow);
-    line-height: 1.2;
-    font-weight: 600;
-
+  .msg-box {
     position: absolute;
-    top: -20%;
+    top: 0;
     left: 50%;
-    transform: translate(-50%);
+    transform: translate(-50%, -100%);
+    max-height: fit-content;
+    width: max-content;
+    max-width: 30vw;
+    background-color: #fff;
+    border: 1px solid var(--point-color);
+    border-radius: 10px;
 
-    font-size: 0;
+    padding: 20%;
+    z-index: 10;
+
+    visibility: hidden;
+    opacity: 0;
+
+    & p {
+      word-break: break-all;
+      color: rgba(0, 0, 0, 0.8);
+      font-size: 1rem;
+      line-height: 1.6;
+      text-align: left;
+      font-weight: 500;
+    }
+
+    & .reception {
+      font-weight: 400;
+      text-align: right;
+      font-size: 0.8rem;
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translate(-50%, 97%);
+      border: 4px solid #fff;
+      border-top-width: 7px;
+      border-color: #fff transparent transparent;
+    }
+  }
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:hover .msg-box {
+    visibility: visible;
+    opacity: 1;
+    transition: all 0.3s ease;
   }
 `;
 
@@ -112,9 +149,15 @@ const Roobits = ({ unitRoobits = [], audioUrl }) => {
             roobitCode={getRoobitType(roobit.style)}
             className={haveTo(roobit.reception) && 'letter'}
           />
-          {haveTo(roobit.reception) && (
-            <p className="reception">{roobit.reception}</p>
+          {!haveTo(roobit.reception) && roobit.body === undefined ? null : (
+            <div className="msg-box">
+              <p className="body">{roobit.body}</p>
+              {haveTo(roobit.reception) && (
+                <p className="reception">{'to. ' + roobit.reception}</p>
+              )}
+            </div>
           )}
+
           <p className="nickname">{roobit.nickname}</p>
         </RoobitLi>
       ))}

@@ -1105,7 +1105,7 @@ export const roomDetailData_30 = {
     roomId: 1,
     roomName: '🌟39th Forever🥳',
     dday: '2022-09-15',
-    restDay: 30,
+    restDay: 0,
     roomTheme: 'CATS',
     viewCount: 55,
     weather: 'sun',

@@ -91,7 +91,7 @@ public class RoomController {
         List<Roobit> roobitsById = roobitService.findRoobitsByRoomId(roomId);
         List<List<Roobit>> roobitsFloor = roobitService.findRoobitsFloorByRoomId(roomId);
         if (room.getRoomStatus() == RoomStatus.ROOM_CLOSED) {
-            long totalRoobitCount = roobitsFloor.stream().count();
+            long totalRoobitCount = roobitsById.size();
             room.setTotalRoobitCount(totalRoobitCount);
             return new ResponseEntity<>(roomMapper.roomToResponseRoomStatus(room), HttpStatus.OK);
         } else if (room.getRoomStatus() == RoomStatus.ROOM_ONGOING) {

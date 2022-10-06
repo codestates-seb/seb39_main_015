@@ -2,19 +2,21 @@ import Building from '../components/Building';
 import CreateRoobitBtn from '../components/CreateRoobitBtn';
 import BackwardBtn from '../components/BackwardBtn';
 import LeftFloatingBtn from '../styled/LeftFloatingBtn';
+import Weather from '../components/Weather';
+//import { RoobitsList } from '../components/RoobitsList';
 import { Loading } from '../components/Loading';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { useQuery } from 'react-query';
-// import {
-//   //roomDetailData,
-//   //roomDetailData_1,
-//   //roomDetailData_2,
-//   //roomDetailData_3,
-//   //roomDetailData_4,
-//   roomDetailData_16,
-//   //roomDetailData_30,
-// } from '../data/DummyData';
+import {
+  //roomDetailData,
+  //roomDetailData_1,
+  //roomDetailData_2,
+  //roomDetailData_3,
+  //roomDetailData_4,
+  //roomDetailData_16,
+  roomDetailData_30,
+} from '../data/DummyData';
 import { getCookieValue } from '../hook/getCookieValue';
 import { useState } from 'react';
 
@@ -27,13 +29,14 @@ const RoomDetail = () => {
   const auth = getCookieValue('Authorization').length;
   roomId;
 
+  //`${process.env.REACT_APP_API_URL}/rooms/${roomId}`
   const { data, isLoading, isError } = useQuery(
     'roobits',
     () =>
       axios
-        .get(`/fa`)
+        .get(`${process.env.REACT_APP_API_URL}/rooms/${roomId}`)
         .then((res) => res.data)
-        .catch(() => '유효하지 않은 페이지'),
+        .catch(() => roomDetailData_30),
     {
       staleTime: 1000 * 60 * 30,
       retry: 1,
@@ -61,6 +64,7 @@ const RoomDetail = () => {
         <p>룸 종료 페이지 컴포넌트</p>
       ) : (
         <>
+          <Weather weather={roomData.weather} />
           <h1>{roomData.roomName}</h1>
           <p>{roomData.restDay}</p>
           <p>{roomData.dday}</p>
@@ -75,7 +79,11 @@ const RoomDetail = () => {
             onClick={() => setIsZoomIn((prev) => !prev)}
           />
           <LeftFloatingBtn className="share" />
-          <CreateRoobitBtn />
+          {roomData.restDay !== 0 ? (
+            <CreateRoobitBtn />
+          ) : (
+            <>{/* <RoobitsList /> */}</>
+          )}
         </>
       )}
     </div>

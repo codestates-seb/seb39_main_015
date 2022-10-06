@@ -137,13 +137,21 @@ table {
 /* font-family: 'Margarine', cursive;
 font-family: 'Noto Sans KR', sans-serif; */
 
+
+.App * {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 1rem;
+}
+
+*, div, a, p, input, button {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 1rem;
+}
+
+
 h2 {
   font-family: 'Margarine', cursive;
   font-size: 30px;
   color: var(--point-color);
 }
 
-* {
-  font-family: 'Noto Sans KR', sans-serif;
-  font-size: 1rem;
-}

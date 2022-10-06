@@ -82,7 +82,7 @@ const FindName = () => {
 
   return (
     <Body>
-      <FormWrapper width={'476px'} height={'628px'}>
+      <FormWrapper width={'476px'} height={'550px'}>
         <h2>Find ID</h2>
         {username ? (
           <div>ID : {username}</div>

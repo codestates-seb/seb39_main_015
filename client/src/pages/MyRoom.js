@@ -194,7 +194,7 @@ export default function MyRoom() {
                           setTimeout(() => showTooltip(true), 100);
                         }}
                       >
-                        D-{ele.restDay}
+                        {ele.restDay === 0 ? 'D-Day' : `D-${ele.restDay}`}
                       </p>
                     </RoomDday>
                     <ButtonSection>

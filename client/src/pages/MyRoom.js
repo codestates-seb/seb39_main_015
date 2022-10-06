@@ -45,7 +45,7 @@ const MyRoomWrapper = styled.div`
   width: 1188px;
   height: 305px;
   display: flex;
-  justify-content: start;
+  justify-content: space-between;
 `;
 
 const RoomBox = styled.div`

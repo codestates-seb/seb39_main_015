@@ -59,10 +59,10 @@ public class RoobitController{
         if (roobitsById.get(0).getRoobitStatus()== Roobit.RoobitStatus.ROOBIT_OPEN) {
             return new ResponseEntity<>(
                     new MultiResponseDto<>(roobitMapper.roobitsToRoobitResponsesDtos(roobitsById)), HttpStatus.OK);   //디데이일 때는 body도 출력
-            } else {
+        } else {
             return new ResponseEntity<>(
                     new MultiResponseDto<>(roobitMapper.roobitsToRoobitNullResponsesDtos(roobitsById)), HttpStatus.OK);  // 디데이아닐 땐 body Null
-            }
+        }
     }
 
     @GetMapping("/rooms/floors/{room-id}")   // 나중에 roomId에 붙일 부분

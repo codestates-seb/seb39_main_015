@@ -47,7 +47,7 @@ public class RoomService {
         Optional.ofNullable(room.getRoomTheme())
                 .ifPresent(roomTheme -> findRoom.setRoomTheme(roomTheme));
         Optional.ofNullable(room.getDDay())
-                        .ifPresent(dDay -> findRoom.setRestDay(Validator.calculateRestDay(room)));
+                .ifPresent(dDay -> findRoom.setRestDay(Validator.calculateRestDay(room)));
 
         validator.updatePatchCount(roomRepository.save(findRoom)); // 수정 횟수 카운터
 

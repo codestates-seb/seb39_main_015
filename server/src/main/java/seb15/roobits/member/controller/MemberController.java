@@ -98,8 +98,8 @@ public class MemberController {
         if(findUsername.getProvider() != null){
             MemberDto.FindUsernameResponse response = memberMapper.memberToFindUsernameResponse(findUsername);
             response.setUsername("일치하는 회원정보가 없습니다");
-        return new ResponseEntity(response,HttpStatus.OK);
-    }
+            return new ResponseEntity(response,HttpStatus.OK);
+        }
 //        if(findUsername.getMemberStatus() == Member.MemberStatus.MEMBER_QUIT){
 //            MemberDto.FindUsernameResponse response = memberMapper.memberToFindUsernameResponse(findUsername);
 //        }
@@ -150,7 +150,7 @@ public class MemberController {
         checkAuth.setProvider(auth.getProvider());
         MemberDto.CheckAuthResponse response = memberMapper.memberToCheckAuthResponse(checkAuth);
         return new ResponseEntity<>(response, HttpStatus.OK);
-        }
+    }
 
 
     @GetMapping("/rooms")

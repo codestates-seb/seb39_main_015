@@ -30,7 +30,7 @@ public class MemberService {
     private final PasswordEncoder passwordEncoder;
 
     private final JwtTokenProvider jwtTokenProvider;
-//    private final ApplicationEventPublisher publisher;
+    //    private final ApplicationEventPublisher publisher;
     private final CustomAuthorityUtils authorityUtils;
 
 
@@ -114,7 +114,7 @@ public class MemberService {
         }
     }
 
-        public Boolean checkPassword(String username,String password) {
+    public Boolean checkPassword(String username,String password) {
         Member findMember = memberRepository.findByUsername(username);
         String originPassword = findMember.getPassword();
 

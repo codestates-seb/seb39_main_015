@@ -174,4 +174,3 @@ public class MemberDto {
         private String provider;
     }
 }
-

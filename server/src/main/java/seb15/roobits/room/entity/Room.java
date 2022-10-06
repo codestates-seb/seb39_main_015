@@ -38,7 +38,7 @@ public class Room {
     @Column
     private long restDay;
 
-//    @Enumerated(EnumType.STRING)
+    //    @Enumerated(EnumType.STRING)
     @Column
     private String roomTheme;
 

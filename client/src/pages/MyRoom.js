@@ -175,6 +175,7 @@ export default function MyRoom() {
   const gotoRoomPage = (roomId) => {
     navigate(`/rooms/${roomId}`);
   };
+  console.log(data);
 
   return (
     <div>

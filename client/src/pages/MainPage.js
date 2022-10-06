@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import emoji from 'node-emoji';
 import { SectionsContainer, Section } from 'react-fullpage';
 import { Link } from 'react-router-dom';
+import { TypeAnimation } from 'react-type-animation';
 
 const Body = styled.div`
   height: 100vh;
@@ -49,6 +50,16 @@ export default function MainPage() {
     anchors: ['sectionOne', 'sectionTwo', 'sectionThree'],
     navigation: false,
   };
+  const mainPageMsg = [
+    'Roobits 팀 데모데이까지 화이팅!!',
+    1000,
+    '🔥ACE팀 이번 대회 우승 기원🔥',
+    1000,
+    '챌린저님들🙌 미라클모닝 힘들더라도 끝까지 해봅시다🏃‍♂️',
+    1000,
+    '3-4 forever 동창회 무조건 오기',
+    1000,
+  ];
 
   return (
     <SectionsContainer {...options}>
@@ -56,6 +67,12 @@ export default function MainPage() {
         <Section>
           <Column1>
             <h2>Welcome to Roobits {emoji.get('smile')}</h2>
+            <TypeAnimation
+              sequence={mainPageMsg}
+              wrapper="div"
+              speed={20}
+              repeat={Infinity}
+            />
             <div>소중한 사람들과 추억을 남겨보세요!</div>
             <div>D-Day를 더 특별하게 만들어 드립니다.</div>
             <Link to="/myroom">

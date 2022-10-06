@@ -22,6 +22,7 @@ import { useQueryClient, useQuery } from 'react-query';
 import RoomEditModal from '../components/RoomEditModal.js';
 import { ModalWrapper } from '../styled/RightFloatingBtn';
 import themeThmbnailImg from '../images/thumbnail_01.png';
+import { useNavigate } from 'react-router-dom';
 
 const MyRoomBody = styled(Body)`
   flex-direction: column;
@@ -137,6 +138,7 @@ export default function MyRoom() {
   const ref = useRef();
   const modalRef = useRef();
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
   const { data } = useQuery(
     'myRoom',
@@ -170,6 +172,10 @@ export default function MyRoom() {
   };
   // urlShare Button 필요 부분 (끝)
 
+  const gotoRoomPage = (roomId) => {
+    navigate(`/rooms/${roomId}`);
+  };
+
   return (
     <div>
       <MyRoomBody>
@@ -180,14 +186,16 @@ export default function MyRoom() {
                 <RoomBox key={ele.roomId}>
                   <RoomTheme
                     onClick={() => {
-                      window.location.assign(ele.url);
+                      gotoRoomPage(ele.roomId);
+                      // window.location.assign(ele.url);
                     }}
                   >
                     {ele.roomTheme}
                   </RoomTheme>
                   <RoomTitle
                     onClick={() => {
-                      window.location.assign(ele.url);
+                      gotoRoomPage(ele.roomId);
+                      // window.location.assign(ele.url);
                     }}
                   >
                     {ele.roomName}

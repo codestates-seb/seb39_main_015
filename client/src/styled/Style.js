@@ -11,6 +11,7 @@ export const Body = styled.div`
 `;
 
 export const FormWrapper = styled.div`
+  position: relative;
   height: ${(props) => props.height || 'auto'};
   width: ${(props) => props.width || 'auto'};
   background-color: rgba(255, 255, 255, 1);

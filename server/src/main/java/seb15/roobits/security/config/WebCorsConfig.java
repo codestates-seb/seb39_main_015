@@ -13,6 +13,7 @@ public class WebCorsConfig implements WebMvcConfigurer {
         registry.addMapping("/**")
                 .allowCredentials(true)
                 .allowedOriginPatterns("http://roobits.s3-website.ap-northeast-2.amazonaws.com")
+                .allowedOriginPatterns("http://localhost:3000")
                 .allowedHeaders("*")
                 .allowedMethods("*");
      }

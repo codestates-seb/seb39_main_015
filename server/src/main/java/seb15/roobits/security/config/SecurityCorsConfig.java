@@ -17,6 +17,7 @@ public class SecurityCorsConfig {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
         config.addAllowedOriginPattern("http://roobits.s3-website.ap-northeast-2.amazonaws.com"); //특정패턴의 origin만 허용
+        config.addAllowedOriginPattern("http://localhost:3000");
         config.addAllowedHeader("*"); //특정 header만 허용
         config.addAllowedMethod("*"); //특정 메소드만 허용
         config.addExposedHeader("authorization"); //추가헤더,커스텀 헤더를 지정

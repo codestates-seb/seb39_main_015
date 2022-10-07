@@ -7,6 +7,8 @@ import {
   TwitterIcon,
 } from 'react-share';
 import styled from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLink } from '@fortawesome/free-solid-svg-icons';
 
 const ShareButtonWrapper = styled.div`
   position: relative;
@@ -18,7 +20,7 @@ const ShareButtonPopup = styled.div`
   top: 25px;
   left: 50%;
   transform: translate(-50%, 0);
-  background-color: white;
+  background-color: transparent;
   flex-direction: column;
 
   animation-name: fadein;
@@ -74,6 +76,19 @@ const KakaoButton = styled.button`
     border-radius: 99px;
   }
 `;
+const CopyLinkButton = styled(KakaoButton)`
+  height: 30px;
+  width: 30px;
+  margin-bottom: 3px;
+  div {
+    border: 1px solid #d9d9d9;
+    /* box-shadow: 0px 5px 8px rgb(104 104 104 / 4%); */
+    background-color: white;
+    border-radius: 99px;
+    height: 30px;
+    width: 30px;
+  }
+`;
 
 // 상위 컴포넌트(MyRoom.js)에서 props 4개 받음
 export const LinkShareButton = ({
@@ -88,6 +103,19 @@ export const LinkShareButton = ({
     });
   };
 
+  const linkClipboard = () => {
+    const someData = roomData.url;
+    let tempInput = document.createElement('input');
+    tempInput.value = someData;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    document.execCommand('copy');
+    document.body.removeChild(tempInput);
+
+    alert('클립보드에 복사되었습니다.');
+    setUrlDropDown('');
+  };
+
   return (
     <ShareButtonWrapper>
       <ShareButton onClick={() => setUrlDropDown(roomData.roomId)}>
@@ -95,6 +123,11 @@ export const LinkShareButton = ({
       </ShareButton>
       {roomData.roomId === urlDropDown ? (
         <ShareButtonPopup ref={ComponentRef}>
+          <CopyLinkButton onClick={() => linkClipboard()}>
+            <div>
+              <FontAwesomeIcon icon={faLink} />
+            </div>
+          </CopyLinkButton>
           <KakaoButton type="button" onClick={() => kakaoShare(roomData.url)}>
             <img
               src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"

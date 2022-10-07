@@ -24,6 +24,7 @@
     "react-scripts": "5.0.1",
     "react-share": "^4.4.0",
     "react-tooltip": "^4.2.21",
+    "react-type-animation": "^2.1.1",
     "styled-components": "^5.3.5",
     "web-vitals": "^2.1.4"
   },

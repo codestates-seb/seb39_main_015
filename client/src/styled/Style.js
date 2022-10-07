@@ -224,4 +224,8 @@ export const ModalInput = styled(Input)`
   height: 45px;
   padding: 0 14px;
   margin-bottom: 4px;
+
+  &#room-name {
+    width: 100%;
+  }
 `;

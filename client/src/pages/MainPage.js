@@ -11,7 +11,7 @@ const Body = styled.div`
   height: 100vh;
 `;
 const Column1 = styled.section`
-  padding-top: 150px;
+  padding-top: 200px;
   padding-left: 100px;
   height: 100%;
   background-color: #fbfbfa;

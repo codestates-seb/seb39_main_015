@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import selectArrowImg from '../images/selectArrow.svg';
 
 export const Body = styled.div`
   padding-top: 80px;
@@ -23,15 +24,18 @@ export const FormWrapper = styled.div`
   align-items: center;
   flex-direction: column;
   z-index: 101;
+  padding-bottom: 50px;
 
   .cancel {
     position: absolute;
     top: 16px;
     right: 16px;
+    cursor: pointer;
   }
 
   h2 {
-    padding-bottom: 20px;
+    padding-top: 48px;
+    padding-bottom: 28px;
   }
 
   > img {
@@ -167,4 +171,61 @@ export const GreenButton = styled(WhiteButton)`
 
 export const StyledLink = styled(Link)`
   color: #f58a5c;
+`;
+
+export const ModalFormWrapper = styled(FormWrapper)`
+  padding: 0 67px 28px 67px;
+  box-shadow: var(--modal-shadow);
+
+  section {
+    margin-bottom: 16px;
+    width: 342px;
+  }
+
+  label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .err-msg {
+    left: 5px;
+    top: 50px;
+    font-size: 12px;
+    color: #dd5858;
+  }
+
+  .two-divide {
+    display: flex;
+    justify-content: space-between;
+    & > * {
+      width: 48%;
+    }
+  }
+
+  .max-roobits-box {
+    & select {
+      height: 45px;
+      background-color: #fff;
+      border: 1px solid #dcdcdc;
+      border-radius: 8px;
+      padding-left: 13px;
+      padding-right: 13px;
+      font-size: 16px;
+      width: 100%;
+      appearance: none;
+      background: url(${selectArrowImg}) no-repeat 93% center;
+    }
+  }
+`;
+
+export const ModalInput = styled(Input)`
+  padding-left: 5px;
+  max-width: 342px;
+  height: 45px;
+  padding: 0 14px;
+  margin-bottom: 4px;
+
+  &#room-name {
+    width: 100%;
+  }
 `;

@@ -142,7 +142,7 @@ const Login = () => {
 
   return (
     <Body>
-      <FormWrapper width={'476px'} height={'628px'}>
+      <FormWrapper width={'476px'} height={'550px'}>
         <h2>Log in</h2>
         <form onSubmit={(e) => hadleSubmit(e)}>
           {/* <label htmlFor="username">ID</label> */}

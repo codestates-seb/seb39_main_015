@@ -14,9 +14,9 @@ import {
   //roomDetailData_1,
   //roomDetailData_2,
   //roomDetailData_3,
-  //roomDetailData_4,
+  roomDetailData_4,
   //roomDetailData_16,
-  roomDetailData_30,
+  //roomDetailData_30,
 } from '../data/DummyData';
 import { getCookieValue } from '../hook/getCookieValue';
 import { useState } from 'react';
@@ -37,7 +37,7 @@ const RoomDetail = () => {
       axios
         .get(`${process.env.REACT_APP_API_URL}/rooms/${roomId}`)
         .then((res) => res.data)
-        .catch(() => roomDetailData_30),
+        .catch(() => roomDetailData_4),
     {
       staleTime: 1000 * 60 * 10,
       retry: 1,

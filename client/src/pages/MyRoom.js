@@ -42,10 +42,17 @@ const MyRoomBody = styled(Body)`
 `;
 
 const MyRoomWrapper = styled.div`
-  width: 1188px;
+  width: 1180px;
   height: 305px;
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
+
+  > div {
+    margin-right: 20px;
+  }
+  > div:last-child {
+    margin-right: 0;
+  }
 `;
 
 const RoomBox = styled.div`

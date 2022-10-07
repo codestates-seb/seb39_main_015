@@ -25,8 +25,8 @@ const Body = styled.div`
   height: 100vh;
 `;
 const Column1 = styled.section`
-  padding-top: 220px;
-  padding-left: 150px;
+  padding-top: 150px;
+  padding-left: 100px;
   height: 100%;
   background-color: #fbfbfa;
   display: flex;
@@ -44,7 +44,7 @@ const Left = styled.div`
     font-family: 'Noto Sans KR';
     font-style: normal;
     font-weight: 400;
-    font-size: 18px;
+    font-size: 16px;
     line-height: 36px;
   }
   > div {
@@ -71,11 +71,11 @@ const Left = styled.div`
 `;
 const Right = styled.div``;
 const VideoSection = styled.div`
-  width: 600px;
-  height: 600px;
+  width: 500px;
+  height: 500px;
   position: absolute;
   top: 50%;
-  right: 150px;
+  right: 100px;
   transform: translate(0%, -50%);
   background-color: #d9d9d9;
   border-radius: 32px;

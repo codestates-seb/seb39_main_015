@@ -5,21 +5,7 @@ import { TypeAnimation } from 'react-type-animation';
 import { Welcome } from '../images/Welcome';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
-import { OrangeButton, WhiteButtonOrangeBorder } from '../styled/Style';
-import { ReactComponent as MakeRoom } from '../images/MakeRoom.svg';
-import { ReactComponent as SelectRoobit } from '../images/SelectRoobit.svg';
-import { ReactComponent as WriteMessage } from '../images/WriteMessage.svg';
-
-const OrangeMsg = styled(WhiteButtonOrangeBorder)`
-  border-radius: 34px;
-  padding: 15px;
-  margin: 30px 0px 30px 0px;
-  cursor: default;
-  :hover {
-    box-shadow: none;
-    transform: scale(1);
-  }
-`;
+import { OrangeButton } from '../styled/Style';
 
 const Body = styled.div`
   height: 100vh;
@@ -105,23 +91,6 @@ const Space = styled.span`
   margin-left: ${(props) => props.space || '10px'};
 `;
 
-const PhotoWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  svg {
-    max-height: 500px;
-  }
-  p {
-    width: 365px;
-    font-family: 'Noto Sans KR';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 20px;
-  }
-`;
-
 export default function MainPage() {
   let options = {
     anchors: ['sectionOne', 'sectionTwo', 'sectionThree'],
@@ -177,38 +146,7 @@ export default function MainPage() {
           </Column1>
         </Section>
         <Section>
-          <Column2>
-            <PhotoWrapper>
-              <MakeRoom />
-              <OrangeMsg width="365px" height="60px">
-                추억을 공유할 루빗 룸을 생성하세요
-              </OrangeMsg>
-              <p>
-                D-Day는 30일 이내로 설정할 수 있습니다!
-                <br />
-                30일 보다 더 멀리 있다면 조금 기다렸다 만들어주세요
-              </p>
-            </PhotoWrapper>
-            <PhotoWrapper>
-              <SelectRoobit />
-              <OrangeMsg width="365px" height="60px">
-                원하는 루빗을 선택하세요
-              </OrangeMsg>
-              <p>다양한 색상과 포즈를 선택할 수 있습니다.</p>
-              <p>다른 테마에서는 어떤 모양의 루빗이 있을까요?</p>
-            </PhotoWrapper>
-            <PhotoWrapper>
-              <WriteMessage />
-              <OrangeMsg width="365px" height="60px">
-                메세지를 남기고 디데이를 기다려주세요!
-              </OrangeMsg>
-              <p>
-                특정 누군가를 지칭해서 메세지를 작성할 수 있어요.
-                <br />
-                루빗에게 편지 심부름을 시켜볼까요?
-              </p>
-            </PhotoWrapper>
-          </Column2>
+          <Column2>소개페이지</Column2>
         </Section>
         <Section>
           <Column3>테마 및 기능 설명</Column3>

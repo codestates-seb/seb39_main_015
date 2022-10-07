@@ -98,6 +98,7 @@ export const LinkShareButton = ({
   ComponentRef,
 }) => {
   const kakaoShare = (url) => {
+    console.log(url);
     window.Kakao.Share.sendScrap({
       requestUrl: url,
     });

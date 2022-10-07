@@ -6,6 +6,7 @@ import { Welcome } from '../images/Welcome';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { OrangeButton } from '../styled/Style';
+import mainAnimation from '../images/MainAnimation.gif';
 
 const Body = styled.div`
   height: 100vh;
@@ -57,8 +58,8 @@ const Left = styled.div`
 `;
 const Right = styled.div``;
 const VideoSection = styled.div`
-  width: 500px;
-  height: 500px;
+  width: 600px;
+  height: 300px;
   position: absolute;
   top: 50%;
   right: 100px;
@@ -66,6 +67,9 @@ const VideoSection = styled.div`
   background-color: #d9d9d9;
   border-radius: 32px;
   box-shadow: 11px 11px 0 0 #ff8753;
+  background-image: url(${(props) => props.background});
+  background-repeat: no-repeat;
+  background-size: cover;
 `;
 
 const Column2 = styled.section`
@@ -97,9 +101,9 @@ export default function MainPage() {
     navigation: false,
   };
   const mainPageMsg = [
-    `"39기 얼마 안 남았다!! 데모데이까지 화이팅 🙌"`,
+    `"39기 데모데이까지 화이팅 🙌"`,
     1000,
-    '"ACE팀 이번 대회 우승 기원 🔥🔥🔥"',
+    '"ACE팀 이번 대회 우승 기원 🔥🔥"',
     1000,
     '"미라클모닝 챌린지 힘들더라도 끝까지 🏃‍♂️"',
     1000,
@@ -141,7 +145,7 @@ export default function MainPage() {
               </OrangeButton>
             </Left>
             <Right>
-              <VideoSection></VideoSection>
+              <VideoSection background={mainAnimation} />
             </Right>
           </Column1>
         </Section>

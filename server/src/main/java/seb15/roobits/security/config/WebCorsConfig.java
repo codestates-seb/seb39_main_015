@@ -12,7 +12,7 @@ public class WebCorsConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
                 .allowCredentials(true)
-                .allowedOriginPatterns("*")
+                .allowedOriginPatterns("http://roobits.s3-website.ap-northeast-2.amazonaws.com")
                 .allowedHeaders("*")
                 .allowedMethods("*");
      }

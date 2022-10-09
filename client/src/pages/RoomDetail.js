@@ -1,10 +1,10 @@
 import Building from '../components/Building';
 import CreateRoobitBtn from '../components/CreateRoobitBtn';
 import BackwardBtn from '../components/BackwardBtn';
-import LeftFloatingBtn from '../styled/LeftFloatingBtn';
 import Weather from '../components/Weather';
 import RoomDataBox from '../components/RoomDataBox';
 import ShowRoobitListBtn from '../components/ShowRoobitListBtn';
+import LeftFloatingBtn from '../styled/LeftFloatingBtn';
 import { Loading } from '../components/Loading';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
@@ -19,7 +19,8 @@ import {
   //roomDetailData_30,
 } from '../data/DummyData';
 import { getCookieValue } from '../hook/getCookieValue';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import RoomPageLinkShareBtn from '../components/RoomPageLinkShareBtn';
 
 /** 줌인 줌아웃 구현을 위한 styled-components */
 
@@ -28,7 +29,23 @@ const RoomDetail = () => {
   setIsZoomIn;
   const { roomId } = useParams();
   const auth = getCookieValue('Authorization').length;
-  roomId;
+  const [urlDropDown, setUrlDropDown] = useState('');
+  const ref = useRef();
+
+  useEffect(() => {
+    document.addEventListener('mousedown', clickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', clickOutside);
+    };
+  });
+
+  const clickOutside = (event) => {
+    if (urlDropDown && !ref.current.contains(event.target)) {
+      console.log(event.target);
+      setUrlDropDown('');
+    }
+  };
 
   //`${process.env.REACT_APP_API_URL}/rooms/${roomId}`
   const { data, isLoading, isError } = useQuery(
@@ -85,7 +102,12 @@ const RoomDetail = () => {
             className={isZoomIn ? 'zoom-out' : 'zoom-in'}
             onClick={() => setIsZoomIn((prev) => !prev)}
           />
-          <LeftFloatingBtn className="share" />
+          <RoomPageLinkShareBtn
+            roomData={roomData}
+            urlDropDown={urlDropDown}
+            setUrlDropDown={setUrlDropDown}
+            ComponentRef={ref}
+          />
           {roomData.restDay !== 0 ? <CreateRoobitBtn /> : <ShowRoobitListBtn />}
         </>
       )}

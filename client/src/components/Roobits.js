@@ -98,8 +98,8 @@ const RoobitLi = styled.li`
     padding: 20%;
     z-index: 10;
 
-    visibility: hidden;
-    opacity: 0;
+    /* visibility: hidden; */
+    /* opacity: 0; */
 
     & p {
       word-break: break-all;
@@ -122,6 +122,17 @@ const RoobitLi = styled.li`
       bottom: 0;
       left: 50%;
       transform: translate(-50%, 97%);
+      border: 4px solid #fff;
+      border-top-width: 7px;
+      border-color: var(--point-color) transparent transparent;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translate(-50%, 80%);
       border: 4px solid #fff;
       border-top-width: 7px;
       border-color: #fff transparent transparent;

@@ -36,9 +36,20 @@ const RoomDataBoxStyle = styled.section`
     font-weight: 700;
     padding-bottom: 10px;
   }
+
+  .dday {
+    font-size: 14px;
+    color: var(--black-font-color);
+  }
 `;
 
 const RoomDataBox = ({ roomData, isZoomIn }) => {
+  const getDdayMsg = () => {
+    const [year, month, date] = roomData.dday.split('-');
+    const msg = `${year}년 ${month}월 ${date}일`;
+    return msg;
+  };
+
   return (
     <RoomDataBoxStyle>
       <div className={isZoomIn ? `zoom-in-mode` : 'zoom-out-mode'}>
@@ -46,7 +57,7 @@ const RoomDataBox = ({ roomData, isZoomIn }) => {
         <p className="rest">
           D-{roomData.restDay === 0 ? 'Day' : roomData.restDay}
         </p>
-        <p className="dday">{roomData.dday}</p>
+        <p className="dday">{getDdayMsg()}</p>
       </div>
     </RoomDataBoxStyle>
   );

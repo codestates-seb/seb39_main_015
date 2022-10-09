@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import rooftopImg from '../images/roomImg/02_rooftop_1x_w3000.png';
-import unitsImg from '../images/roomImg/01_units_1x_w9000.png';
+import unitsImg from '../images/roomImg/01_units_with_window_1x_w9000.png';
 import Roobits from './Roobits';
 import catMeow from '../audios/cat_meow.wav';
 import zoomInBigIcon from '../images/zoomInBigIcon.svg';

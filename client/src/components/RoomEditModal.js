@@ -1,11 +1,17 @@
 import { forwardRef, useEffect, useState } from 'react';
-import { FormWrapper } from '../styled/Style';
+import { ModalFormWrapper, ModalInput, OrangeButton } from '../styled/Style';
 import DatePicker from 'react-datepicker';
 import axios from 'axios';
 import 'react-datepicker/dist/react-datepicker.css';
 import { ReactComponent as CancelIcon } from '../images/cancel-icon.svg';
 import { getCookieValue } from '../hook/getCookieValue';
 import { useMutation, useQueryClient } from 'react-query';
+import { DatePickBtnStyle, DatePickerWrapper } from '../styled/DatePickerStyle';
+import styled from 'styled-components';
+
+const OrangeButtonEditRoomVer = styled(OrangeButton)`
+  margin-top: 40px;
+`;
 
 const getTomorrowDate = () => {
   const today = new Date();
@@ -17,14 +23,14 @@ const getTomorrowDate = () => {
 const DatePickerComponent = ({ dDayDate, setDdayDate }) => {
   const CustomInput = forwardRef(({ value, onClick }, ref) => {
     return (
-      <button
+      <DatePickBtnStyle
         type="button"
         className="custom-input"
         onClick={onClick}
         ref={ref}
       >
         {value}
-      </button>
+      </DatePickBtnStyle>
     );
   });
   CustomInput.displayName = 'CustomInput';
@@ -115,17 +121,17 @@ const RoomEditModal = ({ setEditOpen, roomData }) => {
   }, [roomName]);
 
   return (
-    <FormWrapper
-      width="476px"
-      height="634px"
-      onClick={(e) => e.stopPropagation()}
-    >
-      <CancelIcon stroke="#aaa" onClick={() => setEditOpen('')} />
+    <ModalFormWrapper width="476px" onClick={(e) => e.stopPropagation()}>
+      <CancelIcon
+        className="cancel"
+        stroke="#aaa"
+        onClick={() => setEditOpen('')}
+      />
       <h2>Edit room</h2>
       <form onReset={handleOnReset}>
         <section>
           <label htmlFor="room-name">룸 이름</label>
-          <input
+          <ModalInput
             id="room-name"
             type="text"
             placeholder="최대 20자까지 작성 가능합니다."
@@ -138,14 +144,25 @@ const RoomEditModal = ({ setEditOpen, roomData }) => {
           <p>{roomNameMsg}</p>
         </section>
         <section>
-          <label htmlFor="d-day">D-day</label>
-          <DatePickerComponent dDayDate={dDayDate} setDdayDate={setDdayDate} />
+          <DatePickerWrapper className="dday-box">
+            <label htmlFor="d-day">D-day</label>
+            <DatePickerComponent
+              dDayDate={dDayDate}
+              setDdayDate={setDdayDate}
+            />{' '}
+          </DatePickerWrapper>
         </section>
         <section>
-          <button onClick={handleOnSubmit}>룸 수정하기</button>
+          <OrangeButtonEditRoomVer
+            height="45px"
+            width="100%"
+            onClick={handleOnSubmit}
+          >
+            룸 수정하기
+          </OrangeButtonEditRoomVer>
         </section>
       </form>
-    </FormWrapper>
+    </ModalFormWrapper>
   );
 };
 

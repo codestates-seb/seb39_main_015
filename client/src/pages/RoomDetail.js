@@ -14,8 +14,8 @@ import {
   //roomDetailData_1,
   //roomDetailData_2,
   //roomDetailData_3,
-  roomDetailData_4,
-  //roomDetailData_16,
+  //roomDetailData_4,
+  roomDetailData_16,
   //roomDetailData_30,
 } from '../data/DummyData';
 import { getCookieValue } from '../hook/getCookieValue';
@@ -37,7 +37,7 @@ const RoomDetail = () => {
       axios
         .get(`${process.env.REACT_APP_API_URL}/rooms/${roomId}`)
         .then((res) => res.data)
-        .catch(() => roomDetailData_4),
+        .catch(() => roomDetailData_16),
     {
       staleTime: 1000 * 60 * 10,
       retry: 1,
@@ -51,10 +51,10 @@ const RoomDetail = () => {
 
   //onError 로 처리하면 isError false 된다.
 
-  if (isError) {
-    console.dir('에러남!');
-    return <p>유효하지 않은 페이지</p>;
-  }
+  // if (isError) {
+  //   console.dir('에러남!');
+  //   return <p>유효하지 않은 페이지</p>;
+  // }
 
   let roomStatus, roomData, roobits;
   if (!isLoading && !isError) {

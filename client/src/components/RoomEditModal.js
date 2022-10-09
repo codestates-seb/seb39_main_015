@@ -140,8 +140,9 @@ const RoomEditModal = ({ setEditOpen, roomData }) => {
             name="roomName"
             required
             onChange={(e) => setRoomName(e.target.value.trim())}
+            value={roomName}
           />
-          <p>{roomNameMsg}</p>
+          <p className="err-msg">{roomNameMsg}</p>
         </section>
         <section>
           <DatePickerWrapper className="dday-box">

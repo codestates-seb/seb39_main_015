@@ -377,7 +377,7 @@ const DefaultSky = ({ isClear = true }) => {
   };
 
   const getIsNight = () => {
-    if (hours >= 19 || hours <= 5) return true;
+    if (hours >= 20 || hours <= 5) return true;
     return false;
   };
   const duration = `${24 * 3600}s`;

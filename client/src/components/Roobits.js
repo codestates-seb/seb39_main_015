@@ -88,18 +88,18 @@ const RoobitLi = styled.li`
     top: 0;
     left: 50%;
     transform: translate(-50%, -100%);
-    max-height: fit-content;
+    height: auto;
     width: max-content;
-    max-width: 30vw;
+    max-width: 45vmin;
     background-color: #fff;
     border: 1px solid var(--point-color);
     border-radius: 10px;
 
-    padding: 20%;
+    padding: 14px 20px;
     z-index: 10;
 
-    /* visibility: hidden; */
-    /* opacity: 0; */
+    visibility: hidden;
+    opacity: 0;
 
     & p {
       word-break: break-all;

@@ -238,21 +238,27 @@ const BuildingStyle = styled.div`
   }
   .wrapper.zoom-in-mode .room:not(.onlyOne) .msg-box,
   .wrapper.zoom-in-mode .room:not(.onlyTwo) .msg-box {
-    transform: translate(-50%, -40%) scale(calc(1 / var(--zoom-scale)));
+    transform: translate(-50%, calc(-100% / var(--zoom-scale)))
+      scale(calc(1 / var(--zoom-scale)));
+    transform-origin: top center;
   }
 
   .wrapper.zoom-in-mode .room.onlyOne .nickname {
     transform: translate(-50%) scale(calc(1 / var(--one-zoom-scale)));
   }
   .wrapper.zoom-in-mode .room.onlyOne .msg-box {
-    transform: translate(-50%, -50%) scale(calc(1 / var(--one-zoom-scale)));
+    & p {
+      font-size: 1.4rem;
+    }
   }
 
   .wrapper.zoom-in-mode .room.onlyTwo .nickname {
     transform: translate(-50%) scale(calc(1 / var(--two-zoom-scale)));
   }
   .wrapper.zoom-in-mode .room.onlyTwo .msg-box {
-    transform: translate(-50%, -50%) scale(calc(1 / var(--two-zoom-scale)));
+    & p {
+      font-size: 1.4rem;
+    }
   }
 
   .wrapper.zoom-out-mode .nickname,

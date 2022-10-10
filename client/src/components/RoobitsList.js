@@ -157,7 +157,7 @@ const FloorWhiteButton = styled(WhiteButtonOrangeBorder)`
   }
 `;
 
-export const RoobitsList = ({ handleOpenModal }) => {
+export const RoobitsList = ({ handleOpenModal, roomId }) => {
   const queryClient = useQueryClient();
   const [selectedFloor, setSelectedFloor] = useState('0');
   const [searchKeyword, setSearchKeyword] = useState('');
@@ -169,7 +169,8 @@ export const RoobitsList = ({ handleOpenModal }) => {
   const horizontalRef = useRef(null);
 
   // API 연결 및 쿼리 정상 연결 되면 아래 코드 수정
-  const { roobits } = queryClient.getQueryData('roobits') || roomDetailData_30;
+  const { roobits } =
+    queryClient.getQueryData(['roobits', roomId]) || roomDetailData_30;
   let floor = { 0: [] };
   for (let r = 0; r < roobits.length; r++) {
     floor[0].push(r);

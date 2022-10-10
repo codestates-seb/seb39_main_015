@@ -10,11 +10,11 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import {
-  //roomDetailData,
   //roomDetailData_1,
   //roomDetailData_2,
   //roomDetailData_3,
   //roomDetailData_4,
+  //roomDetailData_7,
   roomDetailData_16,
   //roomDetailData_30,
 } from '../data/DummyData';

@@ -113,14 +113,10 @@ const WeatherStyle = ({ weather }) => {
 
 const Weather = ({ weather = 'clear' }) => {
   //weather: (rain, snow, clouds, clear), // 날씨 구현 안된거면 일단 clear
-  const getIsNight = () => {
-    const hours = new Date().getHours();
-    if (hours >= 19 || hours <= 5) return true;
-    return false;
-  };
+
   return (
     <WeatherWrapper>
-      <DefaultSky isNight={getIsNight()} isClear={weather === 'clear'} />
+      <DefaultSky isClear={weather === 'clear'} />
       <WeatherStyle weather={weather} />
     </WeatherWrapper>
   );

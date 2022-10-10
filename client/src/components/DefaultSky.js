@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 
 const DefaultSkyStyle = styled.div`
+  --duration: ${(props) => props.duration || '24s'};
+  --dur-start: ${(props) => props.durStart || '12s'};
+
   background: #0d133a;
   height: 100%;
   overflow: hidden;
@@ -17,9 +20,10 @@ const DefaultSkyStyle = styled.div`
   .counter:before,
   #lensFlare,
   .sunMask {
-    animation-duration: 120s;
+    animation-duration: var(--duration);
     animation-iteration-count: infinite;
     animation-timing-function: linear;
+    animation-delay: var(--dur-start);
   }
 
   /* Background gradients
@@ -98,7 +102,7 @@ const DefaultSkyStyle = styled.div`
   .sun:before {
     display: block;
     content: ' ';
-    /* animation: 60s linear infinite; */
+    /* animation: var(--duration) linear infinite; */
     position: absolute;
     width: 120%;
     height: 120%;
@@ -193,7 +197,8 @@ const DefaultSkyStyle = styled.div`
     margin: auto;
     left: -10%;
     right: 0;
-    animation: stars 120s linear infinite;
+    animation: stars var(--duration) linear infinite;
+    animation-delay: var(--dur-start);
     transform: rotate(0deg);
     top: -35%;
   }
@@ -211,7 +216,8 @@ const DefaultSkyStyle = styled.div`
     margin: auto;
     left: -10%;
     right: 0;
-    animation: starsReflect 120s linear infinite;
+    animation: starsReflect var(--duration) linear infinite;
+    animation-delay: var(--dur-start);
     transform: rotate(0deg);
     top: initial;
     bottom: -102%;
@@ -229,7 +235,8 @@ const DefaultSkyStyle = styled.div`
     width: 100%;
     position: absolute;
     z-index: 13;
-    animation: sprites 60s linear infinite;
+    animation: sprites var(--duration) linear infinite;
+    animation-delay: var(--dur-start);
     pointer-events: none;
   }
   @keyframes sprites {
@@ -265,7 +272,7 @@ const DefaultSkyStyle = styled.div`
     top: 80%;
     width: 100%;
     z-index: 5;
-    animation-delay: 1s;
+    animation-delay: var(--dur-start);
     filter: blur(2px);
     transform: scaleX(1.1);
   }
@@ -363,11 +370,22 @@ const DefaultSkyStyle = styled.div`
   }
 `;
 
-const DefaultSky = ({ isNight = false, isClear = true }) => {
-  console.log(isNight);
+const DefaultSky = ({ isClear = true }) => {
+  const hours = new Date().getHours();
+  const getDurStart = () => {
+    return -1 * hours * 3600;
+  };
+
+  const getIsNight = () => {
+    if (hours >= 19 || hours <= 5) return true;
+    return false;
+  };
+  const duration = `${24 * 3600}s`;
+  const durStart = `${getDurStart()}s`;
+  const isNight = getIsNight();
 
   return (
-    <DefaultSkyStyle>
+    <DefaultSkyStyle duration={duration} durStart={durStart}>
       {/* Stars */}
       <div className="stars">
         {!isClear ? null : (
@@ -1510,13 +1528,15 @@ const DefaultSky = ({ isNight = false, isClear = true }) => {
           <stop stopColor="rgb(0,0,0)" offset="0%" id="skyZenith">
             <animate
               attributeName="stop-color"
-              dur="60s"
+              dur={`${duration}`}
+              begin={`${durStart}`}
               values="rgba(0,19,48,0);rgba(0,19,48,0);rgba(0,19,48,0);rgba(0,19,48,0);rgba(37,32,70,.33);rgba(69,40,92,0.67);rgba(102,44,113,1);rgba(94,112,155,1);rgba(0,137,185,1);rgba(9,127,182,1);rgba(20,116,178,1);rgba(27,106,175,1);rgba(29,101,173,1);rgba(31,96,173,1);rgba(47,100,170,1);rgba(66,119,177,1);rgba(73,119,174,1);rgba(79,120,174,1);rgba(76,101,150,1);rgba(71,82,133,0.93);rgba(59,66,108,0.78);rgba(44,49,84,0.56);rgba(27,30,60,0.33);rgba(0,19,48,0.0);rgba(0,19,48,0.0)"
               repeatCount="indefinite"
             />
             <animate
               attributeName="offset"
-              dur="60s"
+              dur={`${duration}`}
+              begin={`${durStart}`}
               values="0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0.12;0.21;0.21;0.07;0.07;0;0;0;0;"
               repeatCount="indefinite"
             />
@@ -1526,13 +1546,15 @@ const DefaultSky = ({ isNight = false, isClear = true }) => {
           <stop stopColor="rgb(0,0,0)" offset="0%" id="skyMid">
             <animate
               attributeName="stop-color"
-              dur="60s"
+              dur={`${duration}`}
+              begin={`${durStart}`}
               values="rgba(38,118,127,0.3);rgba(64,105,129,0.3);rgba(76,77,120,0.3);rgba(91,64,124,0.3);rgba(137,66,131,0.53);rgba(175,69,138,0.77);rgba(239,80,154,1);rgba(218,166,181,1);rgba(211,226,199,1);rgba(134,189,187,1);rgba(127,180,194,1);rgba(142,205,217,1)rgba(119,203,227,1);rgba(92,202,273,1);rgba(107,197,222,1);rgba(122,200,212,1);rgba(135,203,202,1);rgba(148,205,192,1);rgba(153,134,141,1);rgba(174,93,104,1);rgba(150,96,114,0.78);rgba(127,98,124,0.79);rgba(99,99,134,0.53);rgba(54,92,145,0.3);rgba(38,118,123,0.3)"
               repeatCount="indefinite"
             />
             <animate
               attributeName="offset"
-              dur="60s"
+              dur={`${duration}`}
+              begin={`${durStart}`}
               values=".66;.62;.52;.52;.52;.52;.58;.66;.69;.55;.57;.77;.78;.78;.74;.74;.74;.74;.55;.56;.56;.56;.56;.56;.56;.66;"
               repeatCount="indefinite"
             />
@@ -1542,7 +1564,8 @@ const DefaultSky = ({ isNight = false, isClear = true }) => {
           <stop stopColor="rgb(0,0,0)" offset="100%" id="skyHorizon">
             <animate
               attributeName="stop-color"
-              dur="60s"
+              dur={`${duration}`}
+              begin={`${durStart}`}
               values="rgba(99,95,61,1);rgba(113,99,69,1);rgba(128,103,77,1);rgba(142,107,85,1);rgba(172,126,106,1);rgba(206,150,130,1);rgba(249,180,160,1);rgba(244,194,150,1);rgba(242,207,137,1);rgba(255,232,177,1);rgba(245,234,198,1);rgba(235,237,220,1)rgba(229,239,231,1);rgba(226,243,244,1);rgba(216,227,222,1);rgba(206,215,203,1);rgba(197,203,185,1);rgba(187,192,167,1);rgba(218,156,108,1);rgba(244,117,49,1);rgba(208,119,68,1);rgba(179,120,84,1);rgba(151,119,96,1);rgba(119,99,84,1);rgba(99,95,61,1)"
               repeatCount="indefinite"
             />
@@ -1570,13 +1593,15 @@ const DefaultSky = ({ isNight = false, isClear = true }) => {
           <stop stopColor="rgb(0,0,0)" offset="0%" id="reflectHorizon">
             <animate
               attributeName="stop-color"
-              dur="60s"
+              dur={`${duration}`}
+              begin={`${durStart}`}
               values="rgba(99,95,61,1);rgba(113,99,69,1);rgba(128,103,77,1);rgba(142,107,85,1);rgba(172,126,106,1);rgba(206,150,130,1);rgba(249,180,160,1);rgba(244,194,150,1);rgba(242,207,137,1);rgba(255,232,177,1);rgba(245,234,198,1);rgba(235,237,220,1)rgba(229,239,231,1);rgba(226,243,244,1);rgba(216,227,222,1);rgba(206,215,203,1);rgba(197,203,185,1);rgba(187,192,167,1);rgba(218,156,108,1);rgba(244,117,49,1);rgba(208,119,68,1);rgba(179,120,84,1);rgba(151,119,96,1);rgba(119,99,84,1);rgba(99,95,61,1)"
               repeatCount="indefinite"
             />
             <animate
               attributeName="offset"
-              dur="60s"
+              dur={`${duration}`}
+              begin={`${durStart}`}
               values=".22;.22;.22;.22;.22;.22;.22;.22;.22;.22;.22;.22;.22;.22;.22;.22;.22;.22;.22;.22;.22;.22;.22;.22;"
               repeatCount="indefinite"
             />
@@ -1586,13 +1611,15 @@ const DefaultSky = ({ isNight = false, isClear = true }) => {
           <stop stopColor="rgb(0,0,0)" offset="50%" id="reflectMid">
             <animate
               attributeName="stop-color"
-              dur="60s"
+              dur={`${duration}`}
+              begin={`${durStart}`}
               values="rgba(38,118,127,0.3);rgba(64,105,129,0.3);rgba(76,77,120,0.3);rgba(91,64,124,0.3);rgba(137,66,131,0.53);rgba(175,69,138,0.77);rgba(239,80,154,1);rgba(218,166,181,1);rgba(211,226,199,1);rgba(134,189,187,1);rgba(127,180,194,1);rgba(142,205,217,1)rgba(119,203,227,1);rgba(92,202,273,1);rgba(107,197,222,1);rgba(122,200,212,1);rgba(135,203,202,1);rgba(148,205,192,1);rgba(153,134,141,1);rgba(174,93,104,1);rgba(150,96,114,0.78);rgba(127,98,124,0.79);rgba(99,99,134,0.53);rgba(54,92,145,0.3);rgba(38,118,123,0.3)"
               repeatCount="indefinite"
             />
             <animate
               attributeName="offset"
-              dur="60s"
+              dur={`${duration}`}
+              begin={`${durStart}`}
               values=".62;.66;.73;.77;.87;.64;.55;.5;.47;.47;.47;.45;.45;.45;.42;.42;.45;.48;.58;.64;.64;.6;.6;.6;.6;"
               repeatCount="indefinite"
             />
@@ -1602,13 +1629,15 @@ const DefaultSky = ({ isNight = false, isClear = true }) => {
           <stop stopColor="rgb(0,0,0)" offset="100%" id="reflectZenith">
             <animate
               attributeName="stop-color"
-              dur="60s"
+              dur={`${duration}`}
+              begin={`${durStart}`}
               values="rgba(0,19,48,0);rgba(0,19,48,0);rgba(0,19,48,0);rgba(0,19,48,0);rgba(37,32,70,.33);rgba(69,40,92,0.67);rgba(102,44,113,1);rgba(94,112,155,1);rgba(0,137,185,1);rgba(9,127,182,1);rgba(20,116,178,1);rgba(27,106,175,1);rgba(29,101,173,1);rgba(31,96,173,1);rgba(47,100,170,1);rgba(66,119,177,1);rgba(73,119,174,1);rgba(79,120,174,1);rgba(76,101,150,1);rgba(71,82,133,0.93);rgba(59,66,108,0.78);rgba(44,49,84,0.56);rgba(27,30,60,0.33);rgba(0,19,48,0.0);rgba(0,19,48,0.0)"
               repeatCount="indefinite"
             />
             <animate
               attributeName="offset"
-              dur="60s"
+              dur={`${duration}`}
+              begin={`${durStart}`}
               values="1;1;1;1;1;1;1;.85;.85;.85;.85;.85;.85;.85;.85;.85;.85;.85;.9;.9;.9;.95;1;1;1;"
               repeatCount="indefinite"
             />

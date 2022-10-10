@@ -89,7 +89,7 @@ const RoomDetail = () => {
         <p>룸 종료 페이지 컴포넌트</p>
       ) : (
         <>
-          <Weather weather={roomData.weather} />
+          <Weather weather={roomData.weather || 'clear'} />
 
           <RoomDataBox roomData={roomData} isZoomIn={isZoomIn} />
           <Building

@@ -7,6 +7,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { OrangeButton } from '../styled/Style';
 import mainAnimation from '../images/MainAnimation.gif';
+import section2LAnimation from '../images/Section2L.gif';
+import section2RAnimation from '../images/Section2R.gif';
 import { ReactComponent as RoobitsText } from '../images/Roobits-text.svg';
 // import RoobitOneImg from '../styled/RoobitOneImg.js';
 // import { getRoobitType } from '../hook/getRoobitType';
@@ -75,16 +77,102 @@ const VideoSection = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
 `;
+const VideoSection2L = styled.div`
+  width: 480px;
+  height: 240px;
+  position: absolute;
+  top: 30%;
+  left: 150px;
+  transform: translate(0%, -50%);
+  background-color: #d9d9d9;
+  border-radius: 15px;
+  box-shadow: 5px 5px 0 0 #ff8753;
+  background-image: url(${(props) => props.background});
+  background-repeat: no-repeat;
+  background-size: cover;
+`;
+const VideoSection2R = styled.div`
+  width: 480px;
+  height: 240px;
+  position: absolute;
+  top: 70%;
+  right: 150px;
+  transform: translate(0%, -50%);
+  background-color: #d9d9d9;
+  border-radius: 15px;
+  box-shadow: 5px 5px 0 0 #ff8753;
+  background-image: url(${(props) => props.background});
+  background-repeat: no-repeat;
+  background-size: cover;
+`;
+const Section2LMsg = styled.div`
+  position: absolute;
+  left: 700px;
+  top: 15%;
+  > div {
+    line-height: 52px;
+    font-size: 20px;
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: 700;
+    > svg {
+      animation: blink 1.1s step-start 0s infinite;
+      color: #ff8753;
+      @keyframes blink {
+        50% {
+          opacity: 0;
+        }
+      }
+    }
+  }
+  > p {
+    padding-left: 27px;
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    line-height: 25px;
+  }
+`;
+const Section2RMsg = styled.div`
+  position: absolute;
+  right: 700px;
+  top: 55%;
+  > div {
+    line-height: 52px;
+    font-size: 20px;
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: 700;
+    > svg {
+      animation: blink 1.1s step-start 0s infinite;
+      color: #ff8753;
+      @keyframes blink {
+        50% {
+          opacity: 0;
+        }
+      }
+    }
+  }
+  > p {
+    padding-left: 27px;
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    line-height: 25px;
+  }
+`;
 
 const Column2 = styled.section`
-  padding-top: 80px;
+  padding-top: 200px;
+  padding-left: 100px;
   height: 100%;
   background-color: #fff9f1;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 3rem;
+  flex-direction: column;
+  justify-content: start;
+  align-items: flex-start;
+  font-size: 1.5rem;
+  position: relative;
 `;
+
 const Column3 = styled.section`
   position: relative;
   padding-top: 150px;
@@ -112,7 +200,7 @@ const Footer = styled.div`
   right: 0px;
   height: 250px;
   width: 100%;
-  border: 1px solid #dcdcdc;
+  /* border: 1px solid #dcdcdc; */
   background-color: #ff8753;
   color: white;
   section {
@@ -145,18 +233,6 @@ const Footer = styled.div`
 const Space = styled.span`
   margin-left: ${(props) => props.space || '10px'};
 `;
-// const RoobitWrapper = styled.div`
-//   display: flex;
-//   height: 200px;
-// `;
-// const RoobitOneWrapper = styled.div`
-//   min-width: 150px;
-//   height: 150px;
-//   /* background: #fbfbfa;
-//   border: 1px solid #dcdcdc; */
-//   /* border-radius: 8px; */
-//   margin-right: 21px;
-// `;
 const Section3Image = styled.div`
   position: absolute;
   bottom: 250px;
@@ -186,7 +262,7 @@ const Section3Text = styled.div`
 export default function MainPage() {
   let options = {
     anchors: ['sectionOne', 'sectionTwo', 'sectionThree'],
-    navigation: false,
+    navigation: true,
   };
   const mainPageMsg = [
     `"39기 데모데이까지 화이팅 🙌"`,
@@ -238,7 +314,39 @@ export default function MainPage() {
           </Column1>
         </Section>
         <Section>
-          <Column2>소개페이지</Column2>
+          <Column2>
+            <div>
+              <Left>
+                <VideoSection2L background={section2LAnimation} />
+              </Left>
+              <Section2LMsg>
+                <div>
+                  <FontAwesomeIcon icon={faAngleRight} size="lg" />
+                  <Space space="10px" />
+                  {'"추억을 남길 루빗 룸을 만들어 보세요."'}
+                </div>
+                <p>
+                  D-Day는 30일 이내여야 합니다. 30일이 넘는다면 조금만
+                  기다려주세요.
+                </p>
+                <p>원하는 테마를 선택해보세요.</p>
+              </Section2LMsg>
+            </div>
+            <div>
+              <Section2RMsg>
+                <div>
+                  <FontAwesomeIcon icon={faAngleRight} size="lg" />
+                  <Space space="10px" />
+                  {'"원하는 모양의 루빗츠로 글을 작성할 수 있습니다."'}
+                </div>
+                <p>루빗 종류 및 포즈를 선택할 수 있습니다.</p>
+                <p>140자로 추억을 기록해보세요.</p>
+              </Section2RMsg>
+              <Right>
+                <VideoSection2R background={section2RAnimation} />
+              </Right>
+            </div>
+          </Column2>
         </Section>
         <Section>
           <Column3>

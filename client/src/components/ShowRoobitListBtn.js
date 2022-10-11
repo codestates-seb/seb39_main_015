@@ -13,7 +13,7 @@ const ShowListBtnStyle = styled(CreaterFloatingBtnStyle)`
   }
 `;
 
-const ShowRoobitListBtn = () => {
+const ShowRoobitListBtn = ({ roomId }) => {
   const [isOpen, setIsOpen] = useState(false);
   const handleOnClick = () => {
     setIsOpen((prev) => !prev);
@@ -26,7 +26,7 @@ const ShowRoobitListBtn = () => {
       </ShowListBtnStyle>
       {isOpen && (
         <ModalWrapper onClick={handleOnClick}>
-          <RoobitsList handleOpenModal={handleOnClick} />
+          <RoobitsList handleOpenModal={handleOnClick} roomId={roomId} />
         </ModalWrapper>
       )}
     </>

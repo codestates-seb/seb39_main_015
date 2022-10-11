@@ -86,7 +86,11 @@ const RoomDetail = () => {
             onClick={() => setIsZoomIn((prev) => !prev)}
           />
           <LeftFloatingBtn className="share" />
-          {roomData.restDay !== 0 ? <CreateRoobitBtn /> : <ShowRoobitListBtn />}
+          {roomData.restDay !== 0 ? (
+            <CreateRoobitBtn />
+          ) : (
+            <ShowRoobitListBtn roomId={roomId} />
+          )}
         </>
       )}
     </div>

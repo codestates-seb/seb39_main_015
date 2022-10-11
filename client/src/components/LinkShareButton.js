@@ -98,8 +98,11 @@ export const LinkShareButton = ({
   ComponentRef,
 }) => {
   const kakaoShare = (url) => {
+    const path = url.slice(url.indexOf('rooms'));
     window.Kakao.Share.sendScrap({
       requestUrl: url,
+      templateId: 84072,
+      templateArgs: { path: path },
     });
   };
 

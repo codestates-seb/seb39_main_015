@@ -82,7 +82,11 @@ public class MemberController {
         Member getMemberRoom =
                 memberService.findMember(auth.getUsername());
         MemberDto.GetMyRoomResponse response = memberMapper.memberTogetMyRoomResponse(getMemberRoom);
-
+        for(int i = 0; i < response.getRooms().size(); i++){
+            if(response.getRooms().get(i).getRestDay() < 0){
+                response.getRooms().remove(i);
+            }
+        }
         return new ResponseEntity<>(response,HttpStatus.OK);
     }
 

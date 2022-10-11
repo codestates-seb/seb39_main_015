@@ -71,7 +71,7 @@ const LeftFloatingBtn = styled.button`
   @media screen and (max-width: 1024px) {
     left: 6%;
   }
-  @media screen and (max-height: 420px) {
+  @media screen and (max-height: 480px) {
     --bottom-position: 4%;
   }
 `;

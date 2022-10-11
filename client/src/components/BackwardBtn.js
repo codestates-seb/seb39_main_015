@@ -26,7 +26,7 @@ const BackwardBtnStyle = styled.button`
     left: 6%;
   }
 
-  @media screen and (max-height: 420px) {
+  @media screen and (max-height: 480px) {
     top: 3%;
   }
 `;

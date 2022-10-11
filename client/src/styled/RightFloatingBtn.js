@@ -39,7 +39,7 @@ export const CreaterFloatingBtnStyle = styled.button`
   @media screen and (max-width: 1024px) {
     right: 6%;
   }
-  @media screen and (max-height: 420px) {
+  @media screen and (max-height: 480px) {
     bottom: 7%;
   }
 `;

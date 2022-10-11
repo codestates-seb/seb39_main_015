@@ -115,8 +115,11 @@ const RoomDetail = () => {
             setUrlDropDown={setUrlDropDown}
             ComponentRef={ref}
           />
-          {roomData.restDay !== 0 ? <CreateRoobitBtn /> : <ShowRoobitListBtn roomId={roomId}/>}
-
+          {roomData.restDay !== 0 ? (
+            <CreateRoobitBtn />
+          ) : (
+            <ShowRoobitListBtn roomId={roomId} />
+          )}
         </>
       )}
     </div>

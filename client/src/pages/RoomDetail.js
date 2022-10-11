@@ -88,7 +88,7 @@ const RoomDetail = () => {
       {roomStatus === 'ROOM_CLOSED' ||
       roomStatus === 'ROOM_DELETED' ||
       roobits === undefined ? (
-        <RoomEnd />
+        <RoomEnd data={data} />
       ) : (
         <>
           <Weather weather={roomData.weather || 'clear'} />

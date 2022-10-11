@@ -83,7 +83,7 @@ const RoomEndWrapper = styled.div`
   }
 `;
 
-const RoomEnd = () => {
+const RoomEnd = ({ data }) => {
   const navigate = useNavigate();
 
   return (
@@ -92,20 +92,21 @@ const RoomEnd = () => {
         <h2>Room is Closed...</h2>
 
         {/* <p className="first-msg">함께해서 즐거웠습니다{emoji.get('blush')}</p> */}
-
-        <article>
-          <h3>{`"미라클모닝 챌린지"`}</h3>
-          <p className="dday">
-            <span>D-Day</span>
-            <span>{`2022년 10월 07일`}</span>
-          </p>
-          <p className="msg">
-            <span>{113}</span>
-            {` 개의 루빗츠가 작성되었고, `}
-            <span>{254}</span>
-            {` 분이 찾아주셨습니다.`}
-          </p>
-        </article>
+        {
+          <article>
+            <h3>{`"${data.roomName}"`}</h3>
+            <p className="dday">
+              <span>D-Day</span>
+              <span>{`${data.dday}`}</span>
+            </p>
+            <p className="msg">
+              <span>{data.totalRoobitCount}</span>
+              {` 개의 루빗츠가 작성되었고, `}
+              <span>{data.viewCount}</span>
+              {` 분이 찾아주셨습니다.`}
+            </p>
+          </article>
+        }
 
         <p className="sub-msg">
           {emoji.get('sparkles')}루빗츠와 함께 새로운 추억을 만들어보세요.

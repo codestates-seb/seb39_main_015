@@ -117,6 +117,11 @@ const ModalInputWrapper = styled(InputWrapper)`
     right: 16px;
     bottom: 26px;
   }
+
+  @media screen and (max-width: 480px) {
+    width: 90%;
+    margin: 0 auto;
+  }
 `;
 
 const RoobitImgWrapper = styled.div`

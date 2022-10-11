@@ -16,6 +16,11 @@ export const HeaderStyle = styled.div`
   justify-content: space-between;
   align-items: center;
   background-color: #fbfbfa;
+  flex-wrap: wrap;
+
+  @media screen and (max-width: 768px) {
+    height: auto;
+  }
 `;
 
 const Navigator = styled.div`
@@ -26,6 +31,10 @@ const Navigator = styled.div`
 
   @media screen and (max-width: 1024px) {
     margin-left: 6%;
+  }
+
+  @media screen and (max-width: 768px) {
+    padding: 10px 0;
   }
 `;
 const Logo = styled.div`
@@ -46,6 +55,7 @@ const ButtonSection = styled.div`
   margin-right: 100px;
   justify-content: flex-end;
   align-items: center;
+  margin-left: auto;
 
   @media screen and (max-width: 1024px) {
     margin-right: 6%;

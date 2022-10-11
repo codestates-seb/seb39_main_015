@@ -3,7 +3,7 @@
 ### [당신의 추억을 bits로 남기세요](https://github.com/Gwanghyun-Jeon "추억을 남기러 가볼까요?")
 
 ## 🛫 Intro
-추억을 공유하는 사람들에게 미리 글을 작성해보세요. D-day를 더 특별하게 만들어줍니다.
+추억을 공유하는 사람들에게 편지를 작성해보세요. D-day를 더 특별하게 만들어줍니다.
 
 ## 👨‍👩‍👧‍👦 Team
 | 전광현<br>(FE, 팀장) | 이유진<br>(FE) | 조현화<br>(BE) | 유하경<br>(BE) | 염빛나리<br>(BE) |
@@ -16,6 +16,7 @@
 - 자료 공유, 회의 등과 같은 모든 소통은 디스코드를 이용하고 급한 경우에만 카카오톡을 이용합니다.
 
 ## 📺 Demo
+![anigif](https://user-images.githubusercontent.com/76886589/195051770-6c55f0af-2212-41f6-b014-0325b18c321d.gif?raw=true)
 피그마 작성한 내용들 붙이기
 
 ## 🔧 Skills

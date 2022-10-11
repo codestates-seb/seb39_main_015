@@ -224,6 +224,18 @@ const BuildingStyle = styled.div`
     opacity: 1;
   }
 
+  /** zoom-in-mode이고 msg-on 인 경우 메시지 박스 다 보여주기 */
+  .wrapper.zoom-in-mode.msg-on .msg-box {
+    visibility: visible;
+    opacity: 0.9;
+  }
+
+  /** 루빗 호버시 해당 메시지를 선명하게 */
+  .wrapper.zoom-in-mode .item ul li:hover .msg-box {
+    visibility: visible;
+    opacity: 1;
+  }
+
   /** scale 조절 시 글자 크기 오류 수정 */
   .wrapper.zoom-in-mode .nickname {
     transform-origin: top center;
@@ -333,7 +345,7 @@ const ArrowSvg = () => {
   );
 };
 
-const Building = ({ roobits, isZoomIn, setIsZoomIn }) => {
+const Building = ({ roobits, isZoomIn, setIsZoomIn, showMsg }) => {
   const unitCount = roobits.length;
   const [isOne, setIsOne] = useState(false);
   const [isTwo, setIsTwo] = useState(false);
@@ -401,7 +413,9 @@ const Building = ({ roobits, isZoomIn, setIsZoomIn }) => {
       )}
       <BuildingStyle totalFloor={parseInt((unitCount - 1) / 3) + 1} idx={idx}>
         <div
-          className={`wrapper ${isZoomIn ? 'zoom-in-mode' : 'zoom-out-mode'}`}
+          className={`wrapper ${isZoomIn ? 'zoom-in-mode' : 'zoom-out-mode'} ${
+            showMsg ? 'msg-on' : 'msg-off'
+          }`}
         >
           <ul
             className={`container ${isOne ? 'onlyOne' : ''} ${

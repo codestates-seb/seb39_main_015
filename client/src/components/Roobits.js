@@ -94,10 +94,12 @@ const RoobitLi = styled.li`
     background-color: #fff;
     border: 1px solid var(--point-color);
     border-radius: 10px;
+    transition: all 0.3s ease;
 
     padding: 14px 20px;
     z-index: 10;
 
+    /**호버 시 외엔 말풍선 숨기기 */
     visibility: hidden;
     opacity: 0;
 
@@ -140,12 +142,7 @@ const RoobitLi = styled.li`
   }
   &:hover {
     cursor: pointer;
-  }
-
-  &:hover .msg-box {
-    visibility: visible;
-    opacity: 1;
-    transition: all 0.3s ease;
+    z-index: 100;
   }
 `;
 

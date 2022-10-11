@@ -138,12 +138,20 @@ const BuildingStyle = styled.div`
     background-size: 100% 100%;
   }
 
-  .rooftop:nth-child(3n) {
+  .rooftop:nth-child(3n + 1) {
     background-image: url(${rooftopDecoImg1}), url(${rooftopImg});
   }
-  .rooftop:last-child,
-  .rooftop.onlyOne,
-  .rooftop.onlyTwo:nth-child(3n + 1) {
+  .rooftop:nth-child(3n) {
+    background-image: url(${rooftopDecoImg2}), url(${rooftopImg});
+  }
+  .rooftop.onlyOne {
+    background-image: url(${rooftopDecoImg1}), url(${rooftopDecoImg2}),
+      url(${rooftopImg});
+  }
+  .rooftop.onlyTwo:nth-child(2n + 1) {
+    background-image: url(${rooftopDecoImg1}), url(${rooftopImg});
+  }
+  .rooftop.onlyTwo:nth-child(2n) {
     background-image: url(${rooftopDecoImg2}), url(${rooftopImg});
   }
 

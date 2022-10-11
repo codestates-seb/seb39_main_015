@@ -3,7 +3,7 @@
 ### [당신의 추억을 bits로 남기세요](https://github.com/Gwanghyun-Jeon "추억을 남기러 가볼까요?")
 
 ## 🛫 Intro
-추억을 공유하는 사람들에게 편지를 작성해보세요. D-day를 더 특별하게 만들어줍니다.
+Roobits에서 추억을 기록해보세요. D-day를 더 특별하게 만들어줍니다.
 
 ## 👨‍👩‍👧‍👦 Team
 | 전광현<br>(FE, 팀장) | 이유진<br>(FE) | 조현화<br>(BE) | 유하경<br>(BE) | 염빛나리<br>(BE) |
@@ -20,6 +20,9 @@
 피그마 작성한 내용들 붙이기
 
 ## 🔧 Skills
+
+![Roobits Stack (9)](https://user-images.githubusercontent.com/73211553/195057855-ab580645-ecc4-43dd-b423-a1dd09b5bfcc.png)
+
 ### Tools
 | Git | Github | Discord |
 | :---: | :---: | :---: |

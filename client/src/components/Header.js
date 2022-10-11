@@ -23,6 +23,10 @@ const Navigator = styled.div`
   margin-left: 100px;
   width: 291px;
   justify-content: space-between;
+
+  @media screen and (max-width: 1024px) {
+    margin-left: 6%;
+  }
 `;
 const Logo = styled.div`
   height: 100%;
@@ -42,6 +46,10 @@ const ButtonSection = styled.div`
   margin-right: 100px;
   justify-content: flex-end;
   align-items: center;
+
+  @media screen and (max-width: 1024px) {
+    margin-right: 6%;
+  }
 `;
 
 const Button = styled.button`

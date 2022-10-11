@@ -114,6 +114,9 @@ public class MemberDto {
 //            room.setRoomId(roomId);
 //            return room; // 룸부분 구현후에 작업
 //        }
+        public void setRooms(List<MyRoomResponseDto> rooms){
+            this.rooms = rooms;
+        }
     }
 
     @Getter

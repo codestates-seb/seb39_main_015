@@ -14,12 +14,15 @@ import seb15.roobits.member.dto.MemberDto;
 import seb15.roobits.member.entity.Member;
 import seb15.roobits.member.mapper.MemberMapper;
 import seb15.roobits.member.service.MemberService;
+import seb15.roobits.room.dto.MyRoomResponseDto;
 import seb15.roobits.room.repository.RoomRepository;
 import seb15.roobits.security.auth.MemberDetailsService;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -82,11 +85,13 @@ public class MemberController {
         Member getMemberRoom =
                 memberService.findMember(auth.getUsername());
         MemberDto.GetMyRoomResponse response = memberMapper.memberTogetMyRoomResponse(getMemberRoom);
+        List<MyRoomResponseDto> rooms = new ArrayList<>();
         for(int i = 0; i < response.getRooms().size(); i++){
-            if(response.getRooms().get(i).getRestDay() < 0){
-                response.getRooms().remove(i);
+            if(response.getRooms().get(i).getRestDay() >= 0){
+                rooms.add(response.getRooms().get(i));
             }
         }
+        response.setRooms(rooms);
         return new ResponseEntity<>(response,HttpStatus.OK);
     }
 

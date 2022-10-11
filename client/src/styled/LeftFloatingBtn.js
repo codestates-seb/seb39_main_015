@@ -9,9 +9,10 @@ import styled from 'styled-components';
 
 /** className="zoom-in", "zoom-out", "share"(default), "msg-on", "msg-off" */
 const LeftFloatingBtn = styled.button`
+  --bottom-position: 60px;
   z-index: 100;
   position: fixed;
-  bottom: 60px;
+  bottom: var(--bottom-position);
   left: 100px;
   width: 60px;
   height: 60px;
@@ -33,7 +34,8 @@ const LeftFloatingBtn = styled.button`
 
   &.zoom-in,
   &.zoom-out {
-    bottom: 180px;
+    bottom: calc(var(--bottom-position) + 120px);
+
     &::after {
       background-position: 35% 40%;
     }
@@ -51,7 +53,7 @@ const LeftFloatingBtn = styled.button`
   }
   &.msg-on,
   &.msg-off {
-    bottom: 120px;
+    bottom: calc(var(--bottom-position) + 60px);
   }
 
   &.msg-on {
@@ -68,6 +70,9 @@ const LeftFloatingBtn = styled.button`
 
   @media screen and (max-width: 1024px) {
     left: 6%;
+  }
+  @media screen and (max-height: 420px) {
+    --bottom-position: 4%;
   }
 `;
 

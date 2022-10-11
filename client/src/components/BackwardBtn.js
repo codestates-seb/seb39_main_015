@@ -25,6 +25,10 @@ const BackwardBtnStyle = styled.button`
   @media screen and (max-width: 1024px) {
     left: 6%;
   }
+
+  @media screen and (max-height: 420px) {
+    top: 3%;
+  }
 `;
 
 const BackwardBtn = () => {

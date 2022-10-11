@@ -27,8 +27,11 @@ export const LinkShareButton = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const kakaoShare = (url) => {
+    const path = url.slice(url.indexOf('rooms'));
     window.Kakao.Share.sendScrap({
       requestUrl: url,
+      templateId: 84072,
+      templateArgs: { path: path },
     });
   };
 

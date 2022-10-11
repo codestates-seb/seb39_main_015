@@ -65,6 +65,10 @@ const LeftFloatingBtn = styled.button`
       background-image: url(${msgOnIconImg});
     }
   }
+
+  @media screen and (max-width: 1024px) {
+    left: 6%;
+  }
 `;
 
 export default LeftFloatingBtn;

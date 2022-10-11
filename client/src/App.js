@@ -33,9 +33,7 @@ function App() {
     }
     const googleAccessToken = get_query();
     if (googleAccessToken.access_token) {
-      const date = new Date();
-      date.setTime(date.getTime() + 60 * 60 * 1000);
-      document.cookie = `Authorization=Bearer ${googleAccessToken.access_token};expires=${date};`;
+      document.cookie = `Authorization=Bearer ${googleAccessToken.access_token};max-age=3600;`;
       window.location.replace('/#sectionOne');
     }
   }, []);

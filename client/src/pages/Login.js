@@ -16,17 +16,7 @@ import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { faLock } from '@fortawesome/free-solid-svg-icons';
 import { faGooglePlusG } from '@fortawesome/free-brands-svg-icons';
 import styled from 'styled-components';
-// import { useQueryClient } from 'react-query';
 
-// const LoginFormWrapper = styled.div`
-//   padding-top: 80px;
-//   height: 100vh;
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: center;
-//   align-items: center;
-//   background-color: #ffc75f;
-// `;
 const InputWrapperLogin = styled(InputWrapper)`
   padding-bottom: 0px;
 `;
@@ -44,7 +34,6 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  // const client = new XMLHttpRequest();
 
   const navigate = useNavigate();
 
@@ -70,10 +59,10 @@ const Login = () => {
         .then((res) => {
           setIsLoading(false);
           if (res.headers.authorization) {
-            const date = new Date();
-            date.setTime(date.getTime() + 60 * 60 * 1000);
-            console.log(date);
-            document.cookie = `Authorization=${res.headers.authorization};expires=${date};`;
+            // const date = new Date();
+            // date.setTime(date.getTime() + 60 * 60 * 1000);
+            // console.log(date);
+            document.cookie = `Authorization=${res.headers.authorization};max-age=3600;`;
             window.location.replace('/#sectionOne');
           } else {
             alert('아이디 혹은 비밀번호가 일치하지 않습니다.');

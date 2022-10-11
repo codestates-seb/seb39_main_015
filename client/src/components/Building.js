@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import borderImg from '../images/roomImg/07_border-image.png';
 import rooftopImg from '../images/roomImg/02_rooftop_1x_w3000.png';
-import unitsImg from '../images/roomImg/room_with_window.png';
+import rooftopDecoImg1 from '../images/roomImg/05_rooftop_deco_1_1x_w3000.png';
+import rooftopDecoImg2 from '../images/roomImg/06_rooftop_deco_2_1x_w3000.png';
+import unitsImg from '../images/roomImg/01_units_with_window_1x_w9000.png';
 import Roobits from './Roobits';
 import catMeow from '../audios/cat_meow.wav';
 import zoomInBigIcon from '../images/zoomInBigIcon.svg';
@@ -125,6 +128,9 @@ const BuildingStyle = styled.div`
 
   .room {
     border: var(--unit-border);
+    border-image-source: url(${borderImg});
+    border-image-slice: 33%;
+    border-image-repeat: repeat;
     background-image: url(${unitsImg});
     position: relative;
   }
@@ -134,6 +140,23 @@ const BuildingStyle = styled.div`
 
     background-image: url(${rooftopImg});
     background-size: 100% 100%;
+  }
+
+  .rooftop:nth-child(3n + 1) {
+    background-image: url(${rooftopDecoImg1}), url(${rooftopImg});
+  }
+  .rooftop:nth-child(3n) {
+    background-image: url(${rooftopDecoImg2}), url(${rooftopImg});
+  }
+  .rooftop.onlyOne {
+    background-image: url(${rooftopDecoImg1}), url(${rooftopDecoImg2}),
+      url(${rooftopImg});
+  }
+  .rooftop.onlyTwo:nth-child(2n + 1) {
+    background-image: url(${rooftopDecoImg1}), url(${rooftopImg});
+  }
+  .rooftop.onlyTwo:nth-child(2n) {
+    background-image: url(${rooftopDecoImg2}), url(${rooftopImg});
   }
 
   .btns {
@@ -224,6 +247,18 @@ const BuildingStyle = styled.div`
     opacity: 1;
   }
 
+  /** zoom-in-mode이고 msg-on 인 경우 메시지 박스 다 보여주기 */
+  .wrapper.zoom-in-mode.msg-on .msg-box {
+    visibility: visible;
+    opacity: 0.9;
+  }
+
+  /** 루빗 호버시 해당 메시지를 선명하게 */
+  .wrapper.zoom-in-mode .item ul li:hover .msg-box {
+    visibility: visible;
+    opacity: 1;
+  }
+
   /** scale 조절 시 글자 크기 오류 수정 */
   .wrapper.zoom-in-mode .nickname {
     transform-origin: top center;
@@ -238,21 +273,27 @@ const BuildingStyle = styled.div`
   }
   .wrapper.zoom-in-mode .room:not(.onlyOne) .msg-box,
   .wrapper.zoom-in-mode .room:not(.onlyTwo) .msg-box {
-    transform: translate(-50%) scale(calc(1 / var(--zoom-scale)));
+    transform: translate(-50%, calc(-100% / var(--zoom-scale)))
+      scale(calc(1 / var(--zoom-scale)));
+    transform-origin: top center;
   }
 
   .wrapper.zoom-in-mode .room.onlyOne .nickname {
     transform: translate(-50%) scale(calc(1 / var(--one-zoom-scale)));
   }
   .wrapper.zoom-in-mode .room.onlyOne .msg-box {
-    transform: translate(-50%, -50%) scale(calc(1 / var(--one-zoom-scale)));
+    & p {
+      font-size: 1.4rem;
+    }
   }
 
   .wrapper.zoom-in-mode .room.onlyTwo .nickname {
     transform: translate(-50%) scale(calc(1 / var(--two-zoom-scale)));
   }
   .wrapper.zoom-in-mode .room.onlyTwo .msg-box {
-    transform: translate(-50%, -50%) scale(calc(1 / var(--two-zoom-scale)));
+    & p {
+      font-size: 1.4rem;
+    }
   }
 
   .wrapper.zoom-out-mode .nickname,
@@ -327,7 +368,7 @@ const ArrowSvg = () => {
   );
 };
 
-const Building = ({ roobits, isZoomIn, setIsZoomIn }) => {
+const Building = ({ roobits, isZoomIn, setIsZoomIn, showMsg }) => {
   const unitCount = roobits.length;
   const [isOne, setIsOne] = useState(false);
   const [isTwo, setIsTwo] = useState(false);
@@ -395,7 +436,9 @@ const Building = ({ roobits, isZoomIn, setIsZoomIn }) => {
       )}
       <BuildingStyle totalFloor={parseInt((unitCount - 1) / 3) + 1} idx={idx}>
         <div
-          className={`wrapper ${isZoomIn ? 'zoom-in-mode' : 'zoom-out-mode'}`}
+          className={`wrapper ${isZoomIn ? 'zoom-in-mode' : 'zoom-out-mode'} ${
+            showMsg ? 'msg-on' : 'msg-off'
+          }`}
         >
           <ul
             className={`container ${isOne ? 'onlyOne' : ''} ${

@@ -88,16 +88,18 @@ const RoobitLi = styled.li`
     top: 0;
     left: 50%;
     transform: translate(-50%, -100%);
-    max-height: fit-content;
+    height: auto;
     width: max-content;
-    max-width: 30vw;
+    max-width: 45vmin;
     background-color: #fff;
     border: 1px solid var(--point-color);
     border-radius: 10px;
+    transition: all 0.3s ease;
 
-    padding: 20%;
+    padding: 14px 20px;
     z-index: 10;
 
+    /**호버 시 외엔 말풍선 숨기기 */
     visibility: hidden;
     opacity: 0;
 
@@ -124,17 +126,23 @@ const RoobitLi = styled.li`
       transform: translate(-50%, 97%);
       border: 4px solid #fff;
       border-top-width: 7px;
+      border-color: var(--point-color) transparent transparent;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translate(-50%, 80%);
+      border: 4px solid #fff;
+      border-top-width: 7px;
       border-color: #fff transparent transparent;
     }
   }
   &:hover {
     cursor: pointer;
-  }
-
-  &:hover .msg-box {
-    visibility: visible;
-    opacity: 1;
-    transition: all 0.3s ease;
+    z-index: 100;
   }
 `;
 

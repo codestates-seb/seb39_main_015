@@ -181,7 +181,6 @@ const CreateRoobitModal = ({ handleOpenModal }) => {
       },
       onSuccess: (data) => {
         console.log('onSuccess', data);
-        alert('성공');
         // postTodo가 성공하면 roobits로 맵핑된 useQuery api 함수를 실행합니다.
         //queryClient.invalidateQueries('roobits');
         handleOpenModal();

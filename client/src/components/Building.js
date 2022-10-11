@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import rooftopImg from '../images/roomImg/02_rooftop_1x_w3000.png';
+import rooftopDecoImg1 from '../images/roomImg/05_rooftop_deco_1_1x_w3000.png';
+import rooftopDecoImg2 from '../images/roomImg/06_rooftop_deco_2_1x_w3000.png';
 import unitsImg from '../images/roomImg/01_units_with_window_1x_w9000.png';
 import Roobits from './Roobits';
 import catMeow from '../audios/cat_meow.wav';
@@ -134,6 +136,15 @@ const BuildingStyle = styled.div`
 
     background-image: url(${rooftopImg});
     background-size: 100% 100%;
+  }
+
+  .rooftop:nth-child(3n) {
+    background-image: url(${rooftopDecoImg1}), url(${rooftopImg});
+  }
+  .rooftop:last-child,
+  .rooftop.onlyOne,
+  .rooftop.onlyTwo:nth-child(3n + 1) {
+    background-image: url(${rooftopDecoImg2}), url(${rooftopImg});
   }
 
   .btns {

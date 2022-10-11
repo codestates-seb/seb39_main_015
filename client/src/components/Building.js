@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import borderImg from '../images/roomImg/07_border-image.png';
 import rooftopImg from '../images/roomImg/02_rooftop_1x_w3000.png';
 import rooftopDecoImg1 from '../images/roomImg/05_rooftop_deco_1_1x_w3000.png';
 import rooftopDecoImg2 from '../images/roomImg/06_rooftop_deco_2_1x_w3000.png';
@@ -127,6 +128,9 @@ const BuildingStyle = styled.div`
 
   .room {
     border: var(--unit-border);
+    border-image-source: url(${borderImg});
+    border-image-slice: 33%;
+    border-image-repeat: repeat;
     background-image: url(${unitsImg});
     position: relative;
   }

@@ -232,7 +232,7 @@ const Join = () => {
   return (
     <Body>
       {isLoading ? <Loading /> : ''}
-      <FormWrapper height={'545px'} width={'476px'}>
+      <FormWrapper width={'476px'}>
         <h2>Sign up</h2>
         <form onSubmit={(e) => handleSubmit(e)}>
           {/* <label htmlFor="username">ID</label> */}

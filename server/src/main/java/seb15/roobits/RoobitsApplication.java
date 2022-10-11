@@ -16,6 +16,4 @@ public class RoobitsApplication {
 		SpringApplication.run(RoobitsApplication.class, args);
 	}
 
-
 }
-

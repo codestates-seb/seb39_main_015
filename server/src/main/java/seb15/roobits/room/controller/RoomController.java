@@ -11,6 +11,7 @@ import seb15.roobits.roobit.entity.Roobit;
 import seb15.roobits.roobit.mapper.RoobitMapper;
 import seb15.roobits.roobit.service.RoobitService;
 import seb15.roobits.room.dto.ResponseRoomStatus;
+
 import seb15.roobits.room.dto.RoomPatchDto;
 import seb15.roobits.room.dto.RoomPostDto;
 import seb15.roobits.room.entity.Room;
@@ -36,7 +37,6 @@ public class RoomController {
     private final RoomService roomService;
     private final RoomMapper roomMapper;
     private final MemberService memberService;
-
     private final RoobitService roobitService;
     private final RoobitMapper roobitMapper;
 

@@ -5,7 +5,7 @@ import selectArrowImg from '../images/selectArrow.svg';
 export const Body = styled.div`
   padding-top: 80px;
   height: 100vh;
-  background-color: #fbfbfa;
+  background-color: #fff9f1;
   display: flex;
   justify-content: center;
   align-items: center;

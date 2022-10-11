@@ -15,7 +15,7 @@ export const HeaderStyle = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #fbfbfa;
+  background-color: #fff9f1;
 `;
 
 const Navigator = styled.div`

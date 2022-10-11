@@ -5,6 +5,7 @@ import Weather from '../components/Weather';
 import RoomDataBox from '../components/RoomDataBox';
 import ShowRoobitListBtn from '../components/ShowRoobitListBtn';
 import LeftFloatingBtn from '../styled/LeftFloatingBtn';
+import RoomEnd from './RoomEnd';
 import { Loading } from '../components/Loading';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
@@ -87,7 +88,7 @@ const RoomDetail = () => {
       {roomStatus === 'ROOM_CLOSED' ||
       roomStatus === 'ROOM_DELETED' ||
       roobits === undefined ? (
-        <p>룸 종료 페이지 컴포넌트</p>
+        <RoomEnd />
       ) : (
         <>
           <Weather weather={roomData.weather || 'clear'} />

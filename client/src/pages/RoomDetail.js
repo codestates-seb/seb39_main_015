@@ -10,12 +10,12 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import {
-  //roomDetailData_1,
+  roomDetailData_1,
   //roomDetailData_2,
   //roomDetailData_3,
   //roomDetailData_4,
   //roomDetailData_7,
-  roomDetailData_16,
+  //roomDetailData_16,
   //roomDetailData_30,
 } from '../data/DummyData';
 import { getCookieValue } from '../hook/getCookieValue';
@@ -26,7 +26,7 @@ import RoomPageLinkShareBtn from '../components/RoomPageLinkShareBtn';
 
 const RoomDetail = () => {
   const [isZoomIn, setIsZoomIn] = useState(true);
-  setIsZoomIn;
+  const [showMsg, setShowMsg] = useState(false);
   const { roomId } = useParams();
   const auth = getCookieValue('Authorization').length;
   const [urlDropDown, setUrlDropDown] = useState('');
@@ -54,8 +54,9 @@ const RoomDetail = () => {
       axios
         .get(`${process.env.REACT_APP_API_URL}/rooms/${roomId}`)
         .then((res) => res.data)
-        .catch(() => roomDetailData_16),
+        .catch(() => roomDetailData_1),
     {
+      refetchOnWindowFocus: false,
       staleTime: 1000 * 60 * 10,
       retry: 1,
       // onError: (err) => {
@@ -96,11 +97,16 @@ const RoomDetail = () => {
             roobits={roobits}
             isZoomIn={isZoomIn}
             setIsZoomIn={setIsZoomIn}
+            showMsg={showMsg}
           />
 
           <LeftFloatingBtn
             className={isZoomIn ? 'zoom-out' : 'zoom-in'}
             onClick={() => setIsZoomIn((prev) => !prev)}
+          />
+          <LeftFloatingBtn
+            className={showMsg ? 'msg-on' : 'msg-off'}
+            onClick={() => setShowMsg((prev) => !prev)}
           />
           <RoomPageLinkShareBtn
             roomData={roomData}

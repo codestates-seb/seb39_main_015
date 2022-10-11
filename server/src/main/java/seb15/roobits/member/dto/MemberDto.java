@@ -107,7 +107,6 @@ public class MemberDto {
         //        @Setter(AccessLevel.NONE)
 //        private Long memberId;
         private String username;
-
         //Room respon Dto로 응답.
         private List<MyRoomResponseDto> rooms;
 //        public Room setRoom(){

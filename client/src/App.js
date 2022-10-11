@@ -142,15 +142,18 @@ function App() {
       window.location.replace('/#sectionThree');
     }
   };
-
   const authData = getCookieValue('Authorization');
   return (
     <div>
       {!/^\/rooms\/+/.test(location.pathname) && <Header />}
-      <ArrowUp
-        displayNone={hash === '#sectionOne' || hash === '' ? 'none' : ''}
-        onClick={() => arrowUpClick()}
-      />
+      {window.location.pathname === '/' ? (
+        <ArrowUp
+          displayNone={hash === '#sectionOne' || hash === '' ? 'none' : ''}
+          onClick={() => arrowUpClick()}
+        />
+      ) : (
+        ''
+      )}
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/join" element={<Join />} />
@@ -164,10 +167,14 @@ function App() {
         <Route path="/rooms/roobitslist" element={<RoobitListTestPage />} />
       </Routes>
       {/* <ReactQueryDevtools initialIsOpen={false} /> */}
-      <ArrowDn
-        displayNone={hash === '#sectionThree' ? 'none' : ''}
-        onClick={() => arrowDnClick()}
-      />
+      {window.location.pathname === '/' ? (
+        <ArrowDn
+          displayNone={hash === '#sectionThree' ? 'none' : ''}
+          onClick={() => arrowDnClick()}
+        />
+      ) : (
+        ''
+      )}
     </div>
   );
 }

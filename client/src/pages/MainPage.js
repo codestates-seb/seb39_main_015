@@ -4,7 +4,11 @@ import { SectionsContainer, Section } from 'react-fullpage';
 import { TypeAnimation } from 'react-type-animation';
 import { Welcome } from '../images/Welcome';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import {
+  faAngleRight,
+  faHouseChimney,
+  faEnvelope,
+} from '@fortawesome/free-solid-svg-icons';
 import { OrangeButton } from '../styled/Style';
 import mainAnimation from '../images/MainAnimation.gif';
 import section2LAnimation from '../images/Section2L.gif';
@@ -63,6 +67,7 @@ const Left = styled.div`
   }
 `;
 const Right = styled.div``;
+
 const VideoSection = styled.div`
   width: 600px;
   height: 300px;
@@ -108,7 +113,7 @@ const VideoSection2R = styled.div`
 const Section2LMsg = styled.div`
   position: absolute;
   left: 700px;
-  top: 15%;
+  top: 20%;
   > div {
     line-height: 52px;
     font-size: 20px;
@@ -116,17 +121,17 @@ const Section2LMsg = styled.div`
     font-style: normal;
     font-weight: 700;
     > svg {
-      animation: blink 1.1s step-start 0s infinite;
+      /* animation: blink 1.1s step-start 0s infinite; */
       color: #ff8753;
-      @keyframes blink {
+      /* @keyframes blink {
         50% {
           opacity: 0;
         }
-      }
+      } */
     }
   }
   > p {
-    padding-left: 27px;
+    padding-left: 35px;
     font-family: 'Noto Sans KR';
     font-style: normal;
     line-height: 25px;
@@ -135,7 +140,7 @@ const Section2LMsg = styled.div`
 const Section2RMsg = styled.div`
   position: absolute;
   right: 700px;
-  top: 55%;
+  top: 65%;
   > div {
     line-height: 52px;
     font-size: 20px;
@@ -143,17 +148,17 @@ const Section2RMsg = styled.div`
     font-style: normal;
     font-weight: 700;
     > svg {
-      animation: blink 1.1s step-start 0s infinite;
+      /* animation: blink 1.1s step-start 0s infinite; */
       color: #ff8753;
-      @keyframes blink {
+      /* @keyframes blink {
         50% {
           opacity: 0;
         }
-      }
+      } */
     }
   }
   > p {
-    padding-left: 27px;
+    padding-left: 35px;
     font-family: 'Noto Sans KR';
     font-style: normal;
     line-height: 25px;
@@ -262,7 +267,7 @@ const Section3Text = styled.div`
 export default function MainPage() {
   let options = {
     anchors: ['sectionOne', 'sectionTwo', 'sectionThree'],
-    navigation: true,
+    navigation: false,
   };
   const mainPageMsg = [
     `"39기 데모데이까지 화이팅 🙌"`,
@@ -321,7 +326,7 @@ export default function MainPage() {
               </Left>
               <Section2LMsg>
                 <div>
-                  <FontAwesomeIcon icon={faAngleRight} size="lg" />
+                  <FontAwesomeIcon icon={faHouseChimney} size="lg" />
                   <Space space="10px" />
                   {'"추억을 남길 루빗 룸을 만들어 보세요."'}
                 </div>
@@ -335,7 +340,7 @@ export default function MainPage() {
             <div>
               <Section2RMsg>
                 <div>
-                  <FontAwesomeIcon icon={faAngleRight} size="lg" />
+                  <FontAwesomeIcon icon={faEnvelope} size="lg" />
                   <Space space="10px" />
                   {'"원하는 모양의 루빗츠로 글을 작성할 수 있습니다."'}
                 </div>

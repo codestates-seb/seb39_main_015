@@ -5,8 +5,11 @@ import { useMemo, useState } from 'react';
 const SelectStyle = styled.div`
   margin-top: 14px;
   margin-bottom: 24px;
+  margin-left: auto;
+  margin-right: auto;
   border: 1px solid var(--input-border-color);
-  width: 342px;
+  width: 100%;
+  max-width: 342px;
   height: 170px;
   padding: 18px 24px;
   background-color: var(--light-gray);
@@ -33,6 +36,11 @@ const SelectStyle = styled.div`
     &.select {
       outline: 1px solid var(--point-color);
     }
+  }
+
+  @media screen and (max-width: 480px) {
+    max-width: 90%;
+    padding: 10px 14px;
   }
 `;
 

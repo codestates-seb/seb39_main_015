@@ -35,6 +35,19 @@ export const CreaterFloatingBtnStyle = styled.button`
     line-height: 53px;
     box-shadow: inset -4px -4px 9px 0 rgba(204, 128, 58, 0.25);
   }
+
+  @media screen and (max-width: 1024px) {
+    right: 6%;
+  }
+
+  @media screen and (max-width: 480px) {
+    padding: 0;
+    width: 0;
+    font-size: 0;
+  }
+  @media screen and (max-height: 480px) {
+    bottom: 7%;
+  }
 `;
 
 export const ModalWrapper = styled.div`

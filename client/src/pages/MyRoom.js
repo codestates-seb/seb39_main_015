@@ -38,6 +38,15 @@ const MyRoomBody = styled(Body)`
     display: flex;
     align-items: center;
     text-align: center;
+    z-index: 1;
+  }
+
+  @media screen and (max-width: 768px) {
+    p {
+      order: -1;
+      margin-top: 0;
+      margin-bottom: 40px;
+    }
   }
 `;
 
@@ -52,6 +61,17 @@ const MyRoomWrapper = styled.div`
   }
   > div:last-child {
     margin-right: 0;
+  }
+
+  @media screen and (max-width: 1180px) {
+    width: 80%;
+    margin: 0 20px;
+  }
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    flex-direction: column;
+    width: auto;
   }
 `;
 
@@ -69,12 +89,22 @@ const RoomBox = styled.div`
       0px 6px 16px rgb(0 0 0 / 12%);
     transform: scale(1.01);
   } */
+
+  @media screen and (max-width: 1180px) {
+    flex: 1;
+    width: 33%;
+  }
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    margin-bottom: 20px;
+  }
 `;
 
 const RoomTheme = styled.div`
   background-color: #d9d9d9;
   border-radius: 8px;
-  width: 348px;
+  width: 100%;
   height: 202px;
   cursor: pointer;
   /* position: absolute;
@@ -87,6 +117,7 @@ const RoomTheme = styled.div`
   font-size: 0;
   background-image: url(${themeThmbnailImg});
   background-size: cover;
+  background-position: center;
 `;
 const RoomTitle = styled.div`
   height: 22px;
@@ -98,7 +129,7 @@ const RoomTitle = styled.div`
 `;
 const RoomControlBar = styled.div`
   height: 26px;
-  width: 348px;
+  width: 100%;
   display: flex;
   margin-top: 12px;
 `;

@@ -47,7 +47,7 @@ const RoomEndWrapper = styled.div`
       }
     }
     .msg {
-      white-space: pre;
+      /* white-space: pre; */
       font-size: 18px;
       line-height: 1.4;
       & span {
@@ -89,10 +89,10 @@ const RoomEnd = ({ data }) => {
   return (
     <RoomEndWrapper>
       <section>
-        <h2>Room is Closed...</h2>
-
-        {/* <p className="first-msg">함께해서 즐거웠습니다{emoji.get('blush')}</p> */}
-        {
+        <h2>
+          {data === undefined ? 'Room not found...' : 'Room is Closed...'}
+        </h2>
+        {data === undefined ? null : (
           <article>
             <h3>{`"${data.roomName}"`}</h3>
             <p className="dday">
@@ -101,12 +101,12 @@ const RoomEnd = ({ data }) => {
             </p>
             <p className="msg">
               <span>{data.totalRoobitCount}</span>
-              {` 개의 루빗츠가 작성되었고, `}
+              {` 개의 루빗츠가 작성되었고, \n`}
               <span>{data.viewCount}</span>
               {` 분이 찾아주셨습니다.`}
             </p>
           </article>
-        }
+        )}
 
         <p className="sub-msg">
           {emoji.get('sparkles')}루빗츠와 함께 새로운 추억을 만들어보세요.

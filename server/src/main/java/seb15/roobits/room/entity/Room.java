@@ -38,7 +38,7 @@ public class Room {
     @Column
     private long restDay;
 
-    //    @Enumerated(EnumType.STRING)
+//    @Enumerated(EnumType.STRING)
     @Column
     private String roomTheme;
 
@@ -80,12 +80,11 @@ public class Room {
 //        }
     }
 
-
-
     public Room(long roomId, String roomName, LocalDate dDay) {
         this.roomId = roomId;
         this.roomName = roomName;
         this.dDay = dDay;
     }
-
+    private long totalRoobitCount;
 }
+

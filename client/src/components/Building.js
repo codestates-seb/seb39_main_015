@@ -253,6 +253,16 @@ const BuildingStyle = styled.div`
     opacity: 0.9;
   }
 
+  /** 루빗 호버시 해당 닉네임 선명하게 */
+  .wrapper.zoom-in-mode .item ul li:hover .nickname {
+    background: radial-gradient(
+      rgba(255, 255, 255, 1),
+      rgba(255, 255, 255, 0.6)
+    );
+    padding: 0 10px;
+    border-radius: 10px;
+  }
+
   /** 루빗 호버시 해당 메시지를 선명하게 */
   .wrapper.zoom-in-mode .item ul li:hover .msg-box {
     visibility: visible;

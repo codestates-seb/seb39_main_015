@@ -39,13 +39,19 @@ public class RoobitService {
     }
 
     public Roobit createRoobit(Roobit roobit) {
-//        String reception = roobit.getReception();  // 1005 YU
-//        String toReception = "to " + reception;  // 1005 YU
-//        roobit.setToReception(toReception);  // 1005 YU
+
         LocalDate dDayRoom = timeRoobit(roobit.getRoom().getRoomId());
-        //현재시간 < 디데이 보다 앞이라면 작성 가능
-        // 현재시간 >= 디데이 라면 null 리턴
-        if (LocalDate.now().isBefore(dDayRoom)) {
+
+        Optional<Room> room = roomRepository.findById(roobit.getRoom().getRoomId());
+        Room findRoom = room.orElseThrow(() ->
+                new BusinessLogicException(ExceptionCode.ROOM_NOT_FOUND));
+        long roobitLimitAmount = room.get().getRoobitAmount();   // 루빗을 쓰려는 룸의 루빗 최대 개수 가져오기
+
+        List<Roobit> roobitsById = findRoobitsByRoomId(roobit.getRoom().getRoomId());
+        long totalRoobitAmount = roobitsById.size();   // 해당 루빗 해당 룸의 현재 루빗 개수 구하기
+
+        //현재시간 < 디데이보다 앞이고, 현재 룸에 작성된 총 루빗 개수가 루빗 최대 제한 갯수보다 작다면 작성 가능
+        if (LocalDate.now().isBefore(dDayRoom) && (totalRoobitAmount < roobitLimitAmount) ) {
             Roobit savedRoobit = roobitRepository.save(roobit);
             return savedRoobit;
         }
@@ -59,7 +65,7 @@ public class RoobitService {
     }
 
     @Transactional(readOnly = true)
-    public Roobit findRoobit(long roobitId){  //  1003 YU 루빗 딱 한개
+    public Roobit findRoobit(long roobitId){  //  루빗 딱 한개 조회
         Optional<Roobit> optionalRoobit = roobitRepository.findById(roobitId);
         Roobit findRoobit = optionalRoobit.orElseThrow(() ->
                 new BusinessLogicException(ExceptionCode.ROOBIT_NOT_FOUND));
@@ -70,8 +76,8 @@ public class RoobitService {
     @Transactional(readOnly = true)
     public List<Roobit> findRoobitsByRoomId(long roomId) {  // roomId에 해당하는 모든 루빗
         int page = 1;
-        int size = 300;
-        Page<Roobit> pageRoobits = findRoobits(page - 1, 300);
+        int size = 30000;   //1012YU
+        Page<Roobit> pageRoobits = findRoobits(page - 1, 30000);  //1012YU
         List<Roobit> roobits = pageRoobits.getContent();
         List<Roobit> roobitsById = new ArrayList<>();
 
@@ -79,7 +85,7 @@ public class RoobitService {
             roobits.get(i);
             long roomNum;
             roomNum = roobits.get(i).getRoom().getRoomId();
-            if (roomNum == roomId) {
+            if (roomNum == roomId) {  //1012YU
                 // System.out.println(roobits.get(i));
                 roobitsById.add(roobits.get(i));
             }

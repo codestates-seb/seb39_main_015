@@ -15,9 +15,8 @@ export const HeaderStyle = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #fbfbfa;
+  background-color: #fff9f1;
   flex-wrap: wrap;
-
   @media screen and (max-width: 768px) {
     height: auto;
   }
@@ -62,11 +61,11 @@ const ButtonSection = styled.div`
   }
 `;
 
-const Button = styled.button`
-  border: none;
-  background-color: transparent;
-  cursor: pointer;
-`;
+// const Button = styled.button`
+//   border: none;
+//   background-color: transparent;
+//   cursor: pointer;
+// `;
 
 const ProfiileWrapper = styled.div`
   margin-right: 10px;
@@ -112,12 +111,12 @@ export default function Header() {
             <LogoImg />
           </h1>
         </Logo>
-        <Button onClick={() => window.location.replace('/#sectionTwo')}>
+        {/* <Button onClick={() => window.location.replace('/#sectionTwo')}>
           About
         </Button>
         <Button onClick={() => window.location.replace('/#sectionThree')}>
           Team
-        </Button>
+        </Button> */}
       </Navigator>
       <ButtonSection>
         {auth ? (

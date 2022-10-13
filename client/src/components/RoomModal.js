@@ -1,5 +1,10 @@
 import { forwardRef, useEffect, useMemo, useState } from 'react';
-import { FormWrapper } from '../styled/Style';
+import {
+  ModalFormWrapper,
+  ModalInput,
+  WhiteButton,
+  OrangeButton,
+} from '../styled/Style';
 import Carousel from './Carousel';
 import DatePicker from 'react-datepicker';
 import axios from 'axios';
@@ -7,6 +12,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { ReactComponent as CancelIcon } from '../images/cancel-icon.svg';
 import { getCookieValue } from '../hook/getCookieValue';
 import { useMutation, useQueryClient } from 'react-query';
+import { DatePickBtnStyle, DatePickerWrapper } from '../styled/DatePickerStyle';
 
 const getTomorrowDate = () => {
   const today = new Date();
@@ -18,14 +24,14 @@ const getTomorrowDate = () => {
 const DatePickerComponent = ({ dDayDate, setDdayDate }) => {
   const CustomInput = forwardRef(({ value, onClick }, ref) => {
     return (
-      <button
+      <DatePickBtnStyle
         type="button"
         className="custom-input"
         onClick={onClick}
         ref={ref}
       >
         {value}
-      </button>
+      </DatePickBtnStyle>
     );
   });
   CustomInput.displayName = 'CustomInput';
@@ -38,7 +44,7 @@ const DatePickerComponent = ({ dDayDate, setDdayDate }) => {
       customInput={<CustomInput />}
       minDate={new Date().setDate(new Date().getDate() + 1)}
       maxDate={new Date().setDate(new Date().getDate() + 30)}
-      dateFormat="yyyy-MM-dd"
+      dateFormat="yyyy. MM. dd."
       placeholderText="30일 이내의 날짜만 D-day 로 설정할 수 있습니다."
     />
   );
@@ -131,17 +137,13 @@ const RoomModal = ({ handleOpenModal }) => {
   }, [roomName]);
 
   return (
-    <FormWrapper
-      width="476px"
-      height="634px"
-      onClick={(e) => e.stopPropagation()}
-    >
-      <CancelIcon stroke="#aaa" onClick={handleOpenModal} />
+    <ModalFormWrapper width="476px" onClick={(e) => e.stopPropagation()}>
+      <CancelIcon className="cancel" stroke="#aaa" onClick={handleOpenModal} />
       <h2>Make a room</h2>
       <form onReset={handleOnReset}>
         <section>
           <label htmlFor="room-name">룸 이름</label>
-          <input
+          <ModalInput
             id="room-name"
             type="text"
             placeholder="최대 20자까지 작성 가능합니다."
@@ -151,37 +153,47 @@ const RoomModal = ({ handleOpenModal }) => {
             required
             onChange={(e) => setRoomName(e.target.value.trim())}
           />
-          <p>{roomNameMsg}</p>
+          <p className="err-msg">{roomNameMsg}</p>
         </section>
-        <section>
-          <label htmlFor="d-day">D-day</label>
-          <DatePickerComponent dDayDate={dDayDate} setDdayDate={setDdayDate} />
-        </section>
-        <section>
-          <label htmlFor="max-roobits">최대 루빗 개수</label>
-          <select
-            id="roobits-num"
-            name="roobitAmount"
-            onChange={(e) => setRoobitAmount(Number(e.target.value))}
-          >
-            <option value="300">300 (max)</option>
-            <option value="250">250</option>
-            <option value="200">200</option>
-            <option value="150">150</option>
-            <option value="100">100</option>
-            <option value="50">50</option>
-          </select>
-        </section>
+        <div className="two-divide">
+          <DatePickerWrapper className="dday-box">
+            <label htmlFor="d-day">D-day</label>
+            <DatePickerComponent
+              dDayDate={dDayDate}
+              setDdayDate={setDdayDate}
+            />
+          </DatePickerWrapper>
+          <section className="max-roobits-box">
+            <label htmlFor="max-roobits">최대 루빗 개수</label>
+            <select
+              id="roobits-num"
+              name="roobitAmount"
+              onChange={(e) => setRoobitAmount(Number(e.target.value))}
+            >
+              <option value="300">300 (max)</option>
+              <option value="250">250</option>
+              <option value="200">200</option>
+              <option value="150">150</option>
+              <option value="100">100</option>
+              <option value="50">50</option>
+            </select>
+          </section>
+        </div>
+
         <section id="theme">
           <label htmlFor="theme">테마 선택</label>
           <Carousel cards={themesArr} setData={setRoomTheme} />
         </section>
-        <section>
-          <button type="reset">초기화</button>
-          <button onClick={handleOnSubmit}>룸 만들기</button>
+        <section className="two-divide">
+          <WhiteButton height="45px" type="reset">
+            초기화
+          </WhiteButton>
+          <OrangeButton height="45px" onClick={handleOnSubmit}>
+            룸 만들기
+          </OrangeButton>
         </section>
       </form>
-    </FormWrapper>
+    </ModalFormWrapper>
   );
 };
 

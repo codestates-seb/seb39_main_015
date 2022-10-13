@@ -11,7 +11,7 @@ import Header from './components/Header.js';
 import { useEffect } from 'react';
 import axios from 'axios';
 import { useQuery } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
+// import { ReactQueryDevtools } from 'react-query/devtools';
 import RoomDetail from './pages/RoomDetail';
 import { getCookieValue } from './hook/getCookieValue.js';
 import { Loading } from './components/Loading.js';
@@ -72,7 +72,7 @@ function App() {
         <Route path="/loading" element={<Loading />} />
         <Route path="/rooms/roobitslist" element={<RoobitListTestPage />} />
       </Routes>
-      <ReactQueryDevtools initialIsOpen={false} />
+      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
     </div>
   );
 }

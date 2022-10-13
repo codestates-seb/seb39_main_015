@@ -1,0 +1,206 @@
+{
+  "roomData": {
+    "roomId": 6,
+    "roomName": "내일 확인용\uD83D\uDE0E",
+    "restDay": 0,
+    "weather": "clouds",
+    "roomTheme": "CATS",
+    "roobitAmount": 50,
+    "viewCount": 123,
+    "url": "http://localhost:3000/rooms/6",
+    "dday": "2022-10-07"
+  },
+  "roobits": [
+    [
+      {
+        "roobitId": 19,
+        "roomId": 6,
+        "nickname": "내가 1등이오\uD83E\uDD73",
+        "body": "\uD83D\uDC49\uD83D\uDC8C140자를 채우도록 아무말이나 써보겠습니다. 오늘 날씨가 추우니 옷을 따뜻하게 입으시오. 프로젝트도 중요하지만 건강이 제일이오. 140자를 채우도록 아무말이나 써보겠습니다. 오늘 날씨가 추우니 옷을 따뜻하게 입으시오. 프로젝트도 중요하지만 건강",
+        "email": null,
+        "reception": "everyone",
+        "style": "3D",
+        "createdAt": "2022-10-06T11:00:23",
+        "roobitStatus": "ROOBIT_HIDDEN"
+      },
+      {
+        "roobitId": 21,
+        "roomId": 6,
+        "nickname": "귀여운게 조아\uD83E\uDD55",
+        "body": "당근을 흔들어주세요....",
+        "email": null,
+        "reception": "gh",
+        "style": "2G",
+        "createdAt": "2022-10-06T13:13:57",
+        "roobitStatus": "ROOBIT_HIDDEN"
+      },
+      {
+        "roobitId": 22,
+        "roomId": 6,
+        "nickname": "김애옹",
+        "body": "안녕하세요. 고양이에오.",
+        "email": null,
+        "reception": "everyone",
+        "style": "2H",
+        "createdAt": "2022-10-06T13:14:31",
+        "roobitStatus": "ROOBIT_HIDDEN"
+      },
+      {
+        "roobitId": 23,
+        "roomId": 6,
+        "nickname": "히히",
+        "body": "코딩...즐거워요... 정말로\uD83D\uDE07",
+        "email": null,
+        "reception": "nuuco",
+        "style": "3G",
+        "createdAt": "2022-10-06T13:15:04",
+        "roobitStatus": "ROOBIT_HIDDEN"
+      },
+      {
+        "roobitId": 24,
+        "roomId": 6,
+        "nickname": "가자구\uD83E\uDD84",
+        "body": "나는야 머쨍이ㅣ....",
+        "email": null,
+        "reception": "everyone",
+        "style": "3D",
+        "createdAt": "2022-10-06T13:15:34",
+        "roobitStatus": "ROOBIT_HIDDEN"
+      },
+      {
+        "roobitId": 25,
+        "roomId": 6,
+        "nickname": "nyanya",
+        "body": "호호호호홓",
+        "email": null,
+        "reception": "everyone",
+        "style": "1A",
+        "createdAt": "2022-10-06T13:16:01",
+        "roobitStatus": "ROOBIT_HIDDEN"
+      },
+      {
+        "roobitId": 26,
+        "roomId": 6,
+        "nickname": "dfdfdf",
+        "body": "즐거운 더미 텍스트 작성하기....",
+        "email": null,
+        "reception": "everyone",
+        "style": "1D",
+        "createdAt": "2022-10-06T13:16:45",
+        "roobitStatus": "ROOBIT_HIDDEN"
+      },
+      {
+        "roobitId": 27,
+        "roomId": 6,
+        "nickname": "ㅇㅇㅇ",
+        "body": "ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ",
+        "email": null,
+        "reception": "everyone",
+        "style": "5C",
+        "createdAt": "2022-10-06T13:17:00",
+        "roobitStatus": "ROOBIT_HIDDEN"
+      },
+      {
+        "roobitId": 28,
+        "roomId": 6,
+        "nickname": "\uD83C\uDF1F",
+        "body": "나는 별이 될꾸야....",
+        "email": null,
+        "reception": "kimm",
+        "style": "2E",
+        "createdAt": "2022-10-06T13:17:27",
+        "roobitStatus": "ROOBIT_HIDDEN"
+      },
+      {
+        "roobitId": 29,
+        "roomId": 6,
+        "nickname": "rwe",
+        "body": "냔냐",
+        "email": null,
+        "reception": "everyone",
+        "style": "2H",
+        "createdAt": "2022-10-06T13:17:42",
+        "roobitStatus": "ROOBIT_HIDDEN"
+      }
+    ],
+    [
+      {
+        "roobitId": 30,
+        "roomId": 6,
+        "nickname": "고양이를 얕보지 마",
+        "body": "\uD83D\uDC4D 고양이가 세상을 지배한다.",
+        "email": null,
+        "reception": "인간",
+        "style": "3F",
+        "createdAt": "2022-10-06T13:18:34",
+        "roobitStatus": "ROOBIT_HIDDEN"
+      },
+      {
+        "roobitId": 49,
+        "roomId": 6,
+        "nickname": "ㅇㅇ",
+        "body": "얘들아 수고했어 ",
+        "email": null,
+        "reception": "everyone",
+        "style": "4D",
+        "createdAt": "2022-10-06T16:14:13",
+        "roobitStatus": "ROOBIT_HIDDEN"
+      },
+      {
+        "roobitId": 51,
+        "roomId": 6,
+        "nickname": "까만고양이",
+        "body": "깜냥이가 최고인 거 아니?",
+        "email": null,
+        "reception": "everyone",
+        "style": "5B",
+        "createdAt": "2022-10-06T16:14:48",
+        "roobitStatus": "ROOBIT_HIDDEN"
+      },
+      {
+        "roobitId": 52,
+        "roomId": 6,
+        "nickname": "치즈식빵",
+        "body": "굽굽",
+        "email": null,
+        "reception": "everyone",
+        "style": "5G",
+        "createdAt": "2022-10-06T16:15:21",
+        "roobitStatus": "ROOBIT_HIDDEN"
+      },
+      {
+        "roobitId": 53,
+        "roomId": 6,
+        "nickname": "간장",
+        "body": "발에 간장 묻었음 사실은 귀에도 사실은 꼬리에도 ",
+        "email": null,
+        "reception": "everyone",
+        "style": "1E",
+        "createdAt": "2022-10-06T16:15:54",
+        "roobitStatus": "ROOBIT_HIDDEN"
+      },
+      {
+        "roobitId": 54,
+        "roomId": 6,
+        "nickname": "스프링",
+        "body": "빛정식님 감사합니다 ",
+        "email": null,
+        "reception": "황정식선생님",
+        "style": "4F",
+        "createdAt": "2022-10-06T16:16:35",
+        "roobitStatus": "ROOBIT_HIDDEN"
+      },
+      {
+        "roobitId": 55,
+        "roomId": 6,
+        "nickname": "39기화이팅",
+        "body": "얘들아 그동안 수고했고 나중에 웃으면서 보자",
+        "email": null,
+        "reception": "everyone",
+        "style": "3H",
+        "createdAt": "2022-10-06T16:17:49",
+        "roobitStatus": "ROOBIT_HIDDEN"
+      }
+    ]
+  ]
+}

@@ -5,8 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 import seb15.roobits.room.entity.Room;
 import seb15.roobits.room.entity.RoomStatus;
-
 import java.time.LocalDate;
+
 
 @Getter
 @Setter
@@ -17,5 +17,6 @@ public class ResponseRoomStatus {
     private RoomStatus roomStatus;
     private long totalRoobitCount;
     private long viewCount;
+
 
 }

@@ -1,30 +1,77 @@
 import styled from 'styled-components';
 import emoji from 'node-emoji';
 import { SectionsContainer, Section } from 'react-fullpage';
-import { Link } from 'react-router-dom';
+import { TypeAnimation } from 'react-type-animation';
+import { Welcome } from '../images/Welcome';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import { OrangeButton } from '../styled/Style';
+import mainAnimation from '../images/MainAnimation.gif';
 
 const Body = styled.div`
   height: 100vh;
 `;
 const Column1 = styled.section`
-  padding-top: 80px;
+  padding-top: 200px;
+  padding-left: 100px;
   height: 100%;
   background-color: #fbfbfa;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: start;
+  align-items: flex-start;
   font-size: 1.5rem;
   position: relative;
-  > h1 {
-    font-size: 3rem;
-    font-weight: 600;
-    padding-bottom: 3rem;
+`;
+const Left = styled.div`
+  button {
+    margin-top: 25px;
+  }
+  > p {
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 36px;
   }
   > div {
-    padding-bottom: 1rem;
+    display: flex;
+    padding: 30px 0px 15px 0px;
+    font-size: 30px;
+    line-height: 52px;
+    font-weight: 700;
+    > div {
+      font-size: 30px;
+      line-height: 52px;
+      font-weight: 700;
+      > svg {
+        animation: blink 1.1s step-start 0s infinite;
+        color: #ff8753;
+        @keyframes blink {
+          50% {
+            opacity: 0;
+          }
+        }
+      }
+    }
   }
 `;
+const Right = styled.div``;
+const VideoSection = styled.div`
+  width: 600px;
+  height: 300px;
+  position: absolute;
+  top: 50%;
+  right: 100px;
+  transform: translate(0%, -50%);
+  background-color: #d9d9d9;
+  border-radius: 32px;
+  box-shadow: 11px 11px 0 0 #ff8753;
+  background-image: url(${(props) => props.background});
+  background-repeat: no-repeat;
+  background-size: cover;
+`;
+
 const Column2 = styled.section`
   padding-top: 80px;
   height: 100%;
@@ -44,27 +91,66 @@ const Column3 = styled.section`
   font-size: 3rem;
 `;
 
+const Space = styled.span`
+  margin-left: ${(props) => props.space || '10px'};
+`;
+
 export default function MainPage() {
   let options = {
     anchors: ['sectionOne', 'sectionTwo', 'sectionThree'],
     navigation: false,
   };
+  const mainPageMsg = [
+    `"39기 데모데이까지 화이팅 🙌"`,
+    1000,
+    '"ACE팀 이번 대회 우승 기원 🔥🔥"',
+    1000,
+    '"미라클모닝 챌린지 힘들더라도 끝까지 🏃‍♂️"',
+    1000,
+    '"3-4 forever 동창회 무조건 오기!!!"',
+    1000,
+  ];
 
   return (
     <SectionsContainer {...options}>
       <Body>
         <Section>
           <Column1>
-            <h2>Welcome to Roobits {emoji.get('smile')}</h2>
-            <div>소중한 사람들과 추억을 남겨보세요!</div>
-            <div>D-Day를 더 특별하게 만들어 드립니다.</div>
-            <Link to="/myroom">
-              <button>나의 룸 보기</button>
-            </Link>
+            <Left>
+              <Welcome />
+              <div>
+                <div>
+                  <FontAwesomeIcon icon={faAngleRight} size="lg" />
+                  <Space space="10px" />
+                </div>
+                <TypeAnimation
+                  sequence={mainPageMsg}
+                  wrapper="div"
+                  speed={40}
+                  repeat={Infinity}
+                  cursor={true}
+                />
+              </div>
+              <p>
+                {emoji.get('writing_hand')} 추억을 공유하는 사람들과 글을
+                작성해보세요.
+              </p>
+              <p>{emoji.get('love_letter')} D-Day가 더 특별해집니다!</p>
+              <OrangeButton
+                width="198px"
+                height="48px"
+                onClick={() => window.location.replace('/myroom')}
+              >
+                나의 룸 보기
+              </OrangeButton>
+            </Left>
+            <Right>
+              <VideoSection background={mainAnimation} />
+            </Right>
           </Column1>
         </Section>
         <Section>
-          <Column2>소개 페이지</Column2>
+          <Column2>소개페이지</Column2>
         </Section>
         <Section>
           <Column3>테마 및 기능 설명</Column3>

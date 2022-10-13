@@ -16,10 +16,12 @@ import {
   faMagnifyingGlass,
   faCaretDown,
 } from '@fortawesome/free-solid-svg-icons';
-// logo 변경 예정
-import signUpLogo from '../images/cat.png';
+import { ReactComponent as CancelIcon } from '../images/cancel-icon.svg';
 
 const RoobitsListBody = styled.div`
+  position: fixed;
+  z-index: 300;
+  right: 0;
   width: 590px;
   height: 100vh;
   display: flex;
@@ -27,20 +29,31 @@ const RoobitsListBody = styled.div`
   align-items: center;
   background: #ffffff;
   border: 1px solid #d9d9d9;
+  border-right: none;
   box-shadow: -8px 0px 21px rgba(104, 104, 104, 0.09);
   border-radius: 14px 0px 0px 14px;
-  > img {
-    max-width: 124px;
+  > h2 {
+    padding-top: 30px;
+    margin-bottom: 17px;
     height: auto;
     width: auto;
-    margin-bottom: 33px;
+  }
+
+  .cancel {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    cursor: pointer;
+  }
+
+  .search-box {
+    padding-bottom: 10px;
   }
 `;
 const FloorIndicator = styled.div`
-  height: 40px;
+  height: 50px;
   width: 458px;
   display: flex;
-  margin-bottom: 10px;
   padding-left: 1px;
   padding-right: 1px;
   flex-wrap: nowrap;
@@ -58,7 +71,7 @@ const RoobitUnitWrapper = styled.div`
   flex-direction: column;
   overflow: auto;
   width: 456px;
-  height: 600px;
+  height: 70%;
   background: #fbfbfb;
   border: 1px solid #d9d9d9;
   border-radius: 8px;
@@ -72,12 +85,12 @@ const Space = styled.span`
 `;
 
 const SearchInput = styled(Input)`
-  padding-left: 105px;
+  padding-left: 120px;
 `;
-const SearchOption = styled.span`
+const SearchOption = styled.div`
   position: absolute;
   left: 35px;
-  width: 60px;
+  width: 70px;
   display: flex;
   justify-content: end;
   align-items: center;
@@ -86,7 +99,7 @@ const SearchOption = styled.span`
     border: none;
     background-color: transparent;
     color: #9c9c9c;
-    height: 16px;
+    height: 100%;
     padding: 0px;
     cursor: pointer;
   }
@@ -144,7 +157,7 @@ const FloorWhiteButton = styled(WhiteButtonOrangeBorder)`
   }
 `;
 
-export const RoobitsList = () => {
+export const RoobitsList = ({ handleOpenModal, roomId }) => {
   const queryClient = useQueryClient();
   const [selectedFloor, setSelectedFloor] = useState('0');
   const [searchKeyword, setSearchKeyword] = useState('');
@@ -156,7 +169,8 @@ export const RoobitsList = () => {
   const horizontalRef = useRef(null);
 
   // API 연결 및 쿼리 정상 연결 되면 아래 코드 수정
-  const { roobits } = queryClient.getQueryData('roobits') || roomDetailData_30;
+  const { roobits } =
+    queryClient.getQueryData(['roobits', roomId]) || roomDetailData_30;
   let floor = { 0: [] };
   for (let r = 0; r < roobits.length; r++) {
     floor[0].push(r);
@@ -212,9 +226,10 @@ export const RoobitsList = () => {
   }, [selectedFloor]);
 
   return (
-    <RoobitsListBody>
-      <img alt="회원가입 로고" src={signUpLogo}></img>
-      <InputWrapper>
+    <RoobitsListBody onClick={(e) => e.stopPropagation()}>
+      <CancelIcon className="cancel" stroke="#aaa" onClick={handleOpenModal} />
+      <h2>Roobits list</h2>
+      <InputWrapper className="search-box">
         <SearchInput
           type="search"
           id="search"

@@ -1,5 +1,6 @@
 package seb15.roobits.room.service;
 
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import seb15.roobits.exception.BusinessLogicException;
@@ -20,7 +21,9 @@ public class Validator {
     }
 
     public void createUrl(Room room) {
+
         String url = "http://roobits.s3-website.ap-northeast-2.amazonaws.com/rooms/" + room.getRoomId();
+
         room.setUrl(url);
     }
 

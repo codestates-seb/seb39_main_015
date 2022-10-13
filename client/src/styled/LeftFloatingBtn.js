@@ -2,10 +2,12 @@ import floatingIconImg from '../images/floatingIcon.svg';
 import zoomInIconImg from '../images/zoomInIcon.svg';
 import zoomOutIconImg from '../images/zoomOutIcon.svg';
 import shareFloatingIconImg from '../images/shareFloatingIcon.svg';
+import msgOnIconImg from '../images/msgOnIcon.svg';
+import msgOffIcOffImg from '../images/msgOffIcon.svg';
 
 import styled from 'styled-components';
 
-/** className="zoom-in", "zoom-out", "share"(default) */
+/** className="zoom-in", "zoom-out", "share"(default), "msg-on", "msg-off" */
 const LeftFloatingBtn = styled.button`
   z-index: 100;
   position: fixed;
@@ -31,7 +33,7 @@ const LeftFloatingBtn = styled.button`
 
   &.zoom-in,
   &.zoom-out {
-    bottom: 124px;
+    bottom: 180px;
     &::after {
       background-position: 35% 40%;
     }
@@ -45,6 +47,22 @@ const LeftFloatingBtn = styled.button`
   &.zoom-out {
     &::after {
       background-image: url(${zoomOutIconImg});
+    }
+  }
+  &.msg-on,
+  &.msg-off {
+    bottom: 120px;
+  }
+
+  &.msg-on {
+    &::after {
+      background-image: url(${msgOffIcOffImg});
+    }
+  }
+
+  &.msg-off {
+    &::after {
+      background-image: url(${msgOnIconImg});
     }
   }
 `;

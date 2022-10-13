@@ -27,7 +27,7 @@ const RoobitMsgFrom = styled.div`
   margin-bottom: 8px;
   font-family: 'Noto Sans KR';
   font-style: normal;
-  font-weight: 400;
+  font-weight: 500;
   font-size: 16px;
 `;
 const RoobitMsgContent = styled.div`
@@ -60,7 +60,7 @@ export const RoobitUnit = ({ unit }) => {
         />
       </RoobitOneWrapper>
       <RoobitBody>
-        <RoobitMsgFrom>{`From. ${unit.nickname}`}</RoobitMsgFrom>
+        <RoobitMsgFrom>{`from. ${unit.nickname}`}</RoobitMsgFrom>
         <RoobitMsgContent>{unit.body}</RoobitMsgContent>
         <RoobitMsgTo>{`to. ${unit.reception}`}</RoobitMsgTo>
       </RoobitBody>

@@ -6,74 +6,17 @@ import {
   TwitterShareButton,
   TwitterIcon,
 } from 'react-share';
-import styled from 'styled-components';
-
-const ShareButtonWrapper = styled.div`
-  position: relative;
-  cursor: pointer;
-`;
-const ShareButtonPopup = styled.div`
-  display: flex;
-  position: absolute;
-  top: 25px;
-  left: 50%;
-  transform: translate(-50%, 0);
-  background-color: white;
-  flex-direction: column;
-
-  animation-name: fadein;
-  animation-duration: 1s;
-  animation-direction: alternate;
-  @keyframes fadein {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-  @keyframes fadeout {
-    from {
-      opacity: 1;
-    }
-    to {
-      opacity: 0;
-    }
-  }
-`;
-
-const ShareButton = styled.div``;
-
-const Facebook_Twitter_Button = styled.div`
-  :active {
-    box-shadow: none !important;
-    transform: scale(1) !important;
-  }
-  :hover {
-    transform: scale(1.02);
-  }
-`;
-
-const KakaoButton = styled.button`
-  border: 0;
-  width: 30px;
-  height: 33.5px;
-  outline: 0;
-  padding: 0;
-  margin: 0;
-  background-color: transparent;
-  cursor: pointer;
-  :active {
-    box-shadow: none !important;
-    transform: scale(1) !important;
-  }
-  :hover {
-    transform: scale(1.02);
-  }
-  > img {
-    border-radius: 99px;
-  }
-`;
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLink } from '@fortawesome/free-solid-svg-icons';
+import {
+  ShareButtonWrapper,
+  ShareButtonPopup,
+  ShareButton,
+  Facebook_Twitter_Button,
+  KakaoButton,
+  CopyLinkButton,
+} from '../styled/ShereIconsStyle';
+import { useState } from 'react';
 
 // 상위 컴포넌트(MyRoom.js)에서 props 4개 받음
 export const LinkShareButton = ({
@@ -82,19 +25,46 @@ export const LinkShareButton = ({
   setUrlDropDown,
   ComponentRef,
 }) => {
+  const [isOpen, setIsOpen] = useState(false);
   const kakaoShare = (url) => {
+    const path = url.slice(url.indexOf('rooms'));
     window.Kakao.Share.sendScrap({
       requestUrl: url,
+      templateId: 84072,
+      templateArgs: { path: path },
     });
+  };
+
+  const linkClipboard = () => {
+    const someData = roomData.url;
+    let tempInput = document.createElement('input');
+    tempInput.value = someData;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    document.execCommand('copy');
+    document.body.removeChild(tempInput);
+
+    alert('클립보드에 복사되었습니다.');
+    setUrlDropDown('');
   };
 
   return (
     <ShareButtonWrapper>
-      <ShareButton onClick={() => setUrlDropDown(roomData.roomId)}>
+      <ShareButton
+        onClick={() => {
+          setIsOpen((prev) => !prev);
+          setUrlDropDown(roomData.roomId);
+        }}
+      >
         <ShareIcon />
       </ShareButton>
-      {roomData.roomId === urlDropDown ? (
+      {roomData.roomId === urlDropDown && isOpen ? (
         <ShareButtonPopup ref={ComponentRef}>
+          <CopyLinkButton onClick={() => linkClipboard()}>
+            <div>
+              <FontAwesomeIcon icon={faLink} />
+            </div>
+          </CopyLinkButton>
           <KakaoButton type="button" onClick={() => kakaoShare(roomData.url)}>
             <img
               src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"

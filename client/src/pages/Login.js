@@ -72,6 +72,7 @@ const Login = () => {
           if (res.headers.authorization) {
             const date = new Date();
             date.setTime(date.getTime() + 60 * 60 * 1000);
+            console.log(date);
             document.cookie = `Authorization=${res.headers.authorization};expires=${date};`;
             window.location.replace('/#sectionOne');
           } else {
@@ -91,58 +92,15 @@ const Login = () => {
   };
 
   const loginRequestHandler = () => {
-    // 클라이언트 아이디값 넣고 리다이렉팅
-    // const CLIENT_ID =
-    //   '178592033254-71vmmah4pd1rqor42idk7m9nma4vme9t.apps.googleusercontent.com';
-    // return window.location.assign(
-    //   `https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile&response_type=token&redirect_uri=http://localhost:3000&client_id=${CLIENT_ID}`
-    // );
     setIsLoading(true);
     window.location.assign(
       `${process.env.REACT_APP_API_URL}/oauth2/authorization/google`
     );
-    // axios
-    //   .post(`${process.env.REACT_APP_API_URL}/user/googleauth`)
-    //   .then((res) => {
-    //     console.log(res.data);
-    //     setIsLoading(false);
-    //     navigate('/');
-    //   })
-    //   .catch((res) => {
-    //     console.log(res.data);
-    //     setIsLoading(false);
-    //     navigate('/login');
-    //   });
   };
-
-  // useEffect(() => {
-  //   if (isLoading && username !== '' && password !== '') {
-  //     //`${process.env.REACT_APP_API_URL}/users/login`
-  //     axios
-  //       .post(`${process.env.REACT_APP_API_URL}/user/login`, {
-  //         username,
-  //         password,
-  //       })
-  //       .then((res) => {
-  //         //   dispatch(loginInfoActions.set(res.data));
-  //         console.log(res.data);
-  //         setIsLoading(false);
-  //         navigate('/');
-  //       })
-  //       .catch(() => {
-  //         //더미 데이터 적용
-  //         //   dispatch(loginInfoActions.set(loginResponse));
-  //         console.log('login-dummydata: ', username, password);
-  //         setIsLoading(false);
-  //         navigate('/login');
-  //         //이후 통신이 잘 되면 이 부분은 수정해야 됩니다.
-  //       });
-  //   }
-  // }, [isLoading]);
 
   return (
     <Body>
-      <FormWrapper width={'476px'} height={'628px'}>
+      <FormWrapper width={'476px'} height={'550px'}>
         <h2>Log in</h2>
         <form onSubmit={(e) => hadleSubmit(e)}>
           {/* <label htmlFor="username">ID</label> */}

@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import styled from 'styled-components';
 import { getRoobitType } from '../hook/getRoobitType';
 import { haveTo } from '../hook/haveTo';
@@ -69,8 +70,7 @@ const RoobitLi = styled.li`
 
   .nickname {
     white-space: nowrap;
-    color: rgba(0, 0, 0, 0.8);
-    font-size: 0.8rem;
+    color: black;
     text-shadow: var(--font-shadow);
     line-height: 1.2;
     font-weight: 600;
@@ -80,28 +80,74 @@ const RoobitLi = styled.li`
     left: 50%;
     transform: translate(-50%);
 
-    font-size: 0;
+    font-size: 1rem;
   }
 
-  .reception {
-    white-space: nowrap;
-    color: rgba(0, 0, 0, 0.8);
-    font-size: 0.8rem;
-    text-shadow: var(--font-shadow);
-    line-height: 1.2;
-    font-weight: 600;
-
+  .msg-box {
     position: absolute;
-    top: -20%;
+    top: 0;
     left: 50%;
-    transform: translate(-50%);
+    transform: translate(-50%, -100%);
+    height: auto;
+    width: max-content;
+    max-width: 45vmin;
+    background-color: #fff;
+    border: 1px solid var(--point-color);
+    border-radius: 10px;
+    transition: all 0.3s ease;
 
-    font-size: 0;
+    padding: 14px 20px;
+    z-index: 10;
+
+    /**호버 시 외엔 말풍선 숨기기 */
+    visibility: hidden;
+    opacity: 0;
+
+    & p {
+      word-break: break-all;
+      color: rgba(0, 0, 0, 0.8);
+      font-size: 1rem;
+      line-height: 1.6;
+      text-align: left;
+      font-weight: 500;
+    }
+
+    & .reception {
+      font-weight: 400;
+      text-align: right;
+      font-size: 0.8rem;
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translate(-50%, 97%);
+      border: 4px solid #fff;
+      border-top-width: 7px;
+      border-color: var(--point-color) transparent transparent;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translate(-50%, 80%);
+      border: 4px solid #fff;
+      border-top-width: 7px;
+      border-color: #fff transparent transparent;
+    }
+  }
+  &:hover {
+    cursor: pointer;
+    z-index: 100;
   }
 `;
 
 const Roobits = ({ unitRoobits = [], audioUrl }) => {
-  const audio = new Audio(audioUrl);
+  const audio = useMemo(() => new Audio(audioUrl));
   return (
     <RoobitsWrapper>
       {unitRoobits.map((roobit) => (
@@ -111,9 +157,15 @@ const Roobits = ({ unitRoobits = [], audioUrl }) => {
             roobitCode={getRoobitType(roobit.style)}
             className={haveTo(roobit.reception) && 'letter'}
           />
-          {haveTo(roobit.reception) && (
-            <p className="reception">{roobit.reception}</p>
+          {!haveTo(roobit.reception) && roobit.body === undefined ? null : (
+            <div className="msg-box">
+              <p className="body">{roobit.body}</p>
+              {haveTo(roobit.reception) && (
+                <p className="reception">{'to. ' + roobit.reception}</p>
+              )}
+            </div>
           )}
+
           <p className="nickname">{roobit.nickname}</p>
         </RoobitLi>
       ))}

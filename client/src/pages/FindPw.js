@@ -87,7 +87,7 @@ const FindName = () => {
   return (
     <Body>
       {isLoading ? <Loading /> : ''}
-      <FormWrapper width={'476px'} height={'628px'}>
+      <FormWrapper width={'476px'} height={'550px'}>
         <h2>Find PW</h2>
         <form onSubmit={(e) => hadleSubmit(e)}>
           <InputWrapper>

@@ -87,3 +87,4 @@ public class Room {
     }
     private long totalRoobitCount;
 }
+

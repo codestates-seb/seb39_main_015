@@ -1,16 +1,13 @@
 package seb15.roobits.room.service;
 
-import org.springframework.data.domain.Page;
 import org.springframework.transaction.annotation.Transactional;
 import seb15.roobits.exception.BusinessLogicException;
 import seb15.roobits.exception.ExceptionCode;
-import seb15.roobits.roobit.entity.Roobit;
 import seb15.roobits.room.entity.Room;
 import seb15.roobits.room.repository.RoomRepository;
 import org.springframework.stereotype.Service;
 import seb15.roobits.room.weather.CallWeather;
 
-import java.util.List;
 import java.util.Optional;
 
 import static seb15.roobits.room.weather.CallWeather.getWeatherData;
@@ -30,7 +27,7 @@ public class RoomService {
     }
 
     public Room createRoom(Room room) {
-        validator.verifyExistRoom(room.getRoomName());        // 이미 있는 이름인지 검사
+//        validator.verifyExistRoom(room.getRoomName());        // 이미 있는 이름인지 검사
         room.setRestDay(Validator.calculateRestDay(room)); // d-day 잔여일 계산
         validator.dDayLimitation(room); // 잔여일 30일 이내인지 검사
         roomRepository.save(room);
@@ -78,6 +75,3 @@ public class RoomService {
     }
 
 }
-
-
-//- 이모지를 위해 인코딩 방식 변경해보기

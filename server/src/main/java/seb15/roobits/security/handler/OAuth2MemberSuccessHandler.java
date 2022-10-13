@@ -47,16 +47,18 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
         String email = String.valueOf(oAuth2User.getAttributes().get("email"));
         String username = String.valueOf(oAuth2User.getAttributes().get("name"));
         String provider = "google";
-        String password = "OauthLogin";
+        String password = String.valueOf(oAuth2User.getAttributes().get("providerId"));
         List<String> authorities = customAuthorityUtils.createRoles(email);
-        if(memberRepository.findByUsername(username) ==null){
+        if(memberRepository.findByUsername(username) == null){
         saveMember(username,email,password,provider);}
         redirect(request,response,username,provider,authorities);
     }
 
     private void saveMember(String username,String email,String password,String provider) {
         Member member = new Member(username,email,password,provider);
+        System.out.println(String.valueOf(password));
         memberService.createMember(member);
+        member.setProvider("google");
     }
 
     private void redirect(HttpServletRequest request, HttpServletResponse response,String username,String provider, List<String> authorities)throws IOException{

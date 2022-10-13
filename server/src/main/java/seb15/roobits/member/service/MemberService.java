@@ -81,7 +81,7 @@ public class MemberService {
         if(findMember.getProvider().equals("roobits")){
             findMember.setMemberStatus(Member.MemberStatus.MEMBER_QUIT);
         }
-        if(!findMember.getProvider().equals("roobits")){
+        if(findMember.getProvider().equals("google")){
             memberRepository.delete(findMember);
         }
 //        memberRepository.delete(findMember);

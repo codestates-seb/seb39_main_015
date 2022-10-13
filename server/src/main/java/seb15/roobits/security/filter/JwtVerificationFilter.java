@@ -59,7 +59,7 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
     private void setAuthenticationToContext(Map<String, Object> claims){
 //        Long memberId = (Long) claims.get("memberId");
         String provider = (String) claims.get("provider");
-        if(provider == null){provider = "roobits";}  //추가
+//        if(provider == null){provider = "roobits";}  //추가
         String username = (String) claims.get("username");
         List<GrantedAuthority> authorities = customAuthorityUtils.createAuthorities((List)claims.get("roles"));
         List<String> roles = new ArrayList<>();

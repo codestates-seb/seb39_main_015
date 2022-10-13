@@ -44,6 +44,7 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
                                         HttpServletResponse response,
                                         Authentication authentication) throws IOException,SecurityException{
         OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
+        Member member;
         String email = String.valueOf(oAuth2User.getAttributes().get("email"));
         String username = String.valueOf(oAuth2User.getAttributes().get("name"));
         String provider = "google";
@@ -59,6 +60,7 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
         System.out.println(String.valueOf(password));
         memberService.createMember(member);
         member.setProvider("google");
+        memberRepository.save(member);
     }
 
     private void redirect(HttpServletRequest request, HttpServletResponse response,String username,String provider, List<String> authorities)throws IOException{

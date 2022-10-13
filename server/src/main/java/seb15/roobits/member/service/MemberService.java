@@ -78,7 +78,7 @@ public class MemberService {
     //회원탈퇴
     public void deleteMember(String username) {
         Member findMember = findVerifyMember(username);
-        if(findMember.getProvider() == "roobits"){
+        if(findMember.getProvider().equals("roobits")){
             findMember.setMemberStatus(Member.MemberStatus.MEMBER_QUIT);
         }
         if(!findMember.getProvider().equals("roobits")){

@@ -80,6 +80,7 @@ public class MemberService {
         Member findMember = findVerifyMember(username);
         if(findMember.getProvider().equals("roobits")){
             findMember.setMemberStatus(Member.MemberStatus.MEMBER_QUIT);
+            return;
         }
 //        if(findMember.getProvider().equals("google")){
             memberRepository.delete(findMember);

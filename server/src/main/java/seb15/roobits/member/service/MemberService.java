@@ -78,10 +78,10 @@ public class MemberService {
     //회원탈퇴
     public void deleteMember(String username) {
         Member findMember = findVerifyMember(username);
-        if(findMember.getProvider() == null){
+        if(findMember.getProvider() == "roobits"){
             findMember.setMemberStatus(Member.MemberStatus.MEMBER_QUIT);
         }
-        if(findMember.getProvider().equals("google")){
+        if(!findMember.getProvider().equals("roobits")){
             memberRepository.delete(findMember);
         }
 //        memberRepository.delete(findMember);

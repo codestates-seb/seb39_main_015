@@ -58,10 +58,10 @@ const CreateRoobitModalStyle = styled(ModalFormWrapper)`
     & .letter-msg {
       display: block;
       color: #fff;
-      font-size: 11px;
+      font-size: 13px;
       white-space: pre;
       padding-top: 10px;
-      line-height: 1.6;
+      line-height: 1.4;
       position: absolute;
       right: 0;
       top: 0;

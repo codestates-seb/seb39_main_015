@@ -42,7 +42,7 @@ const MyRoomBody = styled(Body)`
   }
 
   @media screen and (max-width: 768px) {
-    p {
+    > p {
       order: -1;
       margin-top: 0;
       margin-bottom: 40px;

@@ -17,9 +17,9 @@ export const HeaderStyle = styled.div`
   align-items: center;
   background-color: #fff9f1;
   /* flex-wrap: wrap; */
-  @media screen and (max-width: 768px) {
+  /* @media screen and (max-width: 768px) {
     height: auto;
-  }
+  } */
 `;
 
 const Navigator = styled.div`

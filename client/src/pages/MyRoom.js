@@ -132,6 +132,7 @@ const RoomControlBar = styled.div`
   width: 100%;
   display: flex;
   margin-top: 12px;
+  justify-content: space-between;
 `;
 const RoomDday = styled.div`
   width: 184px;

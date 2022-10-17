@@ -24,6 +24,7 @@ const InputWrapperLogin = styled(InputWrapper)`
 const InputLoginUp = styled(Input)`
   border-bottom-left-radius: 0px;
   border-bottom-right-radius: 0px;
+  border-bottom: none;
 `;
 const InputLoginDn = styled(Input)`
   border-top-left-radius: 0px;

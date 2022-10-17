@@ -255,10 +255,7 @@ const BuildingStyle = styled.div`
 
   /** 루빗 호버시 해당 닉네임 선명하게 */
   .wrapper.zoom-in-mode .item ul li:hover .nickname {
-    background: radial-gradient(
-      rgba(255, 255, 255, 1),
-      rgba(255, 255, 255, 0.6)
-    );
+    background: rgba(255, 255, 255, 0.8);
     padding: 0 10px;
     border-radius: 10px;
   }

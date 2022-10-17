@@ -16,7 +16,7 @@ import section2RAnimation from '../images/Section2R.gif';
 import { ReactComponent as RoobitsText } from '../images/Roobits-text.svg';
 // import RoobitOneImg from '../styled/RoobitOneImg.js';
 // import { getRoobitType } from '../hook/getRoobitType';
-import section3Image from '../images/MainPageSection3.png';
+import section3Image from '../images/section3.png';
 
 const Body = styled.div`
   height: 100vh;
@@ -203,7 +203,7 @@ const Footer = styled.div`
   bottom: 0px;
   left: 0px;
   right: 0px;
-  height: 250px;
+  height: 240px;
   width: 100%;
   /* border: 1px solid #dcdcdc; */
   background-color: #ff8753;
@@ -227,7 +227,8 @@ const Footer = styled.div`
     line-height: 50px;
   }
   div {
-    line-height: 30px;
+    line-height: 1.8;
+    font-size: 14px;
     span {
       margin: 0px 10px 0px 10px;
       color: #dcdcdc;
@@ -240,14 +241,16 @@ const Space = styled.span`
 `;
 const Section3Image = styled.div`
   position: absolute;
-  bottom: 250px;
+  bottom: 240px;
   width: 100%;
   height: 300px;
   background-image: url(${(props) => props.background});
+  background-position: top center;
   background-repeat: no-repeat;
   background-size: cover;
 `;
 const Section3Text = styled.div`
+  z-index: 10;
   > div {
     font-size: 30px;
     line-height: 52px;

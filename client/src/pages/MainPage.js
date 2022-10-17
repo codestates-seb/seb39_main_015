@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import emoji from 'node-emoji';
 import { SectionsContainer, Section } from 'react-fullpage';
 import { TypeAnimation } from 'react-type-animation';
-import { Welcome } from '../images/Welcome';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faAngleRight,
@@ -22,8 +21,8 @@ const Body = styled.div`
   height: 100vh;
 `;
 const Column1 = styled.section`
-  padding-top: 200px;
-  padding-left: 100px;
+  padding-top: 25vh;
+  padding-left: 140px;
   height: 100%;
   background-color: #fff9f1;
   display: flex;
@@ -32,8 +31,26 @@ const Column1 = styled.section`
   align-items: flex-start;
   font-size: 1.5rem;
   position: relative;
+
+  @media screen and (max-width: 1024px) {
+    padding-left: calc(6% + 20px);
+  }
+
+  @media screen and (max-width: 768px) {
+  }
 `;
 const Left = styled.div`
+  h2 {
+    white-space: pre;
+    color: var(--black);
+    font-size: 70px;
+    & span {
+      display: inline-block;
+      margin-top: 20px;
+      color: var(--point-color);
+    }
+  }
+
   button {
     margin-top: 25px;
   }
@@ -241,7 +258,7 @@ const Space = styled.span`
 `;
 const Section3Image = styled.div`
   position: absolute;
-  bottom: 240px;
+  bottom: 237px;
   width: 100%;
   height: 300px;
   background-image: url(${(props) => props.background});
@@ -273,13 +290,13 @@ export default function MainPage() {
     navigation: false,
   };
   const mainPageMsg = [
-    `"39기 데모데이까지 화이팅 🙌"`,
+    `39기 데모데이까지 화이팅 🙌`,
     1000,
-    '"ACE팀 이번 대회 우승 기원 🔥🔥"',
+    'ACE팀 이번 대회 우승 기원 🔥🔥',
     1000,
-    '"미라클모닝 챌린지 힘들더라도 끝까지 🏃‍♂️"',
+    '미라클모닝 챌린지 힘들더라도 끝까지 🏃‍♂️',
     1000,
-    '"3-4 forever 동창회 무조건 오기!!!"',
+    '3-4 forever 동창회 무조건 오기!!!',
     1000,
   ];
 
@@ -289,7 +306,10 @@ export default function MainPage() {
         <Section>
           <Column1>
             <Left>
-              <Welcome />
+              <h2>
+                Welcome to{`\n`}
+                <span>Roobits!</span>
+              </h2>
               <div>
                 <div>
                   <FontAwesomeIcon icon={faAngleRight} size="lg" />
@@ -331,7 +351,7 @@ export default function MainPage() {
                 <div>
                   <FontAwesomeIcon icon={faHouseChimney} size="lg" />
                   <Space space="10px" />
-                  {'"추억을 남길 루빗 룸을 만들어 보세요."'}
+                  {'추억을 남길 루빗 룸을 만들어 보세요.'}
                 </div>
                 <p>
                   D-Day는 30일 이내여야 합니다. 30일이 넘는다면 조금만
@@ -345,7 +365,7 @@ export default function MainPage() {
                 <div>
                   <FontAwesomeIcon icon={faEnvelope} size="lg" />
                   <Space space="10px" />
-                  {'"원하는 모양의 루빗츠로 글을 작성할 수 있습니다."'}
+                  {'원하는 모양의 루빗츠로 글을 작성할 수 있습니다.'}
                 </div>
                 <p>루빗 종류 및 포즈를 선택할 수 있습니다.</p>
                 <p>140자로 추억을 기록해보세요.</p>
@@ -380,7 +400,9 @@ export default function MainPage() {
                 <div>
                   Tel: 02)1234-5678 <span> | </span> 서울 광진구 자양로 117
                 </div>
-                <div>Copyright 2022. Roobits, Inc. All rights reserved</div>
+                <div>
+                  &copy; Copyright 2022. Roobits, Inc. All rights reserved
+                </div>
                 <div></div>
               </section>
             </Footer>

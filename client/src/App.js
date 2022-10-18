@@ -51,6 +51,17 @@ export const ArrowUp = styled.div`
     transform: translate(-50%, -50%) rotate(45deg) scale(1.02);
     animation: none;
   }
+
+  ::after {
+    content: '';
+    position: absolute;
+    top: -30px;
+    bottom: -30px;
+    left: -20px;
+    right: -20px;
+    transform: rotate(45deg);
+    background-color: transparent;
+  }
 `;
 export const ArrowDn = styled.div`
   position: fixed;
@@ -85,6 +96,17 @@ export const ArrowDn = styled.div`
     transform: translate(-50%, -50%) rotate(225deg) scale(1.02);
     animation: none;
   }
+
+  ::after {
+    content: '';
+    position: absolute;
+    top: -30px;
+    bottom: -30px;
+    left: -20px;
+    right: -20px;
+    transform: rotate(45deg);
+    background-color: transparent;
+  }
 `;
 
 function App() {
@@ -105,7 +127,7 @@ function App() {
     const googleAccessToken = get_query();
     if (googleAccessToken.access_token) {
       document.cookie = `Authorization=Bearer ${googleAccessToken.access_token};max-age=3600;`;
-      window.location.replace('/#sectionOne');
+      window.location.replace('/#intro');
     }
   }, []);
 
@@ -128,18 +150,28 @@ function App() {
   );
   data;
 
+  /* anchors: ['intro', 'aboutOne', 'aboutTwo', 'aboutThree', 'footer'], */
+
   const arrowUpClick = () => {
-    if (hash === '#sectionTwo') {
-      window.location.replace('/#sectionOne');
-    } else if (hash === '#sectionThree') {
-      window.location.replace('/#sectionTwo');
+    if (hash === '#aboutOne') {
+      window.location.replace('/#intro');
+    } else if (hash === '#aboutTwo') {
+      window.location.replace('/#aboutOne');
+    } else if (hash === '#aboutThree') {
+      window.location.replace('/#aboutTwo');
+    } else if (hash === '#footer') {
+      window.location.replace('/#aboutThree');
     }
   };
   const arrowDnClick = () => {
-    if (hash === '#sectionOne' || hash === '') {
-      window.location.replace('/#sectionTwo');
-    } else if (hash === '#sectionTwo') {
-      window.location.replace('/#sectionThree');
+    if (hash === '#intro' || hash === '') {
+      window.location.replace('/#aboutOne');
+    } else if (hash === '#aboutOne') {
+      window.location.replace('/#aboutTwo');
+    } else if (hash === '#aboutTwo') {
+      window.location.replace('/#aboutThree');
+    } else if (hash === '#aboutThree') {
+      window.location.replace('/#footer');
     }
   };
   const authData = getCookieValue('Authorization');
@@ -148,7 +180,7 @@ function App() {
       {!/^\/rooms\/+/.test(location.pathname) && <Header />}
       {window.location.pathname === '/' ? (
         <ArrowUp
-          displayNone={hash === '#sectionOne' || hash === '' ? 'none' : ''}
+          displayNone={hash === '#intro' || hash === '' ? 'none' : ''}
           onClick={() => arrowUpClick()}
         />
       ) : (
@@ -169,7 +201,7 @@ function App() {
       {/* <ReactQueryDevtools initialIsOpen={false} /> */}
       {window.location.pathname === '/' ? (
         <ArrowDn
-          displayNone={hash === '#sectionThree' ? 'none' : ''}
+          displayNone={hash === '#footer' ? 'none' : ''}
           onClick={() => arrowDnClick()}
         />
       ) : (

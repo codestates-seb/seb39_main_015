@@ -11,14 +11,25 @@ export const HeaderStyle = styled.div`
   left: 0;
   right: 0;
   height: 80px;
-  z-index: 99;
+  z-index: 200;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #fff9f1;
-  flex-wrap: wrap;
-  @media screen and (max-width: 768px) {
+  background-color: transparent;
+  /* flex-wrap: wrap; */
+  /* @media screen and (max-width: 768px) {
     height: auto;
+  } */
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 15%;
+    left: 0;
+    right: 0;
+    backdrop-filter: blur(6px);
+    z-index: -1;
   }
 `;
 
@@ -105,7 +116,7 @@ export default function Header() {
   return (
     <HeaderStyle>
       <Navigator>
-        <Logo onClick={() => window.location.replace('/#sectionOne')}>
+        <Logo onClick={() => window.location.replace('/#intro')}>
           <h1>
             Roobits
             <LogoImg />

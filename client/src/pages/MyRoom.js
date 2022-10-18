@@ -26,8 +26,11 @@ import { useNavigate } from 'react-router-dom';
 
 const MyRoomBody = styled(Body)`
   flex-direction: column;
+  min-height: 100vh;
+  height: auto;
   > p {
-    margin-top: 100px;
+    margin-top: 90px;
+    margin-bottom: 60px;
     font-family: 'Noto Sans KR';
     font-style: normal;
     font-weight: 500;
@@ -41,11 +44,19 @@ const MyRoomBody = styled(Body)`
     z-index: 1;
   }
 
-  @media screen and (max-width: 768px) {
-    p {
-      order: -1;
-      margin-top: 0;
-      margin-bottom: 40px;
+  /** 768px 이 맞으나, 이 경우 룸 박스 콘텐츠 크기 때문에 임의 조절 */
+  @media screen and (max-width: 900px) {
+    padding-top: 110px;
+    > p {
+      margin-top: 20px;
+      margin-bottom: 160px;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    > p {
+      width: 80%;
+      word-break: keep-all;
     }
   }
 `;
@@ -63,15 +74,21 @@ const MyRoomWrapper = styled.div`
     margin-right: 0;
   }
 
-  @media screen and (max-width: 1180px) {
+  @media screen and (max-width: 1380px) {
     width: 80%;
     margin: 0 20px;
   }
-
-  @media screen and (max-width: 768px) {
-    width: 100%;
-    flex-direction: column;
+  /** 768px 이 맞으나, 이 경우 룸 박스 콘텐츠 크기 때문에 임의 조절 */
+  @media screen and (max-width: 900px) {
     width: auto;
+    height: auto;
+    flex-direction: column;
+  }
+
+  @media screen and (max-width: 480px) {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
   }
 `;
 
@@ -90,12 +107,12 @@ const RoomBox = styled.div`
     transform: scale(1.01);
   } */
 
-  @media screen and (max-width: 1180px) {
+  @media screen and (max-width: 1380px) {
     flex: 1;
     width: 33%;
   }
-
-  @media screen and (max-width: 768px) {
+  /** 768px 이 맞으나, 이 경우 룸 박스 콘텐츠 크기 때문에 임의 조절 */
+  @media screen and (max-width: 900px) {
     width: 100%;
     margin-bottom: 20px;
   }
@@ -121,7 +138,7 @@ const RoomTheme = styled.div`
 `;
 const RoomTitle = styled.div`
   height: 22px;
-  width: 348px;
+  width: 100%;
   display: flex;
   font-size: 18px;
   margin-top: 14px;
@@ -132,6 +149,7 @@ const RoomControlBar = styled.div`
   width: 100%;
   display: flex;
   margin-top: 12px;
+  justify-content: space-between;
 `;
 const RoomDday = styled.div`
   width: 184px;
@@ -303,7 +321,9 @@ export default function MyRoom() {
               );
             })}
         </MyRoomWrapper>
-        <p>운영할 수 있는 최대 룸 개수는 3개 입니다.</p>
+        <p>
+          운영할&nbsp;수&nbsp;있는 최대&nbsp;룸&nbsp;개수는 3개&nbsp;입니다.
+        </p>
       </MyRoomBody>
       <RoomMoalBtn />
       {tooltip && (

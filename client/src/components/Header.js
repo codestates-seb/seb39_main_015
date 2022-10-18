@@ -116,7 +116,7 @@ export default function Header() {
   return (
     <HeaderStyle>
       <Navigator>
-        <Logo onClick={() => window.location.replace('/#sectionOne')}>
+        <Logo onClick={() => window.location.replace('/#intro')}>
           <h1>
             Roobits
             <LogoImg />

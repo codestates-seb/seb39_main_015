@@ -46,6 +46,8 @@ public class MemberService {
         List<String> roles = authorityUtils.createRoles(member.getUsername());
         member.setRoles(roles);
         member.setMemberStatus(Member.MemberStatus.MEMBER_ACTIVE);
+        member.setProvider("roobits");
+
         Member savedMember = memberRepository.save(member);
 //        publisher.publishEvent(new MemberRegistrationApplicationEvent(savedMember));
         return savedMember;
@@ -77,7 +79,13 @@ public class MemberService {
     //회원탈퇴
     public void deleteMember(String username) {
         Member findMember = findVerifyMember(username);
-        findMember.setMemberStatus(Member.MemberStatus.MEMBER_QUIT);
+        if(findMember.getProvider().equals("roobits")){
+            findMember.setMemberStatus(Member.MemberStatus.MEMBER_QUIT);
+            return;
+        }
+//        if(findMember.getProvider().equals("google")){
+            memberRepository.delete(findMember);
+//        }
 //        memberRepository.delete(findMember);
     }
 

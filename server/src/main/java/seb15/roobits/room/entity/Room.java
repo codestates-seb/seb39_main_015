@@ -33,6 +33,7 @@ public class Room {
 
     @Column
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+
     private LocalDate dDay;
 
     @Column

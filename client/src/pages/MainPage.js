@@ -14,6 +14,7 @@ import aboutOneVideo from '../images/video/aboutOneVideo.gif';
 import aboutTwoVideo from '../images/video/aboutTwoVideo.gif';
 import aboutThreeVideo from '../images/video/aboutThreeVideo.gif';
 import section3Image from '../images/section3.png';
+import { useEffect } from 'react';
 
 const Body = styled.div`
   height: 100vh;
@@ -391,6 +392,10 @@ export default function MainPage() {
     '3-4 forever 동창회 무조건 오기!!!',
     1000,
   ];
+
+  useEffect(() => {
+    console.log(window.location.hash);
+  }, []);
 
   return (
     <SectionsContainer {...options}>

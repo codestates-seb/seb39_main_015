@@ -23,7 +23,7 @@ export const ArrowUp = styled.div`
   top: 80px;
   left: 50%;
   right: 50%;
-  z-index: 105;
+  z-index: 205;
   width: 20px;
   height: 20px;
   transform: translate(-50%, -50%) rotate(45deg);
@@ -112,6 +112,7 @@ export const ArrowDn = styled.div`
 function App() {
   const location = useLocation();
   const [hash, setHash] = useState(window.location.hash);
+  // const [scroll, setScroll] = useState(window.scrollY);
 
   useEffect(() => {
     // query를 객체 형태로 가져오는 함수
@@ -133,6 +134,10 @@ function App() {
 
   useEffect(() => {
     setHash(window.location.hash);
+    console.log(hash);
+    if (hash === '') {
+      window.location.replace('/#intro');
+    }
   });
 
   // 아이디, 비밀번호에 대한 Auth 확인

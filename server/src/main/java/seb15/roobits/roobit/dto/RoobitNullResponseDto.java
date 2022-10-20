@@ -34,5 +34,4 @@ public class RoobitNullResponseDto {  // 디데이 아닐 땐 body는 Null
     private LocalDateTime createdAt;
     private Roobit.RoobitStatus roobitStatus;
 
-
 }

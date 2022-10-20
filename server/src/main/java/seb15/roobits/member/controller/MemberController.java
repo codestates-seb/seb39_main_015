@@ -1,5 +1,6 @@
 package seb15.roobits.member.controller;
 
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;
@@ -13,12 +14,15 @@ import seb15.roobits.member.dto.MemberDto;
 import seb15.roobits.member.entity.Member;
 import seb15.roobits.member.mapper.MemberMapper;
 import seb15.roobits.member.service.MemberService;
+import seb15.roobits.room.dto.MyRoomResponseDto;
 import seb15.roobits.room.repository.RoomRepository;
 import seb15.roobits.security.auth.MemberDetailsService;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -81,7 +85,13 @@ public class MemberController {
         Member getMemberRoom =
                 memberService.findMember(auth.getUsername());
         MemberDto.GetMyRoomResponse response = memberMapper.memberTogetMyRoomResponse(getMemberRoom);
-
+        List<MyRoomResponseDto> rooms = new ArrayList<>();
+        for(int i = 0; i < response.getRooms().size(); i++){
+            if(response.getRooms().get(i).getRestDay() >= 0){
+                rooms.add(response.getRooms().get(i));
+            }
+        }
+        response.setRooms(rooms);
         return new ResponseEntity<>(response,HttpStatus.OK);
     }
 
@@ -93,11 +103,15 @@ public class MemberController {
 
         Member member = memberMapper.findToMember(memberFindDto);
         Member findUsername = memberService.findUserId(member);
-        if(findUsername.getProvider() == "google"){
+        System.out.println(findUsername);
+        if(findUsername.getProvider() != null){
             MemberDto.FindUsernameResponse response = memberMapper.memberToFindUsernameResponse(findUsername);
             response.setUsername("일치하는 회원정보가 없습니다");
-        return new ResponseEntity(response,HttpStatus.NOT_FOUND);
-    }
+            return new ResponseEntity(response,HttpStatus.OK);
+        }
+//        if(findUsername.getMemberStatus() == Member.MemberStatus.MEMBER_QUIT){
+//            MemberDto.FindUsernameResponse response = memberMapper.memberToFindUsernameResponse(findUsername);
+//        }
         MemberDto.FindUsernameResponse response = memberMapper.memberToFindUsernameResponse(findUsername);
         return new ResponseEntity(response,HttpStatus.OK);
     }
@@ -145,7 +159,7 @@ public class MemberController {
         checkAuth.setProvider(auth.getProvider());
         MemberDto.CheckAuthResponse response = memberMapper.memberToCheckAuthResponse(checkAuth);
         return new ResponseEntity<>(response, HttpStatus.OK);
-        }
+    }
 
 
     @GetMapping("/rooms")

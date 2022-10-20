@@ -20,6 +20,5 @@ public class RoomResponseDto {
     private long roobitAmount;
     private long viewCount;
     private String url;
-
-    private List<Roobit> roobits;
 }
+

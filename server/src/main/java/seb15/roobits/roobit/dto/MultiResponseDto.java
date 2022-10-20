@@ -1,6 +1,8 @@
 package seb15.roobits.roobit.dto;
 
 import lombok.Getter;
+import org.springframework.data.domain.Page;
+import seb15.roobits.globaldto.PageInfo;
 
 import java.util.List;
 

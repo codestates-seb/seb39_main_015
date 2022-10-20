@@ -28,3 +28,4 @@ public class RoomPostDto {
             message = "최소 1부터 최대 300개의 루빗을 설정해야 합니다.")
     private long roobitAmount;
 }
+

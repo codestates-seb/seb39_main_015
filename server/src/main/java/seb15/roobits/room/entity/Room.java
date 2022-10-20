@@ -33,7 +33,7 @@ public class Room {
 
     @Column
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Future(message = "오늘 후의 날짜여야 합니다.")
+
     private LocalDate dDay;
 
     @Column
@@ -81,12 +81,11 @@ public class Room {
 //        }
     }
 
-
-
     public Room(long roomId, String roomName, LocalDate dDay) {
         this.roomId = roomId;
         this.roomName = roomName;
         this.dDay = dDay;
     }
-
+    private long totalRoobitCount;
 }
+

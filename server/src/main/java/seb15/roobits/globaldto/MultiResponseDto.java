@@ -4,6 +4,7 @@ import lombok.Getter;
 import seb15.roobits.roobit.entity.Roobit;
 import seb15.roobits.room.dto.RoomResponseDto;
 
+
 import java.util.List;
 
 @Getter
@@ -16,3 +17,4 @@ public class MultiResponseDto<T> {
         this.roobits = roobits;
     }
 }
+

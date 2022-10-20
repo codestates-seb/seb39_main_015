@@ -47,6 +47,7 @@ public class MemberService {
         member.setRoles(roles);
         member.setMemberStatus(Member.MemberStatus.MEMBER_ACTIVE);
         member.setProvider("roobits");
+
         Member savedMember = memberRepository.save(member);
 //        publisher.publishEvent(new MemberRegistrationApplicationEvent(savedMember));
         return savedMember;

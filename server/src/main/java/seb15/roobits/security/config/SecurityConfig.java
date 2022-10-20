@@ -70,9 +70,11 @@ public class SecurityConfig {
                 .successHandler(new OAuth2MemberSuccessHandler(jwtTokenProvider, customAuthorityUtils, memberService,memberRepository)));
 
 
+
         http.authorizeRequests()
                 .antMatchers("/sample.yml/**").authenticated()
 //                .antMatchers("/rooms/**").access("hasRole('ROLE_HOST') or hasRole('ROLE_MANAGER')")
+
                 .antMatchers("/manager/**").access("hasRole('ROLE_MANAGER')")
                 .anyRequest().permitAll();
 
@@ -116,7 +118,4 @@ public class SecurityConfig {
 
 
     }
-
-
-
 }

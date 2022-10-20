@@ -1,5 +1,3 @@
-
-
 package seb15.roobits.room.dto;
 
 import lombok.Getter;
@@ -23,3 +21,4 @@ public class RoomResponseDto {
     private long viewCount;
     private String url;
 }
+

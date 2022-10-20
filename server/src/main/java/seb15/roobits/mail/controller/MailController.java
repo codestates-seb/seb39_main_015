@@ -39,3 +39,4 @@ public class MailController {
         return new ResponseEntity(response, HttpStatus.OK);
     }
 }
+

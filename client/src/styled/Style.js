@@ -5,7 +5,7 @@ import selectArrowImg from '../images/selectArrow.svg';
 export const Body = styled.div`
   padding-top: 80px;
   height: 100vh;
-  background-color: #fbfbfa;
+  background-color: #fff9f1;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -111,6 +111,11 @@ export const WhiteButton = styled.button`
       0px 6px 16px rgb(0 0 0 / 12%);
     transform: scale(1.02);
   }
+
+  @media screen and (max-width: 480px) {
+    margin: 0 auto;
+    max-width: 90%;
+  }
 `;
 
 export const WhiteButtonOrangeBorder = styled(WhiteButton)`
@@ -214,6 +219,33 @@ export const ModalFormWrapper = styled(FormWrapper)`
       width: 100%;
       appearance: none;
       background: url(${selectArrowImg}) no-repeat 93% center;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    height: 100vh;
+    border-radius: 0;
+    border: none;
+    padding: 0 3% 0 3%;
+
+    h2 {
+      padding-top: 18px;
+    }
+    form > section {
+      width: 90%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .two-divide {
+      width: 90%;
+      margin-left: auto;
+      margin-right: auto;
+
+      & > button,
+      & > section {
+        width: 48%;
+      }
     }
   }
 `;

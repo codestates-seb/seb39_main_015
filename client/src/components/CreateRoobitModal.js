@@ -58,10 +58,10 @@ const CreateRoobitModalStyle = styled(ModalFormWrapper)`
     & .letter-msg {
       display: block;
       color: #fff;
-      font-size: 11px;
+      font-size: 13px;
       white-space: pre;
       padding-top: 10px;
-      line-height: 1.6;
+      line-height: 1.4;
       position: absolute;
       right: 0;
       top: 0;
@@ -116,6 +116,11 @@ const ModalInputWrapper = styled(InputWrapper)`
     top: auto;
     right: 16px;
     bottom: 26px;
+  }
+
+  @media screen and (max-width: 480px) {
+    width: 90%;
+    margin: 0 auto;
   }
 `;
 
@@ -187,7 +192,9 @@ const CreateRoobitModal = ({ handleOpenModal }) => {
         window.location.reload();
       },
       onError: (err) => {
-        alert('실패');
+        alert(
+          `루빗 생성에 실패했습니다... \n(서버 에러 또는 룸 당 최대 루빗 개수를 초과)`
+        );
         console.log(err);
       },
     }

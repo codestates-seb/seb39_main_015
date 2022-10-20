@@ -10,15 +10,15 @@ import { Loading } from '../components/Loading';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { useQuery } from 'react-query';
-import {
-  roomDetailData_1,
-  //roomDetailData_2,
-  //roomDetailData_3,
-  //roomDetailData_4,
-  //roomDetailData_7,
-  //roomDetailData_16,
-  //roomDetailData_30,
-} from '../data/DummyData';
+// import {
+//   roomDetailData_1,
+//   //roomDetailData_2,
+//   //roomDetailData_3,
+//   //roomDetailData_4,
+//   //roomDetailData_7,
+//   //roomDetailData_16,
+//   //roomDetailData_30,
+// } from '../data/DummyData';
 import { getCookieValue } from '../hook/getCookieValue';
 import { useEffect, useRef, useState } from 'react';
 import RoomPageLinkShareBtn from '../components/RoomPageLinkShareBtn';
@@ -28,6 +28,7 @@ import RoomPageLinkShareBtn from '../components/RoomPageLinkShareBtn';
 const RoomDetail = () => {
   const [isZoomIn, setIsZoomIn] = useState(true);
   const [showMsg, setShowMsg] = useState(false);
+  const [errPageOpen, setErrPageOpen] = useState(false);
   const { roomId } = useParams();
   const auth = getCookieValue('Authorization').length;
   const [urlDropDown, setUrlDropDown] = useState('');
@@ -49,45 +50,39 @@ const RoomDetail = () => {
   };
 
   //`${process.env.REACT_APP_API_URL}/rooms/${roomId}`
-  const { data, isLoading, isError } = useQuery(
+  const { data, isLoading } = useQuery(
     ['roobits', roomId],
     () =>
       axios
         .get(`${process.env.REACT_APP_API_URL}/rooms/${roomId}`)
-        .then((res) => res.data)
-        .catch(() => roomDetailData_1),
+        .then((res) => res.data),
     {
       refetchOnWindowFocus: false,
       staleTime: 1000 * 60 * 10,
       retry: 1,
-      // onError: (err) => {
-      //   console.log('요청 err', err);
-      //   console.log('요청 error', error);
-      //   // return roomDetailData_30;
-      // }, //state 처리
+      onError: (err) => {
+        console.log('요청 err', err);
+        setErrPageOpen(true);
+      }, //state 처리
     }
   );
-
   //onError 로 처리하면 isError false 된다.
-
-  // if (isError) {
-  //   console.dir('에러남!');
-  //   return <p>유효하지 않은 페이지</p>;
-  // }
-
   let roomStatus, roomData, roobits;
-  if (!isLoading && !isError) {
+
+  if (!isLoading && !errPageOpen) {
     ({ roomStatus, roomData, roobits } = data);
-  } else {
-    return <Loading />;
   }
 
   return (
     <div>
       {auth > 0 && <BackwardBtn />}
-      {roomStatus === 'ROOM_CLOSED' ||
-      roomStatus === 'ROOM_DELETED' ||
-      roobits === undefined ? (
+      {isLoading ? (
+        <Loading />
+      ) : errPageOpen ||
+        roomStatus === 'ROOM_CLOSED' ||
+        roomStatus === 'ROOM_DELETED' ||
+        roobits === undefined ||
+        data === undefined ? (
         <RoomEnd data={data} />
       ) : (
         <>

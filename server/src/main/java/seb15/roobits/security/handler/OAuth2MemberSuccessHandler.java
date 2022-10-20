@@ -100,7 +100,7 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
         return UriComponentsBuilder
                 .newInstance()
                 .scheme("http")
-                .host("roobits.s3-website.ap-northeast-2.amazonaws.com")
+                .host("roobits.com")
                 .port(80)
 //                .host("localhost")
 //                .port(3000)

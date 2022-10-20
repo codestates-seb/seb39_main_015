@@ -30,7 +30,7 @@ public class RoomService {
     }
 
     public Room createRoom(Room room) {
-        validator.verifyExistRoom(room.getRoomName());        // 이미 있는 이름인지 검사
+//        validator.verifyExistRoom(room.getRoomName());        // 이미 있는 이름인지 검사
         room.setRestDay(Validator.calculateRestDay(room)); // d-day 잔여일 계산
         validator.dDayLimitation(room); // 잔여일 30일 이내인지 검사
         roomRepository.save(room);
@@ -50,7 +50,7 @@ public class RoomService {
         Optional.ofNullable(room.getRoomTheme())
                 .ifPresent(roomTheme -> findRoom.setRoomTheme(roomTheme));
         Optional.ofNullable(room.getDDay())
-                        .ifPresent(dDay -> findRoom.setRestDay(Validator.calculateRestDay(room)));
+                .ifPresent(dDay -> findRoom.setRestDay(Validator.calculateRestDay(room)));
 
         validator.updatePatchCount(roomRepository.save(findRoom)); // 수정 횟수 카운터
 
@@ -78,6 +78,3 @@ public class RoomService {
     }
 
 }
-
-
-//- 이모지를 위해 인코딩 방식 변경해보기

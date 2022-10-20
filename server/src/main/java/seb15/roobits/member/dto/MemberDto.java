@@ -17,7 +17,7 @@ public class MemberDto {
     @Getter
     @Builder
     @AllArgsConstructor
-    @NoArgsConstructor  // 1005 YU
+    @NoArgsConstructor
     public static class Join {
         @NotBlank(message = "아이디는 공백이 아니여야 합니다.")
         @Pattern(regexp = "^[a-zA-Z0-9]*$", message = "아이디는 영문 대소문자와 숫자만 가능합니다.")
@@ -107,7 +107,6 @@ public class MemberDto {
         //        @Setter(AccessLevel.NONE)
 //        private Long memberId;
         private String username;
-
         //Room respon Dto로 응답.
         private List<MyRoomResponseDto> rooms;
 //        public Room setRoom(){
@@ -115,6 +114,9 @@ public class MemberDto {
 //            room.setRoomId(roomId);
 //            return room; // 룸부분 구현후에 작업
 //        }
+        public void setRooms(List<MyRoomResponseDto> rooms){
+            this.rooms = rooms;
+        }
     }
 
     @Getter
@@ -174,4 +176,3 @@ public class MemberDto {
         private String provider;
     }
 }
-

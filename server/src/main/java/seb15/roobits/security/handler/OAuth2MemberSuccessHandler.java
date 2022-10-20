@@ -44,19 +44,23 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
                                         HttpServletResponse response,
                                         Authentication authentication) throws IOException,SecurityException{
         OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
+        Member member;
         String email = String.valueOf(oAuth2User.getAttributes().get("email"));
         String username = String.valueOf(oAuth2User.getAttributes().get("name"));
         String provider = "google";
-        String password = "OauthLogin";
+        String password = String.valueOf(oAuth2User.getAttributes().get("providerId"));
         List<String> authorities = customAuthorityUtils.createRoles(email);
-        if(memberRepository.findByUsername(username) ==null){
+        if(memberRepository.findByUsername(username) == null){
         saveMember(username,email,password,provider);}
         redirect(request,response,username,provider,authorities);
     }
 
     private void saveMember(String username,String email,String password,String provider) {
         Member member = new Member(username,email,password,provider);
+        System.out.println(String.valueOf(password));
         memberService.createMember(member);
+        member.setProvider("google");
+        memberRepository.save(member);
     }
 
     private void redirect(HttpServletRequest request, HttpServletResponse response,String username,String provider, List<String> authorities)throws IOException{
@@ -96,8 +100,10 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
         return UriComponentsBuilder
                 .newInstance()
                 .scheme("http")
-                .host("localhost")
-                .port(3000)
+                .host("roobits.com")
+                .port(80)
+//                .host("localhost")
+//                .port(3000)
                 .path("/token")
                 .queryParams(queryParams)
                 .build()

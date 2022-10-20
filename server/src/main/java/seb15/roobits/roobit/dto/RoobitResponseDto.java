@@ -24,7 +24,7 @@ public class RoobitResponseDto {
     private String body;
     private String email;
     private String reception;
-//    private String ToReception;  // 1005YU
+    //    private String ToReception;  // 1005YU
     private String style;
 
     @CreatedDate

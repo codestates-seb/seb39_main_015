@@ -22,7 +22,7 @@ public class Validator {
 
     public void createUrl(Room room) {
 
-        String url = "http://roobits.s3-website.ap-northeast-2.amazonaws.com/rooms/" + room.getRoomId();
+        String url = "http://roobits.com/rooms/" + room.getRoomId();
 
         room.setUrl(url);
     }

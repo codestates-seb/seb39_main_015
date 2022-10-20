@@ -23,7 +23,7 @@ export const ArrowUp = styled.div`
   top: 80px;
   left: 50%;
   right: 50%;
-  z-index: 105;
+  z-index: 205;
   width: 20px;
   height: 20px;
   transform: translate(-50%, -50%) rotate(45deg);
@@ -135,6 +135,12 @@ function App() {
     setHash(window.location.hash);
   });
 
+  useEffect(() => {
+    if (!(window.location.hash === '#intro' || window.location.hash === '')) {
+      window.location.assign('/');
+    }
+  }, []);
+
   // 아이디, 비밀번호에 대한 Auth 확인
   const { data } = useQuery(
     'auth',
@@ -154,24 +160,24 @@ function App() {
 
   const arrowUpClick = () => {
     if (hash === '#aboutOne') {
-      window.location.replace('/#intro');
+      window.location.replace('#intro');
     } else if (hash === '#aboutTwo') {
-      window.location.replace('/#aboutOne');
+      window.location.replace('#aboutOne');
     } else if (hash === '#aboutThree') {
-      window.location.replace('/#aboutTwo');
+      window.location.replace('#aboutTwo');
     } else if (hash === '#footer') {
-      window.location.replace('/#aboutThree');
+      window.location.replace('#aboutThree');
     }
   };
   const arrowDnClick = () => {
     if (hash === '#intro' || hash === '') {
-      window.location.replace('/#aboutOne');
+      window.location.replace('#aboutOne');
     } else if (hash === '#aboutOne') {
-      window.location.replace('/#aboutTwo');
+      window.location.replace('#aboutTwo');
     } else if (hash === '#aboutTwo') {
-      window.location.replace('/#aboutThree');
+      window.location.replace('#aboutThree');
     } else if (hash === '#aboutThree') {
-      window.location.replace('/#footer');
+      window.location.replace('#footer');
     }
   };
   const authData = getCookieValue('Authorization');

@@ -32,6 +32,7 @@ const RoobitOneImg = styled.div`
     right: 0;
     background-repeat: no-repeat;
     background-size: 100%;
+    background-position-x: center;
     background-position-y: calc(25% * var(--type));
     background-image: url(${lettersImg});
   }

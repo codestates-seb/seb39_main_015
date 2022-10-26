@@ -8,6 +8,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
+import seb15.roobits.exception.BusinessLogicException;
+import seb15.roobits.exception.ExceptionCode;
 import seb15.roobits.member.entity.Member;
 import seb15.roobits.security.utils.CustomAuthorityUtils;
 import seb15.roobits.security.provider.JwtTokenProvider;
@@ -36,7 +38,7 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
         } catch (SignatureException se) {
             request.setAttribute("exception", se);
         } catch (ExpiredJwtException ee) {
-            request.setAttribute("exception", ee);
+            logger.error("Token Expired");
         } catch (Exception e) {
             request.setAttribute("exception", e);
         }  //예외처리

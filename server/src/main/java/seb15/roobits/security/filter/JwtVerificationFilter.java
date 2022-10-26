@@ -72,6 +72,13 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
         System.out.println("1");
         Authentication authentication = new UsernamePasswordAuthenticationToken(member, null,authorities);
         SecurityContextHolder.getContext().setAuthentication(authentication);
-
     }
+
+//    private Map<String,Object> verifyRefreshJws(HttpServletRequest request){
+//        String jws = request.getHeader("Authorization").replace("Bearer ","");
+//        String base64EncodedSecretKey = jwtTokenProvider.encodeBase64SecretKey(jwtTokenProvider.getSecretKey());
+//        Map<String,Object> claims = jwtTokenProvider.getClaim(jws, base64EncodedSecretKey).getBody();
+//        System.out.println(claims);
+//        return claims;
+//    }
 }

@@ -27,12 +27,12 @@ public class JwtTokenProvider {
     private String secretKey; //시크릿키
 
     @Getter
-    @Value("${security.jwt.token.access-token-expire-minute}")
-    private int accessTokenExpirationMinutes; //엑세스토큰 기간
+    @Value("${security.jwt.token.access-token-expire-second}")
+    private int accessTokenExpirationSeconds; //엑세스토큰 기간
 
     @Getter
-    @Value("${security.jwt.token.refresh-token-expire-minute}")
-    private int refreshTokenExpirationMinutes; //리프레시토큰 기간
+    @Value("${security.jwt.token.refresh-token-expire-second}")
+    private int refreshTokenExpirationSeconds; //리프레시토큰 기간
 
     public String encodeBase64SecretKey(String secretKey) {
         return Encoders.BASE64.encode(secretKey.getBytes(StandardCharsets.UTF_8));
@@ -86,9 +86,9 @@ public class JwtTokenProvider {
                 .parseClaimsJws(jws);  //클레임으로 변환
     }
 
-    public Date getTokenExpiration(int expirationMinutes) {
+    public Date getTokenExpiration(int expirationSeconds) {
         Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.MINUTE, expirationMinutes);
+        calendar.add(Calendar.SECOND, expirationSeconds);
         Date expiration = calendar.getTime();
 
         return expiration;

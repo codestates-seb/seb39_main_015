@@ -78,7 +78,7 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
 
         String subject = username;
         System.out.println(claims);
-        Date expriation = jwtTokenProvider.getTokenExpiration(jwtTokenProvider.getAccessTokenExpirationMinutes());
+        Date expriation = jwtTokenProvider.getTokenExpiration(jwtTokenProvider.getAccessTokenExpirationSeconds());
         String base64EncodedSecretKey = jwtTokenProvider.encodeBase64SecretKey(jwtTokenProvider.getSecretKey());
         String accessToken = jwtTokenProvider.generateAccessToken(claims,subject,expriation,base64EncodedSecretKey);
         return accessToken;
@@ -86,7 +86,7 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
 
     private String delegateRefreshToken(String username) {
         String subject = username;
-        Date expiration = jwtTokenProvider.getTokenExpiration(jwtTokenProvider.getRefreshTokenExpirationMinutes());
+        Date expiration = jwtTokenProvider.getTokenExpiration(jwtTokenProvider.getRefreshTokenExpirationSeconds());
         String base64EncodedSecretKey = jwtTokenProvider.encodeBase64SecretKey(jwtTokenProvider.getSecretKey());
         String refreshToken = jwtTokenProvider.generateRefreshToken(subject, expiration, base64EncodedSecretKey);
         return refreshToken;

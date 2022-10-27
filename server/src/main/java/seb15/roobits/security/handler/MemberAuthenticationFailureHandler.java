@@ -1,24 +1,36 @@
 package seb15.roobits.security.handler;
 
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import seb15.roobits.member.entity.Member;
+import seb15.roobits.security.provider.JwtTokenProvider;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Map;
 
 
 @Slf4j
+@RequiredArgsConstructor
 public class MemberAuthenticationFailureHandler implements AuthenticationFailureHandler {
+
+    JwtTokenProvider jwtTokenProvider;
+
     @Override
     public void onAuthenticationFailure(HttpServletRequest request,
                                         HttpServletResponse response,
-                                        AuthenticationException exception) throws IOException, ServletException {
+                                        AuthenticationException exception
+                                        ) throws IOException, ServletException {
         log.error(" #Authentication failed: {}",exception.getMessage());
+
+
     }
 
 //    private void sendErrorResponse(HttpServletResponse response) throws IOException {

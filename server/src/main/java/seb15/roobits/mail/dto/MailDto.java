@@ -28,7 +28,15 @@ public class MailDto {
     @Data
     @AllArgsConstructor
     @NoArgsConstructor
-    public static class Key{
+    public static class checkEmail{
+        private String email;
         private String createKey;
+    }
+
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class checkedKey{
+        private boolean checkedKey;
     }
 }

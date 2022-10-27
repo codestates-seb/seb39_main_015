@@ -76,8 +76,12 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 
+//    private Map<String, Object> refresh(Map<String, Object> refreshToken){
+//
+//    }
+//
 //    private Map<String,Object> verifyRefreshJws(HttpServletRequest request){
-//        String jws = request.getHeader("Authorization").replace("Bearer ","");
+//        String jws = request.getHeader("Refresh");
 //        String base64EncodedSecretKey = jwtTokenProvider.encodeBase64SecretKey(jwtTokenProvider.getSecretKey());
 //        Map<String,Object> claims = jwtTokenProvider.getClaim(jws, base64EncodedSecretKey).getBody();
 //        System.out.println(claims);

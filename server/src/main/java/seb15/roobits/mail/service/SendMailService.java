@@ -15,6 +15,7 @@ import seb15.roobits.exception.ExceptionCode;
 import seb15.roobits.mail.dto.MailDto;
 import seb15.roobits.member.entity.Member;
 import seb15.roobits.member.repository.MemberRepository;
+import seb15.roobits.redis.RedisService;
 
 @Service
 @RequiredArgsConstructor
@@ -26,7 +27,10 @@ public class SendMailService {
     private final JavaMailSender mailSender;
     @Autowired
     private final PasswordEncoder passwordEncoder;
+    @Autowired
+    private final RedisService redisService;
     private static final String FROM_ADDRESS = "gusghk115@gmail.com";
+
 
     public MailDto.SendPassword createMailAndChangePassword(MailDto.SendPassword mailDto) {
         if(!mailDto.getEmail().equals(memberRepository.findByUsername(mailDto.getUsername()).getEmail()))
@@ -84,7 +88,15 @@ public class SendMailService {
         createMail.setTitle("루빗츠 회원가입 이메일 인증번호입니다.");
         createMail.setMessage("안녕하세요 루빗츠 입니다." + "이메일 인증번호는" + createKey + " 입니다.");
         createMail.setCreateKey(createKey);
+        redisService.setValues(mailDto.getEmail(),createKey);
         return createMail;
+    }
+
+    public boolean checkKey(MailDto.AuthEmail mailDto){
+        String storigeKey = redisService.getValues(mailDto.getEmail());
+        if(mailDto.getCreateKey().equals(storigeKey)){
+            return true;
+        } else return false;
     }
 
     public String getCreateKey() {

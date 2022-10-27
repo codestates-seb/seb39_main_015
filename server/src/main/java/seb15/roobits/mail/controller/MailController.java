@@ -25,17 +25,22 @@ public class MailController {
     private final SendMailService mailService;
 
     @PostMapping("/findpw/sendemail")
-    public void findPassword(@RequestBody MailDto.SendPassword mailDto){
+    public void findPassword(@RequestBody MailDto.SendPassword mailDto) {
         MailDto.SendPassword sendMail = mailService.createMailAndChangePassword(mailDto);
         mailService.findPasswordMailSend(sendMail);
     }
 
     @PostMapping("/auth/sendemail")
-    public ResponseEntity checkAuthEmail(@RequestBody MailDto.AuthEmail mailDto){
-        MailDto.AuthEmail senMail = mailService.createMailAndAuthEmail(mailDto);
-        mailService.authEmailMailSend(senMail);
-        MailDto.Key response = new MailDto.Key();
-        response.setCreateKey(senMail.getCreateKey());
+    public ResponseEntity checkAuthEmail(@RequestBody MailDto.AuthEmail mailDto) {
+        MailDto.AuthEmail sendMail = mailService.createMailAndAuthEmail(mailDto);
+        mailService.authEmailMailSend(sendMail);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @PostMapping("/auth/sendemail/check")
+    public ResponseEntity checkAuthEmailKey(@RequestBody MailDto.AuthEmail mailDto) {
+        boolean check = mailService.checkKey(mailDto);
+        MailDto.checkedKey response = new MailDto.checkedKey(check);
         return new ResponseEntity(response, HttpStatus.OK);
     }
 }

@@ -77,14 +77,14 @@ public class JwtTokenProvider {
         return claims;
     }
 
-    public void verifySignature(String jws, String base64EncodedSecretKey) {
-        Key key = getKeyFromBase64EncodedKey(base64EncodedSecretKey);
-
-        Jws<Claims> claims = Jwts.parserBuilder()
-                .setSigningKey(key)  //암호화 했던 시크릿키를 가져와서
-                .build()  //디코딩 후
-                .parseClaimsJws(jws);  //클레임으로 변환
-    }
+//    public void verifySignature(String jws, String base64EncodedSecretKey) {
+//        Key key = getKeyFromBase64EncodedKey(base64EncodedSecretKey);
+//
+//        Jws<Claims> claims = Jwts.parserBuilder()
+//                .setSigningKey(key)  //암호화 했던 시크릿키를 가져와서
+//                .build()  //디코딩 후
+//                .parseClaimsJws(jws);  //클레임으로 변환
+//    }
 
     public Date getTokenExpiration(int expirationSeconds) {
         Calendar calendar = Calendar.getInstance();

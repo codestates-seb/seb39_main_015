@@ -22,6 +22,7 @@ import speechBubble from '../images/speechBubble.svg';
 
 const CreateRoobitModalStyle = styled(ModalFormWrapper)`
   text-align: center;
+
   .design-btn {
     width: 100px;
     height: 100px;
@@ -73,6 +74,12 @@ const CreateRoobitModalStyle = styled(ModalFormWrapper)`
       & span {
         font-weight: 600;
       }
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    .cancel {
+      top: 5%;
     }
   }
 `;
@@ -168,16 +175,6 @@ const CreateRoobitModal = ({ handleOpenModal }) => {
     ];
   }, []);
 
-  /*
-  {
-    roomId : 2,
-    nickname : '자바중독',
-    body : '루빗을 140자까지 작성해보아요',
-    reception : ‘to everyone’’
-    style : 25L
-    }
-  */
-  //const queryClient = useQueryClient();
   const { mutate, isLoading } = useMutation(
     (data) => axios.post(`${process.env.REACT_APP_API_URL}/roobits/post`, data),
     {

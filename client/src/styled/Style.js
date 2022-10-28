@@ -3,8 +3,9 @@ import { Link } from 'react-router-dom';
 import selectArrowImg from '../images/selectArrow.svg';
 
 export const Body = styled.div`
-  padding-top: 80px;
+  padding-top: 70px;
   height: 100vh;
+  min-height: 100vh;
   background-color: #fff9f1;
   display: flex;
   justify-content: center;

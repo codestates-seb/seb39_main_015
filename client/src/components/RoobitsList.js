@@ -335,25 +335,33 @@ export const RoobitsList = ({ handleOpenModal, roomId }) => {
       <ScrollTracker scrollRef={ref} />
       <RoobitUnitWrapper ref={ref}>
         {floor[selectedFloor].map((unit) => {
-          return roobits[unit].map((data) => {
-            // console.log(data.nickname.includes(searchKeyword));
-            if (
-              searchOption === '내용' &&
-              data.body.toLowerCase().includes(searchKeyword.toLowerCase())
-            ) {
-              return <RoobitUnit key={data.roobitId} unit={data} />;
-            } else if (
-              searchOption === '작성자' &&
-              data.nickname.toLowerCase().includes(searchKeyword.toLowerCase())
-            ) {
-              return <RoobitUnit key={data.roobitId} unit={data} />;
-            } else if (
-              searchOption === '받는이' &&
-              data.reception.toLowerCase().includes(searchKeyword.toLowerCase())
-            ) {
-              return <RoobitUnit key={data.roobitId} unit={data} />;
-            }
-          });
+          return (
+            <div key={unit}>
+              {roobits[unit].map((data) => {
+                // console.log(data.nickname.includes(searchKeyword));
+                if (
+                  searchOption === '내용' &&
+                  data.body.toLowerCase().includes(searchKeyword.toLowerCase())
+                ) {
+                  return <RoobitUnit key={data.roobitId} unit={data} />;
+                } else if (
+                  searchOption === '작성자' &&
+                  data.nickname
+                    .toLowerCase()
+                    .includes(searchKeyword.toLowerCase())
+                ) {
+                  return <RoobitUnit key={data.roobitId} unit={data} />;
+                } else if (
+                  searchOption === '받는이' &&
+                  data.reception
+                    .toLowerCase()
+                    .includes(searchKeyword.toLowerCase())
+                ) {
+                  return <RoobitUnit key={data.roobitId} unit={data} />;
+                }
+              })}
+            </div>
+          );
         })}
       </RoobitUnitWrapper>
     </RoobitsListBody>

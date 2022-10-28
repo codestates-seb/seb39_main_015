@@ -81,6 +81,20 @@ const CreateRoobitModalStyle = styled(ModalFormWrapper)`
     .cancel {
       top: 5%;
     }
+
+    form {
+      width: 100%;
+    }
+  }
+
+  @media screen and (max-width: 400px) {
+    .letter-msg-parent .letter-msg {
+      right: -8px;
+      width: 32%;
+      padding-top: 16px;
+      line-height: 1.2;
+      font-size: 0.7rem;
+    }
   }
 `;
 
@@ -94,7 +108,7 @@ const ModalInputWrapper = styled(InputWrapper)`
     margin-right: 45px;
   }
   input {
-    flex: 1;
+    flex: 1 1 0;
     margin-bottom: 0;
   }
 
@@ -128,6 +142,17 @@ const ModalInputWrapper = styled(InputWrapper)`
   @media screen and (max-width: 480px) {
     width: 90%;
     margin: 0 auto;
+
+    input {
+      width: 50%;
+    }
+
+    label.from {
+      margin-right: 5%;
+    }
+    label.to {
+      margin-right: 10%;
+    }
   }
 `;
 
@@ -190,7 +215,7 @@ const CreateRoobitModal = ({ handleOpenModal }) => {
       },
       onError: (err) => {
         alert(
-          `루빗 생성에 실패했습니다... \n(서버 에러 또는 룸 당 최대 루빗 개수를 초과)`
+          `루빗 생성에 실패했습니다. \n(서버 에러 또는 룸 당 최대 루빗 개수를 초과)`
         );
         console.log(err);
       },

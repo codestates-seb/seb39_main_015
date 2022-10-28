@@ -229,8 +229,12 @@ export const ModalFormWrapper = styled(FormWrapper)`
     border: none;
     padding: 0 3% 0 3%;
 
+    .cancel {
+      top: 80px;
+    }
+
     h2 {
-      padding-top: 18px;
+      padding-top: 25px;
     }
     form > section {
       width: 90%;

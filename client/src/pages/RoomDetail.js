@@ -35,7 +35,6 @@ const RoomDetail = () => {
 
   const clickOutside = (event) => {
     if (urlDropDown && !ref.current.contains(event.target)) {
-      console.log(event.target);
       setUrlDropDown('');
     }
   };
@@ -51,8 +50,7 @@ const RoomDetail = () => {
       refetchOnWindowFocus: false,
       staleTime: 1000 * 60 * 10,
       retry: 1,
-      onError: (err) => {
-        console.log('요청 err', err);
+      onError: () => {
         setErrPageOpen(true);
       }, //state 처리
     }

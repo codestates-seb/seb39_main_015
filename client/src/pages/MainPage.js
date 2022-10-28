@@ -15,6 +15,16 @@ import aboutTwoVideo from '../images/video/aboutTwoVideo.gif';
 import aboutThreeVideo from '../images/video/aboutThreeVideo.gif';
 import section3Image from '../images/section3.png';
 
+const BackDropFilter = styled.div`
+  position: fixed;
+  top: 0;
+  height: 68px;
+  left: 0;
+  right: 0;
+  backdrop-filter: blur(6px);
+  z-index: 10;
+`;
+
 const Body = styled.div`
   height: 100vh;
 `;
@@ -393,134 +403,137 @@ export default function MainPage() {
   ];
 
   return (
-    <SectionsContainer {...options}>
-      <Body>
-        <Section>
-          <Column1>
-            <Left>
-              <h2>
-                Welcome to{`\n`}
-                <span>Roobits!</span>
-              </h2>
-              <div>
+    <>
+      <BackDropFilter />
+      <SectionsContainer {...options}>
+        <Body>
+          <Section>
+            <Column1>
+              <Left>
+                <h2>
+                  Welcome to{`\n`}
+                  <span>Roobits!</span>
+                </h2>
+                <div>
+                  <div>
+                    <FontAwesomeIcon icon={faAngleRight} size="lg" />
+                    <Space space="10px" />
+                  </div>
+                  <TypeAnimation
+                    sequence={mainPageMsg}
+                    wrapper="div"
+                    speed={40}
+                    repeat={Infinity}
+                    cursor={true}
+                  />
+                </div>
+                <p>
+                  {emoji.get('writing_hand')} 특별한 날을 정하고 소중한
+                  사람들에게 메시지를 남기세요.
+                </p>
+                <p>
+                  {emoji.get('love_letter')} D-Day에 공개되는 메세지들로 추억이
+                  더 특별해질 거예요!
+                </p>
+                <OrangeButton
+                  width="198px"
+                  height="48px"
+                  onClick={() => window.location.replace('/myroom')}
+                >
+                  나의 룸 보기
+                </OrangeButton>
+              </Left>
+              <VideoSection background={introVideo} />
+            </Column1>
+          </Section>
+          <Section>
+            <ColumnAbout>
+              <VideoSection
+                background={aboutOneVideo}
+                className="left need-border"
+              />
+              <SectionMsg className="right">
+                <div>
+                  <FontAwesomeIcon icon={faHouseChimney} size="lg" />
+                  <Space space="10px" />
+                  {'추억을 남길 루빗 룸을 만들어 보세요.'}
+                </div>
+                <p>원하는 테마를 선택해 룸을 생성할 수 있습니다.</p>
+                <p>D-Day는 30일 이내여야 합니다.</p>
+                <p>30일이 넘는다면 조금만 기다려주세요.</p>
+              </SectionMsg>
+            </ColumnAbout>
+          </Section>
+          <Section>
+            <ColumnAbout>
+              <SectionMsg>
+                <div>
+                  <FontAwesomeIcon icon={faEnvelope} size="lg" />
+                  <Space space="10px" />
+                  {'루빗 골라 메시지를 작성해보세요!'}
+                </div>
+                <p>원하는 루빗 종류 및 포즈를 선택할 수 있습니다.</p>
+                <p>140자로 추억을 기록해보세요.</p>
+              </SectionMsg>
+              <VideoSection background={aboutTwoVideo} />
+            </ColumnAbout>
+          </Section>
+          <Section>
+            <ColumnAbout>
+              <VideoSection
+                background={aboutThreeVideo}
+                className="left pos-right need-border"
+              />
+              <SectionMsg className="right">
+                <div>
+                  <FontAwesomeIcon icon={faHouseChimney} size="lg" />
+                  <Space space="10px" />
+                  {'D-Day 에 모인 메시지를 확인해보세요!'}
+                </div>
+                <p>내용, 작성자, 받는이로 메시지를 검색해보세요.</p>
+                <p>메시지는 각 층별로 모아볼 수 있습니다.</p>
+              </SectionMsg>
+            </ColumnAbout>
+          </Section>
+          <Section>
+            <Column3>
+              <Section3Text>
                 <div>
                   <FontAwesomeIcon icon={faAngleRight} size="lg" />
                   <Space space="10px" />
+                  {'루비츠에서 추억을 남겨보세요!'}
                 </div>
-                <TypeAnimation
-                  sequence={mainPageMsg}
-                  wrapper="div"
-                  speed={40}
-                  repeat={Infinity}
-                  cursor={true}
-                />
-              </div>
-              <p>
-                {emoji.get('writing_hand')} 특별한 날을 정하고 소중한 사람들에게
-                메시지를 남기세요.
-              </p>
-              <p>
-                {emoji.get('love_letter')} D-Day에 공개되는 메세지들로 추억이 더
-                특별해질 거예요!
-              </p>
-              <OrangeButton
-                width="198px"
-                height="48px"
-                onClick={() => window.location.replace('/myroom')}
-              >
-                나의 룸 보기
-              </OrangeButton>
-            </Left>
-            <VideoSection background={introVideo} />
-          </Column1>
-        </Section>
-        <Section>
-          <ColumnAbout>
-            <VideoSection
-              background={aboutOneVideo}
-              className="left need-border"
-            />
-            <SectionMsg className="right">
-              <div>
-                <FontAwesomeIcon icon={faHouseChimney} size="lg" />
-                <Space space="10px" />
-                {'추억을 남길 루빗 룸을 만들어 보세요.'}
-              </div>
-              <p>원하는 테마를 선택해 룸을 생성할 수 있습니다.</p>
-              <p>D-Day는 30일 이내여야 합니다.</p>
-              <p>30일이 넘는다면 조금만 기다려주세요.</p>
-            </SectionMsg>
-          </ColumnAbout>
-        </Section>
-        <Section>
-          <ColumnAbout>
-            <SectionMsg>
-              <div>
-                <FontAwesomeIcon icon={faEnvelope} size="lg" />
-                <Space space="10px" />
-                {'루빗 골라 메시지를 작성해보세요!'}
-              </div>
-              <p>원하는 루빗 종류 및 포즈를 선택할 수 있습니다.</p>
-              <p>140자로 추억을 기록해보세요.</p>
-            </SectionMsg>
-            <VideoSection background={aboutTwoVideo} />
-          </ColumnAbout>
-        </Section>
-        <Section>
-          <ColumnAbout>
-            <VideoSection
-              background={aboutThreeVideo}
-              className="left pos-right need-border"
-            />
-            <SectionMsg className="right">
-              <div>
-                <FontAwesomeIcon icon={faHouseChimney} size="lg" />
-                <Space space="10px" />
-                {'D-Day 에 모인 메시지를 확인해보세요!'}
-              </div>
-              <p>내용, 작성자, 받는이로 메시지를 검색해보세요.</p>
-              <p>메시지는 각 층별로 모아볼 수 있습니다.</p>
-            </SectionMsg>
-          </ColumnAbout>
-        </Section>
-        <Section>
-          <Column3>
-            <Section3Text>
-              <div>
-                <FontAwesomeIcon icon={faAngleRight} size="lg" />
-                <Space space="10px" />
-                {'루비츠에서 추억을 남겨보세요!'}
-              </div>
-            </Section3Text>
-            <Section3Image background={section3Image} />
-            <Footer>
-              <section>
-                <h4>Roobits</h4>
-                <div className="info">
-                  <div>
-                    <b>대표</b> 전광현<span className="bar"> | </span>이유진
-                    <span className="bar"> | </span>조현화
-                    <span className="bar"> | </span>염빛나리
-                    <span className="bar"> | </span>유하경
+              </Section3Text>
+              <Section3Image background={section3Image} />
+              <Footer>
+                <section>
+                  <h4>Roobits</h4>
+                  <div className="info">
+                    <div>
+                      <b>대표</b> 전광현<span className="bar"> | </span>이유진
+                      <span className="bar"> | </span>조현화
+                      <span className="bar"> | </span>염빛나리
+                      <span className="bar"> | </span>유하경
+                    </div>
+                    <div className="ent-num">
+                      <b>사업자 등록번호</b> 011-77-77777
+                      <span className="bar"> | </span>
+                      <span className="mail-ent-num">
+                        <b>통신판매업 신고번호</b> 2022-서울광진-2022
+                      </span>
+                    </div>
+                    <div>
+                      <b>Tel</b> 02) 1234-5678 <span className="bar"> | </span>{' '}
+                      서울 광진구 자양로 117
+                    </div>
+                    <div>&copy; 2022. Roobits, Inc. All rights reserved.</div>
                   </div>
-                  <div className="ent-num">
-                    <b>사업자 등록번호</b> 011-77-77777
-                    <span className="bar"> | </span>
-                    <span className="mail-ent-num">
-                      <b>통신판매업 신고번호</b> 2022-서울광진-2022
-                    </span>
-                  </div>
-                  <div>
-                    <b>Tel</b> 02) 1234-5678 <span className="bar"> | </span>{' '}
-                    서울 광진구 자양로 117
-                  </div>
-                  <div>&copy; 2022. Roobits, Inc. All rights reserved.</div>
-                </div>
-              </section>
-            </Footer>
-          </Column3>
-        </Section>
-      </Body>
-    </SectionsContainer>
+                </section>
+              </Footer>
+            </Column3>
+          </Section>
+        </Body>
+      </SectionsContainer>
+    </>
   );
 }

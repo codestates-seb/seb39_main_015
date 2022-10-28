@@ -20,17 +20,6 @@ export const HeaderStyle = styled.div`
   /* @media screen and (max-width: 768px) {
     height: auto;
   } */
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 15%;
-    left: 0;
-    right: 0;
-    backdrop-filter: blur(6px);
-    z-index: -1;
-  }
 `;
 
 const Navigator = styled.div`

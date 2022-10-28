@@ -3,7 +3,7 @@ export const sampleData = {
     roomId: 64,
     roomName: '😻코드스테이츠 39기😻',
     restDay: 0,
-    weather: 'clouds',
+    weather: 'clear',
     roomTheme: 'CATS',
     roobitAmount: 300,
     viewCount: 1347,

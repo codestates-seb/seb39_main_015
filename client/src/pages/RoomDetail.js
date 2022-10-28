@@ -13,6 +13,7 @@ import { useQuery } from 'react-query';
 import { getCookieValue } from '../hook/getCookieValue';
 import { useEffect, useRef, useState } from 'react';
 import RoomPageLinkShareBtn from '../components/RoomPageLinkShareBtn';
+import { sampleData } from '../data/SampleData';
 
 /** 줌인 줌아웃 구현을 위한 styled-components */
 
@@ -42,10 +43,14 @@ const RoomDetail = () => {
   //`${process.env.REACT_APP_API_URL}/rooms/${roomId}`
   const { data, isLoading } = useQuery(
     ['roobits', roomId],
-    () =>
-      axios
+    () => {
+      if (roomId === 'sample') {
+        return sampleData;
+      }
+      return axios
         .get(`${process.env.REACT_APP_API_URL}/rooms/${roomId}`)
-        .then((res) => res.data),
+        .then((res) => res.data);
+    },
     {
       refetchOnWindowFocus: false,
       staleTime: 1000 * 60 * 10,

@@ -79,7 +79,7 @@ const Left = styled.div`
     padding: 30px 0px 15px 0px;
     > div {
       font-size: 24px;
-      line-height: 52px;
+      line-height: 1.5;
       font-weight: 700;
       > svg {
         animation: blink 1.1s step-start 0s infinite;
@@ -276,13 +276,19 @@ const VideoSection = styled.div`
   }
 
   @media screen and (max-width: 768px) {
-    top: auto;
-    left: auto;
-    right: auto;
-    bottom: 30px;
     transform: none;
     height: 32vh;
     width: 81vw;
+    top: 120px;
+    left: auto;
+    right: auto;
+
+    &.main-video {
+      top: auto;
+      left: auto;
+      right: auto;
+      bottom: 30px;
+    }
   }
 `;
 const SectionMsg = styled.div`
@@ -292,7 +298,7 @@ const SectionMsg = styled.div`
   width: 38vw;
   > div {
     word-break: keep-all;
-    line-height: 1.6;
+    line-height: 1.5;
     font-size: 20px;
     font-family: 'Noto Sans KR';
     font-style: normal;
@@ -315,12 +321,17 @@ const SectionMsg = styled.div`
   }
 
   @media screen and (max-width: 768px) {
-    top: 30%;
-    width: 90%;
+    top: 60%;
+    width: 80%;
+    margin: 0;
+    text-align: center;
+
     > div {
       font-size: 18px;
+      line-height: 1.4;
     }
     > p {
+      padding-left: 20px;
       font-size: 14px;
     }
 
@@ -467,7 +478,7 @@ const Section3Text = styled.div`
     word-break: keep-all;
     text-align: center;
     font-size: 30px;
-    line-height: 52px;
+    line-height: 1.5;
     font-weight: 700;
     > svg {
       animation: blink 1.1s step-start 0s infinite;

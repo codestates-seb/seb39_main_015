@@ -69,7 +69,7 @@ const RoomDetail = () => {
 
   return (
     <div>
-      {auth > 0 && <BackwardBtn />}
+      <BackwardBtn goToMyRoom={roomId !== 'sample' && auth > 0} />
       {isLoading ? (
         <Loading />
       ) : errPageOpen ||

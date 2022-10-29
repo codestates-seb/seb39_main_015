@@ -14,6 +14,7 @@ import aboutOneVideo from '../images/video/aboutOneVideo.gif';
 import aboutTwoVideo from '../images/video/aboutTwoVideo.gif';
 import aboutThreeVideo from '../images/video/aboutThreeVideo.gif';
 import section3Image from '../images/section3.png';
+import { useNavigate } from 'react-router-dom';
 
 const BackDropFilter = styled.div`
   position: fixed;
@@ -163,6 +164,7 @@ const VideoSection = styled.div`
   background: #d9d9d9 no-repeat center;
   background-image: url(${(props) => props.background});
   background-size: cover;
+  overflow: hidden;
 
   &.left {
     right: auto;
@@ -174,6 +176,99 @@ const VideoSection = styled.div`
 
   &.pos-right {
     background-position: right;
+  }
+
+  &.main-video {
+    .msg {
+      display: inline-block;
+      background-color: var(--point-color);
+      padding: 0 18px;
+      line-height: 2.8;
+      white-space: nowrap;
+      font-weight: 500;
+      color: #fff;
+      border-radius: 100px;
+      position: absolute;
+      top: calc(50% - 70px);
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+      animation: bounce 0.3s ease-in infinite alternate;
+
+      &::before {
+        content: '';
+        position: absolute;
+        border: 10px solid transparent;
+        border-left-width: 7px;
+        border-right-width: 7px;
+        border-top-color: var(--point-color);
+        bottom: 0;
+        left: 50%;
+        transform: translate(-50%, 96%);
+      }
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: rgba(0, 0, 0, 0);
+      transition: all 0.2s;
+    }
+
+    &:hover::before {
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+    & > button {
+      width: 150px;
+      height: 48px;
+      position: absolute;
+      border-radius: 9999px;
+      border: 1px solid rgba(25, 25, 25, 0.9);
+      background-color: #fff;
+      font-size: 16px;
+      font-weight: 500;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      cursor: pointer;
+
+      &:hover {
+        box-shadow: 0px 0px 0px 1px transparent, 0px 0px 0px 4px transparent,
+          0px 6px 16px rgb(0 0 0 / 12%);
+        transform: translate(-50%, -50%) scale(1.02);
+      }
+    }
+
+    .msg,
+    button {
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    &:hover {
+      & .msg {
+        visibility: visible;
+        opacity: 1;
+      }
+      & > button {
+        visibility: visible;
+        opacity: 1;
+      }
+    }
+  }
+
+  @keyframes bounce {
+    from {
+      transform: translate(-50%, -50%);
+    }
+    to {
+      transform: translate(-50%, -40%);
+    }
   }
 
   @media screen and (max-width: 1024px) {
@@ -401,6 +496,7 @@ export default function MainPage() {
     '3-4 forever 동창회 무조건 오기!!!',
     1000,
   ];
+  const navigate = useNavigate();
 
   return (
     <>
@@ -443,7 +539,15 @@ export default function MainPage() {
                   나의 룸 보기
                 </OrangeButton>
               </Left>
-              <VideoSection background={introVideo} />
+              <VideoSection background={introVideo} className="main-video">
+                <span className="msg">
+                  {emoji.get('sparkles')} 오픈된 룸을 구경해보세요!{' '}
+                  {emoji.get('sparkles')}
+                </span>
+                <button onClick={() => navigate('/rooms/sample')}>
+                  룸 구경하기
+                </button>
+              </VideoSection>
             </Column1>
           </Section>
           <Section>
@@ -470,7 +574,7 @@ export default function MainPage() {
                 <div>
                   <FontAwesomeIcon icon={faEnvelope} size="lg" />
                   <Space space="10px" />
-                  {'루빗 골라 메시지를 작성해보세요!'}
+                  {`루빗 골라 메시지를 작성해보세요!`}
                 </div>
                 <p>원하는 루빗 종류 및 포즈를 선택할 수 있습니다.</p>
                 <p>140자로 추억을 기록해보세요.</p>

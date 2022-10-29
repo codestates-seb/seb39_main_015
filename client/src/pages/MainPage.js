@@ -39,7 +39,6 @@ const Column1 = styled.section`
 
   @media screen and (max-width: 1024px) {
     padding-left: calc(6% + 20px);
-    /* padding-top: 16vh; */
   }
 
   @media screen and (max-width: 768px) {
@@ -48,7 +47,6 @@ const Column1 = styled.section`
 
   @media screen and (max-width: 480px) {
     padding-left: calc(6% + 10px);
-    /* padding-top: 16vh; */
   }
 `;
 const Left = styled.div`
@@ -71,8 +69,9 @@ const Left = styled.div`
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
-    padding-bottom: 20px;
-    line-height: 1.6;
+    padding-bottom: 10px;
+    line-height: 1.5;
+    width: 40%;
   }
   > div {
     display: flex;
@@ -81,6 +80,7 @@ const Left = styled.div`
       font-size: 24px;
       line-height: 1.5;
       font-weight: 700;
+      margin-bottom: 10px;
       > svg {
         animation: blink 1.1s step-start 0s infinite;
         color: #ff8753;

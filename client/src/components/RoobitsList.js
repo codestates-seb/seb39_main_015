@@ -24,6 +24,7 @@ const RoobitsListBody = styled.div`
   right: 0;
   width: 590px;
   height: 100vh;
+  padding: 0 67px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -49,6 +50,13 @@ const RoobitsListBody = styled.div`
   .search-box {
     padding-bottom: 10px;
   }
+
+  @media screen and (max-width: 590px) {
+    width: 100%;
+    border: none;
+    border-radius: 0;
+    padding: 0 7%;
+  }
 `;
 const FloorIndicator = styled.div`
   height: 50px;
@@ -64,6 +72,11 @@ const FloorIndicator = styled.div`
   }
   button {
     flex: 0 0 auto;
+    margin: 0;
+  }
+
+  @media screen and (max-width: 590px) {
+    width: 100%;
   }
 `;
 const RoobitUnitWrapper = styled.div`
@@ -79,6 +92,9 @@ const RoobitUnitWrapper = styled.div`
   ::-webkit-scrollbar {
     display: none; /* Chrome, Safari, Opera*/
   }
+  @media screen and (max-width: 590px) {
+    width: 100%;
+  }
 `;
 const Space = styled.span`
   margin-left: ${(props) => props.space || '10px'};
@@ -86,6 +102,10 @@ const Space = styled.span`
 
 const SearchInput = styled(Input)`
   padding-left: 120px;
+
+  @media screen and (max-width: 590px) {
+    width: 100%;
+  }
 `;
 const SearchOption = styled.div`
   position: absolute;
@@ -315,25 +335,33 @@ export const RoobitsList = ({ handleOpenModal, roomId }) => {
       <ScrollTracker scrollRef={ref} />
       <RoobitUnitWrapper ref={ref}>
         {floor[selectedFloor].map((unit) => {
-          return roobits[unit].map((data) => {
-            // console.log(data.nickname.includes(searchKeyword));
-            if (
-              searchOption === '내용' &&
-              data.body.toLowerCase().includes(searchKeyword.toLowerCase())
-            ) {
-              return <RoobitUnit key={data.roobitId} unit={data} />;
-            } else if (
-              searchOption === '작성자' &&
-              data.nickname.toLowerCase().includes(searchKeyword.toLowerCase())
-            ) {
-              return <RoobitUnit key={data.roobitId} unit={data} />;
-            } else if (
-              searchOption === '받는이' &&
-              data.reception.toLowerCase().includes(searchKeyword.toLowerCase())
-            ) {
-              return <RoobitUnit key={data.roobitId} unit={data} />;
-            }
-          });
+          return (
+            <div key={unit}>
+              {roobits[unit].map((data) => {
+                // console.log(data.nickname.includes(searchKeyword));
+                if (
+                  searchOption === '내용' &&
+                  data.body.toLowerCase().includes(searchKeyword.toLowerCase())
+                ) {
+                  return <RoobitUnit key={data.roobitId} unit={data} />;
+                } else if (
+                  searchOption === '작성자' &&
+                  data.nickname
+                    .toLowerCase()
+                    .includes(searchKeyword.toLowerCase())
+                ) {
+                  return <RoobitUnit key={data.roobitId} unit={data} />;
+                } else if (
+                  searchOption === '받는이' &&
+                  data.reception
+                    .toLowerCase()
+                    .includes(searchKeyword.toLowerCase())
+                ) {
+                  return <RoobitUnit key={data.roobitId} unit={data} />;
+                }
+              })}
+            </div>
+          );
         })}
       </RoobitUnitWrapper>
     </RoobitsListBody>

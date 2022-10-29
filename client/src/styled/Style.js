@@ -3,8 +3,9 @@ import { Link } from 'react-router-dom';
 import selectArrowImg from '../images/selectArrow.svg';
 
 export const Body = styled.div`
-  padding-top: 80px;
+  padding-top: 70px;
   height: 100vh;
+  min-height: 100vh;
   background-color: #fff9f1;
   display: flex;
   justify-content: center;
@@ -66,6 +67,10 @@ export const InputWrapper = styled.div`
     top: 50px;
     font-size: 12px;
     color: #dd5858;
+  }
+
+  &.search-box {
+    width: 100%;
   }
 `;
 
@@ -228,8 +233,12 @@ export const ModalFormWrapper = styled(FormWrapper)`
     border: none;
     padding: 0 3% 0 3%;
 
+    .cancel {
+      top: 80px;
+    }
+
     h2 {
-      padding-top: 18px;
+      padding-top: 25px;
     }
     form > section {
       width: 90%;

@@ -81,6 +81,12 @@ const RoomEndWrapper = styled.div`
     white-space: pre;
     line-height: 2;
   }
+
+  @media screen and (max-width: 480px) {
+    article .msg {
+      white-space: pre;
+    }
+  }
 `;
 
 const RoomEnd = ({ data }) => {

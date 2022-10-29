@@ -31,11 +31,19 @@ const BackwardBtnStyle = styled.button`
   }
 `;
 
-const BackwardBtn = () => {
+const BackwardBtn = ({ goToMyRoom }) => {
   const navigate = useNavigate();
 
   return (
-    <BackwardBtnStyle onClick={() => navigate('/myroom')}>
+    <BackwardBtnStyle
+      onClick={() => {
+        if (goToMyRoom) {
+          navigate('/myroom');
+        } else {
+          navigate('/');
+        }
+      }}
+    >
       <BackwardIcon />
     </BackwardBtnStyle>
   );

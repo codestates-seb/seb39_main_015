@@ -152,7 +152,11 @@ function App() {
           },
         })
         .then((res) => res.data),
-    { staleTime: 1000 * 60 * 5, retry: false }
+    {
+      staleTime: 1000 * 60 * 5,
+      retry: false,
+      enabled: !!getCookieValue('Authorization'),
+    }
   );
   data;
 

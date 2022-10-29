@@ -5,7 +5,7 @@ import { haveTo } from '../hook/haveTo';
 
 const RoobitUnitBox = styled.div`
   display: flex;
-  margin: 3px 0px 3px 0px;
+  margin-bottom: 6px;
   background: #ffffff;
   border: 1px solid #dcdcdc;
   border-radius: 4px;

@@ -110,18 +110,12 @@ const RoomModal = ({ handleOpenModal }) => {
         },
       }),
     {
-      onMutate: (data) => {
-        console.log('onMutate', data);
-      },
-      onSuccess: (data) => {
-        alert('성공');
-        console.log('onSuccess', data);
+      onSuccess: () => {
         queryClient.invalidateQueries('myRoom');
         handleOpenModal();
       },
-      onError: (err) => {
-        alert('실패');
-        console.log(err);
+      onError: () => {
+        alert('룸 생성에 실패했습니다.');
       },
     }
   );

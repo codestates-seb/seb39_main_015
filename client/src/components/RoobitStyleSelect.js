@@ -41,6 +41,26 @@ const SelectStyle = styled.div`
   @media screen and (max-width: 480px) {
     max-width: 90%;
     padding: 10px 14px;
+
+    button {
+      width: 67px;
+      height: 67px;
+    }
+  }
+
+  @media screen and (max-width: 400px) {
+    padding: 10px 10px;
+    button {
+      width: 57px;
+      height: 57px;
+    }
+  }
+
+  @media screen and (max-width: 340px) {
+    button {
+      width: 54px;
+      height: 54px;
+    }
   }
 `;
 

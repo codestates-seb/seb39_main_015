@@ -10,11 +10,6 @@ Roobits에서 추억을 기록해보세요. D-day를 더 특별하게 만들어�
 | :---: | :---: | :---: | :---: | :---: |
 | <img alt="전광현" src="https://avatars.githubusercontent.com/u/73211553?v=4" height="100" width="100"> | <img alt="이유진" src="https://avatars.githubusercontent.com/u/89282099?v=4" height="100" width="100"> | <img alt="조현화" src="https://avatars.githubusercontent.com/u/104138036?v=4" height="100" width="100"> | <img alt="유하경" src="https://avatars.githubusercontent.com/u/76886589?v=4" height="100" width="100"> | <img alt="염빛나리" src="https://avatars.githubusercontent.com/u/103120984?v=4" height="100" width="100"> |
 | [@GH](https://github.com/Gwanghyun-Jeon) | [@nuuco](https://github.com/nuuco) | [@CHOHYUNHWA](https://github.com/CHOHYUNHWA) | [@EstelleYU](https://github.com/EstelleYU) | [@bytenari](https://github.com/bytenari) |
-|<ul style="text-align:left;"><li>로그인 등 인증 처리</li><li>메인 페이지</li><li>마이룸 페이지</li><li>메세지 조회 및 검색</li><li>배포, 도메인 적용 (S3, Route53)</li></ul>|<ul style="text-align:left;"><li>디자인 담당</li><li>유저 플로우 작성</li><li>룸 페이지</li><li>룸 종료 페이지</li><li>룸 생성 모달</li><li>루빗 생성 모달</li><li>기타 반응형 작업</li></ul>|<ul style="text-align:left;"><li>회원 CRUD</li><li>구글 로그인</li><li>이메일 중복체크</li><li>유효 e-mail 체크</li><li>ID/비밀번호 찾기</li><li>토큰을 이용한 인증</li><li>AWS(EC2,RDS) 배포환경 구축</li></ul>|<ul style="text-align:left;"><li>회원 CRUD</li><li>구글 로그인</li><li>이메일 중복체크</li><li>유효 e-mail 체크</li><li>ID/비밀번호 찾기</li><li>토큰을 이용한 인증</li><li>AWS(EC2,RDS) 배포환경 구축</li></ul>|<ul style="text-align:left;"><li>룸 CRUD 기능</li><li>룸 관련 제한 기능</li><li>날씨 외부 API</li></ul>|
-
-
-
-
 
 ### 커뮤니케이션 방식
 - 매일 13:30 부터 17:30 사이에는 온라인 상태를 유지합니다.

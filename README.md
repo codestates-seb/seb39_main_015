@@ -1,6 +1,9 @@
-# 📮 Roobits
-
-### [당신의 추억을 bits로 남기세요](https://github.com/Gwanghyun-Jeon "추억을 남기러 가볼까요?")
+<h1>📮 Roobits</h1>
+<div style="text-align:center;">
+  <img  style="width:40%;" src="https://user-images.githubusercontent.com/89282099/201780692-70b79718-b6cb-4935-ad74-afb14c9ad0db.svg" alt="roobits">
+</div>
+</br>
+<h3 align="center">💌 당신의 특별한 하루(D-day)를 위한 단 하나뿐인 게시판, Roobits!</h3>
 
 ## 🛫 Intro
 Roobits에서 추억을 기록해보세요. D-day를 더 특별하게 만들어줍니다.
@@ -26,7 +29,7 @@ Roobits에서 추억을 기록해보세요. D-day를 더 특별하게 만들어�
 
 
 ## ➡️ User flow
-<img width="2800" alt="💎 루비츠 User Flow" src="https://user-images.githubusercontent.com/73211553/195059404-d97838c0-b98d-4af7-ba24-4a1178334232.png">
+<img width="2800" alt="💎 루비츠 User Flow" src="https://user-images.githubusercontent.com/89282099/201778837-ddddd37c-9c2e-4ce1-b6f2-1968f3654a72.png">
 
 ## 🔧 Skills
 ![Roobits Stack (9)](https://user-images.githubusercontent.com/73211553/195057855-ab580645-ecc4-43dd-b423-a1dd09b5bfcc.png)

@@ -8,9 +8,10 @@
 - **팀 명 :**  Team Roobits
 - **프로젝트 명 :** Roobits(루비츠)
 - **프로젝트 기간 :** 2022.09.07 - 2022.10.12
-- **한줄 소개 :** 사람들과 D-day에 보여줄 비밀 메시지를 남길 수 있는 게시판 서비스
+- **한줄 소개 :** 사람들과 함께 D-day에 보여줄 비밀 메시지를 작성할 수 있는 게시판 서비스
 - **팀원 :** 전광현(팀장), 이유진, 조현화, 유하경, 염빛나리
-- **배포 링크 :** [roobits.com](http://roobits.com/)
+- **발표 문서 :** [💁🏻 Roobits 노션 발표 문서](https://www.notion.so/codestates/Roobits-2a698f57f0224b79a417eac587921a0b)
+- **배포 링크 :** [📮 roobits.com](http://roobits.com/)
 
 ## 🛫 Intro
 > 🥲 비대면 시대, 만나기 힘든 우리… 그렇지만 특별한 날에는 모두와 추억을 남기고 싶어! 
@@ -25,12 +26,16 @@
 | 전광현<br>(FE, 팀장) | 이유진<br>(FE) | 조현화<br>(BE) | 유하경<br>(BE) | 염빛나리<br>(BE) |
 | :---: | :---: | :---: | :---: | :---: |
 | <img alt="전광현" src="https://avatars.githubusercontent.com/u/73211553?v=4" height="100" width="100"> | <img alt="이유진" src="https://avatars.githubusercontent.com/u/89282099?v=4" height="100" width="100"> | <img alt="조현화" src="https://avatars.githubusercontent.com/u/104138036?v=4" height="100" width="100"> | <img alt="유하경" src="https://avatars.githubusercontent.com/u/76886589?v=4" height="100" width="100"> | <img alt="염빛나리" src="https://avatars.githubusercontent.com/u/103120984?v=4" height="100" width="100"> |
-| [@GH](https://github.com/Gwanghyun-Jeon) | [@nuuco](https://github.com/nuuco) | [@CHOHYUNHWA](https://github.com/CHOHYUNHWA) | [@EstelleYU](https://github.com/EstelleYU) | [@bytenari](https://github.com/bytenari) |
+| [@GH](https://github.com/Gwanghyun-Jeon) |    [@nuuco](https://github.com/nuuco) | [@CHOHYUNHWA](https://github.com/CHOHYUNHWA) | [@EstelleYU](https://github.com/EstelleYU) | [@bytenari](https://github.com/bytenari) |
+|<p align="left">- 로그인 등 인증 처리<br/>- 메인 페이지<br/>- 마이룸 페이지<br/>- 메세지 조회 및 검색<br/>- 배포, 도메인 적용 (S3, Route53)</p>|<p align="left">- 디자인 담당 <br/>- 유저 플로우 작성 <br/>- 룸 페이지 <br/>- 룸 종료 페이지 <br/>- 룸 생성 모달 <br/>- 루빗 생성 모달 <br/>- 기타 반응형 작업 </p>|<p align="left">- 회원 CRUD<br/>- 구글 로그인<br/>- 이메일 중복체크<br/>- 유효 e-mail 체크<br/>- ID/비밀번호 찾기<br/>- 토큰을 이용한 인증<br/>- AWS(EC2,RDS) 배포환경 구축</p>|<p align="left">- 루빗 CRUD 기능 <br/>- D-day 전/후/당일 각각 다른 API 구현 <br/>- 관리자 기능 일부 (조회, 삭제) 구현 <br/>- 룸에서 루빗 관련 조회 기능 구현 </p>|<p align="left">- 룸 CRUD 기능<br/>- 룸 관련 제한 기능<br/>- 날씨 외부 API</p>|
+
 
 ### 커뮤니케이션 방식
 - 매일 13:30 부터 17:30 사이에는 온라인 상태를 유지합니다.
 - 매일 13시30분에는 진행된 개발에 대한 간단한 브리핑을 진행합니다. 이슈가 없다면 빠르게 끝냅니다.
 - 자료 공유, 회의 등과 같은 모든 소통은 디스코드를 이용하고 급한 경우에만 카카오톡을 이용합니다.
+
+### 
 
 ## 📺 Demo
 ![anigif](https://user-images.githubusercontent.com/76886589/195051770-6c55f0af-2212-41f6-b014-0325b18c321d.gif?raw=true)

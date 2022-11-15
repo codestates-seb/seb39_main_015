@@ -8,18 +8,17 @@
 - **팀 명 :**  Team Roobits
 - **프로젝트 명 :** Roobits(루비츠)
 - **프로젝트 기간 :** 2022.09.07 - 2022.10.12
-- **한줄 소개 :** D-day를 위한 비밀 메시지를 남길수 있는 게시판 서비스
+- **한줄 소개 :** 사람들과 D-day에 보여줄 비밀 메시지를 남길 수 있는 게시판 서비스
 - **팀원 :** 전광현(팀장), 이유진, 조현화, 유하경, 염빛나리
-- **GitHub 링크 :** [github.com/codestates-seb/seb39_main_015](https://github.com/codestates-seb/seb39_main_015)
 - **배포 링크 :** [roobits.com](http://roobits.com/)
 
 ## 🛫 Intro
-🥲 비대면 시대, 만나기 힘든 우리… 그렇지만 특별한 날에는 모두와 추억을 남기고 싶어! 동고동락한 사람들에게 메시지를 전할 공간이 없을까?
-> ✍️ 특별한 날을 **D-day로 정하고** 사람들과 함께 **비밀 메시지** 남기세요.  
-> 
-> 💌 **D-day에 공개**되는 메시지들이 추억을 더 특별하게 만들어줍니다.   
-> 
-> ❗️보낸 메시지는 **D-day 단 하루만 볼 수 있어요!** D-day가 지나면 룸이 닫히니까 서두르세요.
+> 🥲 비대면 시대, 만나기 힘든 우리… 그렇지만 특별한 날에는 모두와 추억을 남기고 싶어! 
+> 동고동락한 사람들에게 메시지를 전할 공간이 없을까?
+
+- ✍️ 특별한 날을 **D-day로 정하고** 사람들과 함께 **비밀 메시지** 남기세요.   
+- 💌 **D-day에 공개**되는 메시지들이 추억을 더 특별하게 만들어줍니다.    
+- ❗️보낸 메시지는 **D-day 단 하루만 볼 수 있어요!** D-day가 지나면 룸이 닫히니까 서두르세요.
 
 
 ## 👨‍👩‍👧‍👦 Team
@@ -37,7 +36,7 @@
 ![anigif](https://user-images.githubusercontent.com/76886589/195051770-6c55f0af-2212-41f6-b014-0325b18c321d.gif?raw=true)
 
 
-## ✨Pages & Feature
+## ✨Pages & Features
 |메인 페이지|로그인 / 회원가입 페이지|
 |:---:|:---:|
 |<img width="100%" alt="첫 화면 gif" src="https://user-images.githubusercontent.com/89282099/201865342-cf84ffc7-b05e-4d0b-82cd-c6acb17b983d.gif"/>|<img width="100%" alt="로그인 gif" src="https://user-images.githubusercontent.com/89282099/201867817-3740ac91-8b82-46c8-848a-5cc325a349f2.gif"/>|

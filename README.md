@@ -15,8 +15,10 @@
 
 ## 🛫 Intro
 🥲 비대면 시대, 만나기 힘든 우리… 그렇지만 특별한 날에는 모두와 추억을 남기고 싶어! 동고동락한 사람들에게 메시지를 전할 공간이 없을까?
-> ✍️ 특별한 날을 **D-day로 정하고** 사람들과 함께 **비밀 메시지** 남기세요.   
-> 💌 **D-day에 공개**되는 메시지들이 추억을 더 특별하게 만들어줍니다.    
+> ✍️ 특별한 날을 **D-day로 정하고** 사람들과 함께 **비밀 메시지** 남기세요.  
+> 
+> 💌 **D-day에 공개**되는 메시지들이 추억을 더 특별하게 만들어줍니다.   
+> 
 > ❗️보낸 메시지는 **D-day 단 하루만 볼 수 있어요!** D-day가 지나면 룸이 닫히니까 서두르세요.
 
 
@@ -38,15 +40,15 @@
 ## ✨Pages & Feature
 |메인 페이지|로그인 / 회원가입 페이지|
 |:---:|:---:|
-|<img alt="첫 화면 gif" src="https://user-images.githubusercontent.com/89282099/201865342-cf84ffc7-b05e-4d0b-82cd-c6acb17b983d.gif"/>|<img alt="로그인 gif" src="https://user-images.githubusercontent.com/89282099/201867817-3740ac91-8b82-46c8-848a-5cc325a349f2.gif"/>|
+|<img width="100%" alt="첫 화면 gif" src="https://user-images.githubusercontent.com/89282099/201865342-cf84ffc7-b05e-4d0b-82cd-c6acb17b983d.gif"/>|<img width="100%" alt="로그인 gif" src="https://user-images.githubusercontent.com/89282099/201867817-3740ac91-8b82-46c8-848a-5cc325a349f2.gif"/>|
 |**마이 룸 페이지**|**룸 페이지**|
-|<img alt="마이 룸 생성 gif" src="https://user-images.githubusercontent.com/89282099/201868596-423ca88c-9764-4490-8878-29fb5455e123.gif"/>|<img src="https://user-images.githubusercontent.com/89282099/201869090-0cb68614-11e7-4aeb-be0f-e563203e58c2.gif"/>|
-|**날씨API 활용한 배경 변화**|**시간대별 하늘 변경**|
-|<img src="https://user-images.githubusercontent.com/89282099/201870211-cd6bd086-f794-49c3-bd60-6c851a08b3c9.gif"/>|<video controls><source src="https://user-images.githubusercontent.com/89282099/201871029-1dda331e-56c8-434a-80c5-c58aff8b5278.mp4" type="video/mp4"></video>|
-
-
-
-
+|<img width="100%" alt="마이 룸 생성 gif" src="https://user-images.githubusercontent.com/89282099/201868596-423ca88c-9764-4490-8878-29fb5455e123.gif"/>|<img width="100%" src="https://user-images.githubusercontent.com/89282099/201869090-0cb68614-11e7-4aeb-be0f-e563203e58c2.gif"/>|
+|**날씨API 활용한 배경 변화**|**시간대별 하늘 변화**|
+|<img width="100%" src="https://user-images.githubusercontent.com/89282099/201870211-cd6bd086-f794-49c3-bd60-6c851a08b3c9.gif"/>|<img width="100%" src="https://user-images.githubusercontent.com/89282099/201927685-4748db01-df77-4507-9eec-ec1e1a17c915.gif"/>|
+|**루빗(메시지) 생성하기**|**D-day 루빗(메시지) 열람 & 검색**|
+|<img width="100%" src="https://user-images.githubusercontent.com/89282099/201930288-f914ef2f-5d4e-4e65-825e-78cb14f2102e.gif"/>|<img width="100%" src="https://user-images.githubusercontent.com/89282099/201932385-6f061340-085b-469b-8d39-91f7bd5ef072.gif"/>|
+|**룸 종료 페이지(D-day 이후)**|**유효하지 않은 룸 페이지**|
+|<img width="100%" src="https://user-images.githubusercontent.com/89282099/201934365-b0c0fee4-4915-4e9d-ad61-f2d030c7f227.png"/>|<img width="100%" src="https://user-images.githubusercontent.com/89282099/201934412-dccf5c1a-ded9-48a3-af9c-5176d465a2a4.png"/>|
 
 ## ➡️ User flow
 <img width="2800" alt="💎 루비츠 User Flow" src="https://user-images.githubusercontent.com/89282099/201778837-ddddd37c-9c2e-4ce1-b6f2-1968f3654a72.png">
@@ -62,6 +64,7 @@
 | Html | JavaScript | React | Styled-<br>Components | esLint | Prettier |
 | :---: | :---: | :---: | :---: | :---: | :---: |
 | <img alt="Html" src ="https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/HTML5_logo_and_wordmark.svg/440px-HTML5_logo_and_wordmark.svg.png" width="65" height="65" /> | <div style="display: flex; align-items: flex-start;"><img src="https://techstack-generator.vercel.app/js-icon.svg" alt="icon" width="75" height="75" /></div> | <div style="display: flex; align-items: flex-start;"><img src="https://techstack-generator.vercel.app/react-icon.svg" alt="icon" width="65" height="65" /></div> | <img src="https://styled-components.com/logo.png" alt="styled-components icon" width="65" height="65" /> | <div style="display: flex; align-items: flex-start;"><img src="https://techstack-generator.vercel.app/eslint-icon.svg" alt="icon" width="65" height="65" /></div> | <div style="display: flex; align-items: flex-start;"><img src="https://techstack-generator.vercel.app/prettier-icon.svg" alt="icon" width="65" height="65" /></div> |
+
 ### Back-end
 | Java | mySQL | Rest | AWS | Spring | Spring<br>Boot |
 | :---: | :---: | :---: | :---: | :---: | :---: |

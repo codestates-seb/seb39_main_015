@@ -35,13 +35,11 @@
 - 매일 13시30분에는 진행된 개발에 대한 간단한 브리핑을 진행합니다. 이슈가 없다면 빠르게 끝냅니다.
 - 자료 공유, 회의 등과 같은 모든 소통은 디스코드를 이용하고 급한 경우에만 카카오톡을 이용합니다.
 
-### 
-
 ## 📺 Demo
 ![anigif](https://user-images.githubusercontent.com/76886589/195051770-6c55f0af-2212-41f6-b014-0325b18c321d.gif?raw=true)
 
 
-## ✨Pages & Features
+## ✨ Pages & Features
 |메인 페이지|로그인 / 회원가입 페이지|
 |:---:|:---:|
 |<img width="100%" alt="첫 화면 gif" src="https://user-images.githubusercontent.com/89282099/201865342-cf84ffc7-b05e-4d0b-82cd-c6acb17b983d.gif"/>|<img width="100%" alt="로그인 gif" src="https://user-images.githubusercontent.com/89282099/201867817-3740ac91-8b82-46c8-848a-5cc325a349f2.gif"/>|

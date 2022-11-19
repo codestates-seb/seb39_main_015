@@ -270,7 +270,7 @@ const VideoSection = styled.div`
       transform: translate(-50%, -40%);
     }
   }
-
+  
   @media screen and (max-width: 1024px) {
     right: 6%;
   }

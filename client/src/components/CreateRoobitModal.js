@@ -22,7 +22,6 @@ import speechBubble from '../images/speechBubble.svg';
 
 const CreateRoobitModalStyle = styled(ModalFormWrapper)`
   text-align: center;
-
   .design-btn {
     width: 100px;
     height: 100px;
@@ -142,7 +141,6 @@ const ModalInputWrapper = styled(InputWrapper)`
   @media screen and (max-width: 480px) {
     width: 90%;
     margin: 0 auto;
-
     input {
       width: 50%;
     }
@@ -199,7 +197,6 @@ const CreateRoobitModal = ({ handleOpenModal }) => {
       },
     ];
   }, []);
-
   const { mutate, isLoading } = useMutation(
     (data) => axios.post(`${process.env.REACT_APP_API_URL}/roobits/post`, data),
     {

@@ -68,7 +68,7 @@ export const InputWrapper = styled.div`
     font-size: 12px;
     color: #dd5858;
   }
-
+  
   &.search-box {
     width: 100%;
   }

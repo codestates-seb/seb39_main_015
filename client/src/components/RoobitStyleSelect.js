@@ -41,7 +41,6 @@ const SelectStyle = styled.div`
   @media screen and (max-width: 480px) {
     max-width: 90%;
     padding: 10px 14px;
-
     button {
       width: 67px;
       height: 67px;

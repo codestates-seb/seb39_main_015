@@ -10,18 +10,10 @@ import { Loading } from '../components/Loading';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { useQuery } from 'react-query';
-// import {
-//   roomDetailData_1,
-//   //roomDetailData_2,
-//   //roomDetailData_3,
-//   //roomDetailData_4,
-//   //roomDetailData_7,
-//   //roomDetailData_16,
-//   //roomDetailData_30,
-// } from '../data/DummyData';
 import { getCookieValue } from '../hook/getCookieValue';
 import { useEffect, useRef, useState } from 'react';
 import RoomPageLinkShareBtn from '../components/RoomPageLinkShareBtn';
+import { sampleData } from '../data/SampleData';
 
 /** 줌인 줌아웃 구현을 위한 styled-components */
 
@@ -44,7 +36,6 @@ const RoomDetail = () => {
 
   const clickOutside = (event) => {
     if (urlDropDown && !ref.current.contains(event.target)) {
-      console.log(event.target);
       setUrlDropDown('');
     }
   };
@@ -52,16 +43,19 @@ const RoomDetail = () => {
   //`${process.env.REACT_APP_API_URL}/rooms/${roomId}`
   const { data, isLoading } = useQuery(
     ['roobits', roomId],
-    () =>
-      axios
+    () => {
+      if (roomId === 'sample') {
+        return sampleData;
+      }
+      return axios
         .get(`${process.env.REACT_APP_API_URL}/rooms/${roomId}`)
-        .then((res) => res.data),
+        .then((res) => res.data);
+    },
     {
       refetchOnWindowFocus: false,
       staleTime: 1000 * 60 * 10,
       retry: 1,
-      onError: (err) => {
-        console.log('요청 err', err);
+      onError: () => {
         setErrPageOpen(true);
       }, //state 처리
     }
@@ -75,7 +69,7 @@ const RoomDetail = () => {
 
   return (
     <div>
-      {auth > 0 && <BackwardBtn />}
+      <BackwardBtn goToMyRoom={roomId !== 'sample' && auth > 0} />
       {isLoading ? (
         <Loading />
       ) : errPageOpen ||

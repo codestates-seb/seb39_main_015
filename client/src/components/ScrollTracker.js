@@ -10,6 +10,10 @@ const ScrollBackground = styled.div`
   border-top-right-radius: 99px;
   padding-top: 5px;
   z-index: 60;
+  
+  @media screen and (max-width: 590px) {
+    width: 100%;
+  }
 `;
 
 const ScrollTrackerBar = styled.div`

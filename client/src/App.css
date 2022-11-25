@@ -150,7 +150,7 @@ font-family: 'Noto Sans KR', sans-serif; */
 
 
 h2 {
-  font-family: 'Margarine', cursive;
+  font-family: 'Margarine', sans-serif;
   font-size: 30px;
   color: var(--point-color);
 }

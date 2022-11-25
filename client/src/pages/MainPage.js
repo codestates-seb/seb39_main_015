@@ -9,10 +9,10 @@ import {
   faEnvelope,
 } from '@fortawesome/free-solid-svg-icons';
 import { OrangeButton } from '../styled/Style';
-import introVideo from '../images/video/introVideo.gif';
-import aboutOneVideo from '../images/video/aboutOneVideo.gif';
-import aboutTwoVideo from '../images/video/aboutTwoVideo.gif';
-import aboutThreeVideo from '../images/video/aboutThreeVideo.gif';
+import introVideo from '../images/video/introVideo.mp4';
+import aboutOneVideo from '../images/video/aboutOneVideo.mp4';
+import aboutTwoVideo from '../images/video/aboutTwoVideo.mp4';
+import aboutThreeVideo from '../images/video/aboutThreeVideo.mp4';
 import section3Image from '../images/section3.png';
 import { useNavigate } from 'react-router-dom';
 
@@ -162,9 +162,13 @@ const VideoSection = styled.div`
   border-radius: 14px;
   box-shadow: 11px 11px 0 0 rgba(255, 135, 83, 0.7);
   background: #d9d9d9 no-repeat center;
-  background-image: url(${(props) => props.background});
-  background-size: cover;
   overflow: hidden;
+
+  > video {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
 
   &.left {
     right: auto;
@@ -550,7 +554,8 @@ export default function MainPage() {
                   나의 룸 보기
                 </OrangeButton>
               </Left>
-              <VideoSection background={introVideo} className="main-video">
+              <VideoSection className="main-video">
+                <video src={introVideo} autoPlay loop muted playsInline></video>
                 <span className="msg">
                   {emoji.get('sparkles')} 오픈된 룸을 구경해보세요!{' '}
                   {emoji.get('sparkles')}
@@ -563,10 +568,15 @@ export default function MainPage() {
           </Section>
           <Section>
             <ColumnAbout>
-              <VideoSection
-                background={aboutOneVideo}
-                className="left need-border"
-              />
+              <VideoSection className="left need-border">
+                <video
+                  src={aboutOneVideo}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                ></video>
+              </VideoSection>
               <SectionMsg className="right">
                 <div>
                   <FontAwesomeIcon icon={faHouseChimney} size="lg" />
@@ -590,15 +600,28 @@ export default function MainPage() {
                 <p>원하는 루빗 종류 및 포즈를 선택할 수 있습니다.</p>
                 <p>140자로 추억을 기록해보세요.</p>
               </SectionMsg>
-              <VideoSection background={aboutTwoVideo} />
+              <VideoSection>
+                <video
+                  src={aboutTwoVideo}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                ></video>
+              </VideoSection>
             </ColumnAbout>
           </Section>
           <Section>
             <ColumnAbout>
-              <VideoSection
-                background={aboutThreeVideo}
-                className="left pos-right need-border"
-              />
+              <VideoSection className="left pos-right need-border">
+                <video
+                  src={aboutThreeVideo}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                ></video>
+              </VideoSection>
               <SectionMsg className="right">
                 <div>
                   <FontAwesomeIcon icon={faHouseChimney} size="lg" />

@@ -197,7 +197,7 @@ function App() {
         ''
       )}
       <Routes>
-        <Route path="/" element={<MainPage />} />
+        <Route path="/*" element={<MainPage />} />
         <Route path="/join" element={<Join />} />
         <Route path="/login" element={authData ? <MainPage /> : <Login />} />
         <Route path="/myroom" element={authData ? <MyRoom /> : <Login />} />

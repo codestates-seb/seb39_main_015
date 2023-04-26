@@ -11,6 +11,7 @@ import seb15.roobits.roobit.entity.Roobit;
 import seb15.roobits.roobit.mapper.RoobitMapper;
 import seb15.roobits.roobit.service.RoobitService;
 import seb15.roobits.room.dto.ResponseRoomStatus;
+
 import seb15.roobits.room.dto.RoomPatchDto;
 import seb15.roobits.room.dto.RoomPostDto;
 import seb15.roobits.room.entity.Room;
@@ -64,19 +65,6 @@ public class RoomController {
                 HttpStatus.OK);
     }
 
-//    @GetMapping("/{room-id}")
-//    public ResponseEntity getRoom(@PathVariable("room-id") @Positive long roomId) {
-//        Room room = roomService.findRoom(roomId);
-//
-//        if (room.getRoomStatus() == RoomStatus.ROOM_CLOSED) {
-//            return new ResponseEntity<>(roomMapper.roomToResponseRoomStatus(room),
-//                    HttpStatus.OK);
-//        } else {
-//            return new ResponseEntity<>(
-//                    new SingleResponseDto<>(roomMapper.roomToRoomResponseDto(room)),
-//                    HttpStatus.OK);
-//        }
-//    }
 
     @DeleteMapping("/{room-id}")
     public ResponseEntity deleteRoom(@PathVariable("room-id") long roomId) {
@@ -91,7 +79,7 @@ public class RoomController {
         List<Roobit> roobitsById = roobitService.findRoobitsByRoomId(roomId);
         List<List<Roobit>> roobitsFloor = roobitService.findRoobitsFloorByRoomId(roomId);
         if (room.getRoomStatus() == RoomStatus.ROOM_CLOSED) {
-            long totalRoobitCount = roobitsFloor.stream().count();
+            long totalRoobitCount = roobitsById.size();
             room.setTotalRoobitCount(totalRoobitCount);
             return new ResponseEntity<>(roomMapper.roomToResponseRoomStatus(room), HttpStatus.OK);
         } else if (room.getRoomStatus() == RoomStatus.ROOM_ONGOING) {
@@ -108,4 +96,3 @@ public class RoomController {
 
 
 }
-

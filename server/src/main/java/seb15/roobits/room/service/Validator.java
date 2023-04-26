@@ -1,9 +1,6 @@
 package seb15.roobits.room.service;
 
-import lombok.Data;
-import lombok.Getter;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.stereotype.Component;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import seb15.roobits.exception.BusinessLogicException;
@@ -24,7 +21,9 @@ public class Validator {
     }
 
     public void createUrl(Room room) {
-        String url = "http://localhost:3000/rooms/" + room.getRoomId();
+
+        String url = "http://roobits.com/rooms/" + room.getRoomId();
+
         room.setUrl(url);
     }
 

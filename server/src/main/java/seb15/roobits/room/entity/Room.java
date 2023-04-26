@@ -85,7 +85,6 @@ public class Room {
         this.roomName = roomName;
         this.dDay = dDay;
     }
-
     private long totalRoobitCount;
-
 }
+

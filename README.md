@@ -11,7 +11,7 @@
 - **한줄 소개 :** 사람들과 함께 D-day에 보여줄 비밀 메시지를 작성할 수 있는 게시판 서비스
 - **팀원 :** 전광현(팀장), 이유진, 조현화, 유하경, 염빛나리
 - **발표 문서 :** [💁🏻 Roobits 노션 발표 문서](https://www.notion.so/codestates/Roobits-2a698f57f0224b79a417eac587921a0b)
-- **배포 링크 :** [📮 roobits.com](http://roobits.com/)
+- **배포 링크 :** [📮 roobits.com](http://roobits-bucket.s3-website.ap-northeast-2.amazonaws.com/)
 
 ## 🛫 Intro
 > 🥲 비대면 시대, 만나기 힘든 우리… 그렇지만 특별한 날에는 모두와 추억을 남기고 싶어! 
